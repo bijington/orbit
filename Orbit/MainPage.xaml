@@ -5,10 +5,6 @@
     xmlns:orbit="clr-namespace:Orbit"
     x:Class="Orbit.MainPage">
 
-    <ContentPage.Resources>
-        <orbit:Scene x:Key="Scene" />
-    </ContentPage.Resources>
-
     <Grid>
         <Image
             Source="space.png"
@@ -19,5 +15,7 @@
             BackgroundColor="Transparent"
             StartInteraction="GameView_StartInteraction"
             EndInteraction="GameView_EndInteraction" />
+
+        <Label x:Name="Texty" />
     </Grid>
 </ContentPage>

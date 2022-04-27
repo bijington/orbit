@@ -51,11 +51,13 @@
 	  <None Remove="Resources\Images\ship_none.png" />
 	  <None Remove="Resources\Images\ship_reverse.png" />
 	  <None Remove="Resources\Images\space.png" />
+	  <None Remove="Resources\Images\asteroid.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\planet.png" />
 	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
 	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
 	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
+	  <EmbeddedResource Include="Resources\Images\asteroid.png" />
 	</ItemGroup>
 </Project>

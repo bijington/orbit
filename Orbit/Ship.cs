@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Maui.Graphics.Platform;
-
-namespace Orbit;
+﻿namespace Orbit;
 
 public class Ship : GameObject
 {
@@ -18,22 +15,9 @@ public class Ship : GameObject
 
     public Ship()
     {
-        var assembly = GetType().GetTypeInfo().Assembly;
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.Images.ship_none.png"))
-        {
-            image = PlatformImage.FromStream(stream);
-        }
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.Images.ship_forward.png"))
-        {
-            speedUpImage = PlatformImage.FromStream(stream);
-        }
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.Images.ship_reverse.png"))
-        {
-            slowDownImage = PlatformImage.FromStream(stream);
-        }
+        image = LoadImage("ship_none.png");
+        speedUpImage = LoadImage("ship_forward.png");
+        slowDownImage = LoadImage("ship_reverse.png");
     }
 
     public override void Render(ICanvas canvas, RectF dirtyRect)
@@ -42,9 +26,12 @@ public class Ship : GameObject
         canvas.Rotate(angle);
         canvas.DrawImage(GetImage(MainPage.TouchMode), 300, 0, image.Width, image.Height);
 
-        canvas.StrokeColor = Colors.OrangeRed;
-        canvas.StrokeSize = 4;
-        canvas.DrawEllipse(300, 0, image.Width, image.Height);
+        if (MainPage.ShowBounds)
+        {
+            canvas.StrokeColor = Colors.OrangeRed;
+            canvas.StrokeSize = 4;
+            canvas.DrawEllipse(300, 0, image.Width, image.Height);
+        }
 
         batteryLevel = Math.Clamp(batteryLevel - GetBatteryDrain(MainPage.TouchMode), 0, batteryMaximum);
         BatteryLevel = batteryLevel / batteryMaximum;

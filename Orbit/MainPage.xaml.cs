@@ -4,13 +4,15 @@ public partial class MainPage : ContentPage
 {
 	private readonly Scene scene;
 
+	public static bool ShowBounds { get; }
+
 	public static TouchMode TouchMode { get; private set; }
 
 	public MainPage()
 	{
 		InitializeComponent();
 
-		scene = new Scene();
+		scene = new Scene(this);
 		GameView.Drawable = scene;
 
 		Move();
@@ -48,4 +50,9 @@ public partial class MainPage : ContentPage
 			TouchMode = TouchMode.SlowDown;
 		}
 	}
+
+	public void SetText(string text)
+    {
+		Texty.Text = text;
+    }
 }

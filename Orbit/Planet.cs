@@ -1,25 +1,15 @@
-﻿using System.Reflection;
-using Microsoft.Maui.Graphics.Platform;
-
-namespace Orbit;
+﻿namespace Orbit;
 
 public class Planet : GameObject
 {
     Microsoft.Maui.Graphics.IImage image;
+    float angle = 0;
+    const float rotationIncrement = -0.25f;
 
     public Planet()
     {
-        var assembly = GetType().GetTypeInfo().Assembly;
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.Images.planet.png"))
-        {
-            image = PlatformImage.FromStream(stream);
-        }
+        image = LoadImage("planet.png");
     }
-
-    int xy = 0;
-    float angle = 0;
-    const float rotationIncrement = -0.25f;
 
     public override void Render(ICanvas canvas, RectF dirtyRect)
     {
@@ -29,11 +19,13 @@ public class Planet : GameObject
         var halfHeight = image.Height / 2;
         canvas.DrawImage(image, -halfWidth, -halfHeight, image.Width, image.Height);
 
-        canvas.StrokeColor = Colors.OrangeRed;
-        canvas.StrokeSize = 4;
-        canvas.DrawEllipse(-halfWidth, -halfHeight, image.Width, image.Height);
-
-        //xy += 10;
+        if (MainPage.ShowBounds)
+        {
+            canvas.StrokeColor = Colors.OrangeRed;
+            canvas.StrokeSize = 4;
+            canvas.DrawEllipse(-halfWidth, -halfHeight, image.Width, image.Height);
+        }
+        
         angle += rotationIncrement;
     }
 }
