@@ -39,13 +39,23 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-
-		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Images\planet.png" />
+	  <None Remove="Resources\Images\ship_forward.png" />
+	  <None Remove="Resources\Images\ship_none.png" />
+	  <None Remove="Resources\Images\ship_reverse.png" />
+	  <None Remove="Resources\Images\space.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Images\planet.png" />
+	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
+	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
+	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
+	</ItemGroup>
 </Project>
