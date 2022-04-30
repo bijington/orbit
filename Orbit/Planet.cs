@@ -9,7 +9,20 @@ public class Planet : GameObject
     public Planet()
     {
         image = LoadImage("planet.png");
+
+        var halfWidth = image.Width / 2;
+        var halfHeight = image.Height / 2;
+
+        X = -halfWidth;
+        Y = -halfHeight;
+        Width = image.Width;
+        Height = image.Height;
     }
+
+    public float X { get; }
+    public float Y { get; }
+    public float Width { get; }
+    public float Height { get; }
 
     public override void Render(ICanvas canvas, RectF dirtyRect)
     {

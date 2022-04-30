@@ -1,4 +1,6 @@
-﻿namespace Orbit;
+﻿using Orbit.Engine;
+
+namespace Orbit;
 
 public static class MauiProgram
 {
@@ -12,6 +14,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
+		builder.Services.UseGameEngine();
+		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddTransient<Scene>();
 
 		return builder.Build();
 	}

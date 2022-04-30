@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:orbit="clr-namespace:Orbit"
+    xmlns:orbit="clr-namespace:Orbit" xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
     x:Class="Orbit.MainPage">
 
     <Grid>
@@ -10,12 +10,17 @@
             Source="space.png"
             Aspect="Fill" />
 
-        <GraphicsView
+        <engine:GameSceneView
             x:Name="GameView"
             BackgroundColor="Transparent"
             StartInteraction="GameView_StartInteraction"
-            EndInteraction="GameView_EndInteraction" />
+            EndInteraction="GameView_EndInteraction"/>
 
-        <Label x:Name="Texty" />
+        <Label x:Name="Texty"
+               HorizontalOptions="End"/>
+
+        <Button WidthRequest="30"
+                HeightRequest="30"
+                Clicked="Button_Clicked" />
     </Grid>
 </ContentPage>

@@ -1,44 +1,41 @@
-﻿using System.Diagnostics;
+﻿using Orbit.Engine;
 
 namespace Orbit;
 
-public class Scene : IDrawable
+public class Scene : IGameScene
 {
     private readonly BatteryLevel batteryLevel;
     private readonly Planet planet;
     private readonly Ship ship;
-    private readonly MainPage mainPage;
+    private readonly Sun sun;
+    readonly Shadow shadow;
 
     private readonly Spawner spawner;
     private readonly GameObject asteroid;
 
-    public Scene(MainPage mainPage)
+    public Scene()
     {
         batteryLevel = new BatteryLevel();
         planet = new Planet();
         ship = new Ship();
+        sun = new Sun();
         spawner = new Spawner();
         asteroid = spawner.Spawn();
-        this.mainPage = mainPage;
+        shadow = new Shadow(planet);
     }
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
-
-        planet.Draw(canvas, dirtyRect);
+        sun.Draw(canvas, dirtyRect);
 
         ship.Draw(canvas, dirtyRect);
+
+        shadow.Draw(canvas, dirtyRect);
+
+        planet.Draw(canvas, dirtyRect);
 
         batteryLevel.Draw(canvas, dirtyRect);
 
         asteroid.Draw(canvas, dirtyRect);
-
-        stopwatch.Stop();
-
-        var rate = 1 / (0.016 + stopwatch.ElapsedMilliseconds);
-
-        mainPage.SetText($"FPS: {rate}");
     }
 }

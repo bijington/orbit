@@ -52,6 +52,8 @@
 	  <None Remove="Resources\Images\ship_reverse.png" />
 	  <None Remove="Resources\Images\space.png" />
 	  <None Remove="Resources\Images\asteroid.png" />
+	  <None Remove="Resources\Images\sun.png" />
+	  <None Remove="PerfLab.FpsStats" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\planet.png" />
@@ -59,5 +61,12 @@
 	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
 	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
 	  <EmbeddedResource Include="Resources\Images\asteroid.png" />
+	  <EmbeddedResource Include="Resources\Images\sun.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="PerfLab.FpsStats" Version="1.0.8" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
 </Project>

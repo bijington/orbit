@@ -1,24 +1,36 @@
-﻿namespace Orbit;
+﻿using Microsoft.Maui.Dispatching;
+using PerfLab.FpsStats;
+using Orbit.Engine;
+
+namespace Orbit;
 
 public partial class MainPage : ContentPage
 {
-	private readonly Scene scene;
+    private readonly IGameSceneManager gameSceneManager;
+    private readonly Scene scene;
+	private readonly FpsStatsService fpsService;
 
-	public static bool ShowBounds { get; }
+	public static bool ShowBounds { get; } = true;
 
 	public static TouchMode TouchMode { get; private set; }
 
-	public MainPage()
+	public MainPage(IGameSceneManager gameSceneManager, Scene scene)
 	{
 		InitializeComponent();
 
-		scene = new Scene(this);
-		GameView.Drawable = scene;
+		fpsService = new FpsStatsService();
+		fpsService.Start(action => Dispatcher.DispatchAsync(action));
+		fpsService.StatsUpdated += FpsService_StatsUpdated;
+        this.gameSceneManager = gameSceneManager;
+        this.scene = scene;
 
-		Move();
+		gameSceneManager.RegisterScene(scene, GameView);
+
+		gameSceneManager.Start();
+		//Update();
 	}
 
-	private void Move()
+	private void Update()
 	{
 		GameView.Invalidate();
 
@@ -26,7 +38,7 @@ public partial class MainPage : ContentPage
 			TimeSpan.FromMilliseconds(16),
 			() =>
 			{
-				Move();
+				Update();
 			});
 	}
 
@@ -51,8 +63,27 @@ public partial class MainPage : ContentPage
 		}
 	}
 
+	private void FpsService_StatsUpdated(object sender, EventArgs e)
+	{
+		Texty.Text = fpsService.Stats;
+	}
+
 	public void SetText(string text)
     {
 		Texty.Text = text;
+    }
+
+	bool isPaused;
+
+    void Button_Clicked(System.Object sender, System.EventArgs e)
+    {
+		if (gameSceneManager.State == GameState.Paused)
+		{
+			this.gameSceneManager.Start();
+		}
+		else
+        {
+			this.gameSceneManager.Pause();
+        }
     }
 }
