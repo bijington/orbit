@@ -1,20 +1,24 @@
 ﻿using Microsoft.Maui.Dispatching;
 using PerfLab.FpsStats;
 using Orbit.Engine;
+using Orbit.Scenes;
 
 namespace Orbit;
 
 public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
-    private readonly Scene scene;
-	private readonly FpsStatsService fpsService;
+    private readonly MainScene mainScene;
+    private readonly FpsStatsService fpsService;
 
 	public static bool ShowBounds { get; } = true;
 
 	public static TouchMode TouchMode { get; private set; }
 
-	public MainPage(IGameSceneManager gameSceneManager, Scene scene)
+	public MainPage(
+		IGameSceneManager gameSceneManager,
+		HomeScene scene,
+		MainScene mainScene)
 	{
 		InitializeComponent();
 
@@ -22,26 +26,14 @@ public partial class MainPage : ContentPage
 		fpsService.Start(action => Dispatcher.DispatchAsync(action));
 		fpsService.StatsUpdated += FpsService_StatsUpdated;
         this.gameSceneManager = gameSceneManager;
-        this.scene = scene;
-
-		gameSceneManager.RegisterScene(scene, GameView);
+        this.mainScene = mainScene;
+        gameSceneManager.LoadScene(scene, GameView);
 
 		gameSceneManager.Start();
-		//Update();
+		//gameSceneManager.Pause();
 	}
 
-	private void Update()
-	{
-		GameView.Invalidate();
-
-		this.Dispatcher.DispatchDelayed(
-			TimeSpan.FromMilliseconds(16),
-			() =>
-			{
-				Update();
-			});
-	}
-
+	// TODO: GameObject
 	void GameView_EndInteraction(object sender, TouchEventArgs e)
 	{
 		TouchMode = TouchMode.None;
@@ -73,8 +65,6 @@ public partial class MainPage : ContentPage
 		Texty.Text = text;
     }
 
-	bool isPaused;
-
     void Button_Clicked(System.Object sender, System.EventArgs e)
     {
 		if (gameSceneManager.State == GameState.Paused)
@@ -86,4 +76,9 @@ public partial class MainPage : ContentPage
 			this.gameSceneManager.Pause();
         }
     }
+
+	void PlayButton_Clicked(System.Object sender, System.EventArgs e)
+	{
+		gameSceneManager.LoadScene(mainScene, GameView);
+	}
 }

@@ -1,10 +1,14 @@
 ﻿using System.Reflection;
 using Microsoft.Maui.Graphics.Platform;
 
-namespace Orbit;
+namespace Orbit.Engine;
 
-public class GameObject : IDrawable
+public abstract class GameObject : IGameObject
 {
+    public RectF Bounds { get; protected set; }
+
+    public bool IsCollisionDetectionEnabled { get; }
+
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
         canvas.SaveState();
@@ -27,6 +31,9 @@ public class GameObject : IDrawable
 
     public virtual void Render(ICanvas canvas, RectF dirtyRect)
     {
+        if (IsCollisionDetectionEnabled)
+        {
 
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Orbit.Engine;
 
-public interface IGameObject
+public interface IGameObject : IDrawable
 {
+    RectF Bounds { get; }
 }

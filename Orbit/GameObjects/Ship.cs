@@ -1,11 +1,13 @@
-﻿namespace Orbit;
+﻿using Orbit.Engine;
+
+namespace Orbit.GameObjects;
 
 public class Ship : GameObject
 {
     readonly Microsoft.Maui.Graphics.IImage slowDownImage;
     readonly Microsoft.Maui.Graphics.IImage speedUpImage;
     readonly Microsoft.Maui.Graphics.IImage image;
-
+    private readonly IGameSceneManager gameSceneManager;
     private float batteryMaximum = 100f;
     private float batteryLevel = 100f;
     private float batteryDrain = 0.5f;
@@ -13,11 +15,12 @@ public class Ship : GameObject
 
     public static float BatteryLevel { get; private set; }
 
-    public Ship()
+    public Ship(IGameSceneManager gameSceneManager)
     {
         image = LoadImage("ship_none.png");
         speedUpImage = LoadImage("ship_forward.png");
         slowDownImage = LoadImage("ship_reverse.png");
+        this.gameSceneManager = gameSceneManager;
     }
 
     public override void Render(ICanvas canvas, RectF dirtyRect)

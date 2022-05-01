@@ -1,4 +1,6 @@
-﻿namespace Orbit;
+﻿using Orbit.Engine;
+
+namespace Orbit.GameObjects;
 
 public class BatteryLevel : GameObject
 {

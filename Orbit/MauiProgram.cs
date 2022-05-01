@@ -1,4 +1,6 @@
 ﻿using Orbit.Engine;
+using Orbit.GameObjects;
+using Orbit.Scenes;
 
 namespace Orbit;
 
@@ -17,7 +19,9 @@ public static class MauiProgram
 
 		builder.Services.UseGameEngine();
 		builder.Services.AddTransient<MainPage>();
-		builder.Services.AddTransient<Scene>();
+
+		builder.Services.RegisterGameObjects();
+		builder.Services.RegisterScenes();
 
 		return builder.Build();
 	}

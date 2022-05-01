@@ -9,8 +9,6 @@ public class GameSceneManager : IGameSceneManager
 	private GameState gameState;
 	private GameSceneView gameSceneView;
 
-	//private readonly IList<GameObject> gameObjects;
-
 	public GameState State => gameState;
 
 	public GameSceneManager(IDispatcher dispatcher)
@@ -18,17 +16,20 @@ public class GameSceneManager : IGameSceneManager
         this.dispatcher = dispatcher;
     }
 
-	// TODO: Make this bindable so it can be set in the UI?
-	public IGameScene CurrentScene { get; }
+	public IGameScene CurrentScene { get; private set; }
 
-	public void RegisterScene(IGameScene gameScene, GameSceneView graphicsView)
+	public void LoadScene(IGameScene gameScene, GameSceneView graphicsView)
     {
+		CurrentScene = gameScene;
+
 		gameSceneView = graphicsView;
 		gameSceneView.Scene = gameScene;
 		gameSceneView.Drawable = gameScene;
+    }
 
-		// Weak event handling?
-		gameSceneView.EndInteraction += GraphicsView_EndInteraction;
+	public GameObject FindCollision(GameObject gameObject)
+    {
+		return CurrentScene.FindCollision(gameObject);
     }
 
 	public void Pause()
@@ -46,11 +47,6 @@ public class GameSceneManager : IGameSceneManager
 	{
 		gameState = GameState.Stopped;
 	}
-
-	private void GraphicsView_EndInteraction(object sender, TouchEventArgs e)
-    {
-        
-    }
 
     private void UpdateScene()
 	{

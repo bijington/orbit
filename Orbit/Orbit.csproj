@@ -54,6 +54,8 @@
 	  <None Remove="Resources\Images\asteroid.png" />
 	  <None Remove="Resources\Images\sun.png" />
 	  <None Remove="PerfLab.FpsStats" />
+	  <None Remove="GameObjects\" />
+	  <None Remove="Scenes\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\planet.png" />
@@ -68,5 +70,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="GameObjects\" />
+	  <Folder Include="Scenes\" />
 	</ItemGroup>
 </Project>

@@ -4,8 +4,9 @@ public interface IGameSceneManager
 {
     GameState State { get; }
 
+    GameObject FindCollision(GameObject gameObject);
     void Pause();
-    void RegisterScene(IGameScene gameScene, GameSceneView graphicsView);
+    void LoadScene(IGameScene gameScene, GameSceneView graphicsView);
     void Start();
     void Stop();
 }

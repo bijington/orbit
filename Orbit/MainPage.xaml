@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:orbit="clr-namespace:Orbit" xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
+    xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
     x:Class="Orbit.MainPage">
 
     <Grid>
@@ -21,6 +21,14 @@
 
         <Button WidthRequest="30"
                 HeightRequest="30"
+                VerticalOptions="Center"
+                Text="Play"
+                Clicked="PlayButton_Clicked" />
+
+        <Button WidthRequest="30"
+                HeightRequest="30"
+                VerticalOptions="Start"
+                Text="||"
                 Clicked="Button_Clicked" />
     </Grid>
 </ContentPage>
