@@ -13,22 +13,27 @@ public class Planet : GameObject
         image = LoadImage("planet.png");
     }
 
+    public override bool IsCollisionDetectionEnabled => true;
+
     public override void Render(ICanvas canvas, RectF dirtyRect)
     {
-        canvas.Translate(dirtyRect.Center.X, dirtyRect.Center.Y);
-        canvas.Rotate(angle);
-        var halfWidth = dirtyRect.Width / 4;//image.Width / 2;
-        var halfHeight = dirtyRect.Height / 4;//image.Height / 2;
+        canvas.Rotate(angle, dirtyRect.Center.X, dirtyRect.Center.Y);
 
-        Bounds = new RectF(-halfHeight, -halfHeight, halfWidth * 2, halfHeight * 2);
+        var size = Math.Min(dirtyRect.Width, dirtyRect.Height) / 4;
 
-        canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Height, Bounds.Height);
+        Bounds = new RectF(
+            dirtyRect.Center.X - size,
+            dirtyRect.Center.Y - size,
+            size * 2,
+            size * 2);
+
+        canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Height, Bounds.Height);
+            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
         }
 
         angle += rotationIncrement;

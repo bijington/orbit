@@ -7,7 +7,7 @@ public abstract class GameObject : IGameObject
 {
     public RectF Bounds { get; protected set; }
 
-    public bool IsCollisionDetectionEnabled { get; }
+    public virtual bool IsCollisionDetectionEnabled { get; }
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {

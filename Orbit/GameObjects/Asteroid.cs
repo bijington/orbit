@@ -23,6 +23,8 @@ public class Asteroid : GameObject
         this.gameSceneManager = gameSceneManager;
     }
 
+    public override bool IsCollisionDetectionEnabled => true;
+
     public override void Render(ICanvas canvas, RectF dirtyRect)
     {
         // TODO: Actually calc the correct path.

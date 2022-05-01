@@ -29,8 +29,9 @@ public abstract class GameScene : IGameScene
 
     public GameObject FindCollision(GameObject gameObject)
     {
-        var a = gameObjects.Where(g => !ReferenceEquals(g, gameObject) && g.Bounds.IntersectsWith(gameObject.Bounds)).Select(g => g.Bounds).ToList();
+        var a = gameObjects.Where(g => !ReferenceEquals(g, gameObject) && g.IsCollisionDetectionEnabled && g.Bounds.IntersectsWith(gameObject.Bounds)).Select(g => g.Bounds).ToList();
 
+        Console.WriteLine($"BOUNDS = {gameObject.Bounds}");
         Console.WriteLine($"COLLISION = {string.Join(';', a)}");
 
         var b = gameObjects.Where(g => !ReferenceEquals(g, gameObject)).Select(g => g.Bounds).ToArray();
