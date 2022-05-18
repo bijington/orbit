@@ -57,6 +57,7 @@
 	  <None Remove="GameObjects\" />
 	  <None Remove="Scenes\" />
 	</ItemGroup>
+
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\planet.png" />
 	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
@@ -65,14 +66,12 @@
 	  <EmbeddedResource Include="Resources\Images\asteroid.png" />
 	  <EmbeddedResource Include="Resources\Images\sun.png" />
 	</ItemGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="PerfLab.FpsStats" Version="1.0.8" />
 	</ItemGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="GameObjects\" />
-	  <Folder Include="Scenes\" />
 	</ItemGroup>
 </Project>

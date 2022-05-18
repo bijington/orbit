@@ -68,16 +68,18 @@ public partial class MainPage : ContentPage
     {
         if (gameSceneManager.State == GameState.Paused)
         {
-            this.gameSceneManager.Start();
+            gameSceneManager.Start();
         }
         else
         {
-            this.gameSceneManager.Pause();
+            gameSceneManager.Pause();
         }
     }
 
     void PlayButton_Clicked(System.Object sender, System.EventArgs e)
     {
         gameSceneManager.LoadScene(mainScene, GameView);
+
+        gameSceneManager.Start();
     }
 }
