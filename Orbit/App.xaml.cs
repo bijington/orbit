@@ -2,10 +2,10 @@
 
 public partial class App : Application
 {
-	public App(MainPage mainPage)
-	{
-		InitializeComponent();
+    public App(MainPage mainPage)
+    {
+        InitializeComponent();
 
-		MainPage = mainPage;
-	}
+        MainPage = mainPage;
+    }
 }

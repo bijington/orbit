@@ -12,9 +12,9 @@ public class Asteroid : GameObject
     int x;
     int y;
 
-	public Asteroid(IGameSceneManager gameSceneManager)
-	{
-		image = LoadImage("asteroid.png");
+    public Asteroid(IGameSceneManager gameSceneManager)
+    {
+        image = LoadImage("asteroid.png");
 
 
         // Randomly generate locations + speed.

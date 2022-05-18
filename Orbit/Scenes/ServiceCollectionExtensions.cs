@@ -2,7 +2,7 @@
 
 public static class ServiceCollectionExtensions
 {
-	public static void RegisterScenes(this IServiceCollection services)
+    public static void RegisterScenes(this IServiceCollection services)
     {
         services.AddTransient<HomeScene>();
         services.AddTransient<MainScene>();

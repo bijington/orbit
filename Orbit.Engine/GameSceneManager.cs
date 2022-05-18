@@ -6,62 +6,62 @@ public class GameSceneManager : IGameSceneManager
 {
     private readonly IDispatcher dispatcher;
     private int callbackMilliseconds = 16;
-	private GameState gameState;
-	private GameSceneView gameSceneView;
+    private GameState gameState;
+    private GameSceneView gameSceneView;
 
-	public GameState State => gameState;
+    public GameState State => gameState;
 
-	public GameSceneManager(IDispatcher dispatcher)
-	{
+    public GameSceneManager(IDispatcher dispatcher)
+    {
         this.dispatcher = dispatcher;
     }
 
-	public IGameScene CurrentScene { get; private set; }
+    public IGameScene CurrentScene { get; private set; }
 
-	public void LoadScene(IGameScene gameScene, GameSceneView graphicsView)
+    public void LoadScene(IGameScene gameScene, GameSceneView graphicsView)
     {
-		CurrentScene = gameScene;
+        CurrentScene = gameScene;
 
-		gameSceneView = graphicsView;
-		gameSceneView.Scene = gameScene;
-		gameSceneView.Drawable = gameScene;
+        gameSceneView = graphicsView;
+        gameSceneView.Scene = gameScene;
+        gameSceneView.Drawable = gameScene;
     }
 
-	public GameObject FindCollision(GameObject gameObject)
+    public GameObject FindCollision(GameObject gameObject)
     {
-		return CurrentScene.FindCollision(gameObject);
+        return CurrentScene.FindCollision(gameObject);
     }
 
-	public void Pause()
+    public void Pause()
     {
-		gameState = GameState.Paused;
-	}
+        gameState = GameState.Paused;
+    }
 
-	public void Start()
-	{
-		gameState = GameState.Started;
-		UpdateScene();
-	}
+    public void Start()
+    {
+        gameState = GameState.Started;
+        UpdateScene();
+    }
 
-	public void Stop()
-	{
-		gameState = GameState.Stopped;
-	}
+    public void Stop()
+    {
+        gameState = GameState.Stopped;
+    }
 
     private void UpdateScene()
-	{
-		if (gameState != GameState.Started)
+    {
+        if (gameState != GameState.Started)
         {
-			return;
+            return;
         }
 
-		gameSceneView.Invalidate();
+        gameSceneView.Invalidate();
 
-		dispatcher.DispatchDelayed(
-			TimeSpan.FromMilliseconds(callbackMilliseconds),
-			() =>
-			{
-				UpdateScene();
-			});
-	}
+        dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(callbackMilliseconds),
+            () =>
+            {
+                UpdateScene();
+            });
+    }
 }

@@ -5,7 +5,7 @@
 /// </summary>
 public abstract class GameScene : IGameScene
 {
-	private readonly IList<GameObject> gameObjects = new List<GameObject>();
+    private readonly IList<GameObject> gameObjects = new List<GameObject>();
 
     /// <summary>
     /// Adds the supplied <paramref name="gameObject"/> to the current scene.

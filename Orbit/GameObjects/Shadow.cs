@@ -7,7 +7,7 @@ public class Shadow : GameObject
     private readonly Planet planet;
 
     public Shadow(Planet planet)
-	{
+    {
         this.planet = planet;
     }
 
