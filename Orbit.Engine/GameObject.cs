@@ -7,6 +7,8 @@ public abstract class GameObject : IGameObject
 {
     public RectF Bounds { get; protected set; }
 
+    public GameScene CurrentScene { get; internal set; } // TODO: weak reference?
+
     public virtual bool IsCollisionDetectionEnabled { get; }
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
@@ -31,9 +33,5 @@ public abstract class GameObject : IGameObject
 
     public virtual void Render(ICanvas canvas, RectF dirtyRect)
     {
-        if (IsCollisionDetectionEnabled)
-        {
-
-        }
     }
 }

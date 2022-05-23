@@ -23,6 +23,7 @@
                 HeightRequest="30"
                 VerticalOptions="Center"
                 Text="Play"
+                x:Name="Play"
                 Clicked="PlayButton_Clicked" />
 
         <Button WidthRequest="30"

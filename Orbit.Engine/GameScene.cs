@@ -17,11 +17,21 @@ public abstract class GameScene : IGameScene
         ArgumentNullException.ThrowIfNull(gameObject);
 
         gameObjects.Add(gameObject);
+        gameObject.CurrentScene = this;
+    }
+
+    public void Remove(GameObject gameObject)
+    {
+        ArgumentNullException.ThrowIfNull(gameObject);
+
+        gameObjects.Remove(gameObject);
     }
 
     public virtual void Draw(ICanvas canvas, RectF dirtyRect)
     {
-        foreach (var gameObject in gameObjects)
+        var currentObjects = gameObjects.ToList();
+
+        foreach (var gameObject in currentObjects)
         {
             gameObject.Draw(canvas, dirtyRect);
         }
@@ -29,17 +39,7 @@ public abstract class GameScene : IGameScene
 
     public GameObject FindCollision(GameObject gameObject)
     {
-        var a = gameObjects.Where(g => !ReferenceEquals(g, gameObject) && g.IsCollisionDetectionEnabled && g.Bounds.IntersectsWith(gameObject.Bounds)).Select(g => g.Bounds).ToList();
-
-        Console.WriteLine($"BOUNDS = {gameObject.Bounds}");
-        Console.WriteLine($"COLLISION = {string.Join(';', a)}");
-
-        var b = gameObjects.Where(g => !ReferenceEquals(g, gameObject)).Select(g => g.Bounds).ToArray();
-
-        //Console.WriteLine($"COLLISION = {string.Join(';', b)}");
-
-        // TODO: Need to handle the actual origin (0,0) as most are currently using the centre of the screen.
-
-        return gameObjects.FirstOrDefault(g => !ReferenceEquals(g, gameObject) && g.Bounds.IntersectsWith(gameObject.Bounds));
+        // TODO: Definite room for improvement.
+        return gameObjects.FirstOrDefault(g => !ReferenceEquals(g, gameObject) && g.IsCollisionDetectionEnabled && g.Bounds.IntersectsWith(gameObject.Bounds));
     }
 }

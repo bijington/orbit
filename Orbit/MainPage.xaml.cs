@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
     private readonly MainScene mainScene;
     private readonly FpsStatsService fpsService;
 
-    public static bool ShowBounds { get; } = false;
+    public static bool ShowBounds { get; } = true;
 
     public static TouchMode TouchMode { get; private set; }
 
@@ -78,6 +78,7 @@ public partial class MainPage : ContentPage
 
     void PlayButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        Play.IsVisible = false;
         gameSceneManager.LoadScene(mainScene, GameView);
 
         gameSceneManager.Start();

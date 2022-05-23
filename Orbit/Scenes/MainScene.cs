@@ -11,7 +11,7 @@ public class MainScene : GameScene
         Planet planet,
         Orbit.GameObjects.Shadow shadow,
         BatteryLevel batteryLevel,
-        Asteroid asteroid)
+        AsteroidLauncher asteroidLauncher)
     {
         Add(sun);
         Add(ship);
@@ -19,6 +19,6 @@ public class MainScene : GameScene
         Add(shadow);
         Add(planet);
         Add(batteryLevel);
-        Add(asteroid);
+        Add(asteroidLauncher);
     }
 }
