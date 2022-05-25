@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Dispatching;
-using PerfLab.FpsStats;
-using Orbit.Engine;
+﻿using Orbit.Engine;
 using Orbit.Scenes;
 
 namespace Orbit;
@@ -9,7 +7,6 @@ public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly MainScene mainScene;
-    private readonly FpsStatsService fpsService;
 
     public static bool ShowBounds { get; } = true;
 
@@ -22,9 +19,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
-        fpsService = new FpsStatsService();
-        fpsService.Start(action => Dispatcher.DispatchAsync(action));
-        fpsService.StatsUpdated += FpsService_StatsUpdated;
         this.gameSceneManager = gameSceneManager;
         this.mainScene = mainScene;
         gameSceneManager.LoadScene(scene, GameView);
@@ -52,16 +46,6 @@ public partial class MainPage : ContentPage
         {
             TouchMode = TouchMode.SlowDown;
         }
-    }
-
-    private void FpsService_StatsUpdated(object sender, EventArgs e)
-    {
-        Texty.Text = fpsService.Stats;
-    }
-
-    public void SetText(string text)
-    {
-        Texty.Text = text;
     }
 
     void Button_Clicked(System.Object sender, System.EventArgs e)

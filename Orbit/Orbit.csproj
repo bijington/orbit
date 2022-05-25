@@ -68,10 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PerfLab.FpsStats" Version="1.0.8" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
 </Project>
