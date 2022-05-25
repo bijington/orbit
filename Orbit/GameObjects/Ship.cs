@@ -13,6 +13,10 @@ public class Ship : GameObject
     private float batteryDrain = 0.5f;
     float angle = 0f;
 
+    // TODO: Different types of collision here:
+    // 1. Collide with Asteroid - damages ship
+    // 2. Move into shadow - stop regenerating power
+
     public static float BatteryLevel { get; private set; }
 
     public Ship(IGameSceneManager gameSceneManager)

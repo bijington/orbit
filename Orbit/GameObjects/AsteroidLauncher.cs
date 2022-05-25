@@ -74,7 +74,7 @@ public class AsteroidLauncher : GameObject
                 (destination.Y - origin.Y) / dirtyRect.Height);
 
 
-            asteroid.SetTrajectory(origin, destination, speed);
+            asteroid.SetMovement(new Movement(origin, destination, speed));
 
             Console.WriteLine($"Spawning at {origin} heading to {destination} at speed {speed}");
 

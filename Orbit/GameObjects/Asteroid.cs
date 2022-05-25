@@ -6,38 +6,30 @@ public class Asteroid : GameObject
 {
     private readonly IGameSceneManager gameSceneManager;
     Microsoft.Maui.Graphics.IImage image;
-    PointF destination;
-    PointF origin;
-    PointF speed;
     float x;
     float y;
+    Movement movement;
 
     public Asteroid(IGameSceneManager gameSceneManager)
     {
         image = LoadImage("asteroid.png");
 
-
-        // Randomly generate locations + speed.
-        //origin = new PointF(0, 0);
-        //destination = new PointF(200, 200);
         this.gameSceneManager = gameSceneManager;
     }
 
-    public void SetTrajectory(PointF origin, PointF destination, PointF speed)
+    public void SetMovement(Movement movement)
     {
-        this.origin = origin;
-        x = origin.X;
-        y = origin.Y;
-        this.destination = destination;
-        this.speed = speed;
+        this.movement = movement;
+        x = movement.OriginX;
+        y = movement.OriginY;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
 
     public override void Render(ICanvas canvas, RectF dirtyRect)
     {
-        x += speed.X;
-        y += speed.Y;
+        x += movement.SpeedX;
+        y += movement.SpeedY;
 
         var halfWidth = image.Width / 2;
         var halfHeight = image.Height / 2;
@@ -54,7 +46,7 @@ public class Asteroid : GameObject
 
             canvas.StrokeColor = Colors.White;
             canvas.StrokeDashPattern = new[] { 1f, 2f };
-            canvas.DrawLine(origin, destination);
+            canvas.DrawLine(movement.OriginX, movement.OriginY, movement.DestinationX, movement.DestinationY);
         }
 
         var collision = gameSceneManager.FindCollision(this);
@@ -64,6 +56,8 @@ public class Asteroid : GameObject
         {
             CurrentScene.Remove(this);
         }
+
+        // TODO: Allow collision with other asteroids.
 
         // TODO: remove when off screen.
     }
