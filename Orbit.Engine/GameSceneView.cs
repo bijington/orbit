@@ -6,6 +6,5 @@ public class GameSceneView : GraphicsView
 
     public GameSceneView()
     {
-
     }
 }

@@ -20,10 +20,19 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
+        gameSceneManager.StateChanged += GameSceneManager_StateChanged;
         this.mainScene = mainScene;
         gameSceneManager.LoadScene(scene, GameView);
 
         gameSceneManager.Pause();
+    }
+
+    private void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
+    {
+        if (e.State == GameState.GameOver)
+        {
+            DisplayAlert("Game over", "", "Boo");
+        }
     }
 
     // TODO: GameObject

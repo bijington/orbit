@@ -19,6 +19,8 @@ public class Ship : GameObject
 
     public static float BatteryLevel { get; private set; }
 
+    public override bool IsCollisionDetectionEnabled => true;
+
     public Ship(IGameSceneManager gameSceneManager)
     {
         image = LoadImage("ship_none.png");
@@ -32,6 +34,8 @@ public class Ship : GameObject
         canvas.Translate(dirtyRect.Center.X, dirtyRect.Center.Y);
         canvas.Rotate(angle);
         canvas.DrawImage(GetImage(MainPage.TouchMode), 300, 0, image.Width, image.Height);
+
+        //Bounds = WHAT???? Needs to include rotation and translation details ;(
 
         if (MainPage.ShowBounds)
         {

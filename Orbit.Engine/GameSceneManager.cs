@@ -9,7 +9,16 @@ public class GameSceneManager : IGameSceneManager
     private GameState gameState;
     private GameSceneView gameSceneView;
 
-    public GameState State => gameState;
+    public GameState State
+    {
+        get => gameState;
+        set
+        {
+            gameState = value;
+            UpdateScene();
+            StateChanged?.Invoke(this, new GameStateChangedEventArgs(value));
+        }
+    }
 
     public GameSceneManager(IDispatcher dispatcher)
     {
@@ -17,6 +26,8 @@ public class GameSceneManager : IGameSceneManager
     }
 
     public IGameScene CurrentScene { get; private set; }
+
+    public event EventHandler<GameStateChangedEventArgs> StateChanged;
 
     public void LoadScene(IGameScene gameScene, GameSceneView graphicsView)
     {
@@ -32,20 +43,24 @@ public class GameSceneManager : IGameSceneManager
         return CurrentScene.FindCollision(gameObject);
     }
 
+    public void GameOver()
+    {
+        State = GameState.GameOver;
+    }
+
     public void Pause()
     {
-        gameState = GameState.Paused;
+        State = GameState.Paused;
     }
 
     public void Start()
     {
-        gameState = GameState.Started;
-        UpdateScene();
+        State = GameState.Started;
     }
 
     public void Stop()
     {
-        gameState = GameState.Stopped;
+        State = GameState.Stopped;
     }
 
     private void UpdateScene()

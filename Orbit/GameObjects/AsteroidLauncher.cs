@@ -5,6 +5,7 @@ namespace Orbit.GameObjects;
 public class AsteroidLauncher : GameObject
 {
     private readonly IServiceProvider serviceProvider;
+    private readonly IGameSceneManager gameSceneManager;
     DateTime lastSpawn;
     DateTime lastUpdate;
     readonly Random random;
@@ -12,9 +13,11 @@ public class AsteroidLauncher : GameObject
     double nextSpawn;
 
     public AsteroidLauncher(
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider,
+        IGameSceneManager gameSceneManager)
     {
         this.serviceProvider = serviceProvider;
+        this.gameSceneManager = gameSceneManager;
         random = new Random();
 
         nextSpawn = random.NextDouble() * spawnMaximum;

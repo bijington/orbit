@@ -51,13 +51,24 @@ public class Asteroid : GameObject
 
         var collision = gameSceneManager.FindCollision(this);
 
-        if (collision is Planet ||
-            collision is Ship)
+        if (collision is Planet planet)
+        {
+            planet.OnHit(25);
+            CurrentScene.Remove(this);
+        }
+
+        if (collision is Ship ship)
         {
             CurrentScene.Remove(this);
         }
 
         // TODO: Allow collision with other asteroids.
+        if (collision is Asteroid otherAsteroid)
+        {
+            // TODO: Split in to smaller asteroids?
+            CurrentScene.Remove(otherAsteroid);
+            CurrentScene.Remove(this);
+        }
 
         // TODO: remove when off screen.
     }

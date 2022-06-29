@@ -7,10 +7,14 @@ public class Planet : GameObject
     Microsoft.Maui.Graphics.IImage image;
     float angle = 0;
     const float rotationIncrement = -0.25f;
+    private readonly IGameSceneManager gameSceneManager;
 
-    public Planet()
+    public int HealthPoints { get; private set; } = 100;
+
+    public Planet(IGameSceneManager gameSceneManager)
     {
         image = LoadImage("planet.png");
+        this.gameSceneManager = gameSceneManager;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
@@ -31,11 +35,26 @@ public class Planet : GameObject
 
         if (MainPage.ShowBounds)
         {
+            canvas.RestoreState();
+
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+            canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+
+            canvas.SaveState();
+            canvas.ResetState();
         }
 
         angle += rotationIncrement;
+    }
+
+    public void OnHit(int damage)
+    {
+        HealthPoints = Math.Max(HealthPoints - damage, 0);
+
+        if (HealthPoints == 0)
+        {
+            gameSceneManager.GameOver();
+        }
     }
 }
