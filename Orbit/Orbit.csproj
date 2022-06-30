@@ -16,7 +16,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.orbit</ApplicationId>
-		<ApplicationIdGuid>e9f23d5a-7bdc-4878-b264-f13e64d3a94c</ApplicationIdGuid>
+		<ApplicationIdGuid>66EBFB47-D7B6-4A90-A0FE-3497D05476F6</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -32,10 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appiconfg.svg" ForegroundFile="Resources\appiconfg.svg" Color="#FF0000" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -46,28 +46,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\planet.png" />
-	  <None Remove="Resources\Images\ship_forward.png" />
-	  <None Remove="Resources\Images\ship_none.png" />
-	  <None Remove="Resources\Images\ship_reverse.png" />
-	  <None Remove="Resources\Images\space.png" />
-	  <None Remove="Resources\Images\asteroid.png" />
-	  <None Remove="Resources\Images\sun.png" />
-	  <None Remove="PerfLab.FpsStats" />
-	  <None Remove="GameObjects\" />
-	  <None Remove="Scenes\" />
+	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
-
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\planet.png" />
+	  <MauiImage Remove="Resources\Images\asteroid.png" />
+	  <MauiImage Remove="Resources\Images\ship_reverse.png" />
+	  <MauiImage Remove="Resources\Images\sun.png" />
+	  <MauiImage Remove="Resources\Images\ship_none.png" />
+	  <MauiImage Remove="Resources\Images\ship_forward.png" />
+	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\planet.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
 	  <EmbeddedResource Include="Resources\Images\asteroid.png" />
+	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
 	  <EmbeddedResource Include="Resources\Images\sun.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
+	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
+	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
 	</ItemGroup>
 </Project>

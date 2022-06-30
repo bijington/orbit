@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orbit.App">
     <Application.Resources>
-        <ResourceDictionary Source="Resources/Styles.xaml" />
+        <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
     </Application.Resources>
 </Application>

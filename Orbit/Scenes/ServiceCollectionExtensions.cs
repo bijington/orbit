@@ -2,9 +2,8 @@
 
 public static class ServiceCollectionExtensions
 {
-    public static void RegisterScenes(this IServiceCollection services)
-    {
-        services.AddTransient<HomeScene>();
-        services.AddTransient<MainScene>();
-    }
+    public static IServiceCollection RegisterScenes(this IServiceCollection services) =>
+        services
+            .AddTransient<HomeScene>()
+            .AddTransient<MainScene>();
 }

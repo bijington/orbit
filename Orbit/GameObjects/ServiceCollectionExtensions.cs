@@ -2,14 +2,13 @@
 
 public static class ServiceCollectionExtensions
 {
-    public static void RegisterGameObjects(this IServiceCollection services)
-    {
-        services.AddTransient<Asteroid>();
-        services.AddTransient<AsteroidLauncher>();
-        services.AddTransient<BatteryLevel>();
-        services.AddTransient<Planet>();
-        services.AddTransient<Shadow>();
-        services.AddTransient<Ship>();
-        services.AddTransient<Sun>();
-    }
+    public static IServiceCollection RegisterGameObjects(this IServiceCollection services) =>
+        services
+            .AddTransient<Asteroid>()
+            .AddTransient<AsteroidLauncher>()
+            .AddTransient<BatteryLevel>()
+            .AddTransient<Planet>()
+            .AddTransient<Shadow>()
+            .AddTransient<Ship>()
+            .AddTransient<Sun>();
 }

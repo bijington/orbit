@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
@@ -14,3 +14,4 @@ class Program : MauiApplication
 		app.Run(args);
 	}
 }
+

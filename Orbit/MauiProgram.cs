@@ -11,17 +11,18 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseOrbitEngine()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
-
-        builder.Services.UseGameEngine();
-        builder.Services.AddTransient<MainPage>();
-
-        builder.Services.RegisterGameObjects();
-        builder.Services.RegisterScenes();
+            })
+            .Services
+                .AddTransient<MainPage>()
+                .AddSingleton(HapticFeedback.Default)
+                .AddSingleton(Vibration.Default)
+                .RegisterGameObjects()
+                .RegisterScenes();
 
         return builder.Build();
     }

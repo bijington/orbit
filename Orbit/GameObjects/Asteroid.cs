@@ -60,6 +60,8 @@ public class Asteroid : GameObject
         if (collision is Ship ship)
         {
             CurrentScene.Remove(this);
+
+            // TODO: Damage the ship;
         }
 
         // TODO: Allow collision with other asteroids.
