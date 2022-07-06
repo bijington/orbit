@@ -60,7 +60,7 @@ public class GameSceneManager : IGameSceneManager
 
     public void Stop()
     {
-        State = GameState.Stopped;
+        State = GameState.Loaded;
     }
 
     private void UpdateScene()
@@ -69,6 +69,8 @@ public class GameSceneManager : IGameSceneManager
         {
             return;
         }
+
+        CurrentScene.Update();
 
         gameSceneView.Invalidate();
 

@@ -29,9 +29,9 @@ public class Ship : GameObject
         this.gameSceneManager = gameSceneManager;
     }
 
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Render(ICanvas canvas, RectF dimensions)
     {
-        canvas.Translate(dirtyRect.Center.X, dirtyRect.Center.Y);
+        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
         canvas.DrawImage(GetImage(MainPage.TouchMode), 300, 0, image.Width, image.Height);
 
@@ -44,10 +44,15 @@ public class Ship : GameObject
             canvas.DrawEllipse(300, 0, image.Width, image.Height);
         }
 
+        angle += BatteryLevel == 0 ? -0.25f : GetIncrement(MainPage.TouchMode);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
         batteryLevel = Math.Clamp(batteryLevel - GetBatteryDrain(MainPage.TouchMode), 0, batteryMaximum);
         BatteryLevel = batteryLevel / batteryMaximum;
-
-        angle += BatteryLevel == 0 ? -0.25f : GetIncrement(MainPage.TouchMode);
     }
 
     private float GetBatteryDrain(TouchMode touchMode) => touchMode switch

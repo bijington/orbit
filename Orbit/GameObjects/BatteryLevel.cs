@@ -4,14 +4,14 @@ namespace Orbit.GameObjects;
 
 public class BatteryLevel : GameObject
 {
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dirtyRect);
+        base.Render(canvas, dimensions);
 
         float height = 390f;
         float initialY = height / 2;
 
-        canvas.Translate(0, dirtyRect.Center.Y);
+        canvas.Translate(0, dimensions.Center.Y);
         canvas.StrokeSize = 20;
         canvas.StrokeColor = Colors.Gray;
         canvas.DrawLine(30, -initialY, 30, initialY);

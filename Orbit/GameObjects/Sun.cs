@@ -11,8 +11,10 @@ public class Sun : GameObject
         image = LoadImage("sun.png");
     }
 
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Render(ICanvas canvas, RectF dimensions)
     {
+        base.Render(canvas, dimensions);
+
         var halfWidth = image.Width / 2;
         var halfHeight = image.Height / 2;
         canvas.DrawImage(image, -halfWidth, -halfHeight, image.Width, image.Height);

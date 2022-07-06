@@ -3,4 +3,6 @@
 public interface IGameScene : IDrawable
 {
     GameObject FindCollision(GameObject gameObject);
+
+    void Update();
 }

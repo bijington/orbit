@@ -3,7 +3,7 @@ using Microsoft.Maui.Graphics.Platform;
 
 namespace Orbit.Engine;
 
-public abstract class GameObject : IGameObject, ICollidable
+public abstract class GameObject : IGameObject, ICollidable, IDrawable
 {
     public RectF Bounds { get; protected set; }
 
@@ -33,7 +33,11 @@ public abstract class GameObject : IGameObject, ICollidable
         }
     }
 
-    public virtual void Render(ICanvas canvas, RectF dirtyRect)
+    public virtual void Render(ICanvas canvas, RectF dimensions)
+    {
+    }
+
+    public virtual void Update()
     {
     }
 

@@ -26,10 +26,17 @@ public class Asteroid : GameObject
 
     public override bool IsCollisionDetectionEnabled => true;
 
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Update()
     {
+        base.Update();
+
         x += movement.SpeedX;
         y += movement.SpeedY;
+    }
+
+    public override void Render(ICanvas canvas, RectF dimensions)
+    {
+        base.Render(canvas, dimensions);
 
         var halfWidth = image.Width / 2;
         var halfHeight = image.Height / 2;

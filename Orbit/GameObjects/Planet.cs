@@ -19,15 +19,17 @@ public class Planet : GameObject
 
     public override bool IsCollisionDetectionEnabled => true;
 
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Render(ICanvas canvas, RectF dimensions)
     {
-        canvas.Rotate(angle, dirtyRect.Center.X, dirtyRect.Center.Y);
+        base.Render(canvas, dimensions);
 
-        var size = Math.Min(dirtyRect.Width, dirtyRect.Height) / 4;
+        canvas.Rotate(angle, dimensions.Center.X, dimensions.Center.Y);
+
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 4;
 
         Bounds = new RectF(
-            dirtyRect.Center.X - size,
-            dirtyRect.Center.Y - size,
+            dimensions.Center.X - size,
+            dimensions.Center.Y - size,
             size * 2,
             size * 2);
 
@@ -44,6 +46,11 @@ public class Planet : GameObject
             canvas.SaveState();
             canvas.ResetState();
         }
+    }
+
+    public override void Update()
+    {
+        base.Update();
 
         angle += rotationIncrement;
     }

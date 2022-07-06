@@ -23,7 +23,7 @@ public class AsteroidLauncher : GameObject
         nextSpawn = random.NextDouble() * spawnMaximum;
     }
 
-    public override void Render(ICanvas canvas, RectF dirtyRect)
+    public override void Render(ICanvas canvas, RectF dimensions)
     {
         if ((lastUpdate - lastSpawn).TotalSeconds > 2)
         {
@@ -34,8 +34,8 @@ public class AsteroidLauncher : GameObject
 
             double radians = angle * (Math.PI / 180);
 
-            var halfScreenHeight = dirtyRect.Height / 2;
-            var halfScreenWidth = dirtyRect.Width / 2;
+            var halfScreenHeight = dimensions.Height / 2;
+            var halfScreenWidth = dimensions.Width / 2;
 
             PointF origin;
             PointF destination;
@@ -73,8 +73,8 @@ public class AsteroidLauncher : GameObject
             }
 
             speed = new PointF(
-                (destination.X - origin.X) / dirtyRect.Width,
-                (destination.Y - origin.Y) / dirtyRect.Height);
+                (destination.X - origin.X) / dimensions.Width,
+                (destination.Y - origin.Y) / dimensions.Height);
 
 
             asteroid.SetMovement(new Movement(origin, destination, speed));

@@ -33,7 +33,17 @@ public abstract class GameScene : IGameScene
 
         foreach (var gameObject in currentObjects)
         {
-            gameObject.Draw(canvas, dirtyRect);
+            gameObject.Render(canvas, dirtyRect);
+        }
+    }
+
+    public virtual void Update()
+    {
+        var currentObjects = gameObjects.ToList();
+
+        foreach (var gameObject in currentObjects)
+        {
+            gameObject.Update();
         }
     }
 
