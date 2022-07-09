@@ -48,6 +48,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
+	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
 </Project>
