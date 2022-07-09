@@ -8,6 +8,7 @@ public class GameSceneManager : IGameSceneManager
     private int callbackMilliseconds = 16;
     private GameState gameState;
     private GameSceneView gameSceneView;
+    private DateTime lastUpdate;
 
     public GameState State
     {
@@ -29,11 +30,11 @@ public class GameSceneManager : IGameSceneManager
 
     public event EventHandler<GameStateChangedEventArgs> StateChanged;
 
-    public void LoadScene(IGameScene gameScene, GameSceneView graphicsView)
+    public void LoadScene(IGameScene gameScene, GameSceneView gameSceneView)
     {
         CurrentScene = gameScene;
 
-        gameSceneView = graphicsView;
+        this.gameSceneView = gameSceneView;
         gameSceneView.Scene = gameScene;
         gameSceneView.Drawable = gameScene;
     }
@@ -70,12 +71,22 @@ public class GameSceneManager : IGameSceneManager
             return;
         }
 
-        CurrentScene.Update();
+        var currentUpdate = DateTime.UtcNow;
+        var timeSinceLastUpdate = currentUpdate - lastUpdate;
+
+        lastUpdate = currentUpdate;
+
+        CurrentScene.Update(timeSinceLastUpdate.TotalMilliseconds);
 
         gameSceneView.Invalidate();
 
+        var postUpdate = DateTime.UtcNow;
+        var updateDuration = callbackMilliseconds - (postUpdate - currentUpdate).TotalMilliseconds;
+
+        var delayUntilNextUpdate = Math.Min(updateDuration, callbackMilliseconds);
+
         dispatcher.DispatchDelayed(
-            TimeSpan.FromMilliseconds(callbackMilliseconds),
+            TimeSpan.FromMilliseconds(delayUntilNextUpdate),
             () =>
             {
                 UpdateScene();

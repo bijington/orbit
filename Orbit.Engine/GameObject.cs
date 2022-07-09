@@ -3,25 +3,16 @@ using Microsoft.Maui.Graphics.Platform;
 
 namespace Orbit.Engine;
 
-public abstract class GameObject : IGameObject, ICollidable, IDrawable
+/// <summary>
+/// Base class definition representing an object in a game.
+/// </summary>
+public abstract class GameObject : IGameObject, IDrawable
 {
     public RectF Bounds { get; protected set; }
 
     public GameScene CurrentScene { get; internal set; } // TODO: weak reference?
 
     public virtual bool IsCollisionDetectionEnabled { get; }
-
-    public int Damage => throw new NotImplementedException();
-
-    public void Draw(ICanvas canvas, RectF dirtyRect)
-    {
-        canvas.SaveState();
-        canvas.ResetState();
-
-        Render(canvas, dirtyRect);
-
-        canvas.RestoreState();
-    }
 
     protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)
     {
@@ -33,16 +24,23 @@ public abstract class GameObject : IGameObject, ICollidable, IDrawable
         }
     }
 
+    /// <inheritdoc />
     public virtual void Render(ICanvas canvas, RectF dimensions)
     {
     }
 
-    public virtual void Update()
+    /// <inheritdoc />
+    public virtual void Update(double millisecondsSinceLastUpdate)
     {
     }
 
-    public void OnCollision(ICollidable collidable)
+    void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
     {
-        throw new NotImplementedException();
+        canvas.SaveState();
+        canvas.ResetState();
+
+        Render(canvas, dirtyRect);
+
+        canvas.RestoreState();
     }
 }

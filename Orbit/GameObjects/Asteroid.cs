@@ -26,9 +26,9 @@ public class Asteroid : GameObject
 
     public override bool IsCollisionDetectionEnabled => true;
 
-    public override void Update()
+    public override void Update(double millisecondsSinceLastUpdate)
     {
-        base.Update();
+        base.Update(millisecondsSinceLastUpdate);
 
         x += movement.SpeedX;
         y += movement.SpeedY;

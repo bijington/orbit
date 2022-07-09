@@ -1,5 +1,4 @@
-﻿using System;
-namespace Orbit.Engine;
+﻿namespace Orbit.Engine;
 
 public class GameStateChangedEventArgs : EventArgs
 {

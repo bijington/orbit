@@ -48,9 +48,9 @@ public class Planet : GameObject
         }
     }
 
-    public override void Update()
+    public override void Update(double millisecondsSinceLastUpdate)
     {
-        base.Update();
+        base.Update(millisecondsSinceLastUpdate);
 
         angle += rotationIncrement;
     }
