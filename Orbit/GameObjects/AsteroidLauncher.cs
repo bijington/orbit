@@ -88,4 +88,9 @@ public class AsteroidLauncher : GameObject
 
         lastUpdate = DateTime.UtcNow;
     }
+
+    public override void Update(double millisecondsSinceLastUpdate)
+    {
+        base.Update(millisecondsSinceLastUpdate);
+    }
 }

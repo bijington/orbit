@@ -41,27 +41,13 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
 
+		<EmbeddedResource Include="Resources\EmbeddedResources\*" />
+
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\planet.png" />
-	  <MauiImage Remove="Resources\Images\asteroid.png" />
-	  <MauiImage Remove="Resources\Images\ship_reverse.png" />
-	  <MauiImage Remove="Resources\Images\sun.png" />
-	  <MauiImage Remove="Resources\Images\ship_none.png" />
-	  <MauiImage Remove="Resources\Images\ship_forward.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Images\planet.png" />
-	  <EmbeddedResource Include="Resources\Images\asteroid.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_reverse.png" />
-	  <EmbeddedResource Include="Resources\Images\sun.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_none.png" />
-	  <EmbeddedResource Include="Resources\Images\ship_forward.png" />
 	</ItemGroup>
 </Project>

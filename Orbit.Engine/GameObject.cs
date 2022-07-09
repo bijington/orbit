@@ -18,7 +18,7 @@ public abstract class GameObject : IGameObject, IDrawable
     {
         var assembly = GetType().GetTypeInfo().Assembly;
 
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.Images." + imageName))
+        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.EmbeddedResources." + imageName))
         {
             return PlatformImage.FromStream(stream);
         }

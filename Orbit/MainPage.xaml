@@ -12,25 +12,64 @@
 
         <engine:GameSceneView
             x:Name="GameView"
-            BackgroundColor="Transparent"
             StartInteraction="GameView_StartInteraction"
-            EndInteraction="GameView_EndInteraction"
-            />
+            EndInteraction="GameView_EndInteraction" />
 
-        <Label x:Name="Texty"
-               HorizontalOptions="End"/>
+        <Image
+            WidthRequest="60"
+            HeightRequest="60"
+            VerticalOptions="Center"
+            Source="play.png"
+            x:Name="Play">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                    Tapped="PlayButton_Clicked" />
+            </Image.GestureRecognizers>
+        </Image>
 
-        <Button WidthRequest="30"
-                HeightRequest="30"
-                VerticalOptions="Center"
-                Text="Play"
-                x:Name="Play"
-                Clicked="PlayButton_Clicked" />
+        <Image
+            WidthRequest="30"
+            HeightRequest="30"
+            VerticalOptions="Start"
+            Source="pause.png"
+            x:Name="Pause"
+            IsVisible="False">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                    Tapped="Button_Clicked" />
+            </Image.GestureRecognizers>
+        </Image>
 
-        <Button WidthRequest="30"
-                HeightRequest="30"
-                VerticalOptions="Start"
-                Text="||"
-                Clicked="Button_Clicked" />
+        <Frame
+            BackgroundColor="Black"
+            x:Name="PauseMenu"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsVisible="False">
+            <VerticalStackLayout
+                WidthRequest="300"
+                Spacing="10">
+                <Label
+                    Text="PAUSED"
+                    TextColor="White"
+                    FontSize="20"
+                    HorizontalOptions="Center"/>
+
+                <Button
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    Text="RESUME"
+                    Clicked="OnResumeButtonClicked" />
+
+                <Switch
+                    Toggled="Switch_Toggled" />
+
+                <Button
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    Text="QUIT"
+                    Clicked="OnQuitButtonClicked" />
+            </VerticalStackLayout>
+        </Frame>
     </Grid>
 </ContentPage>

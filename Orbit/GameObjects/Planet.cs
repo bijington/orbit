@@ -43,7 +43,6 @@ public class Planet : GameObject
             canvas.StrokeSize = 4;
             canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-            canvas.SaveState();
             canvas.ResetState();
         }
     }

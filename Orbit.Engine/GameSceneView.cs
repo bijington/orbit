@@ -2,5 +2,20 @@
 
 public class GameSceneView : GraphicsView
 {
-    public IGameScene Scene { get; internal set; }
+    public GameSceneView()
+    {
+        BackgroundColor = Colors.Transparent;
+    }
+
+    private IGameScene scene;
+
+    public IGameScene Scene
+    {
+        get => scene;
+        internal set
+        {
+            scene = value;
+            Drawable = value;
+        }
+    }
 }

@@ -31,7 +31,7 @@ public abstract class GameScene : IGameScene
 
         foreach (var gameObject in currentObjects)
         {
-            gameObject.Render(canvas, dimensions);
+            ((IDrawable)gameObject).Draw(canvas, dimensions);
         }
     }
 

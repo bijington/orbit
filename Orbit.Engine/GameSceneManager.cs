@@ -36,7 +36,8 @@ public class GameSceneManager : IGameSceneManager
 
         this.gameSceneView = gameSceneView;
         gameSceneView.Scene = gameScene;
-        gameSceneView.Drawable = gameScene;
+
+        State = GameState.Loaded;
     }
 
     public GameObject FindCollision(GameObject gameObject)
