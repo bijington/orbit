@@ -2,5 +2,5 @@
 
 public class GameSceneView : GraphicsView
 {
-    public IGameScene Scene { get; set; }
+    public IGameScene Scene { get; internal set; }
 }

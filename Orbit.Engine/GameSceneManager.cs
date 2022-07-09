@@ -4,11 +4,18 @@ namespace Orbit.Engine;
 
 public class GameSceneManager : IGameSceneManager
 {
+    public GameSceneManager(IDispatcher dispatcher)
+    {
+        this.dispatcher = dispatcher;
+    }
+
     private readonly IDispatcher dispatcher;
     private int callbackMilliseconds = 16;
     private GameState gameState;
     private GameSceneView gameSceneView;
     private DateTime lastUpdate;
+
+    public IGameScene CurrentScene { get; private set; }
 
     public GameState State
     {
@@ -20,13 +27,6 @@ public class GameSceneManager : IGameSceneManager
             StateChanged?.Invoke(this, new GameStateChangedEventArgs(value));
         }
     }
-
-    public GameSceneManager(IDispatcher dispatcher)
-    {
-        this.dispatcher = dispatcher;
-    }
-
-    public IGameScene CurrentScene { get; private set; }
 
     public event EventHandler<GameStateChangedEventArgs> StateChanged;
 
