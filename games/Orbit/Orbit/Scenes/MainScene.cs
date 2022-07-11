@@ -13,8 +13,8 @@ public class MainScene : GameScene
         AsteroidLauncher asteroidLauncher)
     {
         Add(sun);
-        Add(ship);
         Add(planet);
+        Add(ship);
         Add(batteryLevel);
         Add(asteroidLauncher);
     }

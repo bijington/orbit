@@ -11,7 +11,7 @@ public class Ship : GameObject
     private float batteryMaximum = 100f;
     private float batteryLevel = 100f;
     private float batteryDrain = 0.5f;
-    float angle = 0f;
+    public float angle = 0f;
 
     // TODO: Different types of collision here:
     // 1. Collide with Asteroid - damages ship
@@ -21,16 +21,23 @@ public class Ship : GameObject
 
     public override bool IsCollisionDetectionEnabled => true;
 
-    public Ship(IGameSceneManager gameSceneManager)
+    public Ship(
+        IGameSceneManager gameSceneManager,
+        Gun gun)
     {
         image = LoadImage("ship_none.png");
         speedUpImage = LoadImage("ship_forward.png");
         slowDownImage = LoadImage("ship_reverse.png");
         this.gameSceneManager = gameSceneManager;
+
+        Add(gun);
+        gun.Ship = this;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
+        base.Render(canvas, dimensions);
+
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
         canvas.DrawImage(GetImage(MainPage.TouchMode), 300, 0, image.Width, image.Height);

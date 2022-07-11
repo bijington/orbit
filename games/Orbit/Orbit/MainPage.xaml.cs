@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
     private readonly HomeScene homeScene;
     private readonly MainScene mainScene;
 
-    public static bool ShowBounds { get; private set; } = true;
+    public static bool ShowBounds { get; private set; } = false;
 
     public static TouchMode TouchMode { get; private set; }
 

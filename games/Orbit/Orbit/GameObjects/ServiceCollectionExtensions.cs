@@ -7,6 +7,7 @@ public static class ServiceCollectionExtensions
             .AddTransient<Asteroid>()
             .AddTransient<AsteroidLauncher>()
             .AddTransient<BatteryLevel>()
+            .AddTransient<Gun>()
             .AddTransient<Planet>()
             .AddTransient<Shadow>()
             .AddTransient<Ship>()

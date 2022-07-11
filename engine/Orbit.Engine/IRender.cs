@@ -1,5 +1,8 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Interface definition representing something that can be rendered on screen.
+/// </summary>
 public interface IRender
 {
     /// <summary>

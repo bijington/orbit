@@ -1,5 +1,8 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Interface definition representing something that can have it's state updated.
+/// </summary>
 public interface IUpdate
 {
     /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Base class implementation for containing <see cref="GameObject"/> children.
+/// </summary>
 public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpdate
 {
     private readonly IList<IGameObject> gameObjects = new List<IGameObject>();
@@ -12,6 +15,8 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
         ArgumentNullException.ThrowIfNull(gameObject);
 
         gameObjects.Add(gameObject);
+
+        OnGameObjectAdded(gameObject);
     }
 
     /// <inheritdoc />
@@ -20,9 +25,16 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
         ArgumentNullException.ThrowIfNull(gameObject);
 
         gameObjects.Remove(gameObject);
+
+        OnGameObjectRemoved(gameObject);
     }
 
     protected virtual void OnGameObjectAdded(GameObject gameObject)
+    {
+
+    }
+
+    protected virtual void OnGameObjectRemoved(GameObject gameObject)
     {
 
     }

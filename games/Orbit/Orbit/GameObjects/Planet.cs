@@ -43,13 +43,13 @@ public class Planet : GameObject
 
         if (MainPage.ShowBounds)
         {
-            canvas.RestoreState();
+            //canvas.RestoreState();
 
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
             canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-            canvas.ResetState();
+            //canvas.ResetState();
         }
     }
 

@@ -61,8 +61,15 @@
                     Text="RESUME"
                     Clicked="OnResumeButtonClicked" />
 
-                <Switch
-                    Toggled="Switch_Toggled" />
+                <HorizontalStackLayout>
+                    <Label
+                        Text="Show debug"
+                        VerticalOptions="Center"
+                        TextColor="White" />
+
+                    <Switch
+                        Toggled="Switch_Toggled" />
+                </HorizontalStackLayout>
 
                 <Button
                     TextColor="Black"
