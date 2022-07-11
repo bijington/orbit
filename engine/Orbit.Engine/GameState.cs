@@ -2,8 +2,9 @@
 
 public enum GameState
 {
-    Loaded = 0,
-    Started = 1,
-    Paused = 2,
-    GameOver = 3
+    Empty = 0,
+    Loaded = 1,
+    Started = 2,
+    Paused = 3,
+    GameOver = 4
 }

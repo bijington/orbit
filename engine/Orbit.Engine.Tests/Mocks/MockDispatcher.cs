@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Maui.Dispatching;
 
 namespace Orbit.Engine.Tests.Mocks;
 
 public class MockDispatcher : IDispatcher
 {
-    public bool IsDispatchRequired => throw new NotImplementedException();
+    public bool IsDispatchRequired => false;
 
     public IDispatcherTimer CreateTimer()
     {
@@ -19,6 +20,12 @@ public class MockDispatcher : IDispatcher
 
     public bool DispatchDelayed(TimeSpan delay, Action action)
     {
-        throw new NotImplementedException();
+        Task.Run(async () =>
+        {
+            await Task.Delay(delay);
+            action.Invoke();
+        });
+
+        return true;
     }
 }
