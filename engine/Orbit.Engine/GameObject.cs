@@ -6,7 +6,7 @@ namespace Orbit.Engine;
 /// <summary>
 /// Base class definition representing an object in a game.
 /// </summary>
-public abstract class GameObject : IGameObject, IDrawable
+public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
 {
     public RectF Bounds { get; protected set; }
 
@@ -22,16 +22,6 @@ public abstract class GameObject : IGameObject, IDrawable
         {
             return PlatformImage.FromStream(stream);
         }
-    }
-
-    /// <inheritdoc />
-    public virtual void Render(ICanvas canvas, RectF dimensions)
-    {
-    }
-
-    /// <inheritdoc />
-    public virtual void Update(double millisecondsSinceLastUpdate)
-    {
     }
 
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
