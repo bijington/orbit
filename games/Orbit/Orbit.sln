@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit.Engine.Tests", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit", "Orbit\Orbit.csproj", "{3DE622E7-1CBE-4B83-B2D5-FD0AD23F1090}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit.Tests", "Orbit.Tests\Orbit.Tests.csproj", "{822D0B7B-A190-41EF-9F1F-F71BD8ABD896}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3DE622E7-1CBE-4B83-B2D5-FD0AD23F1090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE622E7-1CBE-4B83-B2D5-FD0AD23F1090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE622E7-1CBE-4B83-B2D5-FD0AD23F1090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822D0B7B-A190-41EF-9F1F-F71BD8ABD896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822D0B7B-A190-41EF-9F1F-F71BD8ABD896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822D0B7B-A190-41EF-9F1F-F71BD8ABD896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822D0B7B-A190-41EF-9F1F-F71BD8ABD896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

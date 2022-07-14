@@ -56,29 +56,29 @@ public class Asteroid : GameObject
             canvas.DrawLine(movement.OriginX, movement.OriginY, movement.DestinationX, movement.DestinationY);
         }
 
-        var collision = gameSceneManager.FindCollision(this);
+        //var collision = gameSceneManager.FindCollision(this);
 
-        if (collision is Planet planet)
-        {
-            planet.OnHit(25);
-            CurrentScene.Remove(this);
-        }
+        //if (collision is Planet planet)
+        //{
+        //    planet.OnHit(25);
+        //    CurrentScene.Remove(this);
+        //}
 
-        if (collision is Ship ship)
-        {
-            CurrentScene.Remove(this);
+        //if (collision is Ship ship)
+        //{
+        //    CurrentScene.Remove(this);
 
-            // TODO: Damage the ship;
-        }
+        //    // TODO: Damage the ship;
+        //}
 
-        // TODO: Allow collision with other asteroids.
-        if (collision is Asteroid otherAsteroid)
-        {
-            // TODO: Split in to smaller asteroids?
-            CurrentScene.Remove(otherAsteroid);
-            CurrentScene.Remove(this);
-        }
+        //// TODO: Allow collision with other asteroids.
+        //if (collision is Asteroid otherAsteroid)
+        //{
+        //    // TODO: Split in to smaller asteroids?
+        //    CurrentScene.Remove(otherAsteroid);
+        //    CurrentScene.Remove(this);
+        //}
 
-        // TODO: remove when off screen.
+        //// TODO: remove when off screen.
     }
 }
