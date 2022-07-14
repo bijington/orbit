@@ -11,10 +11,16 @@ public class Planet : GameObject
 
     public int HealthPoints { get; private set; } = 100;
 
-    public Planet(IGameSceneManager gameSceneManager)
+    public Planet(
+        IGameSceneManager gameSceneManager,
+        Shadow shadow)
     {
         image = LoadImage("planet.png");
         this.gameSceneManager = gameSceneManager;
+
+        Add(shadow);
+
+        shadow.Planet = this;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
@@ -37,13 +43,13 @@ public class Planet : GameObject
 
         if (MainPage.ShowBounds)
         {
-            canvas.RestoreState();
+            //canvas.RestoreState();
 
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
             canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-            canvas.ResetState();
+            //canvas.ResetState();
         }
     }
 

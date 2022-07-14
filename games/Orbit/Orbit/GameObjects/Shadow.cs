@@ -4,12 +4,7 @@ namespace Orbit.GameObjects;
 
 public class Shadow : GameObject
 {
-    private readonly Planet planet;
-
-    public Shadow(Planet planet)
-    {
-        this.planet = planet;
-    }
+    public Planet Planet { get; set; }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
@@ -18,10 +13,10 @@ public class Shadow : GameObject
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
 
         PathF path = new PathF();
-        path.MoveTo(planet.Bounds.Width / 3, 0);
+        path.MoveTo(Planet.Bounds.Width / 3, 0);
         path.LineTo(dimensions.Width, dimensions.Height / 4);
         path.LineTo(dimensions.Width / 4, dimensions.Height);
-        path.LineTo(0, planet.Bounds.Height / 3);
+        path.LineTo(0, Planet.Bounds.Height / 3);
         canvas.FillColor = Colors.Black;
         canvas.Alpha = 0.6f;
         canvas.FillPath(path);

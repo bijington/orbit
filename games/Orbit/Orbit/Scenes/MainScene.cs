@@ -9,15 +9,12 @@ public class MainScene : GameScene
         Ship ship,
         Sun sun,
         Planet planet,
-        Orbit.GameObjects.Shadow shadow,
         BatteryLevel batteryLevel,
         AsteroidLauncher asteroidLauncher)
     {
         Add(sun);
-        Add(ship);
-        // TODO: shadow could be child of planet?
-        Add(shadow);
         Add(planet);
+        Add(ship);
         Add(batteryLevel);
         Add(asteroidLauncher);
     }

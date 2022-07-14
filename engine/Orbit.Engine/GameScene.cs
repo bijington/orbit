@@ -3,47 +3,14 @@
 /// <summary>
 /// Base class definition representing a scene or level in a game.
 /// </summary>
-public abstract class GameScene : IGameScene
+public abstract class GameScene : GameObjectContainer, IGameScene
 {
-    private readonly IList<IGameObject> gameObjects = new List<IGameObject>();
-
     /// <inheritdoc />
-    public void Add(GameObject gameObject)
+    protected override void OnGameObjectAdded(GameObject gameObject)
     {
-        ArgumentNullException.ThrowIfNull(gameObject);
+        base.OnGameObjectAdded(gameObject);
 
-        gameObjects.Add(gameObject);
         gameObject.CurrentScene = this;
-    }
-
-    /// <inheritdoc />
-    public void Remove(GameObject gameObject)
-    {
-        ArgumentNullException.ThrowIfNull(gameObject);
-
-        gameObjects.Remove(gameObject);
-    }
-
-    /// <inheritdoc />
-    public virtual void Render(ICanvas canvas, RectF dimensions)
-    {
-        var currentObjects = gameObjects.ToList();
-
-        foreach (var gameObject in currentObjects)
-        {
-            ((IDrawable)gameObject).Draw(canvas, dimensions);
-        }
-    }
-
-    /// <inheritdoc />
-    public virtual void Update(double millisecondsSinceLastUpdate)
-    {
-        var currentObjects = gameObjects.ToList();
-
-        foreach (var gameObject in currentObjects)
-        {
-            gameObject.Update(millisecondsSinceLastUpdate);
-        }
     }
 
     public GameObject FindCollision(GameObject gameObject)
