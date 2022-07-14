@@ -21,7 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Orbit.Engine\Orbit.Engine.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="FluentAssertions" />
-  </ItemGroup>
 </Project>
