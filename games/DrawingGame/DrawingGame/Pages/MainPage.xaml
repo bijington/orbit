@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
+    x:Class="DrawingGame.Pages.MainPage">
+
+    <Grid
+        ColumnDefinitions="*,*"
+        RowDefinitions="100,*">
+
+        <Frame
+            Margin="10">
+            <HorizontalStackLayout>
+                <Button
+                    BackgroundColor="Black"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Red"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Orange"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Yellow"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Green"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Blue"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Indigo"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+                <Button
+                    BackgroundColor="Violet"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40" />
+
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Frame
+            Margin="10"
+            Grid.Column="1">
+
+            <HorizontalStackLayout>
+                <Slider
+                    x:Name="LineThickness"
+                    Minimum="1"
+                    Maximum="25"
+                    Value="5"
+                    ValueChanged="OnLineThicknessValueChanged"/>
+
+                <Frame
+                    WidthRequest="40">
+                    <Ellipse
+                        x:Name="Preview"
+                        HeightRequest="{Binding Path=Value, Source={x:Reference LineThickness}}"
+                        WidthRequest="{Binding Path=Value, Source={x:Reference LineThickness}}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Frame>
+
+                <Button
+                    Text="Clear"
+                    Clicked="OnClearButtonClicked" />
+            </HorizontalStackLayout>
+        </Frame>
+
+        <engine:GameSceneView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            x:Name="SceneView"
+            StartInteraction="OnSceneViewStartInteraction"
+            EndInteraction="OnSceneViewEndInteraction"
+            DragInteraction="OnSceneViewDragInteraction" />
+    </Grid>
+    
+</ContentPage>
