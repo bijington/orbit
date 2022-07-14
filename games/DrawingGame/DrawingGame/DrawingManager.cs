@@ -21,7 +21,7 @@ public class DrawingManager
     public Task StartGame()
     {
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:7030/Game")
+            .WithUrl("https://localhost:7135/Game")
             .Build();
 
         hubConnection.On<DrawingState>(UpdateMethodName, msg =>
@@ -107,6 +107,6 @@ public class DrawingManager
             }).ToList()
         };
 
-        //await hubConnection.SendAsync(UpdateMethodName, state);
+        await hubConnection.SendAsync(UpdateMethodName, state);
     }
 }

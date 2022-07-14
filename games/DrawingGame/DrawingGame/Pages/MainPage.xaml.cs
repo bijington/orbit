@@ -18,6 +18,8 @@ public partial class MainPage : ContentPage
         gameSceneManager.Start();
 
         this.drawingManager = drawingManager;
+
+        _ = drawingManager.StartGame();  
     }
 
     void Button_Clicked(System.Object sender, System.EventArgs e)
