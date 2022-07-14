@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingGame", "DrawingGame.csproj", "{57D33502-A7F1-4933-BC0A-3FB0F4694EF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingGame", "DrawingGame.csproj", "{57D33502-A7F1-4933-BC0A-3FB0F4694EF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AD2B8828-1A39-41C9-8B3C-97F295DE5331}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit.Engine", "..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj", "{A6FE1ABD-4231-4E1F-9C60-6D2E7CA84478}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orbit.Engine.Tests", "..\..\..\engine\Orbit.Engine.Tests\Orbit.Engine.Tests.csproj", "{BD039428-E70E-4A49-B2F3-D44401A6788B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingGame.Shared", "..\DrawingGame.Shared\DrawingGame.Shared.csproj", "{8B812B10-827D-42A8-A130-F6F5CCCD54D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{BD039428-E70E-4A49-B2F3-D44401A6788B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD039428-E70E-4A49-B2F3-D44401A6788B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD039428-E70E-4A49-B2F3-D44401A6788B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B812B10-827D-42A8-A130-F6F5CCCD54D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B812B10-827D-42A8-A130-F6F5CCCD54D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B812B10-827D-42A8-A130-F6F5CCCD54D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B812B10-827D-42A8-A130-F6F5CCCD54D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

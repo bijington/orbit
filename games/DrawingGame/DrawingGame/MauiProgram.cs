@@ -1,4 +1,5 @@
-﻿using DrawingGame.GameObjects;
+﻿using CommunityToolkit.Maui;
+using DrawingGame.GameObjects;
 using DrawingGame.Pages;
 using DrawingGame.Scenes;
 using Orbit.Engine;
@@ -12,6 +13,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.UseOrbitEngine()
 			.ConfigureFonts(fonts =>
 			{

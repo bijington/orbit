@@ -47,20 +47,14 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
+	  <ProjectReference Include="..\DrawingGame.Shared\DrawingGame.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.7" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="GameObjects\" />
-	  <None Remove="Scenes\" />
-	  <None Remove="Pages\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="GameObjects\" />
-	  <Folder Include="Scenes\" />
-	  <Folder Include="Pages\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Pages\MainPage.xaml">
-	    <SubType>Designer</SubType>
-	  </MauiXaml>
+	  <None Remove="CommunityToolkit.Maui" />
 	</ItemGroup>
 </Project>
