@@ -14,6 +14,7 @@ public class Tests
         VerifyScene(new Scenery(), 1000, 1000);
     }
 
+    // TODO: For some reason the asteroid is not rendering.
     //[Test]
     //public void AsteroidShouldRenderAsExpected()
     //{
@@ -28,6 +29,7 @@ public class Tests
 
         render.Render(canvas, new Microsoft.Maui.Graphics.RectF(0, 0, sceneWidth, sceneHeight));
 
+        // TODO: apply test name to the file.
         using var stream = File.Create("snapshot.png");
         bitmap.Encode(stream, SKEncodedImageFormat.Png, 100);
     }
