@@ -2,15 +2,15 @@
 
 public class DrawingPath
 {
-    public DrawingPath(Color color, float thickness)
+    public DrawingPath(short colorIndex, float thickness)
     {
-        Color = color;
+        ColorIndex = colorIndex;
         Thickness = thickness;
 
         Path = new PathF();
     }
 
-    public Color Color { get; }
+    public short ColorIndex { get; }
     public PathF Path { get; }
     public float Thickness { get; }
 

@@ -4,7 +4,7 @@ namespace DrawingGame.Shared;
 
 public class DrawingPathState
 {
-	public string Color { get; set; } = "Black";
+	public short ColorIndex { get; set; }
 
 	public int Thickness { get; set; } = 5;
 

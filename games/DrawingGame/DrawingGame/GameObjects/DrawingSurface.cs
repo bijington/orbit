@@ -28,7 +28,7 @@ public class DrawingSurface : GameObject
 
     private void DrawPath(DrawingPath path, ICanvas canvas)
     {
-        canvas.StrokeColor = path.Color;
+        canvas.StrokeColor = drawingManager.SupportedColors[path.ColorIndex];
         canvas.StrokeSize = path.Thickness;
         canvas.StrokeLineCap = LineCap.Round;
         canvas.DrawPath(path.Path);

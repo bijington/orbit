@@ -1,23 +1,9 @@
-﻿using System;
-using Orbit.Engine;
+﻿using Orbit.Engine;
 
 namespace DrawingGame.GameObjects;
 
 public class ColorPalette : GameObject
 {
-    private IList<Color> supportedColors = new List<Color>
-    {
-        Colors.Black,
-        Colors.Red,
-        Colors.Orange,
-        Colors.Yellow,
-        Colors.Green,
-        Colors.Blue,
-        Colors.Indigo,
-        Colors.Violet,
-        Colors.White
-    };
-
     private readonly DrawingManager drawingManager;
 
     public ColorPalette(
@@ -44,6 +30,8 @@ public class ColorPalette : GameObject
         int spacing = 10;
         int height = barHeight - (2 * spacing);
         int width = height;
+
+        var supportedColors = drawingManager.SupportedColors;
 
         for (int i = 0; i < supportedColors.Count; i++)
         {
