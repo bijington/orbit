@@ -7,16 +7,19 @@ public class GameHub : Hub
 {
     public async Task PlayerConnected(Player player)
     {
-        await Clients.Others.SendAsync("PlayerConnected", player);
+        // Add the player to the game group name.
+        await Groups.AddToGroupAsync(Context.ConnectionId, player.GroupName);
+
+        await Clients.OthersInGroup(player.GroupName).SendAsync("PlayerConnected", player);
     }
 
     public async Task SessionStarted(SessionStarted session)
     {
-        await Clients.Others.SendAsync("SessionStarted", session);
+        await Clients.Group(session.GroupName).SendAsync("SessionStarted", session);
     }
 
     public async Task UpdateDrawingState(DrawingState drawingState)
     {
-        await Clients.Others.SendAsync("UpdateDrawingState", drawingState);
+        await Clients.OthersInGroup(drawingState.GroupName).SendAsync("UpdateDrawingState", drawingState);
     }
 }

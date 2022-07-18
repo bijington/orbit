@@ -5,29 +5,41 @@
     x:Class="DrawingGame.Pages.StartPage"
     Title="StartPage">
 
-    <Frame
-        HorizontalOptions="Center"
-        VerticalOptions="Center"
-        WidthRequest="300">
+    <Grid>
+        <Label
+            Text="Huki La"
+            FontSize="50"
+            HorizontalOptions="Center" />
 
-        <VerticalStackLayout
-            Margin="10"
-            Spacing="10">
-            <Entry
-                x:Name="PlayerNameField"
-                Placeholder="Name" />
+        <Frame
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300">
 
-            <Button
-                x:Name="CreateButton"
-                Text="Create"
-                Clicked="OnCreateButtonClicked" />
+            <VerticalStackLayout
+                Margin="10"
+                Spacing="10">
 
-            <Button
-                x:Name="JoinButton"
-                Text="Join"
-                Clicked="OnJoinButtonClicked" />
-        </VerticalStackLayout>
-    </Frame>
+                <Entry
+                    x:Name="PlayerNameField"
+                    Placeholder="Name" />
+
+                <Entry
+                    x:Name="GroupNameField"
+                    Placeholder="Game name" />
+
+                <Button
+                    x:Name="CreateButton"
+                    Text="Create"
+                    Clicked="OnCreateButtonClicked" />
+
+                <Button
+                    x:Name="JoinButton"
+                    Text="Join"
+                    Clicked="OnJoinButtonClicked" />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
 
 </ContentPage>
 

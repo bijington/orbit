@@ -8,6 +8,7 @@ public class DrawingManager : BindableObject
 {
     private readonly IList<DrawingPath> paths = new List<DrawingPath>();
     private DrawingPath currentPath;
+    private string groupName;
     private HubConnection hubConnection;
     private Color selectedColor = Colors.Black;
     private TimeSpan timeRemaining;
@@ -67,11 +68,13 @@ public class DrawingManager : BindableObject
         //Players.Add(new Player { Name = "Gerald" });
     }
 
-    public async Task StartGame(string name)
+    public async Task StartGame(string name, string groupName, bool isCreatingGame)
     {
         hubConnection = new HubConnectionBuilder()
             .WithUrl("https://drawinggame-server.azurewebsites.net/Game")
             .Build();
+
+        this.groupName = groupName;
 
         hubConnection.On<DrawingState>(UpdateMethodName, state =>
         {
@@ -114,14 +117,26 @@ public class DrawingManager : BindableObject
 
         await hubConnection.StartAsync();
 
-        await hubConnection.SendAsync(PlayerConnectedName, new Player { Name = name });
+        await hubConnection.SendAsync(
+            PlayerConnectedName,
+            new Player
+            {
+                GroupName = groupName,
+                Name = name
+            });
     }
 
     public async Task StartSession(string word)
     {
         Word = word;
 
-        await hubConnection.SendAsync(SessionStartedName, new SessionStarted { Word = word });
+        await hubConnection.SendAsync(
+            SessionStartedName,
+            new SessionStarted
+            {
+                Word = word,
+                GroupName = groupName
+            });
     }
 
     public void StartDrawing(PointF startLocation)
@@ -184,7 +199,8 @@ public class DrawingManager : BindableObject
                 Thickness = (int)p.Thickness,
                 Points = p.Path.Points.Select(point => new System.Drawing.Point((int)point.X, (int)point.Y)).ToList()
             }).ToList(),
-            TimeRemaining = TimeRemaining
+            TimeRemaining = TimeRemaining,
+            GroupName = groupName
         };
 
         await hubConnection.SendAsync(UpdateMethodName, state);

@@ -18,7 +18,7 @@ public partial class StartPage : ContentPage
         // TODO: This would really be server driven.
         drawingManager.IsPrimary = true;
 
-        await drawingManager.StartGame(PlayerNameField.Text);
+        await drawingManager.StartGame(PlayerNameField.Text, GroupNameField.Text, true);
 
         await Shell.Current.GoToAsync("lobby");
     }
@@ -27,7 +27,7 @@ public partial class StartPage : ContentPage
     {
         drawingManager.IsPrimary = false;
 
-        await drawingManager.StartGame(PlayerNameField.Text);
+        await drawingManager.StartGame(PlayerNameField.Text, GroupNameField.Text, false);
 
         await Shell.Current.GoToAsync("lobby");
     }

@@ -23,6 +23,5 @@ public partial class LobbyPage : ContentPage
     private async void OnStartButtonClicked(System.Object sender, System.EventArgs e)
     {
         await drawingManager.StartSession("HOUSE");
-        await Shell.Current.GoToAsync("main");
     }
 }
