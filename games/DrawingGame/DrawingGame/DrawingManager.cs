@@ -1,20 +1,50 @@
-﻿using DrawingGame.Shared;
+﻿using System.Collections.ObjectModel;
+using DrawingGame.Shared;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace DrawingGame;
 
-public class DrawingManager
+public class DrawingManager : BindableObject
 {
     private readonly IList<DrawingPath> paths = new List<DrawingPath>();
     private DrawingPath currentPath;
     private HubConnection hubConnection;
+    private Color selectedColor = Colors.Black;
+    private TimeSpan timeRemaining;
+
+    private const string PlayerConnectedName = "PlayerConnected";
+    private const string SessionStartedName = "SessionStarted";
     private const string UpdateMethodName = "UpdateDrawingState";
 
-    public bool IsViewing { get; } = false;
+    public bool IsPrimary { get; set; }
+
+    public bool IsViewing => !IsPrimary;
 
     public float LineThickness { get; set; } = 5f;
 
-    public Color SelectedColor { get; set; } = Colors.Black;
+    public string Word { get; private set; }
+
+    public Color SelectedColor
+    {
+        get => selectedColor;
+        set
+        {
+            selectedColor = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public TimeSpan TimeRemaining
+    {
+        get => timeRemaining;
+        set
+        {
+            timeRemaining = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ObservableCollection<Player> Players { get; } = new ObservableCollection<Player>();
 
     public IList<Color> SupportedColors { get; } = new List<Color>
     {
@@ -31,7 +61,13 @@ public class DrawingManager
 
     public IReadOnlyList<DrawingPath> Paths => paths.ToList();
 
-    public Task StartGame()
+    public DrawingManager()
+    {
+        //Players.Add(new Player { Name = "James" });
+        //Players.Add(new Player { Name = "Gerald" });
+    }
+
+    public async Task StartGame(string name)
     {
         hubConnection = new HubConnectionBuilder()
             .WithUrl("https://drawinggame-server.azurewebsites.net/Game")
@@ -41,6 +77,8 @@ public class DrawingManager
         {
             try
             {
+                //TimeRemaining = state.TimeRemaining;
+
                 paths.Clear();
 
                 foreach (var path in state.Paths)
@@ -60,10 +98,30 @@ public class DrawingManager
             }
         });
 
+        hubConnection.On<Player>(PlayerConnectedName, player =>
+        {
+            Players.Add(player);
+        });
+
+        hubConnection.On<SessionStarted>(SessionStartedName, session =>
+        {
+            Word = session.Word;
+            Dispatcher.Dispatch(async () => await Shell.Current.GoToAsync("main"));
+        });
+
         // TODO: Guess message
         // TODO: Assign IsViewing?
 
-        return hubConnection.StartAsync();
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync(PlayerConnectedName, new Player { Name = name });
+    }
+
+    public async Task StartSession(string word)
+    {
+        Word = word;
+
+        await hubConnection.SendAsync(SessionStartedName, new SessionStarted { Word = word });
     }
 
     public void StartDrawing(PointF startLocation)
@@ -72,8 +130,6 @@ public class DrawingManager
         {
             return;
         }
-
-
 
         currentPath = new DrawingPath((short)SupportedColors.IndexOf(SelectedColor), LineThickness);
         currentPath.Add(startLocation);
@@ -127,7 +183,8 @@ public class DrawingManager
                 ColorIndex = p.ColorIndex,
                 Thickness = (int)p.Thickness,
                 Points = p.Path.Points.Select(point => new System.Drawing.Point((int)point.X, (int)point.Y)).ToList()
-            }).ToList()
+            }).ToList(),
+            TimeRemaining = TimeRemaining
         };
 
         await hubConnection.SendAsync(UpdateMethodName, state);

@@ -5,6 +5,8 @@ namespace DrawingGame.Pages;
 
 public partial class MainPage : ContentPage
 {
+    private readonly IGameSceneManager gameSceneManager;
+    private readonly MainScene mainScene;
     private readonly DrawingManager drawingManager;
 
     public MainPage(
@@ -14,22 +16,31 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 
-		gameSceneManager.LoadScene(mainScene, SceneView);
-        gameSceneManager.Start();
+        BindingContext = drawingManager;
 
+        this.gameSceneManager = gameSceneManager;
+        this.mainScene = mainScene;
         this.drawingManager = drawingManager;
 
-        _ = drawingManager.StartGame();  
+        if (this.drawingManager.IsViewing)
+        {
+            this.ColorSelection.IsVisible = false;
+            this.WordLabel.IsVisible = false;
+        }
     }
 
-    void Button_Clicked(System.Object sender, System.EventArgs e)
+    async void Button_Clicked(System.Object sender, System.EventArgs e)
     {
         if (sender is Button button)
         {
             drawingManager.SelectedColor = button.BackgroundColor;
 
-            Preview.Fill = new SolidColorBrush(button.BackgroundColor);
+            //Preview.Fill = new SolidColorBrush(button.BackgroundColor);
         }
+
+        await ColorSelection.TranslateTo(0, -320);
+
+        //IsVisible = false;
     }
 
     private void OnSceneViewDragInteraction(object sender, Microsoft.Maui.Controls.TouchEventArgs e)
@@ -55,5 +66,25 @@ public partial class MainPage : ContentPage
     private void OnLineThicknessValueChanged(object sender, ValueChangedEventArgs e)
     {
         drawingManager.LineThickness = (float)e.NewValue;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        gameSceneManager.LoadScene(mainScene, SceneView);
+        gameSceneManager.Start();
+    }
+
+    async void OnColorSelectionButtonClicked(System.Object sender, System.EventArgs e)
+    {
+        if (ColorSelection.TranslationY == 40)
+        {
+            await ColorSelection.TranslateTo(0, -320);
+        }
+        else
+        {
+            await ColorSelection.TranslateTo(0, 40);
+        }
     }
 }

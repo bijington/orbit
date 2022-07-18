@@ -6,10 +6,10 @@ namespace DrawingGame.Scenes;
 public class MainScene : GameScene
 {
 	public MainScene(
-		ColorPalette colorPalette,
+		CountdownTimer countdownTimer,
 		DrawingSurface drawingSurface)
 	{
-		//Add(colorPalette);
 		Add(drawingSurface);
-	}
+        Add(countdownTimer);
+    }
 }

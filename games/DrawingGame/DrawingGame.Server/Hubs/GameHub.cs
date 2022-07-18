@@ -5,9 +5,14 @@ namespace DrawingGame.Server.Hubs;
 
 public class GameHub : Hub
 {
-    public override Task OnConnectedAsync()
+    public async Task PlayerConnected(Player player)
     {
-        return base.OnConnectedAsync();
+        await Clients.Others.SendAsync("PlayerConnected", player);
+    }
+
+    public async Task SessionStarted(SessionStarted session)
+    {
+        await Clients.Others.SendAsync("SessionStarted", session);
     }
 
     public async Task UpdateDrawingState(DrawingState drawingState)

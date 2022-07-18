@@ -5,5 +5,6 @@ public static class GameObjectServiceCollectionExtensions
 	public static IServiceCollection AddGameObjects(this IServiceCollection services) =>
 		services
 			.AddTransient<ColorPalette>()
-			.AddTransient<DrawingSurface>();
+			.AddTransient<CountdownTimer>()
+            .AddTransient<DrawingSurface>();
 }
