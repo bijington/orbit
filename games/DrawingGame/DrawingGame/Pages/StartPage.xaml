@@ -5,16 +5,20 @@
     x:Class="DrawingGame.Pages.StartPage"
     Title="StartPage">
 
-    <Grid>
+    <Grid
+        RowDefinitions="*,*,*">
         <Label
             Text="Huki La"
+            FontFamily="GochiHandRegular"
             FontSize="50"
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
 
         <Frame
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            WidthRequest="300">
+            WidthRequest="300"
+            Grid.RowSpan="3">
 
             <VerticalStackLayout
                 Margin="10"

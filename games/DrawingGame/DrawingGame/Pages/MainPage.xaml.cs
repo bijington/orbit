@@ -34,13 +34,9 @@ public partial class MainPage : ContentPage
         if (sender is Button button)
         {
             drawingManager.SelectedColor = button.BackgroundColor;
-
-            //Preview.Fill = new SolidColorBrush(button.BackgroundColor);
         }
 
         await ColorSelection.TranslateTo(0, -320);
-
-        //IsVisible = false;
     }
 
     private void OnSceneViewDragInteraction(object sender, Microsoft.Maui.Controls.TouchEventArgs e)
@@ -78,13 +74,13 @@ public partial class MainPage : ContentPage
 
     async void OnColorSelectionButtonClicked(System.Object sender, System.EventArgs e)
     {
-        if (ColorSelection.TranslationY == 40)
+        if (ColorSelection.TranslationY == 60)
         {
             await ColorSelection.TranslateTo(0, -320);
         }
         else
         {
-            await ColorSelection.TranslateTo(0, 40);
+            await ColorSelection.TranslateTo(0, 60);
         }
     }
 }
