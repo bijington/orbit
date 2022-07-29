@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrawingGame.Pages.LobbyPage"
+    Title="LobbyPage">
+
+    <Frame
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="300">
+
+        <VerticalStackLayout
+            Margin="10"
+            Spacing="10">
+            <VerticalStackLayout
+                BindableLayout.ItemsSource="{Binding Players}"
+                Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="16"
+                                VerticalOptions="Center" />
+
+                            <Image
+                                Source="tick.png"
+                                HorizontalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button
+                x:Name="StartButton"
+                Text="Start"
+                Clicked="OnStartButtonClicked" />
+        </VerticalStackLayout>
+    </Frame>
+
+</ContentPage>
