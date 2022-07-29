@@ -62,12 +62,6 @@ public class DrawingManager : BindableObject
 
     public IReadOnlyList<DrawingPath> Paths => paths.ToList();
 
-    public DrawingManager()
-    {
-        //Players.Add(new Player { Name = "James" });
-        //Players.Add(new Player { Name = "Gerald" });
-    }
-
     public async Task StartGame(string name, string groupName, bool isCreatingGame)
     {
         hubConnection = new HubConnectionBuilder()
@@ -80,8 +74,6 @@ public class DrawingManager : BindableObject
         {
             try
             {
-                //TimeRemaining = state.TimeRemaining;
-
                 paths.Clear();
 
                 foreach (var path in state.Paths)
