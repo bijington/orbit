@@ -22,4 +22,14 @@ public class GameHub : Hub
     {
         await Clients.OthersInGroup(drawingState.GroupName).SendAsync("UpdateDrawingState", drawingState);
     }
+
+    public async Task GuessAttempt(Guess guess)
+    {
+        await Clients.OthersInGroup(guess.GroupName).SendAsync("GuessAttempt", guess);
+    }
+
+    public async Task GuessCorrect(GuessCorrect guessCorrect)
+    {
+        await Clients.OthersInGroup(guessCorrect.GroupName).SendAsync("GuessCorrect", guessCorrect);
+    }
 }

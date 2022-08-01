@@ -10,9 +10,12 @@ public class DrawingManager : BindableObject
     private DrawingPath currentPath;
     private string groupName;
     private HubConnection hubConnection;
+    private string playerName;
     private Color selectedColor = Colors.Black;
     private TimeSpan timeRemaining;
 
+    private const string GuessAttemptName = "GuessAttempt";
+    private const string GuessCorrectName = "GuessCorrect";
     private const string PlayerConnectedName = "PlayerConnected";
     private const string SessionStartedName = "SessionStarted";
     private const string UpdateMethodName = "UpdateDrawingState";
@@ -69,6 +72,7 @@ public class DrawingManager : BindableObject
             .Build();
 
         this.groupName = groupName;
+        this.playerName = name;
 
         hubConnection.On<DrawingState>(UpdateMethodName, state =>
         {
@@ -104,8 +108,27 @@ public class DrawingManager : BindableObject
             Dispatcher.Dispatch(async () => await Shell.Current.GoToAsync("main"));
         });
 
-        // TODO: Guess message
-        // TODO: Assign IsViewing?
+        hubConnection.On<Guess>(GuessAttemptName, async guess =>
+        {
+            if (string.Equals(guess.GuessedWord, Word))
+            {
+                await hubConnection.SendAsync(
+                    GuessCorrectName,
+                    new GuessCorrect
+                    {
+                        GroupName = groupName,
+                        PlayerName = guess.PlayerName
+                    });
+            }
+        });
+
+        hubConnection.On<GuessCorrect>(GuessCorrectName, guessCorrect =>
+        {
+            if (playerName == guessCorrect.PlayerName)
+            {
+                // TODO: Success
+            }
+        });
 
         await hubConnection.StartAsync();
 
@@ -196,5 +219,10 @@ public class DrawingManager : BindableObject
         };
 
         await hubConnection.SendAsync(UpdateMethodName, state);
+    }
+
+    public Task PerformGuess(string guess)
+    {
+
     }
 }

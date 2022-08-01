@@ -83,4 +83,14 @@ public partial class MainPage : ContentPage
             await ColorSelection.TranslateTo(0, 60);
         }
     }
+
+    async void OnGuessButtonClicked(System.Object sender, System.EventArgs e)
+    {
+        await drawingManager.PerformGuess(this.GuessedWord.Text);
+    }
+
+    void GuessedWord_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+        GuessButton.IsEnabled = !string.IsNullOrEmpty(e.NewTextValue);
+    }
 }

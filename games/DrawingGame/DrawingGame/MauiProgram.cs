@@ -19,12 +19,11 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("GochiHand-Regular.ttf", "GochiHandRegular");
             })
-			.Services
-				.AddGameObjects()
-				.AddPages()
-				.AddScenes()
-				.AddSingleton<DrawingManager>();
-
-		return builder.Build();
-	}
+        .Services
+			.AddGameObjects()
+			.AddPages()
+			.AddScenes()
+			.AddSingleton<DrawingManager>();
+        return builder.Build();
+    }
 }

@@ -96,6 +96,28 @@
             </Grid>
         </Frame>
 
+        <Frame
+            Padding="0"
+            Grid.ColumnSpan="3">
+            <Grid ColumnDefinitions="*,60,*">
+                <Entry
+                    x:Name="GuessedWord"
+                    TextChanged="GuessedWord_TextChanged" />
+
+                <Button
+                    x:Name="GuessButton"
+                    Clicked="OnGuessButtonClicked"
+                    Grid.Column="1" />
+
+                <Label
+                    Text="{Binding TimeRemaining, StringFormat='{}{0:mm}:{0:ss}'}"
+                    Grid.Column="2"
+                    FontSize="30"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
     </Grid>
     
 </ContentPage>

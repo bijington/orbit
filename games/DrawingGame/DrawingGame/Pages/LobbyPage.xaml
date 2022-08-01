@@ -13,6 +13,14 @@
         <VerticalStackLayout
             Margin="10"
             Spacing="10">
+
+            <ActivityIndicator
+                IsRunning="True"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Waiting for players to join" />
+
             <VerticalStackLayout
                 BindableLayout.ItemsSource="{Binding Players}"
                 Spacing="10">
