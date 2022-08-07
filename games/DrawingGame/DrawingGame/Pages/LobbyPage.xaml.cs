@@ -13,15 +13,17 @@ public partial class LobbyPage : ContentPage
 
 		BindingContext = drawingManager;
         this.drawingManager = drawingManager;
+    }
 
-        if (!drawingManager.IsPrimary)
-        {
-            StartButton.IsVisible = false;
-        }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        CreatingTitleLabel.Text = $"Creating game '{drawingManager.GroupName}'";
     }
 
     private async void OnStartButtonClicked(System.Object sender, System.EventArgs e)
     {
-        await drawingManager.StartSession("HOUSE");
+        await drawingManager.StartSession("HOUSE", this.drawingManager.PlayerName);
     }
 }

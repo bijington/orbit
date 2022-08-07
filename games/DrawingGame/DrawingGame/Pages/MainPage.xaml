@@ -7,7 +7,7 @@
 
     <Grid
         ColumnDefinitions="60,60,*"
-        RowDefinitions="60,*">
+        RowDefinitions="60,*,60">
 
         <engine:GameSceneView
             Grid.Row="1"
@@ -19,9 +19,11 @@
 
         <Border
             x:Name="ColorSelection"
-            TranslationY="-320"
-            Grid.RowSpan="2"
-            BackgroundColor="PaleGoldenrod">
+            TranslationY="-360"
+            Opacity="0"
+            HeightRequest="360"
+            VerticalOptions="Start"
+            Grid.RowSpan="2">
             <VerticalStackLayout>
                 <Button
                     BackgroundColor="Black"
@@ -68,6 +70,7 @@
 
         <Frame
             Padding="0"
+            x:Name="DrawingPanel"
             Grid.ColumnSpan="3">
             <Grid ColumnDefinitions="60,60,*">
                 <Button
@@ -98,23 +101,37 @@
 
         <Frame
             Padding="0"
+            x:Name="GuessingTitlePanel"
             Grid.ColumnSpan="3">
-            <Grid ColumnDefinitions="*,60,*">
+            <Grid ColumnDefinitions="*,*">
+                <Label
+                    Text="{Binding DrawingPlayerName, StringFormat='You are viewing {0}'}" />
+
+                <Label
+                    Text="{Binding TimeRemaining, StringFormat='{}{0:mm}:{0:ss}'}"
+                    Grid.Column="1"
+                    FontSize="30"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <Frame
+            Padding="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="2"
+            x:Name="GuessingPanel">
+            <Grid ColumnDefinitions="7*,*">
                 <Entry
                     x:Name="GuessedWord"
+                    FontSize="30"
+                    TextTransform="Uppercase"
                     TextChanged="GuessedWord_TextChanged" />
 
                 <Button
                     x:Name="GuessButton"
                     Clicked="OnGuessButtonClicked"
                     Grid.Column="1" />
-
-                <Label
-                    Text="{Binding TimeRemaining, StringFormat='{}{0:mm}:{0:ss}'}"
-                    Grid.Column="2"
-                    FontSize="30"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center" />
             </Grid>
         </Frame>
 

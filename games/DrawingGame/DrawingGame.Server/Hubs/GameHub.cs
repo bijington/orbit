@@ -30,6 +30,6 @@ public class GameHub : Hub
 
     public async Task GuessCorrect(GuessCorrect guessCorrect)
     {
-        await Clients.OthersInGroup(guessCorrect.GroupName).SendAsync("GuessCorrect", guessCorrect);
+        await Clients.Group(guessCorrect.GroupName).SendAsync("GuessCorrect", guessCorrect);
     }
 }
