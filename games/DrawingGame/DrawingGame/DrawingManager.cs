@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using DrawingGame.Pages;
 using DrawingGame.Shared;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -8,22 +9,38 @@ public class DrawingManager : BindableObject
 {
     private readonly IList<DrawingPath> paths = new List<DrawingPath>();
     private DrawingPath currentPath;
-    private string groupName;
     private HubConnection hubConnection;
     private Color selectedColor = Colors.Black;
     private TimeSpan timeRemaining;
+    private MainPage mainPage;
+    private string drawingPlayerName;
 
+    private const string GuessAttemptName = "GuessAttempt";
+    private const string GuessCorrectName = "GuessCorrect";
     private const string PlayerConnectedName = "PlayerConnected";
     private const string SessionStartedName = "SessionStarted";
     private const string UpdateMethodName = "UpdateDrawingState";
 
     public bool IsPrimary { get; set; }
 
-    public bool IsViewing => !IsPrimary;
+    public bool IsDrawing => DrawingPlayerName == PlayerName;
+    public bool IsViewing => !IsDrawing;
 
     public float LineThickness { get; set; } = 5f;
 
     public string Word { get; private set; }
+
+    public string PlayerName { get; private set; }
+
+    public string DrawingPlayerName
+    {
+        get => drawingPlayerName;
+        private set
+        {
+            drawingPlayerName = value;
+            OnPropertyChanged();
+        }
+    }
 
     public Color SelectedColor
     {
@@ -62,13 +79,16 @@ public class DrawingManager : BindableObject
 
     public IReadOnlyList<DrawingPath> Paths => paths.ToList();
 
+    public string GroupName { get; set; }
+
     public async Task StartGame(string name, string groupName, bool isCreatingGame)
     {
         hubConnection = new HubConnectionBuilder()
             .WithUrl("https://drawinggame-server.azurewebsites.net/Game")
             .Build();
 
-        this.groupName = groupName;
+        this.GroupName = groupName;
+        this.PlayerName = name;
 
         hubConnection.On<DrawingState>(UpdateMethodName, state =>
         {
@@ -101,11 +121,41 @@ public class DrawingManager : BindableObject
         hubConnection.On<SessionStarted>(SessionStartedName, session =>
         {
             Word = session.Word;
-            Dispatcher.Dispatch(async () => await Shell.Current.GoToAsync("main"));
+            DrawingPlayerName = session.DrawingPlayerName;
+            Dispatcher.Dispatch(async () =>
+            {
+                Clear();
+                await Shell.Current.GoToAsync("main");
+            });
         });
 
-        // TODO: Guess message
-        // TODO: Assign IsViewing?
+        hubConnection.On<Guess>(GuessAttemptName, async guess =>
+        {
+            if (string.Equals(guess.GuessedWord, Word))
+            {
+                await hubConnection.SendAsync(
+                    GuessCorrectName,
+                    new GuessCorrect
+                    {
+                        GroupName = groupName,
+                        PlayerName = guess.PlayerName
+                    });
+            }
+        });
+
+        hubConnection.On<GuessCorrect>(GuessCorrectName, async guessCorrect =>
+        {
+            if (PlayerName == guessCorrect.PlayerName)
+            {
+                await this.mainPage.DisplayAlert("Yay!", "Congratulations you guessed it correctly!", "Woohoo!");
+
+                await StartSession("BEACH", PlayerName);
+            }
+            else
+            {
+                await this.mainPage.DisplayAlert("Boo!", $"'{guessCorrect.PlayerName}' guessed it correctly!", "Boo!");
+            }
+        });
 
         await hubConnection.StartAsync();
 
@@ -118,16 +168,18 @@ public class DrawingManager : BindableObject
             });
     }
 
-    public async Task StartSession(string word)
+    public async Task StartSession(string word, string drawingPlayerName)
     {
         Word = word;
+        DrawingPlayerName = drawingPlayerName;
 
         await hubConnection.SendAsync(
             SessionStartedName,
             new SessionStarted
             {
                 Word = word,
-                GroupName = groupName
+                GroupName = GroupName,
+                DrawingPlayerName = drawingPlayerName
             });
     }
 
@@ -192,9 +244,27 @@ public class DrawingManager : BindableObject
                 Points = p.Path.Points.Select(point => new System.Drawing.Point((int)point.X, (int)point.Y)).ToList()
             }).ToList(),
             TimeRemaining = TimeRemaining,
-            GroupName = groupName
+            GroupName = GroupName
         };
 
         await hubConnection.SendAsync(UpdateMethodName, state);
+    }
+
+    public async Task PerformGuess(string guess)
+    {
+        await hubConnection.SendAsync(
+            GuessAttemptName,
+            new Guess
+            {
+                GroupName = this.GroupName,
+                GuessedWord = guess,
+                PlayerName = PlayerName,
+            });
+    }
+
+    public void SetPage(MainPage mainPage)
+    {
+        // NOT pretty but rushing to show something...
+        this.mainPage = mainPage;
     }
 }

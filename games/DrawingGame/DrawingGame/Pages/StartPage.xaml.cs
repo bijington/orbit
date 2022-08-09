@@ -29,6 +29,6 @@ public partial class StartPage : ContentPage
 
         await drawingManager.StartGame(PlayerNameField.Text, GroupNameField.Text, false);
 
-        await Shell.Current.GoToAsync("lobby");
+        await Shell.Current.GoToAsync("join");
     }
 }

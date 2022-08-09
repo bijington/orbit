@@ -8,7 +8,7 @@
     <Grid
         RowDefinitions="*,*,*">
         <Label
-            Text="Huki La"
+            Text="Draw It!"
             FontFamily="GochiHandRegular"
             FontSize="50"
             HorizontalOptions="Center"

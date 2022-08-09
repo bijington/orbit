@@ -8,13 +8,20 @@
     <Frame
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="300">
+        WidthRequest="300"
+        HeightRequest="500">
 
-        <VerticalStackLayout
-            Margin="10"
-            Spacing="10">
+        <Grid
+            RowDefinitions="50,*,60,50"
+            RowSpacing="10"
+            Margin="10">
+
+            <Label
+                x:Name="CreatingTitleLabel" />
+
             <VerticalStackLayout
                 BindableLayout.ItemsSource="{Binding Players}"
+                Grid.Row="1"
                 Spacing="10">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
@@ -32,11 +39,24 @@
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
+            <HorizontalStackLayout
+                Grid.Row="2">
+                <Label
+                    Text="Waiting for players to join"
+                    VerticalOptions="Center" />
+
+                <ActivityIndicator
+                    IsRunning="True"
+                    VerticalOptions="Center"
+                    Margin="10,0,0,0" />
+            </HorizontalStackLayout>
+
             <Button
                 x:Name="StartButton"
+                Grid.Row="3"
                 Text="Start"
                 Clicked="OnStartButtonClicked" />
-        </VerticalStackLayout>
+        </Grid>
     </Frame>
 
 </ContentPage>
