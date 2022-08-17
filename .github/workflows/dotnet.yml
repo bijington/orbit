@@ -1,4 +1,4 @@
-name: .NET
+name: Build the Engine
 
 on:
   push:
@@ -20,8 +20,14 @@ jobs:
     - name: workload install
       run: dotnet workload install maui
     - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+      run: dotnet restore engine/Orbit.Engine/Orbit.Engine.csproj
+    - name: Restore dependencies
+      run: dotnet restore engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj
+    - name: Build engine
+      run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
+    - name: Build tests
+      run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Pack engine
+      run: dotnet pack engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
