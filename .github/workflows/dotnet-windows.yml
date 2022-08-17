@@ -1,4 +1,4 @@
-name: Build the Engine
+name: Build the Engine (Windows)
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -27,7 +27,5 @@ jobs:
       run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
     - name: Build tests
       run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
     - name: Pack engine
       run: dotnet pack engine/Orbit.Engine/Orbit.Engine.csproj --no-restore

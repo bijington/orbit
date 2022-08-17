@@ -1,0 +1,31 @@
+name: Build the Engine (macOS)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: workload install
+      run: dotnet workload install maui
+    - name: Restore dependencies
+      run: dotnet restore engine/Orbit.Engine/Orbit.Engine.csproj
+    - name: Restore dependencies
+      run: dotnet restore engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj
+    - name: Build engine
+      run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
+    - name: Build tests
+      run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
+    - name: Pack engine
+      run: dotnet pack engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
