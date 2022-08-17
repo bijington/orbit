@@ -1,5 +1,9 @@
 ﻿using System.Reflection;
+#if WINDOWS
+using Microsoft.Maui.Graphics.Win2D;
+#else
 using Microsoft.Maui.Graphics.Platform;
+#endif
 
 namespace Orbit.Engine;
 
@@ -20,7 +24,11 @@ public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
 
         using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.EmbeddedResources." + imageName))
         {
+#if WINDOWS
+            return new W2DImageLoadingService().FromStream(stream);
+#else
             return PlatformImage.FromStream(stream);
+#endif
         }
     }
 
