@@ -46,7 +46,7 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
 
         foreach (var gameObject in currentObjects)
         {
-            ((IDrawable)gameObject).Draw(canvas, dimensions);
+            gameObject.Draw(canvas, dimensions);
         }
     }
 

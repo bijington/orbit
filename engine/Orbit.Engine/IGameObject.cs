@@ -3,7 +3,7 @@
 /// <summary>
 /// Interface definition representing an object in a game.
 /// </summary>
-public interface IGameObject
+public interface IGameObject : IDrawable
 {
     RectF Bounds { get; }
 
