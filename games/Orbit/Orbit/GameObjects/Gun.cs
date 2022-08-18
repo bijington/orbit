@@ -13,9 +13,9 @@ public class Gun : GameObject
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(Ship.angle);
 
-        canvas.StrokeColor = Colors.OrangeRed;
-        canvas.StrokeSize = 4;
-        canvas.StrokeDashPattern = new float[] { 4, 4 };
-        canvas.DrawEllipse(175, -125, 300, 300);
+        //canvas.StrokeColor = Colors.OrangeRed;
+        //canvas.StrokeSize = 4;
+        //canvas.StrokeDashPattern = new float[] { 4, 4 };
+        //canvas.DrawEllipse(175, -125, 300, 300);
     }
 }

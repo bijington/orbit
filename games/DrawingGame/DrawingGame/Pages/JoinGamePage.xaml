@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrawingGame.Pages.JoinGamePage"
+    Title="JoinGamePage">
+
+    <Frame
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="300">
+
+        <VerticalStackLayout
+            Spacing="10"
+            Margin="10">
+
+            <Label
+                x:Name="JoiningTitleLabel" />
+
+            <ActivityIndicator
+                IsRunning="True"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Waiting for the game to begin"
+                Grid.Row="1"/>
+
+        </VerticalStackLayout>
+    </Frame>
+
+</ContentPage>

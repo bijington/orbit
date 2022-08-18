@@ -15,8 +15,10 @@ public class Sun : GameObject
     {
         base.Render(canvas, dimensions);
 
-        var halfWidth = image.Width / 2;
-        var halfHeight = image.Height / 2;
-        canvas.DrawImage(image, -halfWidth, -halfHeight, image.Width, image.Height);
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 2;
+
+        var halfWidth = size / 2;
+        var halfHeight = size / 2;
+        canvas.DrawImage(image, -halfWidth, -halfHeight, size, size);
     }
 }

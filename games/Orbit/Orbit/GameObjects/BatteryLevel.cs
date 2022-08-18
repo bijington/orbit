@@ -8,7 +8,7 @@ public class BatteryLevel : GameObject
     {
         base.Render(canvas, dimensions);
 
-        float height = 390f;
+        float height = dimensions.Height / 2;
         float initialY = height / 2;
 
         canvas.Translate(0, dimensions.Center.Y);

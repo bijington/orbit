@@ -38,9 +38,19 @@ public class Ship : GameObject
     {
         base.Render(canvas, dimensions);
 
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 20;
+
+        Bounds = new RectF(
+            dimensions.Center.X - size,
+            dimensions.Center.Y - size,
+            size * 2,
+            size * 2);
+
+        var orbitRadius = Bounds.Width * 3;
+
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
-        canvas.DrawImage(GetImage(MainPage.TouchMode), 300, 0, image.Width, image.Height);
+        canvas.DrawImage(GetImage(MainPage.TouchMode), orbitRadius, 0, Bounds.Width, Bounds.Height);
 
         //Bounds = WHAT???? Needs to include rotation and translation details ;(
 
@@ -48,15 +58,15 @@ public class Ship : GameObject
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(300, 0, image.Width, image.Height);
+            canvas.DrawEllipse(orbitRadius, 0, Bounds.Width, Bounds.Height);
         }
-
-        angle += BatteryLevel == 0 ? -0.25f : GetIncrement(MainPage.TouchMode);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
     {
         base.Update(millisecondsSinceLastUpdate);
+
+        angle += BatteryLevel == 0 ? -0.25f : GetIncrement(MainPage.TouchMode);
 
         batteryLevel = Math.Clamp(batteryLevel - GetBatteryDrain(MainPage.TouchMode), 0, batteryMaximum);
         BatteryLevel = batteryLevel / batteryMaximum;

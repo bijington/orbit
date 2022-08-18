@@ -22,6 +22,9 @@ public class Asteroid : GameObject
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
+
+        //x = 0.5f;
+        //y = 0.5f;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
@@ -38,22 +41,29 @@ public class Asteroid : GameObject
     {
         base.Render(canvas, dimensions);
 
-        var halfWidth = image.Width / 2;
-        var halfHeight = image.Height / 2;
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 16;
 
-        Bounds = new RectF(x + -halfWidth, y + -halfHeight, image.Width, image.Height);
+        Bounds = new RectF(
+            (x * dimensions.Width) - size,
+            (y * dimensions.Height) - size,
+            size * 2,
+            size * 2);
 
-        canvas.DrawImage(image, x + -halfWidth, y + -halfHeight, image.Width, image.Height);
+        canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(x + -halfWidth, y + -halfHeight, image.Width, image.Height);
+            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
             canvas.StrokeColor = Colors.White;
             canvas.StrokeDashPattern = new[] { 1f, 2f };
-            canvas.DrawLine(movement.OriginX, movement.OriginY, movement.DestinationX, movement.DestinationY);
+            canvas.DrawLine(
+                movement.OriginX * dimensions.Width,
+                movement.OriginY * dimensions.Height,
+                movement.DestinationX * dimensions.Width,
+                movement.DestinationY * dimensions.Height);
         }
 
         //var collision = gameSceneManager.FindCollision(this);

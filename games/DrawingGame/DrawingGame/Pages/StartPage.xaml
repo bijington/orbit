@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrawingGame.Pages.StartPage"
+    Title="StartPage">
+
+    <Grid
+        RowDefinitions="*,*,*">
+        <Label
+            Text="Draw It!"
+            FontFamily="GochiHandRegular"
+            FontSize="50"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+
+        <Frame
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300"
+            Grid.RowSpan="3">
+
+            <VerticalStackLayout
+                Margin="10"
+                Spacing="10">
+
+                <Entry
+                    x:Name="PlayerNameField"
+                    Placeholder="Name" />
+
+                <Entry
+                    x:Name="GroupNameField"
+                    Placeholder="Game name" />
+
+                <Button
+                    x:Name="CreateButton"
+                    Text="Create"
+                    Clicked="OnCreateButtonClicked" />
+
+                <Button
+                    x:Name="JoinButton"
+                    Text="Join"
+                    Clicked="OnJoinButtonClicked" />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>
+
