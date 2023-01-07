@@ -50,4 +50,19 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	  <PackageReference Include="Plugin.Maui.Audio" Version="0.1.0-preview1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+	  <PackageReference Include="Plugin.Maui.Audio" Version="0.1.0-preview1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">
+	  <PackageReference Include="Plugin.Maui.Audio" Version="0.1.0-preview1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Audio\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Audio\" />
+	</ItemGroup>
 </Project>

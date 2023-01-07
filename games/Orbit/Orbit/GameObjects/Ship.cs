@@ -66,6 +66,11 @@ public class Ship : GameObject
     {
         base.Update(millisecondsSinceLastUpdate);
 
+        if (MainPage.TouchMode != TouchMode.None)
+        {
+
+        }
+
         angle += BatteryLevel == 0 ? -0.25f : GetIncrement(MainPage.TouchMode);
 
         batteryLevel = Math.Clamp(batteryLevel - GetBatteryDrain(MainPage.TouchMode), 0, batteryMaximum);

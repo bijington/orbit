@@ -1,5 +1,7 @@
-﻿using Orbit.Engine;
+﻿using Orbit.Audio;
+using Orbit.Engine;
 using Orbit.Scenes;
+using Plugin.Maui.Audio;
 
 namespace Orbit;
 
@@ -8,6 +10,7 @@ public partial class MainPage : ContentPage
     private readonly IGameSceneManager gameSceneManager;
     private readonly HomeScene homeScene;
     private readonly MainScene mainScene;
+    private readonly AudioService audioService;
 
     public static bool ShowBounds { get; private set; } = false;
 
@@ -16,20 +19,21 @@ public partial class MainPage : ContentPage
     public MainPage(
         IGameSceneManager gameSceneManager,
         HomeScene homeScene,
-        MainScene mainScene)
+        MainScene mainScene,
+        AudioService audioService)
     {
         InitializeComponent();
 
         this.homeScene = homeScene;
         this.mainScene = mainScene;
-
+        this.audioService = audioService;
         this.gameSceneManager = gameSceneManager;
         
         gameSceneManager.StateChanged += GameSceneManager_StateChanged;
         gameSceneManager.LoadScene(homeScene, GameView);
     }
 
-    private void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
+    private async void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
     {
         switch (e.State)
         {
@@ -37,6 +41,8 @@ public partial class MainPage : ContentPage
                 Pause.IsVisible = false;
                 Play.IsVisible = true;
                 PauseMenu.IsVisible = false;
+
+                await this.audioService.Play(AudioItem.HomeBackgroundMusic);
                 break;
             case GameState.Started:
                 Play.IsVisible = false;
@@ -47,7 +53,7 @@ public partial class MainPage : ContentPage
                 PauseMenu.IsVisible = true;
                 break;
             case GameState.GameOver:
-                DisplayAlert("Game over", "", "Boo");
+                await DisplayAlert("Game over", "", "Boo");
                 break;
             default:
                 break;
