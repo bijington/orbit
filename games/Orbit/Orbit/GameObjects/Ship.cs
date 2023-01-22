@@ -51,7 +51,8 @@ public class Ship : GameObject
 
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
-        canvas.DrawImage(GetImage(MainPage.TouchMode), orbitRadius, 0, Bounds.Width, Bounds.Height);
+        var image = this.thruster.IsThrusting ? GetImage(MainPage.TouchMode) : GetImage(TouchMode.None);
+        canvas.DrawImage(image, orbitRadius, 0, Bounds.Width, Bounds.Height);
 
         //Bounds = WHAT???? Needs to include rotation and translation details ;(
 
