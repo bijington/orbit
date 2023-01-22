@@ -5,16 +5,20 @@ namespace Orbit.GameObjects;
 public class Asteroid : GameObject
 {
     private readonly IGameSceneManager gameSceneManager;
+    private readonly IServiceProvider serviceProvider;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
     Movement movement;
 
-    public Asteroid(IGameSceneManager gameSceneManager)
+    public Asteroid(
+        IGameSceneManager gameSceneManager,
+        IServiceProvider serviceProvider)
     {
         image = LoadImage("asteroid.png");
 
         this.gameSceneManager = gameSceneManager;
+        this.serviceProvider = serviceProvider;
     }
 
     public void SetMovement(Movement movement)
@@ -72,6 +76,10 @@ public class Asteroid : GameObject
         {
             planet.OnHit(25);
             CurrentScene.Remove(this);
+
+            var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
+            remains.SetBounds(this.Bounds);
+            CurrentScene.Add(remains);
         }
 
         if (collision is Ship ship)

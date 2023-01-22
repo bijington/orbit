@@ -10,7 +10,9 @@ public class Planet : GameObject
     private readonly IGameSceneManager gameSceneManager;
     private readonly IVibration vibration;
 
-    public int HealthPoints { get; private set; } = 100;
+    public float HealthPoints { get; private set; } = 100;
+
+    public float MaxHealthPoints { get; private set; } = 100;
 
     public Planet(
         IGameSceneManager gameSceneManager,
