@@ -20,7 +20,8 @@ public class Ship : GameObject
     public Ship(
         IGameSceneManager gameSceneManager,
         Thruster thruster,
-        Gun gun)
+        Gun gun,
+        Battery battery)
     {
         image = LoadImage("ship_none.png");
         speedUpImage = LoadImage("ship_forward.png");
@@ -31,6 +32,7 @@ public class Ship : GameObject
 
         Add(gun);
         Add(thruster);
+        Add(battery);
 
         gun.Ship = this;
     }

@@ -11,8 +11,6 @@ public class Thruster : GameObject
     public Thruster(Battery battery)
 	{
         this.battery = battery;
-
-        Add(battery);
     }
 
     public float Thrust { get; private set; }
@@ -21,9 +19,9 @@ public class Thruster : GameObject
 
     public override void Update(double millisecondsSinceLastUpdate)
     {
-        if (this.battery.ConsumeBatteryAmount(GetBatteryDrain(MainPage.TouchMode)))
+        if (this.battery.ConsumeBatteryAmount(Thruster.GetBatteryDrain(MainPage.TouchMode)))
         {
-            Thrust = GetThrust(MainPage.TouchMode);
+            Thrust = Thruster.GetThrust(MainPage.TouchMode);
         }
         else
         {
@@ -33,14 +31,14 @@ public class Thruster : GameObject
         base.Update(millisecondsSinceLastUpdate);
     }
 
-    private float GetBatteryDrain(TouchMode touchMode) => touchMode switch
+    private static float GetBatteryDrain(TouchMode touchMode) => touchMode switch
     {
         TouchMode.SlowDown => batteryDrain,
         TouchMode.SpeedUp => batteryDrain,
         _ => 0
     };
 
-    public float GetThrust(TouchMode touchMode) => touchMode switch
+    public static float GetThrust(TouchMode touchMode) => touchMode switch
     {
         TouchMode.None => -0.25f,
         TouchMode.SlowDown => -0.1f,
