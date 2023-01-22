@@ -34,4 +34,19 @@ public class UserInputManager
             TouchMode = TouchMode.SlowDown;
         }
     }
+
+    public void SetInputMode(UserInputMode userInputMode)
+    {
+        Mode = userInputMode;
+    }
+
+    public void SetTouchMode(TouchMode touchMode)
+    {
+        if (Mode != UserInputMode.Buttons)
+        {
+            return;
+        }
+
+        TouchMode = touchMode;
+    }
 }

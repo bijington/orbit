@@ -12,8 +12,8 @@
 
         <engine:GameSceneView
             x:Name="GameView"
-            StartInteraction="GameView_StartInteraction"
-            EndInteraction="GameView_EndInteraction" />
+            StartInteraction="OnGameViewStartInteraction"
+            EndInteraction="OnGameViewEndInteraction" />
 
         <Label
             Text="O.R.B.I.T"
@@ -22,6 +22,50 @@
             TextColor="White"
             FontSize="80"
             HorizontalOptions="Center" />
+
+        <HorizontalStackLayout
+            x:Name="ButtonPanel"
+            IsVisible="false">
+            <Button
+                ImageSource="fast_rewind.png"
+                BackgroundColor="White"
+                CornerRadius="30"
+                WidthRequest="60"
+                HeightRequest="60"
+                VerticalOptions="Center"
+                SemanticProperties.Description="Slow down."
+                SemanticProperties.Hint="Slow the ship down."
+                Clicked="OnSlowDownButtonClicked" />
+
+            <Image
+                WidthRequest="60"
+                HeightRequest="60"
+                VerticalOptions="Center"
+                Source="fast_rewind.png"
+                SemanticProperties.Description="Slow down."
+                SemanticProperties.Hint="Slow the ship down."
+                x:Name="SlowDown">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnSlowDownButtonClicked" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <Image
+                WidthRequest="60"
+                HeightRequest="60"
+                VerticalOptions="Center"
+                Source="fast_forward.png"
+                SemanticProperties.Description="Speed up."
+                SemanticProperties.Hint="Speed the ship up."
+                x:Name="SpeedUp">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnSpeedUpButtonClicked" />
+                </Image.GestureRecognizers>
+            </Image>
+
+        </HorizontalStackLayout>
 
         <Image
             WidthRequest="60"
@@ -33,7 +77,7 @@
             x:Name="Play">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                    Tapped="PlayButton_Clicked" />
+                    Tapped="OnPlayButtonClicked" />
             </Image.GestureRecognizers>
         </Image>
 
@@ -48,7 +92,7 @@
             IsVisible="False">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                    Tapped="Button_Clicked" />
+                    Tapped="OnPauseButtonClicked" />
             </Image.GestureRecognizers>
         </Image>
 
@@ -84,7 +128,20 @@
                         WidthRequest="200"/>
 
                     <Switch
-                        Toggled="Switch_Toggled"
+                        Toggled="OnDebugSwitchToggled"
+                        HorizontalOptions="End"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout
+                    WidthRequest="300">
+                    <Label
+                        Text="Show buttons"
+                        VerticalOptions="Center"
+                        TextColor="White"
+                        WidthRequest="200"/>
+
+                    <Switch
+                        Toggled="OnShowButtonsSwitchToggled"
                         HorizontalOptions="End"/>
                 </HorizontalStackLayout>
 

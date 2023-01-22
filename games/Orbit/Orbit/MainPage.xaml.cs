@@ -18,11 +18,11 @@ public partial class MainPage : ContentPage
 
         this.gameSceneManager = gameSceneManager;
         this.userInputManager = userInputManager;
-        gameSceneManager.StateChanged += GameSceneManager_StateChanged;
+        gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
-    private async void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
+    private async void OnGameSceneManagerStateChanged(object sender, GameStateChangedEventArgs e)
     {
         switch (e.State)
         {
@@ -63,17 +63,17 @@ public partial class MainPage : ContentPage
         }
     }
 
-    void GameView_EndInteraction(object sender, TouchEventArgs e)
+    void OnGameViewEndInteraction(object sender, TouchEventArgs e)
     {
         userInputManager.FinishTouch();
     }
 
-    void GameView_StartInteraction(object sender, TouchEventArgs e)
+    void OnGameViewStartInteraction(object sender, TouchEventArgs e)
     {
         userInputManager.HandleTouch(e.Touches.First().X, GameView.Width);
     }
 
-    void Button_Clicked(System.Object sender, System.EventArgs e)
+    void OnPauseButtonClicked(object sender, EventArgs e)
     {
         if (gameSceneManager.State == GameState.Paused)
         {
@@ -85,25 +85,42 @@ public partial class MainPage : ContentPage
         }
     }
 
-    void PlayButton_Clicked(System.Object sender, System.EventArgs e)
+    void OnPlayButtonClicked(object sender, EventArgs e)
     {
         gameSceneManager.LoadScene<MainScene>(GameView);
 
         gameSceneManager.Start();
     }
 
-    void OnResumeButtonClicked(System.Object sender, System.EventArgs e)
+    void OnSlowDownButtonClicked(object sender, EventArgs e)
+    {
+        userInputManager.SetTouchMode(TouchMode.SlowDown);
+    }
+
+    void OnSpeedUpButtonClicked(object sender, EventArgs e)
+    {
+        userInputManager.SetTouchMode(TouchMode.SpeedUp);
+    }
+
+    void OnResumeButtonClicked(object sender, EventArgs e)
     {
         gameSceneManager.Start();
     }
 
-    void OnQuitButtonClicked(System.Object sender, System.EventArgs e)
+    void OnQuitButtonClicked(object sender, EventArgs e)
     {
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
-    void Switch_Toggled(System.Object sender, Microsoft.Maui.Controls.ToggledEventArgs e)
+    void OnDebugSwitchToggled(object sender, ToggledEventArgs e)
     {
         ShowBounds = e.Value;
+    }
+
+    void OnShowButtonsSwitchToggled(object sender, ToggledEventArgs e)
+    {
+        userInputManager.SetInputMode(e.Value ? UserInputMode.Buttons : UserInputMode.TouchOnScreen);
+
+        ButtonPanel.IsVisible = e.Value;
     }
 }
