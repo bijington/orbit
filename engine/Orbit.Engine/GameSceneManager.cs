@@ -4,12 +4,17 @@ namespace Orbit.Engine;
 
 public class GameSceneManager : IGameSceneManager
 {
-    public GameSceneManager(IDispatcher dispatcher)
+    public GameSceneManager(
+        IDispatcher dispatcher,
+        IServiceScopeFactory serviceScopeFactory)
     {
         this.dispatcher = dispatcher;
+        this.serviceScopeFactory = serviceScopeFactory;
     }
 
     private readonly IDispatcher dispatcher;
+    private readonly IServiceScopeFactory serviceScopeFactory;
+    private IServiceScope serviceScope;
     private int callbackMilliseconds = 16;
     private GameState gameState;
     private GameSceneView gameSceneView;
@@ -17,6 +22,7 @@ public class GameSceneManager : IGameSceneManager
 
     public IGameScene CurrentScene { get; private set; }
 
+    /// <inheritdoc />
     public GameState State
     {
         get => gameState;
@@ -28,10 +34,19 @@ public class GameSceneManager : IGameSceneManager
         }
     }
 
+    /// <inheritdoc />
     public event EventHandler<GameStateChangedEventArgs> StateChanged;
 
-    public void LoadScene(IGameScene gameScene, GameSceneView gameSceneView)
+    /// <inheritdoc />
+    public void LoadScene<TScene>(GameSceneView gameSceneView)
+        where TScene : IGameScene
     {
+        this.serviceScope?.Dispose();
+
+        this.serviceScope = this.serviceScopeFactory.CreateScope();
+
+        var gameScene = this.serviceScope.ServiceProvider.GetRequiredService<TScene>();
+
         CurrentScene = gameScene;
 
         this.gameSceneView = gameSceneView;
@@ -40,26 +55,31 @@ public class GameSceneManager : IGameSceneManager
         State = GameState.Loaded;
     }
 
+    /// <inheritdoc />
     public IGameObject FindCollision(GameObject gameObject)
     {
         return CurrentScene.FindCollision(gameObject);
     }
 
+    /// <inheritdoc />
     public void GameOver()
     {
         State = GameState.GameOver;
     }
 
+    /// <inheritdoc />
     public void Pause()
     {
         State = GameState.Paused;
     }
 
+    /// <inheritdoc />
     public void Start()
     {
         State = GameState.Started;
     }
 
+    /// <inheritdoc />
     public void Stop()
     {
         State = GameState.Loaded;

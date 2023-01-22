@@ -9,7 +9,7 @@ public class Tests
     [Test]
     public void InitialStateShouldBeEmpty()
     {
-        GameSceneManager manager = new(new MockDispatcher());
+        GameSceneManager manager = new(new MockDispatcher(), null);
 
         manager.State.Should().Be(GameState.Empty);
     }
@@ -17,9 +17,14 @@ public class Tests
     [Test]
     public void LoadSceneShouldChangeStateToLoaded()
     {
-        GameSceneManager manager = new(new MockDispatcher());
+        GameSceneManager manager = new(
+            new MockDispatcher(),
+            MockServiceScopeFactory.ThatProvides(
+                () => MockServiceScope.WithServiceProvider(
+                    MockServiceProvider.ThatProvides(
+                        (typeof(MockGameScene), () => new MockGameScene())))));
 
-        manager.LoadScene(new MockGameScene(), new GameSceneView());
+        manager.LoadScene<MockGameScene>(new GameSceneView());
 
         manager.State.Should().Be(GameState.Loaded);
     }

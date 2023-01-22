@@ -26,7 +26,7 @@ public partial class MainPage : ContentPage
         this.gameSceneManager = gameSceneManager;
         
         gameSceneManager.StateChanged += GameSceneManager_StateChanged;
-        gameSceneManager.LoadScene(homeScene, GameView);
+        gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
     private async void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
@@ -62,7 +62,7 @@ public partial class MainPage : ContentPage
             case GameState.GameOver:
                 await DisplayAlert("Game over", "", "Boo");
 
-                gameSceneManager.LoadScene(homeScene, GameView);
+                gameSceneManager.LoadScene<HomeScene>(GameView);
                 break;
 
             default:
@@ -105,7 +105,7 @@ public partial class MainPage : ContentPage
 
     void PlayButton_Clicked(System.Object sender, System.EventArgs e)
     {
-        gameSceneManager.LoadScene(serviceProvider.GetRequiredService<MainScene>(), GameView);
+        gameSceneManager.LoadScene<MainScene>(GameView);
 
         gameSceneManager.Start();
     }
@@ -117,7 +117,7 @@ public partial class MainPage : ContentPage
 
     void OnQuitButtonClicked(System.Object sender, System.EventArgs e)
     {
-        gameSceneManager.LoadScene(homeScene, GameView);
+        gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
     void Switch_Toggled(System.Object sender, Microsoft.Maui.Controls.ToggledEventArgs e)

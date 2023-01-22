@@ -6,12 +6,12 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<Asteroid>()
             .AddTransient<AsteroidLauncher>()
-            .AddSingleton<Battery>()
+            .AddScoped<Battery>()
             .AddTransient<BatteryLevelIndicator>()
             .AddTransient<Gun>()
             .AddTransient<Planet>()
             .AddTransient<Shadow>()
             .AddTransient<Ship>()
             .AddTransient<Sun>()
-            .AddSingleton<Thruster>();
+            .AddScoped<Thruster>();
 }
