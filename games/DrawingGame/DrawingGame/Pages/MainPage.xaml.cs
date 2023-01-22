@@ -6,12 +6,10 @@ namespace DrawingGame.Pages;
 public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
-    private readonly MainScene mainScene;
     private readonly DrawingManager drawingManager;
 
     public MainPage(
 		IGameSceneManager gameSceneManager,
-		MainScene mainScene,
         DrawingManager drawingManager)
 	{
 		InitializeComponent();
@@ -19,7 +17,6 @@ public partial class MainPage : ContentPage
         BindingContext = drawingManager;
 
         this.gameSceneManager = gameSceneManager;
-        this.mainScene = mainScene;
         this.drawingManager = drawingManager;
     }
 
@@ -64,7 +61,7 @@ public partial class MainPage : ContentPage
 
         drawingManager.SetPage(this);
 
-        gameSceneManager.LoadScene(mainScene, SceneView);
+        gameSceneManager.LoadScene<MainScene>(SceneView);
         gameSceneManager.Start();
 
         this.ColorSelection.IsVisible = this.drawingManager.IsDrawing;
