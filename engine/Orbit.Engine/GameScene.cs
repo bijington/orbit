@@ -13,11 +13,11 @@ public abstract class GameScene : GameObjectContainer, IGameScene
         gameObject.CurrentScene = this;
     }
 
-    public GameObject FindCollision(GameObject gameObject)
+    public IGameObject FindCollision(GameObject gameObject)
     {
-        return null;
+        //return null;
         // TODO: Definite room for improvement.
-        //return gameObjects.FirstOrDefault(g => !ReferenceEquals(g, gameObject) && g.IsCollisionDetectionEnabled && g.Bounds.IntersectsWith(gameObject.Bounds));
+        return GameObjectsSnapshot.FirstOrDefault(g => !ReferenceEquals(g, gameObject) && g.IsCollisionDetectionEnabled && g.Bounds.IntersectsWith(gameObject.Bounds));
     }
 
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect) => Render(canvas, dirtyRect);

@@ -7,7 +7,7 @@ public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly HomeScene homeScene;
-    private readonly MainScene mainScene;
+    private readonly IServiceProvider serviceProvider;
 
     public static bool ShowBounds { get; private set; } = false;
 
@@ -16,12 +16,12 @@ public partial class MainPage : ContentPage
     public MainPage(
         IGameSceneManager gameSceneManager,
         HomeScene homeScene,
-        MainScene mainScene)
+        IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
         this.homeScene = homeScene;
-        this.mainScene = mainScene;
+        this.serviceProvider = serviceProvider;
 
         this.gameSceneManager = gameSceneManager;
         
@@ -29,32 +29,47 @@ public partial class MainPage : ContentPage
         gameSceneManager.LoadScene(homeScene, GameView);
     }
 
-    private void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
+    private async void GameSceneManager_StateChanged(object sender, GameStateChangedEventArgs e)
     {
         switch (e.State)
         {
             case GameState.Loaded:
                 Pause.IsVisible = false;
-                Play.IsVisible = true;
                 PauseMenu.IsVisible = false;
+                Play.IsVisible = true;
+                TitleLabel.IsVisible = true;
                 break;
+
             case GameState.Started:
-                Play.IsVisible = false;
+                await Task.WhenAll(
+                    Play.ScaleTo(0, 250, Easing.SinOut),
+                    TitleLabel.FadeTo(0, 500, Easing.SinOut));
+
                 Pause.IsVisible = true;
                 PauseMenu.IsVisible = false;
+                Play.IsVisible = false;
+                TitleLabel.IsVisible = false;
+
+                Play.Scale = 1;
+                TitleLabel.Opacity = 1;
                 break;
+
             case GameState.Paused:
                 PauseMenu.IsVisible = true;
+                TitleLabel.IsVisible = false;
                 break;
+
             case GameState.GameOver:
-                DisplayAlert("Game over", "", "Boo");
+                await DisplayAlert("Game over", "", "Boo");
+
+                gameSceneManager.LoadScene(homeScene, GameView);
                 break;
+
             default:
                 break;
         }
     }
 
-    // TODO: GameObject
     void GameView_EndInteraction(object sender, TouchEventArgs e)
     {
         TouchMode = TouchMode.None;
@@ -90,7 +105,7 @@ public partial class MainPage : ContentPage
 
     void PlayButton_Clicked(System.Object sender, System.EventArgs e)
     {
-        gameSceneManager.LoadScene(mainScene, GameView);
+        gameSceneManager.LoadScene(serviceProvider.GetRequiredService<MainScene>(), GameView);
 
         gameSceneManager.Start();
     }

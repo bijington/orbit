@@ -12,7 +12,7 @@ public interface IGameSceneManager
     /// </summary>
     event EventHandler<GameStateChangedEventArgs> StateChanged;
 
-    GameObject FindCollision(GameObject gameObject);
+    IGameObject FindCollision(GameObject gameObject);
 
     void GameOver();
 

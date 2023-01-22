@@ -40,7 +40,7 @@ public class GameSceneManager : IGameSceneManager
         State = GameState.Loaded;
     }
 
-    public GameObject FindCollision(GameObject gameObject)
+    public IGameObject FindCollision(GameObject gameObject)
     {
         return CurrentScene.FindCollision(gameObject);
     }

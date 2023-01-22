@@ -15,6 +15,14 @@
             StartInteraction="GameView_StartInteraction"
             EndInteraction="GameView_EndInteraction" />
 
+        <Label
+            Text="O.R.B.I.T"
+            x:Name="TitleLabel"
+            FontFamily="SpaceMonoBold"
+            TextColor="White"
+            FontSize="80"
+            HorizontalOptions="Center" />
+
         <Image
             WidthRequest="60"
             HeightRequest="60"
@@ -40,9 +48,11 @@
             </Image.GestureRecognizers>
         </Image>
 
-        <Frame
+        <Border
             BackgroundColor="Black"
+            Padding="20"
             x:Name="PauseMenu"
+            StrokeShape="RoundRectangle 10"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             IsVisible="False">
@@ -61,14 +71,17 @@
                     Text="RESUME"
                     Clicked="OnResumeButtonClicked" />
 
-                <HorizontalStackLayout>
+                <HorizontalStackLayout
+                    WidthRequest="300">
                     <Label
                         Text="Show debug"
                         VerticalOptions="Center"
-                        TextColor="White" />
+                        TextColor="White"
+                        WidthRequest="200"/>
 
                     <Switch
-                        Toggled="Switch_Toggled" />
+                        Toggled="Switch_Toggled"
+                        HorizontalOptions="End"/>
                 </HorizontalStackLayout>
 
                 <Button
@@ -77,6 +90,6 @@
                     Text="QUIT"
                     Clicked="OnQuitButtonClicked" />
             </VerticalStackLayout>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>
