@@ -2,8 +2,15 @@
 
 namespace Orbit.GameObjects;
 
-public class BatteryLevel : GameObject
+public class BatteryLevelIndicator : GameObject
 {
+    private readonly Battery battery;
+
+    public BatteryLevelIndicator(Battery battery)
+    {
+        this.battery = battery;
+    }
+
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         base.Render(canvas, dimensions);
@@ -16,7 +23,7 @@ public class BatteryLevel : GameObject
         canvas.StrokeColor = Colors.Gray;
         canvas.DrawLine(30, -initialY, 30, initialY);
 
-        float actualLevelHeight = height * Ship.BatteryLevel;
+        float actualLevelHeight = height * this.battery.BatteryLevel;
         float y = height - actualLevelHeight;
 
         canvas.StrokeSize = 20;

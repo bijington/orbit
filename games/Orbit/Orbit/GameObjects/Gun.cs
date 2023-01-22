@@ -4,7 +4,16 @@ namespace Orbit.GameObjects;
 
 public class Gun : GameObject
 {
+    private readonly IGameSceneManager gameSceneManager;
+
     public Ship Ship { get; set; }
+
+    public Gun(IGameSceneManager gameSceneManager)
+    {
+        this.gameSceneManager = gameSceneManager;
+    }
+
+    public override bool IsCollisionDetectionEnabled => true;
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

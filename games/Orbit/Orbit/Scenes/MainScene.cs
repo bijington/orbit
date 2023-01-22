@@ -9,13 +9,13 @@ public class MainScene : GameScene
         Ship ship,
         Sun sun,
         Planet planet,
-        BatteryLevel batteryLevel,
+        BatteryLevelIndicator BatteryLevelIndicator,
         AsteroidLauncher asteroidLauncher)
     {
         Add(sun);
-        Add(planet);
         Add(ship);
-        Add(batteryLevel);
         Add(asteroidLauncher);
+        Add(planet);
+        Add(BatteryLevelIndicator);
     }
 }

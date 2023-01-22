@@ -47,7 +47,7 @@ public class Planet : GameObject
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
         }
     }
 
