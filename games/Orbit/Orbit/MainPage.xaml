@@ -28,6 +28,8 @@
             HeightRequest="60"
             VerticalOptions="Center"
             Source="play.png"
+            SemanticProperties.Description="Play button."
+            SemanticProperties.Hint="Start the game."
             x:Name="Play">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
@@ -41,6 +43,8 @@
             VerticalOptions="Start"
             Source="pause.png"
             x:Name="Pause"
+            SemanticProperties.Description="Pause button."
+            SemanticProperties.Hint="Pause the game."
             IsVisible="False">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer

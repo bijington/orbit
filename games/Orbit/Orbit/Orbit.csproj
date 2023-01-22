@@ -53,4 +53,11 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\EmbeddedResources\asteroid_remains.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="**/*" />
+	  <BundleResource Include="Resources\EmbeddedResources\*" />
+	</ItemGroup>
 </Project>

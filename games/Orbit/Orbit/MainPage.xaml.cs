@@ -6,25 +6,18 @@ namespace Orbit;
 public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
-    private readonly HomeScene homeScene;
-    private readonly IServiceProvider serviceProvider;
+    private readonly UserInputManager userInputManager;
 
     public static bool ShowBounds { get; private set; } = false;
 
-    public static TouchMode TouchMode { get; private set; }
-
     public MainPage(
         IGameSceneManager gameSceneManager,
-        HomeScene homeScene,
-        IServiceProvider serviceProvider)
+        UserInputManager userInputManager)
     {
         InitializeComponent();
 
-        this.homeScene = homeScene;
-        this.serviceProvider = serviceProvider;
-
         this.gameSceneManager = gameSceneManager;
-        
+        this.userInputManager = userInputManager;
         gameSceneManager.StateChanged += GameSceneManager_StateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
@@ -72,23 +65,12 @@ public partial class MainPage : ContentPage
 
     void GameView_EndInteraction(object sender, TouchEventArgs e)
     {
-        TouchMode = TouchMode.None;
+        userInputManager.FinishTouch();
     }
 
     void GameView_StartInteraction(object sender, TouchEventArgs e)
     {
-        var middle = GameView.Width / 2;
-
-        var touchX = e.Touches.First().X;
-
-        if (touchX >= middle)
-        {
-            TouchMode = TouchMode.SpeedUp;
-        }
-        else
-        {
-            TouchMode = TouchMode.SlowDown;
-        }
+        userInputManager.HandleTouch(e.Touches.First().X, GameView.Width);
     }
 
     void Button_Clicked(System.Object sender, System.EventArgs e)

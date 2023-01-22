@@ -5,12 +5,15 @@ namespace Orbit.GameObjects;
 public class Thruster : GameObject
 {
     private readonly Battery battery;
-
+    private readonly UserInputManager userInputManager;
     private const float batteryDrain = 0.5f;
 
-    public Thruster(Battery battery)
+    public Thruster(
+        Battery battery,
+        UserInputManager userInputManager)
 	{
         this.battery = battery;
+        this.userInputManager = userInputManager;
     }
 
     public float Thrust { get; private set; }
@@ -19,9 +22,9 @@ public class Thruster : GameObject
 
     public override void Update(double millisecondsSinceLastUpdate)
     {
-        if (this.battery.ConsumeBatteryAmount(Thruster.GetBatteryDrain(MainPage.TouchMode)))
+        if (this.battery.ConsumeBatteryAmount(Thruster.GetBatteryDrain(userInputManager.TouchMode)))
         {
-            Thrust = Thruster.GetThrust(MainPage.TouchMode);
+            Thrust = Thruster.GetThrust(userInputManager.TouchMode);
         }
         else
         {

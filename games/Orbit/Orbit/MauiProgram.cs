@@ -22,6 +22,7 @@ public static class MauiProgram
                 .AddTransient<MainPage>()
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
+                .AddSingleton<UserInputManager>()
                 .RegisterGameObjects()
                 .RegisterScenes();
 

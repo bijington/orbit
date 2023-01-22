@@ -9,6 +9,7 @@ public class Ship : GameObject
     readonly Microsoft.Maui.Graphics.IImage image;
     private readonly IGameSceneManager gameSceneManager;
     private readonly Thruster thruster;
+    private readonly UserInputManager userInputManager;
     public float angle = 0f;
 
     // TODO: Different types of collision here:
@@ -21,7 +22,8 @@ public class Ship : GameObject
         IGameSceneManager gameSceneManager,
         Thruster thruster,
         Gun gun,
-        Battery battery)
+        Battery battery,
+        UserInputManager userInputManager)
     {
         image = LoadImage("ship_none.png");
         speedUpImage = LoadImage("ship_forward.png");
@@ -29,7 +31,7 @@ public class Ship : GameObject
 
         this.gameSceneManager = gameSceneManager;
         this.thruster = thruster;
-
+        this.userInputManager = userInputManager;
         Add(gun);
         Add(thruster);
         Add(battery);
@@ -53,7 +55,7 @@ public class Ship : GameObject
 
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
-        var image = this.thruster.IsThrusting ? GetImage(MainPage.TouchMode) : GetImage(TouchMode.None);
+        var image = this.thruster.IsThrusting ? GetImage(userInputManager.TouchMode) : GetImage(TouchMode.None);
         canvas.DrawImage(image, orbitRadius, 0, Bounds.Width, Bounds.Height);
 
         //Bounds = WHAT???? Needs to include rotation and translation details ;(
