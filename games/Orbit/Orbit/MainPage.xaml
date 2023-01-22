@@ -25,45 +25,33 @@
 
         <HorizontalStackLayout
             x:Name="ButtonPanel"
-            IsVisible="false">
+            VerticalOptions="End"
+            IsVisible="false"
+            Margin="50"
+            Spacing="40">
             <Button
                 ImageSource="fast_rewind.png"
                 BackgroundColor="White"
                 CornerRadius="30"
-                WidthRequest="60"
-                HeightRequest="60"
+                WidthRequest="80"
+                HeightRequest="80"
                 VerticalOptions="Center"
                 SemanticProperties.Description="Slow down."
                 SemanticProperties.Hint="Slow the ship down."
-                Clicked="OnSlowDownButtonClicked" />
+                Pressed="OnSlowDownButtonPressed"
+                Released="OnSlowDownButtonReleased" />
 
-            <Image
-                WidthRequest="60"
-                HeightRequest="60"
+            <Button
+                ImageSource="fast_forward.png"
+                BackgroundColor="White"
+                CornerRadius="30"
+                WidthRequest="80"
+                HeightRequest="80"
                 VerticalOptions="Center"
-                Source="fast_rewind.png"
-                SemanticProperties.Description="Slow down."
-                SemanticProperties.Hint="Slow the ship down."
-                x:Name="SlowDown">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Tapped="OnSlowDownButtonClicked" />
-                </Image.GestureRecognizers>
-            </Image>
-
-            <Image
-                WidthRequest="60"
-                HeightRequest="60"
-                VerticalOptions="Center"
-                Source="fast_forward.png"
                 SemanticProperties.Description="Speed up."
                 SemanticProperties.Hint="Speed the ship up."
-                x:Name="SpeedUp">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Tapped="OnSpeedUpButtonClicked" />
-                </Image.GestureRecognizers>
-            </Image>
+                Pressed="OnSpeedUpButtonPressed"
+                Released="OnSpeedUpButtonReleased" />
 
         </HorizontalStackLayout>
 

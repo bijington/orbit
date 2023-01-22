@@ -92,14 +92,24 @@ public partial class MainPage : ContentPage
         gameSceneManager.Start();
     }
 
-    void OnSlowDownButtonClicked(object sender, EventArgs e)
+    void OnSlowDownButtonPressed(object sender, EventArgs e)
     {
         userInputManager.SetTouchMode(TouchMode.SlowDown);
     }
 
-    void OnSpeedUpButtonClicked(object sender, EventArgs e)
+    void OnSlowDownButtonReleased(object sender, EventArgs e)
+    {
+        userInputManager.SetTouchMode(TouchMode.None);
+    }
+
+    void OnSpeedUpButtonPressed(object sender, EventArgs e)
     {
         userInputManager.SetTouchMode(TouchMode.SpeedUp);
+    }
+
+    void OnSpeedUpButtonReleased(object sender, EventArgs e)
+    {
+        userInputManager.SetTouchMode(TouchMode.None);
     }
 
     void OnResumeButtonClicked(object sender, EventArgs e)
