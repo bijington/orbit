@@ -17,15 +17,18 @@ public class Tests
     [Test]
     public void LoadSceneShouldChangeStateToLoaded()
     {
+        var sceneInstance = new MockGameScene();
         GameSceneManager manager = new(
             new MockDispatcher(),
             MockServiceScopeFactory.ThatProvides(
                 () => MockServiceScope.WithServiceProvider(
                     MockServiceProvider.ThatProvides(
-                        (typeof(MockGameScene), () => new MockGameScene())))));
+                        (typeof(MockGameScene), () => sceneInstance)))));
 
         manager.LoadScene<MockGameScene>(new GameSceneView());
 
         manager.State.Should().Be(GameState.Loaded);
+
+        manager.CurrentScene.Should().Be(sceneInstance);
     }
 }
