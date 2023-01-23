@@ -123,10 +123,13 @@ public MyPage()
 Once you have added your `GameSceneView` you need to use the `IGameSceneManager` implementation to call `LoadScene`.
 
 ```csharp
-public MyPage(IGameSceneManager gameSceneManager, MainScene mainScene)
+public MyPage(IGameSceneManager gameSceneManager)
 {
-    gameSceneManager.LoadScene(mainScene, GameView);
+    gameSceneManager.LoadScene<MainScene>(GameView);
 }
 ```
 
 This will leave the scene in the `Loaded` state, in order to actually start the game you will need to call `gameSceneManager.Start()`.
+
+> **Note**
+> The lifetime of dependencies are scoped per call to `LoadScene` therefore if you register implementations as `AddScoped` with the `MauiAppBuilder` then you will get a new instance each time `LoadScene` is called. This works particularly well when you need a single instance for the life of a scene.

@@ -12,16 +12,18 @@ public interface IGameSceneManager
     /// </summary>
     event EventHandler<GameStateChangedEventArgs> StateChanged;
 
-    GameObject FindCollision(GameObject gameObject);
+    IGameObject FindCollision(GameObject gameObject);
 
     void GameOver();
 
     /// <summary>
-    /// Loads the supplied <paramref name="gameScene"/> into the supplied <paramref name="gameSceneView"/>.
+    /// Loads the supplied <typeparamref name="TScene"/> into the supplied <paramref name="gameSceneView"/>.
+    /// Note that for each scene that is loaded a new <see cref="IServiceScope"/> will be created.
     /// </summary>
-    /// <param name="gameScene">The <see cref="IGameScene"/> implementation to load.</param>
-    /// <param name="gameSceneView">The destination <see cref="GameSceneView"/> to display the supplied <paramref name="gameScene"/>.</param>
-    void LoadScene(IGameScene gameScene, GameSceneView gameSceneView);
+    /// <typeparam name="TScene">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/></typeparam>
+    /// <param name="gameSceneView">The destination <see cref="GameSceneView"/> to display.</param>
+    void LoadScene<TScene>(GameSceneView gameSceneView)
+        where TScene: IGameScene;
 
     void Pause();
     void Start();

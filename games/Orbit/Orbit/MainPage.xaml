@@ -12,18 +12,60 @@
 
         <engine:GameSceneView
             x:Name="GameView"
-            StartInteraction="GameView_StartInteraction"
-            EndInteraction="GameView_EndInteraction" />
+            StartInteraction="OnGameViewStartInteraction"
+            EndInteraction="OnGameViewEndInteraction" />
+
+        <Label
+            Text="O.R.B.I.T"
+            x:Name="TitleLabel"
+            FontFamily="SpaceMonoBold"
+            TextColor="White"
+            FontSize="80"
+            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout
+            x:Name="ButtonPanel"
+            VerticalOptions="End"
+            IsVisible="false"
+            Margin="50"
+            Spacing="40">
+            <Button
+                ImageSource="fast_rewind.png"
+                BackgroundColor="White"
+                CornerRadius="30"
+                WidthRequest="80"
+                HeightRequest="80"
+                VerticalOptions="Center"
+                SemanticProperties.Description="Slow down."
+                SemanticProperties.Hint="Slow the ship down."
+                Pressed="OnSlowDownButtonPressed"
+                Released="OnSlowDownButtonReleased" />
+
+            <Button
+                ImageSource="fast_forward.png"
+                BackgroundColor="White"
+                CornerRadius="30"
+                WidthRequest="80"
+                HeightRequest="80"
+                VerticalOptions="Center"
+                SemanticProperties.Description="Speed up."
+                SemanticProperties.Hint="Speed the ship up."
+                Pressed="OnSpeedUpButtonPressed"
+                Released="OnSpeedUpButtonReleased" />
+
+        </HorizontalStackLayout>
 
         <Image
             WidthRequest="60"
             HeightRequest="60"
             VerticalOptions="Center"
             Source="play.png"
+            SemanticProperties.Description="Play button."
+            SemanticProperties.Hint="Start the game."
             x:Name="Play">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                    Tapped="PlayButton_Clicked" />
+                    Tapped="OnPlayButtonClicked" />
             </Image.GestureRecognizers>
         </Image>
 
@@ -33,16 +75,20 @@
             VerticalOptions="Start"
             Source="pause.png"
             x:Name="Pause"
+            SemanticProperties.Description="Pause button."
+            SemanticProperties.Hint="Pause the game."
             IsVisible="False">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                    Tapped="Button_Clicked" />
+                    Tapped="OnPauseButtonClicked" />
             </Image.GestureRecognizers>
         </Image>
 
-        <Frame
+        <Border
             BackgroundColor="Black"
+            Padding="20"
             x:Name="PauseMenu"
+            StrokeShape="RoundRectangle 10"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             IsVisible="False">
@@ -61,14 +107,30 @@
                     Text="RESUME"
                     Clicked="OnResumeButtonClicked" />
 
-                <HorizontalStackLayout>
+                <HorizontalStackLayout
+                    WidthRequest="300">
                     <Label
                         Text="Show debug"
                         VerticalOptions="Center"
-                        TextColor="White" />
+                        TextColor="White"
+                        WidthRequest="200"/>
 
                     <Switch
-                        Toggled="Switch_Toggled" />
+                        Toggled="OnDebugSwitchToggled"
+                        HorizontalOptions="End"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout
+                    WidthRequest="300">
+                    <Label
+                        Text="Show buttons"
+                        VerticalOptions="Center"
+                        TextColor="White"
+                        WidthRequest="200"/>
+
+                    <Switch
+                        Toggled="OnShowButtonsSwitchToggled"
+                        HorizontalOptions="End"/>
                 </HorizontalStackLayout>
 
                 <Button
@@ -77,6 +139,6 @@
                     Text="QUIT"
                     Clicked="OnQuitButtonClicked" />
             </VerticalStackLayout>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

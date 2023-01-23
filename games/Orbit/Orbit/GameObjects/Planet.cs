@@ -8,16 +8,20 @@ public class Planet : GameObject
     float angle = 0;
     const float rotationIncrement = -0.25f;
     private readonly IGameSceneManager gameSceneManager;
+    private readonly IVibration vibration;
 
-    public int HealthPoints { get; private set; } = 100;
+    public float HealthPoints { get; private set; } = 100;
+
+    public float MaxHealthPoints { get; private set; } = 100;
 
     public Planet(
         IGameSceneManager gameSceneManager,
-        Shadow shadow)
+        Shadow shadow,
+        IVibration vibration)
     {
         image = LoadImage("planet.png");
         this.gameSceneManager = gameSceneManager;
-
+        this.vibration = vibration;
         Add(shadow);
 
         shadow.Planet = this;
@@ -43,13 +47,9 @@ public class Planet : GameObject
 
         if (MainPage.ShowBounds)
         {
-            //canvas.RestoreState();
-
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawRectangle(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
-
-            //canvas.ResetState();
+            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
         }
     }
 
@@ -63,6 +63,8 @@ public class Planet : GameObject
     public void OnHit(int damage)
     {
         HealthPoints = Math.Max(HealthPoints - damage, 0);
+
+        this.vibration.Vibrate();
 
         if (HealthPoints == 0)
         {

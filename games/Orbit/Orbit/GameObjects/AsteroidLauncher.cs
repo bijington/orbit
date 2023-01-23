@@ -82,6 +82,7 @@ public class AsteroidLauncher : GameObject
             Console.WriteLine($"Spawning at {origin} heading to {destination} at speed {speed}");
 
             CurrentScene.Add(asteroid);
+
             lastSpawn = DateTime.UtcNow;
             nextSpawn = random.NextDouble() * spawnMaximum;
         }
