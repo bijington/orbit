@@ -55,9 +55,16 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\EmbeddedResources\asteroid_remains.png" />
+	  <None Remove="Audio\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="**/*" />
 	  <BundleResource Include="Resources\EmbeddedResources\*" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Audio\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Plugin.Maui.Audio" Version="1.0.0" />
 	</ItemGroup>
 </Project>

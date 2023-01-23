@@ -1,6 +1,8 @@
-﻿using Orbit.Engine;
+﻿using Orbit.Audio;
+using Orbit.Engine;
 using Orbit.GameObjects;
 using Orbit.Scenes;
+using Plugin.Maui.Audio;
 
 namespace Orbit;
 
@@ -23,6 +25,9 @@ public static class MauiProgram
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
                 .AddSingleton<UserInputManager>()
+                .AddSingleton(FileSystem.Current)
+                .AddSingleton(AudioManager.Current)
+                .AddSingleton<AudioService>()
                 .RegisterGameObjects()
                 .RegisterScenes();
 
