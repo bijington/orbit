@@ -36,7 +36,7 @@ public partial class MainPage : ContentPage
                 Play.IsVisible = true;
                 TitleLabel.IsVisible = true;
 
-                await this.audioService.Play(AudioItem.HomeBackgroundMusic);
+                await this.audioService.Play(AudioItem.HomeBackgroundMusic, true);
                 break;
 
             case GameState.Started:

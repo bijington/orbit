@@ -9,7 +9,7 @@ public class SoundEffectService
         [SoundEffect.Thruster] = "engine-heavy-loop.mp3"
     };
 
-    public string GetSoundEffectFile(SoundEffect soundEffect) =>
+    public static string GetSoundEffectFile(SoundEffect soundEffect) =>
         soundEffectToResourceMapping[soundEffect];
 
 }

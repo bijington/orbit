@@ -17,18 +17,31 @@ public class AudioService
         this.fileSystem = fileSystem;
     }
 
-    public async Task Play(string audioItem)
+    public async Task Play(string audioItem, bool loop)
     {
         if (!players.TryGetValue(audioItem, out var audioPlayer))
         {
             audioPlayer = audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync(audioItem));
 
             players[audioItem] = audioPlayer;
+
+            audioPlayer.Loop = loop;
         }
 
         if (!audioPlayer.IsPlaying)
         {
             audioPlayer.Play();
+        }
+    }
+
+    public void Stop(string audioItem)
+    {
+        if (players.TryGetValue(audioItem, out var audioPlayer))
+        {
+            if (audioPlayer.IsPlaying)
+            {
+                audioPlayer.Stop();
+            }
         }
     }
 }
