@@ -6,6 +6,7 @@ public class Asteroid : GameObject
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly IServiceProvider serviceProvider;
+    private readonly IVibration vibration;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
@@ -13,12 +14,14 @@ public class Asteroid : GameObject
 
     public Asteroid(
         IGameSceneManager gameSceneManager,
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider,
+        IVibration vibration)
     {
         image = LoadImage("asteroid.png");
 
         this.gameSceneManager = gameSceneManager;
         this.serviceProvider = serviceProvider;
+        this.vibration = vibration;
     }
 
     public void SetMovement(Movement movement)
@@ -80,6 +83,8 @@ public class Asteroid : GameObject
             var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
             remains.SetBounds(this.Bounds);
             CurrentScene.Add(remains);
+
+            this.vibration.Vibrate();
         }
 
         if (collision is Ship ship)
