@@ -20,7 +20,7 @@ public partial class MainPage : ContentPage
         this.gameSceneManager = gameSceneManager;
         this.mainScene = mainScene;
         //gameSceneManager.StateChanged += GameSceneManager_StateChanged;
-        gameSceneManager.LoadScene(mainScene, GameView);
+        gameSceneManager.LoadScene<MainScene>(GameView);
 
         gameSceneManager.Start();
     }
