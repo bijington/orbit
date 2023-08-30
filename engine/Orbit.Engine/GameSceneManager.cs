@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Dispatching;
+﻿using System.Diagnostics;
+using Microsoft.Maui.Dispatching;
 
 namespace Orbit.Engine;
 
@@ -41,11 +42,16 @@ public class GameSceneManager : IGameSceneManager
     public void LoadScene<TScene>(GameSceneView gameSceneView)
         where TScene : IGameScene
     {
+        LoadScene(typeof(TScene), gameSceneView);
+    }
+
+    public void LoadScene(Type sceneType, GameSceneView gameSceneView)
+    {
         this.serviceScope?.Dispose();
 
         this.serviceScope = this.serviceScopeFactory.CreateScope();
 
-        var gameScene = this.serviceScope.ServiceProvider.GetRequiredService<TScene>();
+        var gameScene = (GameScene)this.serviceScope.ServiceProvider.GetRequiredService(sceneType);
 
         CurrentScene = gameScene;
 
@@ -76,6 +82,7 @@ public class GameSceneManager : IGameSceneManager
     /// <inheritdoc />
     public void Start()
     {
+        lastUpdate = DateTime.UtcNow;
         State = GameState.Started;
     }
 

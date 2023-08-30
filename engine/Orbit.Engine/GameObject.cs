@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.Maui.Graphics;
 #if WINDOWS
 using Microsoft.Maui.Graphics.Win2D;
 #else
@@ -17,20 +18,6 @@ public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
     public GameScene CurrentScene { get; internal set; } // TODO: weak reference?
 
     public virtual bool IsCollisionDetectionEnabled { get; }
-
-    protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)
-    {
-        var assembly = GetType().GetTypeInfo().Assembly;
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.EmbeddedResources." + imageName))
-        {
-#if WINDOWS
-            return new W2DImageLoadingService().FromStream(stream);
-#else
-            return PlatformImage.FromStream(stream);
-#endif
-        }
-    }
 
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
     {
