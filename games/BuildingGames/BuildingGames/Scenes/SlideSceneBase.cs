@@ -4,7 +4,23 @@ namespace BuildingGames.Scenes;
 
 public abstract class SlideSceneBase : GameScene
 {
-    public abstract bool CanProgress { get; }
+    public virtual bool CanGoBack { get; } = true;
+
+    public virtual bool CanProgress { get; } = true;
+
+    public virtual void GoBack()
+    {
+        this.Back?.Invoke(this);
+    }
+
+    public virtual void Progress()
+    {
+        this.Next?.Invoke(this);
+    }
+
+    public event Action<SlideSceneBase> Back;
+
+    public event Action<SlideSceneBase> Next;
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
@@ -13,25 +29,31 @@ public abstract class SlideSceneBase : GameScene
         var font = Styling.Font;
 
         canvas.Font = font;
-        canvas.FontSize = 25;
-        canvas.FontColor = Colors.White;
+        canvas.FontSize = Styling.FooterSize;
+        canvas.FontColor = Styling.FooterColor;
 
         canvas.DrawString(
             dimensions,
             "Shaun Lawrence",
+            Styling.TitleColor,
+            Colors.Transparent,
+            1,
             font,
-            25,
-            new PointF(10, dimensions.Bottom - 40),
+            Styling.FooterSize,
+            new PointF(10, dimensions.Bottom - 60),
             HorizontalAlignment.Left,
-            VerticalAlignment.Bottom);
+            VerticalAlignment.Top);
 
         canvas.DrawString(
             dimensions,
             "@Bijington",
+            Styling.TitleColor,
+            Colors.Transparent,
+            1,
             font,
-            25,
-            new PointF(-10, dimensions.Bottom - 40),
+            Styling.FooterSize,
+            new PointF(-10, dimensions.Bottom - 60),
             HorizontalAlignment.Right,
-            VerticalAlignment.Bottom);
+            VerticalAlignment.Top);
     }
 }

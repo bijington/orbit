@@ -17,7 +17,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("PublicPixel.ttf", "PublicPixel");
-                fonts.AddFont("JosefinSans-VariableFont_wght.ttf", "Josefin");
+                fonts.AddFont("JosefinSans-Regular.ttf", "Josefin Sans");
+                fonts.AddFont("JosefinSans-Bold.ttf", "Josefin Sans Bold");
+                fonts.AddFont("CourierPrime-Regular.ttf", "Courier Prime");
             })
             .Services
                 .AddTransient<MainPage>()

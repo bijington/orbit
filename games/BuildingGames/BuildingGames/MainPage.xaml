@@ -7,14 +7,14 @@
     Shell.NavBarIsVisible="False">
 
     <Grid>
-        <Image
+        <!--<Image
             Source="background.png"
             Aspect="AspectFill"
-            Opacity="0.6" />
+            Opacity="0.6" />-->
 
         <engine:GameSceneView
             x:Name="GameView"
-            BackgroundColor="Transparent"
+            BackgroundColor="#18263A"
             StartInteraction="GameView_StartInteraction" />
     </Grid>
  

@@ -2,7 +2,7 @@
 
 namespace BuildingGames.Scenes;
 
-public class CharacterSelectionScene : SlideSceneBase
+public class Slide02 : SlideSceneBase
 {
     const float padding = 40f;
     const int columns = 3;
@@ -14,9 +14,9 @@ public class CharacterSelectionScene : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    public override bool CanProgress => currentCharacterIndex == 0;
+    //public override bool CanProgress => currentCharacterIndex == 0;
 
-    public CharacterSelectionScene(ControllerManager controllerManager)
+    public Slide02(ControllerManager controllerManager)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {
@@ -37,8 +37,8 @@ public class CharacterSelectionScene : SlideSceneBase
                 Weaknesses = new List<string>
                 {
                     "Distracted easily",
-                    "Rubbish at paddleboarding",
-                    "Cake"
+                    "Cake",
+                    "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes"
                 },
                 ImageName = "shaun.png"
             },
@@ -46,31 +46,31 @@ public class CharacterSelectionScene : SlideSceneBase
             {
                 Name = "??",
                 IsLocked = true,
-                UnlockCriteria = "Reach 1,000m to unlock this boarder"
+                UnlockCriteria = "Listen for 60 minutes to unlock this character"
             },
             new Character
             {
                 Name = "??",
                 IsLocked = true,
-                UnlockCriteria = "Reach 10,000m to unlock this boarder"
+                UnlockCriteria = "Listen for 120 minutes to unlock this character"
             },
             new Character
             {
                 Name = "??",
                 IsLocked = true,
-                UnlockCriteria = "Reach 30,000m to unlock this boarder"
+                UnlockCriteria = "Listen for 180 minutes to unlock this character"
             },
             new Character
             {
                 Name = "??",
                 IsLocked = true,
-                UnlockCriteria = "Reach 100,000m to unlock this boarder"
+                UnlockCriteria = "Listen for 240 minutes to unlock this character"
             },
             new Character
             {
                 Name = "??",
                 IsLocked = true,
-                UnlockCriteria = "Reach 1,000,000m to unlock this boarder"
+                UnlockCriteria = "Listen for 300 minutes to unlock this character"
             }
         };
 
@@ -81,24 +81,7 @@ public class CharacterSelectionScene : SlideSceneBase
     {
         base.Render(canvas, dimensions);
 
-        var font = Styling.Font;
-        canvas.Font = font;
-        canvas.FontSize = 50;
-        canvas.FontColor = Colors.White;
-        canvas.SetShadow(new SizeF(5, 5), 5, Colors.Black);
-
-        // Title
-        // 1 2 |
-        // 3 4 |
-
-        canvas.DrawString(
-            dimensions,
-            "Choose your boarder",
-            font,
-            50,
-            new PointF(0, 30),
-            HorizontalAlignment.Center,
-            VerticalAlignment.Center);
+        Styling.RenderTitle("Character selection", canvas, dimensions);
 
         float tileWidth = ((dimensions.Width / columns) - (padding * (columns + 1))) / rows;
         float yOffset = 200;
@@ -106,6 +89,7 @@ public class CharacterSelectionScene : SlideSceneBase
         canvas.FillColor = Colors.Black;
         canvas.StrokeColor = Colors.Orange;
         canvas.StrokeSize = 4;
+        canvas.SetShadow(new SizeF(0, 0), 0, Colors.Transparent);
 
         for (int x = 0; x < columns; x++)
         {
@@ -144,6 +128,7 @@ public class CharacterSelectionScene : SlideSceneBase
 
         var character = this.characters[currentCharacterIndex];
 
+        var font = Styling.Font;
         canvas.Font = font;
         canvas.FontSize = 30;
         canvas.FontColor = Colors.White;
@@ -153,6 +138,9 @@ public class CharacterSelectionScene : SlideSceneBase
         canvas.DrawString(
             new RectF(dimensions.Center.X + padding, yOffset, columnWidth, 100),
             $"Name:{Environment.NewLine}{character.Name}",
+            Styling.TitleColor,
+            Colors.Transparent,
+            1,
             font,
             30,
             new PointF(dimensions.Center.X + padding, yOffset),
@@ -163,7 +151,10 @@ public class CharacterSelectionScene : SlideSceneBase
         {
             canvas.DrawString(
                 new RectF(dimensions.Center.X + padding, yOffset + 100, columnWidth, 100),
-                $"Strengths:{Environment.NewLine}{string.Join(Environment.NewLine, character.Strengths)}",
+                $"Strengths:{Environment.NewLine} - {string.Join($"{Environment.NewLine} - ", character.Strengths)}",
+                Styling.TitleColor,
+                Colors.Transparent,
+                1,
                 font,
                 30,
                 new PointF(dimensions.Center.X + padding, yOffset + 100),
@@ -172,7 +163,10 @@ public class CharacterSelectionScene : SlideSceneBase
 
             canvas.DrawString(
                 new RectF(dimensions.Center.X + padding, yOffset + 400, columnWidth, 100),
-                $"Weaknesses:{Environment.NewLine}{string.Join(Environment.NewLine, character.Weaknesses)}",
+                $"Weaknesses:{Environment.NewLine} - {string.Join($"{Environment.NewLine} - ", character.Weaknesses)}",
+                Styling.TitleColor,
+                Colors.Transparent,
+                1,
                 font,
                 30,
                 new PointF(dimensions.Center.X + padding, yOffset + 400),
@@ -184,6 +178,9 @@ public class CharacterSelectionScene : SlideSceneBase
             canvas.DrawString(
                 new RectF(dimensions.Center.X + padding, yOffset + 100, columnWidth, 100),
                 character.UnlockCriteria,
+                Styling.TitleColor,
+                Colors.Transparent,
+                1,
                 font,
                 30,
                 new PointF(dimensions.Center.X + padding, yOffset + 100),

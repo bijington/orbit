@@ -10,15 +10,10 @@ public partial class MainPage : ContentPage
 
     public IList<Type> slides = new List<Type>()
     {
-        typeof(TitleScene),
-        typeof(CharacterSelectionScene),
-        typeof(GraphicsScene),
-        typeof(HandlingInputScene),
-        typeof(GameControllerScene),
-        typeof(GameControllerPartTwoScene),
-        typeof(MainScene),
-        typeof(FreeMainScene),
-        typeof(CreditsScene),
+        typeof(Slide01),
+        typeof(Slide02),
+        typeof(Slide03),
+        typeof(Slide04)
     };
 
     public MainPage(
@@ -30,38 +25,80 @@ public partial class MainPage : ContentPage
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
 
-        gameSceneManager.LoadScene(this.slides.First(), GameView);
-        gameSceneManager.Start();
+        LoadSlide(this.slides.First());
+        //gameSceneManager.Start();
 
 #if MACCATALYST
-        this.controllerManager.Initialise();
-        this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
+        //this.controllerManager.Initialise();
+        //this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
 #endif
     }
 
     private void ControllerManager_ButtonPressed(ControllerButton controllerButton)
     {
-        if (controllerButton == ControllerButton.NavigateForward &&
-            GameView.Scene is SlideSceneBase slideSceneBase &&
-            slideSceneBase.CanProgress)
-        {
-            var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) + 1;
+        //if (controllerButton == ControllerButton.NavigateForward &&
+        //    GameView.Scene is SlideSceneBase slideSceneBase &&
+        //    slideSceneBase.CanProgress)
+        //{
+        //    var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) + 1;
 
-            this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
-            this.gameSceneManager.Start();
+        //    this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
+        //    this.gameSceneManager.Start();
+        //}
+        //else if (controllerButton == ControllerButton.NavigateBackward)
+        //{
+        //    var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) - 1;
+
+        //    this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
+        //    this.gameSceneManager.Start();
+        //}
+    }
+
+    void LoadSlide(Type sceneType)
+    {
+        if (GameView.Scene is SlideSceneBase previousScene)
+        {
+            previousScene.Back -= OnCurrentSceneBack;
+            previousScene.Next -= OnCurrentSceneNext;
         }
-        else if (controllerButton == ControllerButton.NavigateBackward)
-        {
-            var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) - 1;
 
-            this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
-            this.gameSceneManager.Start();
+        this.gameSceneManager.LoadScene(sceneType, GameView);
+
+        if (GameView.Scene is SlideSceneBase nextScene)
+        {
+            nextScene.Back += OnCurrentSceneBack;
+            nextScene.Next += OnCurrentSceneNext;
+        }
+
+        this.gameSceneManager.Start();
+    }
+
+    private void OnCurrentSceneNext(SlideSceneBase sender)
+    {
+        var nextSceneIndex = this.slides.IndexOf(sender.GetType()) + 1;
+
+        if (nextSceneIndex < this.slides.Count)
+        {
+            this.LoadSlide(this.slides[nextSceneIndex]);
         }
     }
 
-    void GameView_StartInteraction(System.Object sender, Microsoft.Maui.Controls.TouchEventArgs e)
+    private void OnCurrentSceneBack(SlideSceneBase sender)
     {
-        this.gameSceneManager.LoadScene<CharacterSelectionScene>(GameView);
-        this.gameSceneManager.Start();
+        var previousSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) - 1;
+
+        if (previousSceneIndex >= 0)
+        {
+            this.LoadSlide(this.slides[previousSceneIndex]);
+        }
+    }
+
+    void GameView_StartInteraction(object sender, TouchEventArgs e)
+    {
+        if (GameView.Scene is SlideSceneBase slideSceneBase &&
+            slideSceneBase.CanProgress)
+        {
+            slideSceneBase.Progress();
+        }
     }
 }

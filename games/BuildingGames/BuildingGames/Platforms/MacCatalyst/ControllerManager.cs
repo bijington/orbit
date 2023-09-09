@@ -18,6 +18,16 @@ public partial class ControllerManager
         };
 
         GCController.Notifications.ObserveDidConnect(ConnectToController);
+
+        GameKit.GKAchievement achievement = new GameKit.GKAchievement();
+        achievement.PercentComplete = 100.0;
+        achievement.ShowsCompletionBanner = true;
+        GameKit.GKAchievement.ReportAchievements(
+            new[] { achievement },
+            errors =>
+            {
+                var a = 9;
+            });
     }
 
     private void ConnectToController(object sender, NSNotificationEventArgs e)
