@@ -12,7 +12,7 @@ public class Styling
 
     public static Color TitleColor { get; } = Color.FromArgb("#A9F4D6");
 
-    public static int TitleSize { get; } = 150;
+    public static double TitleSize { get; } = 150;
 
     public static void RenderTitle(string title, ICanvas canvas, RectF dimensions)
     {
@@ -23,7 +23,7 @@ public class Styling
             Colors.Black,
             1,
             Font,
-            TitleSize,
+            (float)TitleSize,
             new PointF(40, 40),
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
@@ -31,11 +31,24 @@ public class Styling
 
     public static Color CodeColor { get; } = Color.FromArgb("#A9F4D6");
 
-    public static int CodeSize { get; } = 40;
+    public static double CodeSize => GetScreenDimensions().Height * 0.04;
 
     public static string CodeFontName => "Courier Prime";
 
     public static Microsoft.Maui.Graphics.Font CodeFont => new(CodeFontName);
 
     public static Color Tertiary = Color.FromArgb("#325A96");
+
+    private static Size GetScreenDimensions()
+    {
+        var currentPage = Application.Current?.MainPage;
+
+        if (currentPage is not null)
+        {
+            return new(currentPage.Width, currentPage.Height);
+        }
+
+        // If we can't find the current page dimensions then simply resort to the screen dimensions.
+        return new (DeviceDisplay.MainDisplayInfo.Height, DeviceDisplay.MainDisplayInfo.Height);
+    }
 }
