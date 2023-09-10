@@ -1,4 +1,4 @@
-﻿namespace BuildingGames.Scenes;
+﻿namespace BuildingGames.Slides;
 
 public class Slide01 : SlideSceneBase
 {

@@ -31,7 +31,7 @@ public class Styling
 
     public static Color CodeColor { get; } = Color.FromArgb("#A9F4D6");
 
-    public static int CodeSize { get; } = 150;
+    public static int CodeSize { get; } = 40;
 
     public static string CodeFontName => "Courier Prime";
 

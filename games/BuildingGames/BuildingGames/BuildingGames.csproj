@@ -55,17 +55,14 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="Resources\Fonts\CourierPrime-Regular.ttf" />
-	  <None Remove="GameObjects\Slidey\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <BundleResource Include="Resources\Fonts\CourierPrime-Regular.ttf" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="GameObjects\Slidey\" />
-	</ItemGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.83" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Controls\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Controls\" />
 	</ItemGroup>
 </Project>

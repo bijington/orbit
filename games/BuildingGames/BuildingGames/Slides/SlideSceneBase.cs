@@ -1,6 +1,6 @@
 ﻿using Orbit.Engine;
 
-namespace BuildingGames.Scenes;
+namespace BuildingGames.Slides;
 
 public abstract class SlideSceneBase : GameScene
 {

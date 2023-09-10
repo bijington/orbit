@@ -1,4 +1,4 @@
-﻿using BuildingGames.Scenes;
+﻿using BuildingGames.Slides;
 using Orbit.Engine;
 
 namespace BuildingGames;
@@ -7,14 +7,6 @@ public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly ControllerManager controllerManager;
-
-    public IList<Type> slides = new List<Type>()
-    {
-        typeof(Slide01),
-        typeof(Slide02),
-        typeof(Slide03),
-        typeof(Slide04)
-    };
 
     public MainPage(
         IGameSceneManager gameSceneManager,
@@ -25,8 +17,7 @@ public partial class MainPage : ContentPage
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
 
-        LoadSlide(this.slides.First());
-        //gameSceneManager.Start();
+        LoadSlide(SlideDeck.CurrentSlideType);
 
 #if MACCATALYST
         //this.controllerManager.Initialise();
@@ -36,25 +27,10 @@ public partial class MainPage : ContentPage
 
     private void ControllerManager_ButtonPressed(ControllerButton controllerButton)
     {
-        //if (controllerButton == ControllerButton.NavigateForward &&
-        //    GameView.Scene is SlideSceneBase slideSceneBase &&
-        //    slideSceneBase.CanProgress)
-        //{
-        //    var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) + 1;
-
-        //    this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
-        //    this.gameSceneManager.Start();
-        //}
-        //else if (controllerButton == ControllerButton.NavigateBackward)
-        //{
-        //    var nextSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) - 1;
-
-        //    this.gameSceneManager.LoadScene(this.slides[Math.Clamp(nextSceneIndex, 0, this.slides.Count - 1)], GameView);
-        //    this.gameSceneManager.Start();
-        //}
+        ProgressSlides();
     }
 
-    void LoadSlide(Type sceneType)
+    async void LoadSlide(Type sceneType)
     {
         if (GameView.Scene is SlideSceneBase previousScene)
         {
@@ -62,38 +38,46 @@ public partial class MainPage : ContentPage
             previousScene.Next -= OnCurrentSceneNext;
         }
 
-        this.gameSceneManager.LoadScene(sceneType, GameView);
-
-        if (GameView.Scene is SlideSceneBase nextScene)
+        if (sceneType.IsAssignableTo(typeof(SlideSceneBase)))
         {
-            nextScene.Back += OnCurrentSceneBack;
-            nextScene.Next += OnCurrentSceneNext;
-        }
+            this.gameSceneManager.LoadScene(sceneType, GameView);
 
-        this.gameSceneManager.Start();
+            if (GameView.Scene is SlideSceneBase nextScene)
+            {
+                nextScene.Back += OnCurrentSceneBack;
+                nextScene.Next += OnCurrentSceneNext;
+            }
+
+            this.gameSceneManager.Start();
+        }
+        else if (sceneType.IsAssignableTo(typeof(ContentPage)))
+        {
+            await Shell.Current.GoToAsync(sceneType.Name);
+        }
     }
 
     private void OnCurrentSceneNext(SlideSceneBase sender)
     {
-        var nextSceneIndex = this.slides.IndexOf(sender.GetType()) + 1;
-
-        if (nextSceneIndex < this.slides.Count)
+        if (SlideDeck.GetNextSlideType() is Type nextSlideType)
         {
-            this.LoadSlide(this.slides[nextSceneIndex]);
+            this.LoadSlide(nextSlideType);
         }
     }
 
     private void OnCurrentSceneBack(SlideSceneBase sender)
     {
-        var previousSceneIndex = this.slides.IndexOf(GameView.Scene.GetType()) - 1;
-
-        if (previousSceneIndex >= 0)
+        if (SlideDeck.GetPreviousSlideType() is Type previousSlideType)
         {
-            this.LoadSlide(this.slides[previousSceneIndex]);
+            this.LoadSlide(previousSlideType);
         }
     }
 
     void GameView_StartInteraction(object sender, TouchEventArgs e)
+    {
+        ProgressSlides();
+    }
+
+    void ProgressSlides()
     {
         if (GameView.Scene is SlideSceneBase slideSceneBase &&
             slideSceneBase.CanProgress)

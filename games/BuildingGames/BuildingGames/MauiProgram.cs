@@ -1,6 +1,7 @@
 ﻿using BuildingGames.GameObjects;
-using BuildingGames.Scenes;
+using BuildingGames.Slides;
 using Orbit.Engine;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace BuildingGames;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
 		builder
             .UseMauiApp<App>()
             .UseOrbitEngine()
+            .UseSkiaSharp()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,6 +28,8 @@ public static class MauiProgram
                 .AddSingleton<ControllerManager>()
                 .RegisterGameObjects()
                 .RegisterScenes();
+
+        Routing.RegisterRoute(nameof(SlideLottie), typeof(SlideLottie));
 
         return builder.Build();
 	}

@@ -1,13 +1,13 @@
-﻿namespace BuildingGames.Scenes;
+﻿namespace BuildingGames.Slides;
 
-public class Slide03 : SlideSceneBase
+public class Slidey : SlideSceneBase
 {
-	private int currentTransition = 0;
-	private const int transitions = 1;
+    private int currentTransition = 0;
+    private const int transitions = 1;
 
-	public Slide03()
-	{
-	}
+    public Slidey()
+    {
+    }
 
     public override void Progress()
     {
@@ -31,15 +31,27 @@ public class Slide03 : SlideSceneBase
         {
             canvas.DrawString(
                 dimensions,
-                "A wordsearch application was born",
+                @"public static MauiApp CreateMauiApp()
+{
+    var builder = MauiApp.CreateBuilder();
+
+    builder
+        .UseMauiApp<App>()
+        .UseOrbitEngine();
+
+    return builder.Build();
+}",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
-                Styling.Font,
+                Styling.CodeFont,
                 25,
                 new PointF(0, dimensions.Height * 0.75f),
-                HorizontalAlignment.Center,
+                HorizontalAlignment.Left,
                 VerticalAlignment.Top);
         }
     }
+	//<controls:SKLottieView Source = "trophy.json"
+ //                                      RepeatCount="0"
+ //                                      IsAnimationEnabled="{Binding State, Mode=OneWay, Converter={StaticResource IsLevelCompleteConverter}}" />
 }

@@ -1,6 +1,6 @@
 ﻿using BuildingGames.Models;
 
-namespace BuildingGames.Scenes;
+namespace BuildingGames.Slides;
 
 public class Slide02 : SlideSceneBase
 {
