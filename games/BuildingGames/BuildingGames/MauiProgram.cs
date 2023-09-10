@@ -29,7 +29,7 @@ public static class MauiProgram
                 .RegisterGameObjects()
                 .RegisterScenes();
 
-        Routing.RegisterRoute(nameof(SlideLottie), typeof(SlideLottie));
+        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
 
         return builder.Build();
 	}

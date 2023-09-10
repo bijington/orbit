@@ -8,7 +8,9 @@ public static class SlideDeck
         typeof(Slide02),
         typeof(Slide03),
         typeof(Slide04),
-        typeof(SlideLottie)
+        typeof(SlideLottie),
+        typeof(SlideAnimations),
+        typeof(SlideAnimationsPartTwo)
     };
 
     private static int currentSlideIndex = 0;

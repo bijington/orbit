@@ -29,9 +29,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.bijington.airhockey</string>
 	<key>CFBundleDisplayName</key>
-	<string>Paddle Boarding in .NET MAUI</string>
+	<string>Buildings games in .NET MAUI</string>
 	<key>CFBundleName</key>
-	<string>AirHockey</string>
+	<string>Building games</string>
 	<key>GCRequiresControllerUserInteraction GCRequiresControllerUserInteraction</key>
 	<true/>
 </dict>

@@ -1,6 +1,6 @@
 ﻿namespace BuildingGames.Slides;
 
-public partial class SlideLottie : ContentPage
+public partial class SlideLottie : SlidePageBase
 {
 	public SlideLottie()
 	{

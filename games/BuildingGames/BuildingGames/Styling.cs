@@ -36,4 +36,6 @@ public class Styling
     public static string CodeFontName => "Courier Prime";
 
     public static Microsoft.Maui.Graphics.Font CodeFont => new(CodeFontName);
+
+    public static Color Tertiary = Color.FromArgb("#325A96");
 }

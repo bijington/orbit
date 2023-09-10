@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<slides:SlidePageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BuildingGames.Slides.SlideAnimations"
+    xmlns:controls="clr-namespace:BuildingGames.Controls"
+    xmlns:slides="clr-namespace:BuildingGames.Slides"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="2*,*"
+        RowDefinitions="Auto,*">
+
+        <controls:TitleLabel
+            Text="MAUI animations"
+            Margin="10"
+            Grid.ColumnSpan="2" />
+
+        <controls:CodeSampleLabel
+            x:Name="CodeSample"
+            VerticalOptions="Center"
+            Grid.Row="1" />
+
+        <Frame
+            x:Name="Tile"
+            IsClippedToBounds="True"
+            Padding="0"
+            HasShadow="False"
+            CornerRadius="100"
+            WidthRequest="200"
+            HeightRequest="200"
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="{StaticResource Tertiary}">
+
+            <Path
+                Fill="{StaticResource Secondary}"
+                Data="M25,0 L50,0 L50,25 C50,38.8071187 38.8071187,50 25,50 L0,50 L0,25 C0,11.1928813 11.1928813,0 25,0 Z"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsVisible="False"
+                WidthRequest="50"
+                HeightRequest="50" />
+        </Frame>
+    </Grid>
+</slides:SlidePageBase>
