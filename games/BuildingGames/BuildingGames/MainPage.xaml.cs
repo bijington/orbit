@@ -30,6 +30,11 @@ public partial class MainPage : ContentPage
         {
             ProgressSlides();
         }
+        else if (this.controllerManager.Mode == ControlMode.Navigation &&
+            controllerButton == ControllerButton.NavigateBackward)
+        {
+            GoBack();
+        }
     }
 
     async void LoadSlide(Type sceneType)
@@ -76,10 +81,7 @@ public partial class MainPage : ContentPage
 
     private void OnCurrentSceneBack(SlideSceneBase sender)
     {
-        if (SlideDeck.GetPreviousSlideType() is Type previousSlideType)
-        {
-            this.LoadSlide(previousSlideType);
-        }
+        GoBack();
     }
 
     void GameView_StartInteraction(object sender, TouchEventArgs e)
@@ -93,6 +95,14 @@ public partial class MainPage : ContentPage
             slideSceneBase.CanProgress)
         {
             slideSceneBase.Progress();
+        }
+    }
+
+    void GoBack()
+    {
+        if (SlideDeck.GetPreviousSlideType() is Type previousSlideType)
+        {
+            this.LoadSlide(previousSlideType);
         }
     }
 }

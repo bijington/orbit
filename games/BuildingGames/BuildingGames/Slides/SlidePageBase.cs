@@ -55,11 +55,16 @@ public abstract class SlidePageBase : ContentPage
         {
             ProgressSlides();
         }
+        else if (this.controllerManager.Mode == ControlMode.Navigation &&
+            controllerButton == ControllerButton.NavigateBackward)
+        {
+            GoBack();
+        }
     }
 
     private void Tap_Tapped(object sender, TappedEventArgs e)
     {
-        OnCurrentSceneNext(null);
+        ProgressSlides();
     }
 
     async void LoadSlide(Type sceneType)
@@ -74,22 +79,6 @@ public abstract class SlidePageBase : ContentPage
         }
     }
 
-    private void OnCurrentSceneNext(SlideSceneBase sender)
-    {
-        if (SlideDeck.GetNextSlideType() is Type nextSlideType)
-        {
-            this.LoadSlide(nextSlideType);
-        }
-    }
-
-    private void OnCurrentSceneBack(SlideSceneBase sender)
-    {
-        if (SlideDeck.GetPreviousSlideType() is Type previousSlideType)
-        {
-            this.LoadSlide(previousSlideType);
-        }
-    }
-
     void GameView_StartInteraction(object sender, TouchEventArgs e)
     {
         ProgressSlides();
@@ -97,6 +86,17 @@ public abstract class SlidePageBase : ContentPage
 
     protected virtual void ProgressSlides()
     {
-        OnCurrentSceneNext(null);
+        if (SlideDeck.GetNextSlideType() is Type nextSlideType)
+        {
+            this.LoadSlide(nextSlideType);
+        }
+    }
+
+    protected void GoBack()
+    {
+        if (SlideDeck.GetPreviousSlideType() is Type previousSlideType)
+        {
+            this.LoadSlide(previousSlideType);
+        }
     }
 }
