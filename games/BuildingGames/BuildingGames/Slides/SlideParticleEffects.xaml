@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<slides:SlidePageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BuildingGames.Slides.SlideParticleEffects"
+    xmlns:controls="clr-namespace:BuildingGames.Controls"
+    xmlns:slides="clr-namespace:BuildingGames.Slides"
+    xmlns:behaviors="clr-namespace:BuildingGames.Behaviors"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="2*,*"
+        RowDefinitions="Auto,*">
+
+        <controls:TitleLabel
+            Text="Particle effects"
+            Margin="10"
+            Grid.ColumnSpan="2" />
+
+        <controls:CodeSampleLabel
+            x:Name="CodeSample"
+            VerticalOptions="Center"
+            Grid.Row="1" />
+
+        <BoxView
+            x:Name="Tile"
+            WidthRequest="10"
+            HeightRequest="10"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Color="Transparent"
+            BackgroundColor="Transparent"
+            Grid.Row="1"
+            Grid.Column="1">
+            <BoxView.Behaviors>
+                <behaviors:ParticleEmitterBehavior
+                    Image="star"
+                    x:Name="ParticleEmitter"
+                    NumberOfParticles="40"
+                    LifeTime="0.3"
+                    Scale="2"
+                    Speed="0.3" />
+
+            </BoxView.Behaviors>
+        </BoxView>
+    </Grid>
+</slides:SlidePageBase>

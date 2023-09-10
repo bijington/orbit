@@ -10,7 +10,8 @@ public static class SlideDeck
         typeof(Slide04),
         typeof(SlideLottie),
         typeof(SlideAnimations),
-        typeof(SlideAnimationsPartTwo)
+        typeof(SlideAnimationsPartTwo),
+        typeof(SlideParticleEffects)
     };
 
     private static int currentSlideIndex = 0;
