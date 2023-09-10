@@ -26,7 +26,6 @@ public class Slide03 : SlideSceneBase
     {
         base.Render(canvas, dimensions);
 
-        // TODO this isn't quite right, maybe pass in a different set of dimensions
         Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
 
         if (currentTransition > 0)

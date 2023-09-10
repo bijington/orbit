@@ -11,7 +11,8 @@ public static class SlideDeck
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
-        typeof(SlideParticleEffects)
+        typeof(SlideParticleEffects),
+        typeof(Credits)
     };
 
     private static int currentSlideIndex = 0;
