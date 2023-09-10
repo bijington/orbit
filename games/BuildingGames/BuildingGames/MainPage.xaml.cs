@@ -19,15 +19,17 @@ public partial class MainPage : ContentPage
 
         LoadSlide(SlideDeck.CurrentSlideType);
 
-#if MACCATALYST
-        //this.controllerManager.Initialise();
-        //this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
-#endif
+        this.controllerManager.Initialise();
+        this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
     }
 
     private void ControllerManager_ButtonPressed(ControllerButton controllerButton)
     {
-        ProgressSlides();
+        if (this.controllerManager.Mode == ControlMode.Navigation &&
+            controllerButton == ControllerButton.NavigateForward)
+        {
+            ProgressSlides();
+        }
     }
 
     async void LoadSlide(Type sceneType)
@@ -52,7 +54,15 @@ public partial class MainPage : ContentPage
         }
         else if (sceneType.IsAssignableTo(typeof(ContentPage)))
         {
-            await Shell.Current.GoToAsync(sceneType.Name);
+            try
+            {
+                await Shell.Current.GoToAsync(sceneType.Name);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
     }
 

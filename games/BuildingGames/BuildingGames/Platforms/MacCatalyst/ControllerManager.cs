@@ -46,7 +46,7 @@ public partial class ControllerManager
     }
 
     public async Task Initialise()
-	{
+    {
         await GCController.StartWirelessControllerDiscoveryAsync();
     }
 
@@ -81,6 +81,12 @@ public partial class ControllerManager
             {
                 CurrentPressedButton = ControllerButton.None;
             }
+
+            if (buttonInput.IsPressed &&
+                buttonInput.Aliases.Contains(new NSString("Button Y")))
+            {
+                Mode = Mode == ControlMode.Pointer ? ControlMode.Navigation : ControlMode.Pointer;
+            }
         }
         else if (element is GCControllerDirectionPad directionPad)
         {
@@ -104,6 +110,8 @@ public partial class ControllerManager
             {
                 CurrentPressedButton = ControllerButton.None;
             }
+
+            DirectionalChange = new(directionPad.XAxis.Value, -directionPad.YAxis.Value);
         }
         else
         {

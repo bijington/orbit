@@ -1,9 +1,11 @@
-﻿namespace BuildingGames.Slides;
+﻿using Orbit.Engine;
+
+namespace BuildingGames.Slides;
 
 public partial class SlideLottie : SlidePageBase
 {
-	public SlideLottie()
-	{
+	public SlideLottie(IGameSceneManager gameSceneManager, ControllerManager controllerManager) : base(gameSceneManager, controllerManager)
+    {
 		InitializeComponent();
 
 		CodeSample.Text =@"

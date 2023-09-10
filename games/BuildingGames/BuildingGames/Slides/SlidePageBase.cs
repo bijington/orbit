@@ -1,11 +1,17 @@
-﻿namespace BuildingGames.Slides;
+﻿using Orbit.Engine;
+
+namespace BuildingGames.Slides;
 
 public abstract class SlidePageBase : ContentPage
 {
-	public SlidePageBase()
+    private readonly IGameSceneManager gameSceneManager;
+    private readonly ControllerManager controllerManager;
+
+    public SlidePageBase(IGameSceneManager gameSceneManager, ControllerManager controllerManager)
 	{
-		
-	}
+        this.gameSceneManager = gameSceneManager;
+        this.controllerManager = controllerManager;
+    }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
@@ -19,6 +25,36 @@ public abstract class SlidePageBase : ContentPage
         tap.Tapped += Tap_Tapped;
 
         this.Content.GestureRecognizers.Add(tap);
+
+        if (this.Content is Grid grid)
+        {
+            var gameSceneView = new GameSceneView();
+            grid.Add(gameSceneView);
+
+            Grid.SetColumnSpan(gameSceneView, grid.ColumnDefinitions.Count);
+            Grid.SetRowSpan(gameSceneView, grid.RowDefinitions.Count);
+
+            this.gameSceneManager.LoadScene<PointerOverlay>(gameSceneView);
+            this.gameSceneManager.Start();
+        }
+
+        this.controllerManager.ButtonPressed += OnControllerManagerButtonPressed;
+    }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+
+        this.controllerManager.ButtonPressed -= OnControllerManagerButtonPressed;
+    }
+
+    private void OnControllerManagerButtonPressed(ControllerButton controllerButton)
+    {
+        if (this.controllerManager.Mode == ControlMode.Navigation &&
+            controllerButton == ControllerButton.NavigateForward)
+        {
+            ProgressSlides();
+        }
     }
 
     private void Tap_Tapped(object sender, TappedEventArgs e)
@@ -61,6 +97,6 @@ public abstract class SlidePageBase : ContentPage
 
     protected virtual void ProgressSlides()
     {
-        
+        OnCurrentSceneNext(null);
     }
 }

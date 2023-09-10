@@ -1,4 +1,5 @@
-﻿using BuildingGames.Models;
+﻿using BuildingGames.GameObjects;
+using BuildingGames.Models;
 
 namespace BuildingGames.Slides;
 
@@ -14,9 +15,7 @@ public class Slide02 : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    //public override bool CanProgress => currentCharacterIndex == 0;
-
-    public Slide02(ControllerManager controllerManager)
+    public Slide02(ControllerManager controllerManager, Pointer pointer) : base(pointer)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {
@@ -193,33 +192,36 @@ public class Slide02 : SlideSceneBase
     {
         base.Update(millisecondsSinceLastUpdate);
 
-        if (controllerManager.CurrentPressedButton == ControllerButton.Right &&
-            !handlingKeyPress)
+        if (controllerManager.Mode == ControlMode.Navigation)
         {
-            handlingKeyPress = true;
-            this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex + 1, 0, this.characters.Count);
-        }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.Left &&
-            !handlingKeyPress)
-        {
-            handlingKeyPress = true;
-            this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex - 1, 0, this.characters.Count);
-        }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.Down &&
-            !handlingKeyPress)
-        {
-            handlingKeyPress = true;
-            this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex + columns, 0, this.characters.Count);
-        }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.Up &&
-            !handlingKeyPress)
-        {
-            handlingKeyPress = true;
-            this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex - columns, 0, this.characters.Count);
-        }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.None)
-        {
-            handlingKeyPress = false;
+            if (controllerManager.CurrentPressedButton == ControllerButton.Right &&
+                !handlingKeyPress)
+            {
+                handlingKeyPress = true;
+                this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex + 1, 0, this.characters.Count);
+            }
+            else if (controllerManager.CurrentPressedButton == ControllerButton.Left &&
+                !handlingKeyPress)
+            {
+                handlingKeyPress = true;
+                this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex - 1, 0, this.characters.Count);
+            }
+            else if (controllerManager.CurrentPressedButton == ControllerButton.Down &&
+                !handlingKeyPress)
+            {
+                handlingKeyPress = true;
+                this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex + columns, 0, this.characters.Count);
+            }
+            else if (controllerManager.CurrentPressedButton == ControllerButton.Up &&
+                !handlingKeyPress)
+            {
+                handlingKeyPress = true;
+                this.currentCharacterIndex = Math.Clamp(this.currentCharacterIndex - columns, 0, this.characters.Count);
+            }
+            else if (controllerManager.CurrentPressedButton == ControllerButton.None)
+            {
+                handlingKeyPress = false;
+            }
         }
     }
 }

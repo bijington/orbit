@@ -22,6 +22,12 @@ public partial class ControllerManager
 			}
         }
 	}
+
+	public ControlMode Mode { get; private set; }
+
+	public PointF PointerLocation { get; set; }
+
+	public PointF DirectionalChange { get; set; }
 }
 
 public enum ControllerButton
@@ -35,4 +41,10 @@ public enum ControllerButton
 	Accept,
 	NavigateForward,
 	NavigateBackward
+}
+
+public enum ControlMode
+{
+	Navigation,
+	Pointer
 }

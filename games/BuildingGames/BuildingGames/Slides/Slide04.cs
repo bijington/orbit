@@ -1,23 +1,26 @@
-﻿namespace BuildingGames.Slides;
+﻿using BuildingGames.GameObjects;
+
+namespace BuildingGames.Slides;
 
 public class Slide04 : SlideSceneBase
 {
 	private int currentTransition = 0;
 	private const int transitions = 1;
 
-	public Slide04()
-	{
+	public Slide04(Pointer pointer) : base(pointer)
+    {
 	}
 
     public override void Progress()
     {
-        currentTransition++;
-
         // If we are complete then fire the Next event.
         if (currentTransition == transitions)
         {
             base.Progress();
         }
+
+
+        currentTransition++;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

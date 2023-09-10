@@ -1,10 +1,12 @@
-﻿namespace BuildingGames.Slides;
+﻿using Orbit.Engine;
+
+namespace BuildingGames.Slides;
 
 public partial class SlideAnimations : SlidePageBase
 {
     private readonly IDispatcher dispatcher;
 
-    public SlideAnimations(IDispatcher dispatcher)
+    public SlideAnimations(IDispatcher dispatcher, IGameSceneManager gameSceneManager, ControllerManager controllerManager) : base(gameSceneManager, controllerManager)
     {
         InitializeComponent();
         this.dispatcher = dispatcher;

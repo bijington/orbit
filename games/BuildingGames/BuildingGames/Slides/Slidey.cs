@@ -1,11 +1,13 @@
-﻿namespace BuildingGames.Slides;
+﻿using BuildingGames.GameObjects;
+
+namespace BuildingGames.Slides;
 
 public class Slidey : SlideSceneBase
 {
     private int currentTransition = 0;
     private const int transitions = 1;
 
-    public Slidey()
+    public Slidey(Pointer pointer) : base(pointer)
     {
     }
 

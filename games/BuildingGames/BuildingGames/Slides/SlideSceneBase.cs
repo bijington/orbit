@@ -1,9 +1,15 @@
-﻿using Orbit.Engine;
+﻿using BuildingGames.GameObjects;
+using Orbit.Engine;
 
 namespace BuildingGames.Slides;
 
 public abstract class SlideSceneBase : GameScene
 {
+    public SlideSceneBase(Pointer pointer)
+    {
+        Add(pointer);
+    }
+
     public virtual bool CanGoBack { get; } = true;
 
     public virtual bool CanProgress { get; } = true;

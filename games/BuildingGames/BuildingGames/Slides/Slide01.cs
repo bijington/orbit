@@ -1,11 +1,13 @@
-﻿namespace BuildingGames.Slides;
+﻿using BuildingGames.GameObjects;
+
+namespace BuildingGames.Slides;
 
 public class Slide01 : SlideSceneBase
 {
     private float startAlpha = 1f;
     private float increment = -0.05f;
 
-    public Slide01()
+    public Slide01(Pointer pointer) : base(pointer)
     {
     }
 

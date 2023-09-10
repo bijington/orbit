@@ -1,12 +1,14 @@
-﻿namespace BuildingGames.Slides;
+﻿using BuildingGames.GameObjects;
+
+namespace BuildingGames.Slides;
 
 public class Slide03 : SlideSceneBase
 {
 	private int currentTransition = 0;
 	private const int transitions = 1;
 
-	public Slide03()
-	{
+	public Slide03(Pointer pointer) : base(pointer)
+    {
 	}
 
     public override void Progress()
