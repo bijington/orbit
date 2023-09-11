@@ -12,7 +12,9 @@ public class Styling
 
     public static Color TitleColor { get; } = Color.FromArgb("#A9F4D6");
 
-    public static double TitleSize { get; } = 150;
+    public static double TitleSize => GetScreenDimensions().Height * 0.104;
+
+    public static double ScaledFontSize(double scaleFactor) => GetScreenDimensions().Height * scaleFactor;
 
     public static void RenderTitle(string title, ICanvas canvas, RectF dimensions)
     {
@@ -31,7 +33,7 @@ public class Styling
 
     public static Color CodeColor { get; } = Color.FromArgb("#A9F4D6");
 
-    public static double CodeSize { get; } = 43;//=> GetScreenDimensions().Height * 0.04;
+    public static double CodeSize => GetScreenDimensions().Height * 0.029;
 
     public static string CodeFontName => "Courier Prime";
 

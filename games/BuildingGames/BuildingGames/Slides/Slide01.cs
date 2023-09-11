@@ -13,8 +13,17 @@ public class Slide01 : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        // TODO this isn't quite right, maybe pass in a different set of dimensions
-        Styling.RenderTitle("Building games in .NET MAUI", canvas, dimensions);
+        canvas.DrawString(
+            new RectF(40, 80, dimensions.Width - 80, dimensions.Height / 2),
+            "Building games in .NET MAUI",
+            Styling.TitleColor,
+            Colors.Black,
+            1,
+            Styling.Font,
+            (float)Styling.ScaledFontSize(0.17),
+            new PointF(40, dimensions.Height * 0.25f),
+            HorizontalAlignment.Center,
+            VerticalAlignment.Top);
 
         canvas.DrawString(
             dimensions,
@@ -23,7 +32,7 @@ public class Slide01 : SlideSceneBase
             Colors.Transparent,
             startAlpha,
             Styling.Font,
-            25,
+            (float)Styling.CodeSize,
             new PointF(0, dimensions.Height * 0.75f),
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
