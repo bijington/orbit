@@ -5,6 +5,7 @@ namespace BuildingGames.GameObjects;
 public class Pointer : GameObject
 {
     private readonly ControllerManager controllerManager;
+    private bool keyPressHandled;
 
     public Pointer(ControllerManager controllerManager)
     {
@@ -18,7 +19,7 @@ public class Pointer : GameObject
         if (this.controllerManager.Mode == ControlMode.Pointer)
         {
             canvas.FillColor = Colors.Orange;
-            canvas.FillCircle(this.controllerManager.PointerLocation, 4);
+            canvas.FillCircle(this.controllerManager.PointerLocation, this.controllerManager.PointerRadius);
         }
     }
 
@@ -31,6 +32,27 @@ public class Pointer : GameObject
             this.controllerManager.PointerLocation = new(
                 this.controllerManager.PointerLocation.X + this.controllerManager.DirectionalChange.X * (float)millisecondsSinceLastUpdate,
                 this.controllerManager.PointerLocation.Y + this.controllerManager.DirectionalChange.Y * (float)millisecondsSinceLastUpdate);
+
+            if (this.controllerManager.CurrentPressedButton == ControllerButton.NavigateForward)
+            {
+                if (this.keyPressHandled is false)
+                {
+                    this.controllerManager.PointerRadius *= 2;
+                }
+                this.keyPressHandled = true;
+            }
+            else if (this.controllerManager.CurrentPressedButton == ControllerButton.NavigateBackward)
+            {
+                if (this.keyPressHandled is false)
+                {
+                    this.controllerManager.PointerRadius /= 2;
+                }
+                this.keyPressHandled = true;
+            }
+            else
+            {
+                this.keyPressHandled = false;
+            }
         }
     }
 }

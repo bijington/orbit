@@ -27,6 +27,8 @@ public partial class ControllerManager
 
 	public PointF PointerLocation { get; set; }
 
+	public float PointerRadius { get; set; } = 4f;
+
 	public PointF DirectionalChange { get; set; }
 }
 

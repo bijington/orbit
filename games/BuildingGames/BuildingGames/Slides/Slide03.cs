@@ -6,6 +6,7 @@ public class Slide03 : SlideSceneBase
 {
 	private int currentTransition = 0;
 	private const int transitions = 1;
+    private float textY = float.NaN;
 
 	public Slide03(Pointer pointer) : base(pointer)
     {
@@ -13,13 +14,13 @@ public class Slide03 : SlideSceneBase
 
     public override void Progress()
     {
-        currentTransition++;
-
         // If we are complete then fire the Next event.
         if (currentTransition == transitions)
         {
             base.Progress();
         }
+
+        currentTransition++;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -28,19 +29,36 @@ public class Slide03 : SlideSceneBase
 
         Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
 
+        if (float.IsNaN(textY))
+        {
+            textY = dimensions.Height;
+        }
+
         if (currentTransition > 0)
         {
             canvas.DrawString(
                 dimensions,
-                "A wordsearch application was born",
+                @"
+Super
+Wordsearch",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
                 Styling.Font,
-                25,
-                new PointF(0, dimensions.Height * 0.75f),
+                175,
+                new PointF(0, textY),
                 HorizontalAlignment.Center,
                 VerticalAlignment.Top);
+        }
+    }
+
+    public override void Update(double millisecondsSinceLastUpdate)
+    {
+        base.Update(millisecondsSinceLastUpdate);
+
+        if (currentTransition > 0)
+        {
+            textY--;
         }
     }
 }
