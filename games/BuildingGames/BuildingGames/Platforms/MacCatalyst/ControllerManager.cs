@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using BuildingGames.Platforms.MacCatalyst.ControllerChangedHandlers;
 using Foundation;
 using GameController;
 
@@ -7,27 +6,9 @@ namespace BuildingGames;
 
 public partial class ControllerManager
 {
-    private readonly IDictionary<string, IControllerChangedHandler> supportedControllers;
-
     public ControllerManager()
     {
-        supportedControllers = new Dictionary<string, IControllerChangedHandler>
-        {
-            ["DUALSHOCK 4 Wireless Controller"] = new DualShockControllerChangedHandler()
-            //["usb gamepad           "] = 
-        };
-
         GCController.Notifications.ObserveDidConnect(ConnectToController);
-
-        GameKit.GKAchievement achievement = new GameKit.GKAchievement();
-        achievement.PercentComplete = 100.0;
-        achievement.ShowsCompletionBanner = true;
-        GameKit.GKAchievement.ReportAchievements(
-            new[] { achievement },
-            errors =>
-            {
-                var a = 9;
-            });
     }
 
     private void ConnectToController(object sender, NSNotificationEventArgs e)

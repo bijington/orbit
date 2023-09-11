@@ -7,14 +7,12 @@ public class Slide01 : SlideSceneBase
     private float startAlpha = 1f;
     private float increment = -0.05f;
 
-    public Slide01(Pointer pointer) : base(pointer)
+    public Slide01(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         // TODO this isn't quite right, maybe pass in a different set of dimensions
         Styling.RenderTitle("Building games in .NET MAUI", canvas, dimensions);
 
@@ -29,6 +27,11 @@ public class Slide01 : SlideSceneBase
             new PointF(0, dimensions.Height * 0.75f),
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
+
+        // Undo our alpha change
+        canvas.Alpha = 1.0f;
+
+        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)

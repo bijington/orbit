@@ -7,7 +7,7 @@ public class Slidey : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 1;
 
-    public Slidey(Pointer pointer) : base(pointer)
+    public Slidey(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
     }
 
@@ -24,8 +24,6 @@ public class Slidey : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         // TODO this isn't quite right, maybe pass in a different set of dimensions
         Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
 
@@ -52,8 +50,7 @@ public class Slidey : SlideSceneBase
                 HorizontalAlignment.Left,
                 VerticalAlignment.Top);
         }
+
+        base.Render(canvas, dimensions);
     }
-	//<controls:SKLottieView Source = "trophy.json"
- //                                      RepeatCount="0"
- //                                      IsAnimationEnabled="{Binding State, Mode=OneWay, Converter={StaticResource IsLevelCompleteConverter}}" />
 }

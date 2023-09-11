@@ -5,9 +5,10 @@ namespace BuildingGames.Slides;
 
 public abstract class SlideSceneBase : GameScene
 {
-    public SlideSceneBase(Pointer pointer)
+    public SlideSceneBase(Pointer pointer, Achievement achievement)
     {
         Add(pointer);
+        Add(achievement);
     }
 
     public virtual bool CanGoBack { get; } = true;

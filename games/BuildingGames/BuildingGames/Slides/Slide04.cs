@@ -7,7 +7,7 @@ public class Slide04 : SlideSceneBase
 	private int currentTransition = 0;
 	private const int transitions = 1;
 
-	public Slide04(Pointer pointer) : base(pointer)
+	public Slide04(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
 	}
 
@@ -25,8 +25,6 @@ public class Slide04 : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         // TODO this isn't quite right, maybe pass in a different set of dimensions
         Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
 
@@ -53,5 +51,7 @@ public class Slide04 : SlideSceneBase
                 HorizontalAlignment.Left,
                 VerticalAlignment.Top);
         }
+
+        base.Render(canvas, dimensions);
     }
 }

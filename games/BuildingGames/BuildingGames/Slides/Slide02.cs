@@ -15,7 +15,7 @@ public class Slide02 : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    public Slide02(ControllerManager controllerManager, Pointer pointer) : base(pointer)
+    public Slide02(ControllerManager controllerManager, Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {
@@ -78,8 +78,6 @@ public class Slide02 : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         Styling.RenderTitle("Character selection", canvas, dimensions);
 
         float tileWidth = ((dimensions.Width / columns) - (padding * (columns + 1))) / rows;
@@ -186,6 +184,8 @@ public class Slide02 : SlideSceneBase
                 HorizontalAlignment.Left,
                 VerticalAlignment.Center);
         }
+
+        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)

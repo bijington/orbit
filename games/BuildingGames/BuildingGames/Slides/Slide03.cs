@@ -8,7 +8,7 @@ public class Slide03 : SlideSceneBase
 	private const int transitions = 1;
     private float textY = float.NaN;
 
-	public Slide03(Pointer pointer) : base(pointer)
+	public Slide03(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
 	}
 
@@ -25,8 +25,6 @@ public class Slide03 : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
 
         if (float.IsNaN(textY))
@@ -50,6 +48,8 @@ Wordsearch",
                 HorizontalAlignment.Center,
                 VerticalAlignment.Top);
         }
+
+        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
