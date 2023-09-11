@@ -8,7 +8,8 @@
 
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,*,*,*,*,*,*">
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
+        Margin="20">
 
         <controls:TitleLabel
             Text="Thank you!"
@@ -23,25 +24,25 @@
         <controls:LinkButton
             Text="https://github.com/bijington/orbit"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="1" />
+            Grid.Row="2" />
 
         <Label
             Text="Blog"
-            Grid.Row="2" />
+            Grid.Row="3" />
 
         <controls:LinkButton
             Text="https://blog.bijington.com"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="2" />
+            Grid.Row="4" />
 
         <Label
             Text="Social"
-            Grid.Row="3" />
+            Grid.Row="5" />
 
         <controls:LinkButton
             Text="https://twitter.com/Bijington"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="3" />
+            Grid.Row="6" />
 
         <Label
             Text="Lottie files"
@@ -51,36 +52,39 @@
         <controls:LinkButton
             Text="https://lottiefiles.com"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1" />
 
         <Label
             Text="Game art"
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="1" />
 
         <controls:LinkButton
             Text="https://opengameart.org"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="1" />
 
         <Label
             Text="Inspiration"
-            Grid.Row="3"
+            Grid.Row="5"
             Grid.Column="1" />
 
         <controls:LinkButton
             Text="https://github.com/davidwengier/Trains.NET"
             Clicked="OnLinkButtonClicked"
-            Grid.Row="3"
+            Grid.Row="6"
             Grid.Column="1" />
 
         <Image
             Source="repository_qrcode.png"
-            Grid.Row="4"
+            Grid.Row="7"
             Grid.ColumnSpan="2"
-            HorizontalOptions="Center" />
+            MaximumWidthRequest="300"
+            MaximumHeightRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
     </Grid>
 
 </ContentPage>

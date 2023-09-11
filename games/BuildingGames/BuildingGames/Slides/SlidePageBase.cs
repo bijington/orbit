@@ -71,7 +71,15 @@ public abstract class SlidePageBase : ContentPage
     {
         if (sceneType.IsAssignableTo(typeof(SlideSceneBase)))
         {
-            await Shell.Current.GoToAsync(nameof(MainPage));
+            try
+            {
+                await Shell.Current.GoToAsync($"../{nameof(MainPage)}");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
         else if (sceneType.IsAssignableTo(typeof(ContentPage)))
         {

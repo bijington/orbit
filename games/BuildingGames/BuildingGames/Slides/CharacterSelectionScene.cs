@@ -3,7 +3,7 @@ using BuildingGames.Models;
 
 namespace BuildingGames.Slides;
 
-public class Slide02 : SlideSceneBase
+public class CharacterSelectionScene : SlideSceneBase
 {
     const float padding = 40f;
     const int columns = 3;
@@ -15,7 +15,7 @@ public class Slide02 : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    public Slide02(ControllerManager controllerManager, Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {

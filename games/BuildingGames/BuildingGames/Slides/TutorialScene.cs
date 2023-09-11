@@ -2,13 +2,12 @@
 
 namespace BuildingGames.Slides;
 
-public class Slide03 : SlideSceneBase
+public class TutorialScene : SlideSceneBase
 {
 	private int currentTransition = 0;
 	private const int transitions = 1;
-    private float textY = float.NaN;
 
-	public Slide03(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+	public TutorialScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
 	}
 
@@ -25,40 +24,32 @@ public class Slide03 : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
-
-        if (float.IsNaN(textY))
-        {
-            textY = dimensions.Height;
-        }
+        Styling.RenderTitle("Tutorial", canvas, dimensions);
 
         if (currentTransition > 0)
         {
             canvas.DrawString(
                 dimensions,
-                @"
-Super
-Wordsearch",
+                @"public static MauiApp CreateMauiApp()
+{
+    var builder = MauiApp.CreateBuilder();
+
+    builder
+        .UseMauiApp<App>()
+        .UseOrbitEngine();
+
+    return builder.Build();
+}",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
-                Styling.Font,
-                175,
-                new PointF(0, textY),
-                HorizontalAlignment.Center,
+                Styling.CodeFont,
+                25,
+                new PointF(0, dimensions.Height * 0.75f),
+                HorizontalAlignment.Left,
                 VerticalAlignment.Top);
         }
 
         base.Render(canvas, dimensions);
-    }
-
-    public override void Update(double millisecondsSinceLastUpdate)
-    {
-        base.Update(millisecondsSinceLastUpdate);
-
-        if (currentTransition > 0)
-        {
-            textY--;
-        }
     }
 }

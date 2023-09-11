@@ -2,12 +2,12 @@
 
 namespace BuildingGames.Slides;
 
-public class Slide01 : SlideSceneBase
+public class TitleScene : SlideSceneBase
 {
     private float startAlpha = 1f;
     private float increment = -0.05f;
 
-    public Slide01(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public TitleScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
     }
 

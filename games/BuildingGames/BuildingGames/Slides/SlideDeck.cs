@@ -4,13 +4,24 @@ public static class SlideDeck
 {
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(Slide01),
-        typeof(Slide02),
-        typeof(Slide03),
+        typeof(TitleScene),
+        typeof(CharacterSelectionScene),
+        typeof(TutorialScene),
+        typeof(SuperWordsearchScene),
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
         typeof(SlideParticleEffects),
+        typeof(WhatsOurProgressScene),
+        typeof(TheGameEngineApproachScene),
+        typeof(FittingItIntoDotnetMauiScene),
+        // Orbit engine and how to use it
+        // App: Orbit
+        // Tips & tricks - Keeping things simple
+        // Tips & tricks - Consider the device/player
+        // Tips & tricks - Accessibility
+        // UI Testing - thoughts
+        typeof(TheFinalBossScene),
         typeof(Credits)
     };
 
