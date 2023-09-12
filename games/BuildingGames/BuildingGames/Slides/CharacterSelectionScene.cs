@@ -92,23 +92,34 @@ public class CharacterSelectionScene : SlideSceneBase
         {
             for (int y = 0; y < rows; y++)
             {
-                canvas.FillRectangle(
+                var bounds = new RectF(
                     padding * (x + 1) + (tileWidth * x),
                     padding * (y + 1) + (tileWidth * y) + yOffset,
                     tileWidth,
                     tileWidth);
+
+                canvas.FillRectangle(bounds);
 
                 if (x == 0 &&
                     y == 0)
                 {
                     var image = images["shaun.png"];
 
-                    canvas.DrawImage(
-                        image,
-                        padding * (x + 1) + (tileWidth * x),
-                        padding * (y + 1) + (tileWidth * y) + yOffset,
-                        tileWidth,
-                        tileWidth);
+                    canvas.DrawImage(image, bounds.X, bounds.Y, bounds.Width, bounds.Height);
+                }
+                else
+                {
+                    canvas.DrawString(
+                        bounds,
+                        "?",
+                        Styling.TitleColor,
+                        Colors.Transparent,
+                        1,
+                        Styling.Font,
+                        150,
+                        bounds.Location,
+                        HorizontalAlignment.Center,
+                        VerticalAlignment.Center);
                 }
             }
         }
