@@ -14,7 +14,9 @@ public static class SlideDeck
         typeof(SlideParticleEffects),
         typeof(WhatsOurProgressScene),
         typeof(TheGameEngineApproachScene),
+        // A nice in depth detail of MAUI Graphics!
         typeof(FittingItIntoDotnetMauiScene),
+        typeof(SketchIntoGameScene),
         // Orbit engine and how to use it
         // App: Orbit
         // Tips & tricks - Keeping things simple

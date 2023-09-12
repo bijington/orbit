@@ -4,51 +4,33 @@ namespace BuildingGames.Slides;
 
 public class TutorialScene : SlideSceneBase
 {
-	private int currentTransition = 0;
-	private const int transitions = 1;
-
 	public TutorialScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
 	}
-
-    public override void Progress()
-    {
-        // If we are complete then fire the Next event.
-        if (currentTransition == transitions)
-        {
-            base.Progress();
-        }
-
-        currentTransition++;
-    }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         Styling.RenderTitle("Tutorial", canvas, dimensions);
 
-        if (currentTransition > 0)
-        {
-            canvas.DrawString(
-                dimensions,
-                @"public static MauiApp CreateMauiApp()
-{
-    var builder = MauiApp.CreateBuilder();
-
-    builder
-        .UseMauiApp<App>()
-        .UseOrbitEngine();
-
-    return builder.Build();
-}",
-                Styling.TitleColor,
-                Colors.Transparent,
-                1,
-                Styling.CodeFont,
-                25,
-                new PointF(0, dimensions.Height * 0.75f),
-                HorizontalAlignment.Left,
-                VerticalAlignment.Top);
-        }
+        canvas.DrawString(
+            dimensions,
+            @"
+- Cross-platform application framework
+  - Mobile: Android and iOS
+  - Desktop: macOS and Windows
+  - Smart things: Tizen - Samsung devices
+- Evolution of Xamarin.Forms
+  - Version 8.0 coming this November
+  - Finally a first class citizen of the .NET ecosystem
+  - More familiar to other .NET code bases",
+            Styling.TitleColor,
+            Colors.Transparent,
+            1,
+            Styling.CodeFont,
+            (float)Styling.ScaledFontSize(0.05),
+            new PointF(40, dimensions.Height * 0.2f),
+            HorizontalAlignment.Left,
+            VerticalAlignment.Top);
 
         base.Render(canvas, dimensions);
     }

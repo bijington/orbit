@@ -39,6 +39,8 @@ public class Styling
 
     public static Microsoft.Maui.Graphics.Font CodeFont => new(CodeFontName);
 
+    public static Color Primary = Color.FromArgb("#18263A");
+
     public static Color Tertiary = Color.FromArgb("#325A96");
 
     private static Size GetScreenDimensions()
