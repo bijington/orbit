@@ -5,8 +5,8 @@ namespace BuildingGames.Slides;
 public class SuperWordsearchScene : SlideSceneBase
 {
 	private int currentTransition = 0;
-	private const int transitions = 1;
-    private float textY = float.NaN;
+	private const int transitions = 2;
+    private float fontSize = 1000f;
 
 	public SuperWordsearchScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
@@ -25,28 +25,39 @@ public class SuperWordsearchScene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
-
-        if (float.IsNaN(textY))
+        if (currentTransition == 0)
         {
-            textY = dimensions.Height;
+            Styling.RenderTitle("A few years ago in a town not far from here....", canvas, dimensions);
         }
+        else if (currentTransition == 1)
+        {
+            canvas.Alpha = 1.0f;
+            canvas.Font = Styling.Font;
+            canvas.FontSize = fontSize;
+            canvas.FontColor = Styling.TitleColor;
 
-        if (currentTransition > 0)
+            canvas.DrawString(
+                @"Super
+Wordsearch",
+                dimensions,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Center,
+                TextFlow.OverflowBounds);
+        }
+        else if (currentTransition == 2)
         {
             canvas.DrawString(
                 dimensions,
                 @"
-Super
-Wordsearch",
+Demo time!",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
                 Styling.Font,
-                175,
-                new PointF(0, textY),
+                (float)Styling.ScaledFontSize(0.05),
+                new PointF(40, dimensions.Height * 0.2f),
                 HorizontalAlignment.Center,
-                VerticalAlignment.Top);
+                VerticalAlignment.Center);
         }
 
         base.Render(canvas, dimensions);
@@ -56,9 +67,14 @@ Wordsearch",
     {
         base.Update(millisecondsSinceLastUpdate);
 
-        if (currentTransition > 0)
+        if (currentTransition == 1)
         {
-            textY--;
+            fontSize -= 0.5f;
+
+            if (fontSize <= 0)
+            {
+                currentTransition++;
+            }
         }
     }
 }

@@ -18,9 +18,10 @@ public static class SlideDeck
         typeof(FittingItIntoDotnetMauiScene),
         typeof(SketchIntoGameScene),
         // Orbit engine and how to use it
-        // App: Orbit
         // Tips & tricks - Keeping things simple
+        typeof(TipsAndTricksSimpleScene),
         // Tips & tricks - Consider the device/player
+        typeof(TipsAndTricksDeviceScene),
         // Tips & tricks - Accessibility
         // UI Testing - thoughts
         typeof(TheFinalBossScene),

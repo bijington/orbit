@@ -43,9 +43,9 @@ public class TheGameEngineApproachScene : SlideSceneBase
             Styling.TitleColor,
             Colors.Transparent,
             1,
-            Styling.CodeFont,
-            (float)Styling.ScaledFontSize(0.05),
-            new PointF(40, dimensions.Height * 0.2f),
+            Styling.Font,
+            (float)Styling.ScaledFontSize(0.048),
+            new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 

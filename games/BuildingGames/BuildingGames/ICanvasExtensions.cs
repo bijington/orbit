@@ -34,7 +34,7 @@ public static class ICanvasExtensions
             new RectF(location, new SizeF(dimensions.Width, size.Height * lineCount)),
             horizontalAlignment,
             verticalAlignment,
-            TextFlow.OverflowBounds);
+            TextFlow.ClipBounds);
     }
 }
 

@@ -2,28 +2,29 @@
 
 namespace BuildingGames.Slides;
 
-public class TheFinalBossScene : SlideSceneBase
+public class TipsAndTricksDeviceScene : SlideSceneBase
 {
-	public TheFinalBossScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
-	{
+	public TipsAndTricksDeviceScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    {
 	}
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("The final boss", canvas, dimensions);
+        Styling.RenderTitle("Consider the device/player", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,
-            @"
-- A better name? MAGE - Multi-platform App Game Engine
+            @"- Update wants to be display independent
 
-- Physics - Collisions / Gravity
+  - Screen sizes
 
-- Diagnostics
+  - Screen orientations
 
-- Testing support
+- Touch offers very little feedback
 
-- Feedback Driven Development",
+  - Haptic/Vibration goes a long way
+
+- Audio makes a huge difference",
             Styling.TitleColor,
             Colors.Transparent,
             1,

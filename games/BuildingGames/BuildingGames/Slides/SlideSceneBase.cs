@@ -44,7 +44,7 @@ public abstract class SlideSceneBase : GameScene
             "Shaun Lawrence",
             Styling.TitleColor,
             Colors.Transparent,
-            1,
+            0.5f,
             font,
             Styling.FooterSize,
             new PointF(10, dimensions.Bottom - 60),
@@ -56,11 +56,13 @@ public abstract class SlideSceneBase : GameScene
             "@Bijington",
             Styling.TitleColor,
             Colors.Transparent,
-            1,
+            0.5f,
             font,
             Styling.FooterSize,
             new PointF(-10, dimensions.Bottom - 60),
             HorizontalAlignment.Right,
             VerticalAlignment.Top);
+
+        canvas.Alpha = 1f;
     }
 }

@@ -2,15 +2,15 @@
 
 namespace BuildingGames.Slides;
 
-public class TutorialScene : SlideSceneBase
+public class TipsAndTricksSimpleScene : SlideSceneBase
 {
-	public TutorialScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+	public TipsAndTricksSimpleScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
 	}
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial", canvas, dimensions);
+        Styling.RenderTitle("Keep it simple", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,

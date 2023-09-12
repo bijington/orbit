@@ -59,7 +59,7 @@ private void UpdateScene()
             Styling.TitleColor,
             Colors.Transparent,
             1,
-            Styling.CodeFont,
+            Styling.Font,
             (float)Styling.ScaledFontSize(0.02),
             new PointF(40, dimensions.Height * 0.2f),
             HorizontalAlignment.Left,
