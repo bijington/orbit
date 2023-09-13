@@ -2,29 +2,31 @@
 
 namespace BuildingGames.Slides;
 
-public class TheFinalBossScene : SlideSceneBase
+public class DotnetMauiGraphicsScene : SlideSceneBase
 {
-	public TheFinalBossScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
-	{
+	public DotnetMauiGraphicsScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    {
 	}
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("The final boss", canvas, dimensions);
+        Styling.RenderTitle(".NET MAUI Graphics", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,
-            @"- A better name? MAGE - Multi-platform App Game Engine
+            @"- Unified graphics API
 
-- Physics - Collisions / Gravity
+- Provides surface to draw or paint on
 
-- Performance benchmarking
+- Platform specific implementations
 
-- .NET Hot Reload support
+  - Android -> Android.Graphics
 
-- Testing support
+  - iOS/macOS -> CoreGraphics
 
-- Better Accessibility options",
+  - Windows -> Microsoft.Graphics/Windows.Graphics
+
+- GraphicsView",
             Styling.TitleColor,
             Colors.Transparent,
             1,

@@ -9,11 +9,11 @@
 
     <Grid
         ColumnDefinitions="2*,*"
-        RowDefinitions="Auto,*">
+        RowDefinitions="Auto,*"
+        Margin="40">
 
         <controls:TitleLabel
-            Text="MAUI animations"
-            Margin="10"
+            Text="Custom animations"
             Grid.ColumnSpan="2" />
 
         <controls:CodeSampleLabel

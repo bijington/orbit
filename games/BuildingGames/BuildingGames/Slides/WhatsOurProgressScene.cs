@@ -4,6 +4,9 @@ namespace BuildingGames.Slides;
 
 public class WhatsOurProgressScene : SlideSceneBase
 {
+    private int currentTransition = 0;
+    private const int transitions = 1;
+
     private readonly Microsoft.Maui.Graphics.IImage sketch;
     private readonly float aspectRatio;
 
@@ -11,6 +14,17 @@ public class WhatsOurProgressScene : SlideSceneBase
 	{
         sketch = LoadImage("orbit_sketch.jpg");
         aspectRatio = sketch.Width / sketch.Height;
+    }
+
+    public override void Progress()
+    {
+        // If we are complete then fire the Next event.
+        if (currentTransition == transitions)
+        {
+            base.Progress();
+        }
+
+        currentTransition++;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -33,15 +47,18 @@ public class WhatsOurProgressScene : SlideSceneBase
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 
-        var imageHeight = dimensions.Height * 0.4f;
-        var imageWidth = imageHeight * aspectRatio;
+        if (currentTransition == 1)
+        {
+            var imageHeight = dimensions.Height * 0.4f;
+            var imageWidth = imageHeight * aspectRatio;
 
-        canvas.DrawImage(
-            sketch,
-            dimensions.Center.X - imageWidth / 2,
-            dimensions.Height - imageHeight * 1.2f,
-            imageWidth,
-            imageHeight);
+            canvas.DrawImage(
+                sketch,
+                dimensions.Center.X - imageWidth / 2,
+                dimensions.Height - imageHeight * 1.2f,
+                imageWidth,
+                imageHeight);
+        }
 
         base.Render(canvas, dimensions);
     }

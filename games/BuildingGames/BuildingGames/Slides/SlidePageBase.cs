@@ -73,17 +73,23 @@ public abstract class SlidePageBase : ContentPage
         {
             try
             {
-                await Shell.Current.GoToAsync($"../{nameof(MainPage)}");
+                await Shell.Current.GoToAsync($"/{nameof(MainPage)}");
             }
             catch (Exception ex)
             {
 
             }
-            
         }
         else if (sceneType.IsAssignableTo(typeof(ContentPage)))
         {
-            await Shell.Current.GoToAsync(sceneType.Name);
+            try
+            {
+                await Shell.Current.GoToAsync($"/{sceneType.Name}");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 

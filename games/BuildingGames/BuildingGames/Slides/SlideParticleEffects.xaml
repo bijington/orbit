@@ -10,11 +10,11 @@
 
     <Grid
         ColumnDefinitions="2*,*"
-        RowDefinitions="Auto,*">
+        RowDefinitions="Auto,*"
+        Margin="40">
 
         <controls:TitleLabel
             Text="Particle effects"
-            Margin="10"
             Grid.ColumnSpan="2" />
 
         <controls:CodeSampleLabel

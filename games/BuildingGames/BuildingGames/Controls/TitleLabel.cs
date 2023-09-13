@@ -7,5 +7,7 @@ public class TitleLabel : Label
 		FontFamily = Styling.FontName;
 		FontSize = Styling.TitleSize;
 		TextColor = Styling.TitleColor;
+
+		HorizontalTextAlignment = TextAlignment.Center;
 	}
 }

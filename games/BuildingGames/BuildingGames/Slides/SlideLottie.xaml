@@ -10,11 +10,11 @@
 
     <Grid
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,*">
+        RowDefinitions="Auto,*"
+        Margin="40">
 
         <controls:TitleLabel
             Text="Lottie animations"
-            Margin="10"
             Grid.ColumnSpan="2" />
 
         <controls:CodeSampleLabel

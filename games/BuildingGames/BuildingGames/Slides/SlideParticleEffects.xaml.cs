@@ -32,8 +32,6 @@ emitterLayer.Cells = new CAEmitterCell[] { cell };
 
 control.Layer.AddSublayer(emitterLayer);";
         this.dispatcher = dispatcher;
-
-        //ParticleEmitter.Emit();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

@@ -4,25 +4,27 @@ public static class SlideDeck
 {
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(TitleScene),
-        typeof(CharacterSelectionScene),
-        typeof(TutorialScene),
-        typeof(SuperWordsearchScene),
-        typeof(SlideLottie),
-        typeof(SlideAnimations),
-        typeof(SlideAnimationsPartTwo),
-        typeof(SlideParticleEffects),
-        typeof(WhatsOurProgressScene),
-        typeof(TheGameEngineApproachScene),
-        // A nice in depth detail of MAUI Graphics!
-        typeof(FittingItIntoDotnetMauiScene),
-        typeof(SketchIntoGameScene),
-        // Orbit engine and how to use it
-        // Tips & tricks - Keeping things simple
+        //typeof(TitleScene),
+        //typeof(CharacterSelectionScene),
+        //typeof(TutorialScene),
+        //typeof(SuperWordsearchScene),
+        //typeof(SlideLottie),
+        //typeof(SlideAnimations),
+        //typeof(SlideAnimationsPartTwo),
+        //typeof(SlideParticleEffects),
+        //typeof(SlideCombined),
+        //typeof(WhatsOurProgressScene),
+        //typeof(TheGameEngineApproachScene),
+        //typeof(DotnetMauiGraphicsScene),
+        //typeof(FittingItIntoDotnetMauiScene),
+        //typeof(SketchIntoGameScene),
+        //typeof(HowToUsePartOne),
+        //typeof(HowToUsePartTwo),
+        //typeof(HowToUsePartThree),
+        //typeof(HowToUsePartFour),
+        //typeof(HowToUsePartFive),
         typeof(TipsAndTricksSimpleScene),
-        // Tips & tricks - Consider the device/player
         typeof(TipsAndTricksDeviceScene),
-        // Tips & tricks - Accessibility
         // UI Testing - thoughts
         typeof(TheFinalBossScene),
         typeof(Credits)

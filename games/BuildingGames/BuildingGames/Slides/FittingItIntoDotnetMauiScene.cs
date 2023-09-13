@@ -90,6 +90,8 @@ private void UpdateScene()
 
         DrawBox("Wait", loopBounds.X - halfWidth, loopBounds.Center.Y - boxHeight / 2, boxWidth, boxHeight, canvas, currentTransition == 3);
 
+        canvas.Alpha = 1f;
+
         base.Render(canvas, dimensions);
     }
 

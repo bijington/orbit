@@ -61,7 +61,7 @@ public partial class MainPage : ContentPage
         {
             try
             {
-                await Shell.Current.GoToAsync(sceneType.Name);
+                await Shell.Current.GoToAsync($"/{sceneType.Name}");
             }
             catch (Exception ex)
             {

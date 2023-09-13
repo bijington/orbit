@@ -36,8 +36,8 @@ public class CharacterSelectionScene : SlideSceneBase
                 Weaknesses = new List<string>
                 {
                     "Distracted easily",
-                    "Cake",
-                    "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes"
+                    "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes",
+                    "Cake"
                 },
                 ImageName = "shaun.png"
             },
@@ -141,7 +141,7 @@ public class CharacterSelectionScene : SlideSceneBase
         canvas.FontSize = 30;
         canvas.FontColor = Colors.White;
 
-        var columnWidth = dimensions.Width / 2;
+        var columnWidth = dimensions.Width / 2 - padding * 2;
 
         canvas.DrawString(
             new RectF(dimensions.Center.X + padding, yOffset, columnWidth, 100),
@@ -150,7 +150,7 @@ public class CharacterSelectionScene : SlideSceneBase
             Colors.Transparent,
             1,
             font,
-            30,
+            (float)Styling.ScaledFontSize(0.04),
             new PointF(dimensions.Center.X + padding, yOffset),
             HorizontalAlignment.Left,
             VerticalAlignment.Center);
@@ -164,20 +164,20 @@ public class CharacterSelectionScene : SlideSceneBase
                 Colors.Transparent,
                 1,
                 font,
-                30,
+                (float)Styling.ScaledFontSize(0.04),
                 new PointF(dimensions.Center.X + padding, yOffset + 100),
                 HorizontalAlignment.Left,
                 VerticalAlignment.Center);
 
             canvas.DrawString(
-                new RectF(dimensions.Center.X + padding, yOffset + 400, columnWidth, 100),
+                new RectF(dimensions.Center.X + padding, yOffset + 200, columnWidth, 100),
                 $"Weaknesses:{Environment.NewLine} - {string.Join($"{Environment.NewLine} - ", character.Weaknesses)}",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
                 font,
-                30,
-                new PointF(dimensions.Center.X + padding, yOffset + 400),
+                (float)Styling.ScaledFontSize(0.04),
+                new PointF(dimensions.Center.X + padding, yOffset + 200),
                 HorizontalAlignment.Left,
                 VerticalAlignment.Center);
         }

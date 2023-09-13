@@ -14,11 +14,16 @@ public class TheGameEngineApproachScene : SlideSceneBase
         textTransitions = new List<string>
         {
             "- Game loop",
-            "  - Runs continuously",
-            "  - Processes user input",
-            "  - Updates game state",
-            "  - Renders game",
-            "  - Waits"
+            @"
+   - Runs continuously",
+            @"
+   - Processes user input",
+            @"
+   - Updates game state",
+            @"
+   - Renders game",
+            @"
+   - Waits"
         };
 	}
 
