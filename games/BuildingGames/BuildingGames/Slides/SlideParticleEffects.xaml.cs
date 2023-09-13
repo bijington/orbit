@@ -6,39 +6,24 @@ public partial class SlideParticleEffects : SlidePageBase
 {
     private readonly IDispatcher dispatcher;
 
+    protected override int Transitions => 1;
+
     public SlideParticleEffects(IDispatcher dispatcher, IGameSceneManager gameSceneManager, ControllerManager controllerManager) : base(gameSceneManager, controllerManager)
 	{
 		InitializeComponent();
 
-        CodeSample.Text = @"
-var emitterLayer = new CAEmitterLayer
-{
-    Shape = CAEmitterLayer.ShapeCircle
-};
-
-var cell = new CAEmitterCell
-{
-    Name = ""pEmitter"",
-    BirthRate = numberOfItems,
-    Scale = 0f,
-    ScaleRange = scale,
-    Velocity = speed,
-    LifeTime = (float)lifeTime,
-    EmissionRange = (NFloat)Math.PI * 2.0f,
-    Contents = UIImage.FromBundle(image).CGImage
-};
-
-emitterLayer.Cells = new CAEmitterCell[] { cell };
-
-control.Layer.AddSublayer(emitterLayer);";
         this.dispatcher = dispatcher;
-    }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
+        Points.Text = @"
+- Makes use of .NET MAUI platform behaviors
 
-        EmitParticles();
+- Allows customisation of existing native controls
+
+- Community blog post - Rendy Del Rosario
+
+- https://www.xamboy.com/2019/01/30/particle-system-in-xamarin-forms/
+
+- If it is possible on the platform then it is possible in .NET MAUI";
     }
 
     private void EmitParticles()
@@ -51,5 +36,19 @@ control.Layer.AddSublayer(emitterLayer);";
 
                 EmitParticles();
             });
+    }
+
+    protected override void Transition(int nextTransition)
+    {
+        base.Transition(nextTransition);
+
+        if (nextTransition == 1)
+        {
+            Points.IsVisible = false;
+            Sample.IsVisible = true;
+            Tile.IsVisible = true;
+
+            EmitParticles();
+        }
     }
 }

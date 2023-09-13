@@ -2,29 +2,25 @@
 
 namespace BuildingGames.Slides;
 
-public class TheFinalBossScene : SlideSceneBase
+public class TheBirthOfAnotherDistractionScene : SlideSceneBase
 {
-	public TheFinalBossScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
-	{
-	}
+    public TheBirthOfAnotherDistractionScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    {
+    }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("The final boss", canvas, dimensions);
+        Styling.RenderTitle("The birth of another distraction", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,
-            @"- A better name? MAGE - Multi-platform App Game Engine
+            @"- What if I want to build more than one game?
 
-- Better Accessibility options
+- What can I reuse?
 
-- Physics - Collisions / Gravity
+- Let's disappear down this rabbit hole
 
-- Performance benchmarking
-
-- .NET Hot Reload support
-
-- Testing support",
+- I wonder if there is cake down there too...",
             Styling.TitleColor,
             Colors.Transparent,
             1,

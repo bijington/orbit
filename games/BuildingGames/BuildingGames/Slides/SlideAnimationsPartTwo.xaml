@@ -16,8 +16,8 @@
             Text="Custom animations"
             Grid.ColumnSpan="2" />
 
-        <controls:CodeSampleLabel
-            x:Name="CodeSample"
+        <Image
+            Source="sample_animations_two.png"
             VerticalOptions="Center"
             Grid.Row="1" />
 

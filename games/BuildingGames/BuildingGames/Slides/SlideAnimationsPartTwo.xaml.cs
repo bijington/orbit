@@ -16,24 +16,6 @@ public partial class SlideAnimationsPartTwo : SlidePageBase
     {
         base.OnNavigatedTo(args);
 
-        CodeSample.Text = @"
-var animation = new Animation
-{
-    { 0.0, 0.2, new Animation(v => Tile.Scale = v, 1, 0.9) },
-    { 0.2, 0.75, new Animation(v => Tile.Scale = v, 0.9, 1.2) },
-    { 0.75, 1.0, new Animation(v => Tile.Scale = v, 1.2, 0) }
-};
-
-animation.Commit(
-    Tile,
-    ""SuccessfulMatch"",
-    length: 500,
-    easing: Easing.SpringIn,
-    finished: (v, f) =>
-    {
-        Tile.IsVisible = false;
-    });";
-
         PerformAnimation();
     }
 

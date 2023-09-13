@@ -7,10 +7,18 @@ public abstract class SlidePageBase : ContentPage
     private readonly IGameSceneManager gameSceneManager;
     private readonly ControllerManager controllerManager;
 
+    private int CurrentTransition { get; set; }
+
+    protected virtual int Transitions { get; }
+
     public SlidePageBase(IGameSceneManager gameSceneManager, ControllerManager controllerManager)
 	{
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
+    }
+
+    protected virtual void Transition(int nextTransition)
+    {
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -100,10 +108,18 @@ public abstract class SlidePageBase : ContentPage
 
     protected virtual void ProgressSlides()
     {
-        if (SlideDeck.GetNextSlideType() is Type nextSlideType)
+        // If we are complete then fire the Next event.
+        if (CurrentTransition == Transitions)
         {
-            this.LoadSlide(nextSlideType);
+            if (SlideDeck.GetNextSlideType() is Type nextSlideType)
+            {
+                this.LoadSlide(nextSlideType);
+            }
         }
+
+        CurrentTransition++;
+
+        Transition(CurrentTransition);
     }
 
     protected void GoBack()

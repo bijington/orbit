@@ -16,13 +16,20 @@
             Text="Pre-built animations"
             Grid.ColumnSpan="2" />
 
-        <controls:CodeSampleLabel
-            x:Name="CodeSample"
+        <Label
+            x:Name="Points"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+
+        <Image
+            x:Name="Sample"
+            Source="sample_animations_one.png"
             VerticalOptions="Center"
             Grid.Row="1" />
 
         <Frame
             x:Name="Tile"
+            IsVisible="False"
             IsClippedToBounds="True"
             Padding="0"
             HasShadow="False"

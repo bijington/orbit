@@ -17,8 +17,14 @@
             Text="Particle effects"
             Grid.ColumnSpan="2" />
 
-        <controls:CodeSampleLabel
-            x:Name="CodeSample"
+        <Label
+            x:Name="Points"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+
+        <Image
+            x:Name="Sample"
+            Source="sample_particle_effect.png"
             VerticalOptions="Center"
             Grid.Row="1" />
 

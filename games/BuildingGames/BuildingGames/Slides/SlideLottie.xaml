@@ -17,16 +17,24 @@
             Text="Lottie animations"
             Grid.ColumnSpan="2" />
 
-        <controls:CodeSampleLabel
-            x:Name="CodeSample"
+        <Label
+            x:Name="Points"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+
+        <Image
+            x:Name="Sample"
+            Source="sample_lottie.png"
             VerticalOptions="Center"
-            Grid.Row="1" />
+            Grid.Row="1"
+            IsVisible="False"/>
 
         <skia:SKLottieView
+            x:Name="LottieAnimation"
             Source="trophy.json"
             RepeatCount="100"
             RepeatMode="Restart"
-            IsAnimationEnabled="true"
+            IsAnimationEnabled="False"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Grid.Column="1"

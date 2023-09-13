@@ -63,8 +63,36 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\Images\repository-qrcode.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_one.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_two.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_three.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_four.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_five.png" />
+	  <None Remove="Resources\EmbeddedResources\ship_basic.png" />
+	  <None Remove="Resources\EmbeddedResources\ship_armed.png" />
+	  <None Remove="Resources\EmbeddedResources\guns.png" />
+	  <None Remove="Resources\EmbeddedResources\pulse.png" />
+	  <None Remove="Resources\EmbeddedResources\collectible.png" />
+	  <None Remove="Resources\Images\sample_lottie.png" />
+	  <None Remove="Resources\Images\sample_animations_one.png" />
+	  <None Remove="Resources\Images\sample_animations_two.png" />
+	  <None Remove="Resources\Images\sample_particle_effect.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\repository_qrcode.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_one.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_two.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_three.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_four.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_five.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\ship_basic.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\ship_armed.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\guns.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\pulse.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\collectible.png" />
+	  <BundleResource Include="Resources\Images\sample_lottie.png" />
+	  <BundleResource Include="Resources\Images\sample_animations_one.png" />
+	  <BundleResource Include="Resources\Images\sample_animations_two.png" />
+	  <BundleResource Include="Resources\Images\sample_particle_effect.png" />
 	</ItemGroup>
 </Project>
