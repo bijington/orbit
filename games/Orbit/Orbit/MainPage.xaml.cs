@@ -1,4 +1,5 @@
-﻿using Orbit.Engine;
+﻿using Orbit.Audio;
+using Orbit.Engine;
 using Orbit.Scenes;
 
 namespace Orbit;
@@ -7,17 +8,20 @@ public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly UserInputManager userInputManager;
+    private readonly AudioService audioService;
 
     public static bool ShowBounds { get; private set; } = false;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
-        UserInputManager userInputManager)
+        UserInputManager userInputManager,
+        AudioService audioService)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.userInputManager = userInputManager;
+        this.audioService = audioService;
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
@@ -31,6 +35,8 @@ public partial class MainPage : ContentPage
                 PauseMenu.IsVisible = false;
                 Play.IsVisible = true;
                 TitleLabel.IsVisible = true;
+
+                await this.audioService.Play(AudioItem.HomeBackgroundMusic, true);
                 break;
 
             case GameState.Started:

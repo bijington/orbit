@@ -1,6 +1,8 @@
-﻿using Orbit.Engine;
+﻿using Orbit.Audio;
+using Orbit.Engine;
 using Orbit.GameObjects;
 using Orbit.Scenes;
+using Plugin.Maui.Audio;
 
 namespace Orbit;
 
@@ -11,7 +13,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseOrbitEngine()
+            .UseOrbitEngine() // Register the engine
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -19,10 +21,21 @@ public static class MauiProgram
                 fonts.AddFont("SpaceMono-Bold.ttf", "SpaceMonoBold");
             })
             .Services
+                // Pages
                 .AddTransient<MainPage>()
+
+                // Essentials
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
+                .AddSingleton(FileSystem.Current)
+
+                // Audio
+                .AddSingleton(AudioManager.Current)
+
+                // Internals
                 .AddSingleton<UserInputManager>()
+                .AddSingleton<AudioService>()
+
                 .RegisterGameObjects()
                 .RegisterScenes();
 
