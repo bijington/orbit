@@ -15,7 +15,7 @@
 		<ApplicationTitle>Orbit</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.orbit</ApplicationId>
+		<ApplicationId>com.tinysoft.orbit</ApplicationId>
 		<ApplicationIdGuid>66EBFB47-D7B6-4A90-A0FE-3497D05476F6</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -33,6 +33,9 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -44,7 +47,7 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
 
-		<EmbeddedResource Include="Resources\EmbeddedResources\*" />
+		<EmbeddedResource Include="Resources\EmbeddedResources\*" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -53,17 +56,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="Resources\EmbeddedResources\asteroid_remains.png" />
-	  <None Remove="Audio\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <BundleResource Include="**/*" />
-	  <BundleResource Include="Resources\EmbeddedResources\*" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Audio\" />
-	</ItemGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="Plugin.Maui.Audio" Version="1.0.0" />
 	</ItemGroup>

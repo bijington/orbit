@@ -1,4 +1,6 @@
-﻿namespace Orbit.Engine;
+﻿using System.Reflection;
+
+namespace Orbit.Engine;
 
 /// <summary>
 /// Base class implementation for containing <see cref="GameObject"/> children.
@@ -37,6 +39,19 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
     protected virtual void OnGameObjectRemoved(GameObject gameObject)
     {
 
+    }
+
+    protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)
+    {
+        var assembly = GetType().GetTypeInfo().Assembly;
+
+        using var stream = assembly.GetManifestResourceStream(imageName);
+
+#if WINDOWS
+        return new Microsoft.Maui.Graphics.Win2D.W2DImageLoadingService().FromStream(stream);
+#else
+        return Microsoft.Maui.Graphics.Platform.PlatformImage.FromStream(stream);
+#endif
     }
 
     /// <inheritdoc />

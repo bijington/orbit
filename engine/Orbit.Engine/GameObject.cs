@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.Maui.Graphics;
 #if WINDOWS
 using Microsoft.Maui.Graphics.Win2D;
 #else
@@ -12,33 +13,55 @@ namespace Orbit.Engine;
 /// </summary>
 public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
 {
+    private GameScene currentScene;
+
     public RectF Bounds { get; protected set; }
 
-    public GameScene CurrentScene { get; internal set; } // TODO: weak reference?
-
-    public virtual bool IsCollisionDetectionEnabled { get; }
-
-    protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)
+    public GameScene CurrentScene
     {
-        var assembly = GetType().GetTypeInfo().Assembly;
-
-        using (var stream = assembly.GetManifestResourceStream("Orbit.Resources.EmbeddedResources." + imageName))
+        get => this.currentScene;
+        set
         {
-#if WINDOWS
-            return new W2DImageLoadingService().FromStream(stream);
-#else
-            return PlatformImage.FromStream(stream);
-#endif
+            if (this.currentScene != value)
+            {
+                this.currentScene = value;
+
+                this.UpdateCurrentScene();
+            }
         }
     }
+
+    public virtual bool IsCollisionDetectionEnabled { get; }
 
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
     {
         canvas.SaveState();
-        canvas.ResetState();
+        //canvas.ResetState();
 
         Render(canvas, dirtyRect);
 
         canvas.RestoreState();
+    }
+
+    protected override void OnGameObjectAdded(GameObject gameObject)
+    {
+        base.OnGameObjectAdded(gameObject);
+
+        gameObject.CurrentScene = this.CurrentScene;
+    }
+
+    protected override void OnGameObjectRemoved(GameObject gameObject)
+    {
+        base.OnGameObjectRemoved(gameObject);
+
+        gameObject.CurrentScene = null;
+    }
+
+    private void UpdateCurrentScene()
+    {
+        foreach (var gameObject in GameObjectsSnapshot)
+        {
+            gameObject.CurrentScene = this.CurrentScene; 
+        }
     }
 }

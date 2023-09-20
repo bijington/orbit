@@ -25,6 +25,8 @@ public interface IGameSceneManager
     void LoadScene<TScene>(GameSceneView gameSceneView)
         where TScene: IGameScene;
 
+    void LoadScene(Type sceneType, GameSceneView gameSceneView);
+
     void Pause();
     void Start();
     void Stop();

@@ -16,11 +16,11 @@
             EndInteraction="OnGameViewEndInteraction" />
 
         <Label
-            Text="O.R.B.I.T"
+            Text="Orbital Defence"
             x:Name="TitleLabel"
             FontFamily="SpaceMonoBold"
             TextColor="White"
-            FontSize="80"
+            FontSize="50"
             HorizontalOptions="Center" />
 
         <HorizontalStackLayout

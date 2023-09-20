@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<Battery>()
             .AddTransient<BatteryLevelIndicator>()
             .AddTransient<Gun>()
+            .AddTransient<Pulse>()
             .AddScoped<Planet>()
             .AddTransient<PlanetHealthIndicator>()
             .AddTransient<Shadow>()

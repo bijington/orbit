@@ -7,5 +7,7 @@ public interface IGameObject : IRender, IUpdate
 {
     RectF Bounds { get; }
 
+    GameScene CurrentScene { get; set; }
+
     bool IsCollisionDetectionEnabled { get; }
 }
