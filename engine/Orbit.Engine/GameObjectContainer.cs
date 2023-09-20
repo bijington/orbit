@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Graphics.Platform;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Orbit.Engine;
 
@@ -51,7 +50,7 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
 #if WINDOWS
         return new W2DImageLoadingService().FromStream(stream);
 #else
-        return PlatformImage.FromStream(stream);
+        return Microsoft.Maui.Graphics.Platform.PlatformImage.FromStream(stream);
 #endif
     }
 
