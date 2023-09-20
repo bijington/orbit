@@ -48,7 +48,7 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
         using var stream = assembly.GetManifestResourceStream(imageName);
 
 #if WINDOWS
-        return new W2DImageLoadingService().FromStream(stream);
+        return new Microsoft.Maui.Graphics.Win2D.W2DImageLoadingService().FromStream(stream);
 #else
         return Microsoft.Maui.Graphics.Platform.PlatformImage.FromStream(stream);
 #endif
