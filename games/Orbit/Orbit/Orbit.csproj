@@ -56,10 +56,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
+
 	<ItemGroup>
-	  <None Remove="Resources\EmbeddedResources\pulse.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <BundleResource Include="Resources\EmbeddedResources\pulse.png" />
+	  <PackageReference Include="Plugin.Maui.Audio" Version="1.0.0" />
 	</ItemGroup>
 </Project>
