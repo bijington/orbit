@@ -15,7 +15,7 @@
 		<ApplicationTitle>Orbit</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.orbit</ApplicationId>
+		<ApplicationId>com.tinysoft.orbit</ApplicationId>
 		<ApplicationIdGuid>66EBFB47-D7B6-4A90-A0FE-3497D05476F6</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -33,6 +33,9 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -44,7 +47,7 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
 
-		<EmbeddedResource Include="Resources\EmbeddedResources\*" />
+		<EmbeddedResource Include="Resources\EmbeddedResources\*" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -54,10 +57,9 @@
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Resources\EmbeddedResources\asteroid_remains.png" />
+	  <None Remove="Resources\EmbeddedResources\pulse.png" />
 	</ItemGroup>
 	<ItemGroup>
-	  <BundleResource Include="**/*" />
-	  <BundleResource Include="Resources\EmbeddedResources\*" />
+	  <BundleResource Include="Resources\EmbeddedResources\pulse.png" />
 	</ItemGroup>
 </Project>

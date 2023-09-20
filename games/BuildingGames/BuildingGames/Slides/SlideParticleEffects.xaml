@@ -26,7 +26,8 @@
             x:Name="Sample"
             Source="sample_particle_effect.png"
             VerticalOptions="Center"
-            Grid.Row="1" />
+            Grid.Row="1"
+            IsVisible="False" />
 
         <BoxView
             x:Name="Tile"

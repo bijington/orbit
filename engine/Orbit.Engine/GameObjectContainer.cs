@@ -46,14 +46,13 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
     {
         var assembly = GetType().GetTypeInfo().Assembly;
 
-        using (var stream = assembly.GetManifestResourceStream("BuildingGames.Resources.EmbeddedResources." + imageName))
-        {
+        using var stream = assembly.GetManifestResourceStream(imageName);
+
 #if WINDOWS
-            return new W2DImageLoadingService().FromStream(stream);
+        return new W2DImageLoadingService().FromStream(stream);
 #else
-            return PlatformImage.FromStream(stream);
+        return PlatformImage.FromStream(stream);
 #endif
-        }
     }
 
     /// <inheritdoc />

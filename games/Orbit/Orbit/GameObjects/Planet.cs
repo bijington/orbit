@@ -32,10 +32,10 @@ public class Planet : GameObject
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         base.Render(canvas, dimensions);
-
+        
         canvas.Rotate(angle, dimensions.Center.X, dimensions.Center.Y);
 
-        var size = Math.Min(dimensions.Width, dimensions.Height) / 4;
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 6;
 
         Bounds = new RectF(
             dimensions.Center.X - size,

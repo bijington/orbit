@@ -25,7 +25,8 @@
             x:Name="Sample"
             Source="sample_animations_one.png"
             VerticalOptions="Center"
-            Grid.Row="1" />
+            Grid.Row="1"
+            IsVisible="False" />
 
         <Frame
             x:Name="Tile"

@@ -81,8 +81,8 @@
             Source="repository_qrcode.png"
             Grid.Row="7"
             Grid.ColumnSpan="2"
-            MaximumWidthRequest="300"
-            MaximumHeightRequest="300"
+            MaximumWidthRequest="500"
+            MaximumHeightRequest="500"
             HorizontalOptions="Center"
             VerticalOptions="Center"/>
     </Grid>

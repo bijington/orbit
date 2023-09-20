@@ -27,7 +27,7 @@
             Source="sample_lottie.png"
             VerticalOptions="Center"
             Grid.Row="1"
-            IsVisible="False"/>
+            IsVisible="False" />
 
         <skia:SKLottieView
             x:Name="LottieAnimation"
