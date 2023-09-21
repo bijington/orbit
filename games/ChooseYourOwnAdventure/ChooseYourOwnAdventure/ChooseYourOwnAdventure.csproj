@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>BuildingGames</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>BuildingGames</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.airhockey</ApplicationId>
+		<ApplicationIdGuid>1DB1B881-34B8-4123-9B49-1C719790DFB8</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<EmbeddedResource Include="Resources\EmbeddedResources\**" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.83" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\Images\repository-qrcode.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_one.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_two.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_three.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_four.png" />
+	  <None Remove="Resources\EmbeddedResources\how_to_part_five.png" />
+	  <None Remove="Resources\EmbeddedResources\ship_basic.png" />
+	  <None Remove="Resources\EmbeddedResources\ship_armed.png" />
+	  <None Remove="Resources\EmbeddedResources\guns.png" />
+	  <None Remove="Resources\EmbeddedResources\pulse.png" />
+	  <None Remove="Resources\EmbeddedResources\collectible.png" />
+	  <None Remove="Resources\Images\sample_lottie.png" />
+	  <None Remove="Resources\Images\sample_animations_one.png" />
+	  <None Remove="Resources\Images\sample_animations_two.png" />
+	  <None Remove="Resources\Images\sample_particle_effect.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\repository_qrcode.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_one.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_two.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_three.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_four.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\how_to_part_five.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\ship_basic.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\ship_armed.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\guns.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\pulse.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\collectible.png" />
+	  <BundleResource Include="Resources\Images\sample_lottie.png" />
+	  <BundleResource Include="Resources\Images\sample_animations_one.png" />
+	  <BundleResource Include="Resources\Images\sample_animations_two.png" />
+	  <BundleResource Include="Resources\Images\sample_particle_effect.png" />
+	</ItemGroup>
+</Project>
