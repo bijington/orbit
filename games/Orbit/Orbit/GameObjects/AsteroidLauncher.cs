@@ -84,7 +84,7 @@ public class AsteroidLauncher : GameObject
             CurrentScene.Add(asteroid);
 
             lastSpawn = DateTime.UtcNow;
-            nextSpawn = random.NextDouble() * spawnMaximum;
+            nextSpawn = double.MaxValue;//random.NextDouble() * spawnMaximum;
         }
 
         lastUpdate = DateTime.UtcNow;

@@ -48,7 +48,7 @@ public class Ship : GameObject
 
         Bounds = new RectF(
             dimensions.Center.X + a,
-            dimensions.Center.Y - o,
+            dimensions.Center.Y + o,
             image.Width,
             image.Height);
 

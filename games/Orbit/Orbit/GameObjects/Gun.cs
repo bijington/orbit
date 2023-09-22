@@ -4,7 +4,6 @@ namespace Orbit.GameObjects;
 
 public class Gun : GameObject
 {
-    private readonly IGameSceneManager gameSceneManager;
     private readonly IServiceProvider serviceProvider;
     readonly Microsoft.Maui.Graphics.IImage image;
     private double firingSpeed = 800;
@@ -12,9 +11,8 @@ public class Gun : GameObject
 
     public Ship Ship { get; set; }
 
-    public Gun(IGameSceneManager gameSceneManager, IServiceProvider serviceProvider)
+    public Gun(IServiceProvider serviceProvider)
     {
-        this.gameSceneManager = gameSceneManager;
         this.serviceProvider = serviceProvider;
 
         image = LoadImage("side_guns.png");
@@ -42,7 +40,7 @@ public class Gun : GameObject
                     new PointF(
                         0, 0),
                     new Point(2, 2),
-                    new Point(0.01, 0.01)),
+                    new Point(0.005, 0.005)),
                 Ship.angle);
 
             CurrentScene.Add(pulse);

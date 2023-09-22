@@ -37,24 +37,43 @@ public class Pulse : GameObject
     {
         base.Render(canvas, dimensions);
 
+        // TODO: convert this to real world bounds.
         Bounds = new RectF(
             (x * dimensions.Width),
             (y * dimensions.Height),
-            image.Width,
-            image.Height);
+            10,
+            10);
+
+        Console.WriteLine($"Pulse bounds: {this.Bounds}");
 
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(originalAngle);
-        canvas.Translate(ship.Bounds.Width / 4, 0);
-        canvas.Rotate(-30);
+        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
+        canvas.Translate(orbitRadius, 0);
+        canvas.Rotate(-36);
 
-        canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+        var transformedBounds = new RectF(
+            (x * dimensions.Width),
+            (y * dimensions.Height),
+            10,
+            10);
+        canvas.SetFillPaint(
+            new RadialGradientPaint(
+                new PaintGradientStop[]
+                {
+                    new PaintGradientStop(0, Color.FromRgb(94, 87, 172)),
+                    new PaintGradientStop(0.5f, Color.FromRgb(137, 202, 240)),
+                    new PaintGradientStop(1f, Color.FromRgb(61, 54, 90))
+                }),
+            transformedBounds);
+
+        canvas.FillEllipse(transformedBounds.X, transformedBounds.Y, transformedBounds.Width, transformedBounds.Height);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(transformedBounds.X, transformedBounds.Y, transformedBounds.Width, transformedBounds.Height);
 
             canvas.StrokeColor = Colors.Orange;
             canvas.StrokeDashPattern = new[] { 1f, 2f };

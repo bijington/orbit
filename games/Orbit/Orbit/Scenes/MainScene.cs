@@ -5,6 +5,8 @@ namespace Orbit;
 
 public class MainScene : GameScene
 {
+    private readonly Ship ship;
+
     public MainScene(
         Ship ship,
         Sun sun,
@@ -21,5 +23,22 @@ public class MainScene : GameScene
         Add(batteryLevelIndicator);
         Add(planetHealthIndicator);
         Add(versionOverlay);
+        this.ship = ship;
+    }
+
+    public override void Render(ICanvas canvas, RectF dimensions)
+    {
+        base.Render(canvas, dimensions);
+
+        canvas.StrokeColor = Colors.Green;
+        canvas.StrokeSize = 5;
+        canvas.DrawRectangle(ship.Bounds);
+
+        foreach (var pulse in this.GameObjectsSnapshot.OfType<Pulse>())
+        {
+            canvas.StrokeColor = Colors.Blue;
+            canvas.StrokeSize = 5;
+            canvas.DrawRectangle(pulse.Bounds);
+        }
     }
 }

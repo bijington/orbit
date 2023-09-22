@@ -56,6 +56,8 @@ public class Asteroid : GameObject
             size * 2,
             size * 2);
 
+        Console.WriteLine($"Asteroid bounds: {this.Bounds}");
+
         canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
@@ -85,16 +87,25 @@ public class Asteroid : GameObject
 
         if (collision is Pulse pulse)
         {
+            canvas.StrokeColor = Colors.Purple;
+            canvas.StrokeSize = 4;
+            canvas.DrawRectangle(this.Bounds);
+
             CurrentScene.Remove(this);
+
+            canvas.StrokeColor = Colors.Yellow;
+            canvas.StrokeSize = 4;
+            canvas.DrawRectangle(pulse.Bounds);
+
             CurrentScene.Remove(pulse);
         }
 
-        if (collision is Ship ship)
-        {
-            CurrentScene.Remove(this);
+        //if (collision is Ship ship)
+        //{
+        //    CurrentScene.Remove(this);
 
-            // TODO: Damage the ship;
-        }
+        //    // TODO: Damage the ship;
+        //}
 
         // TODO: Allow collision with other asteroids.
         if (collision is Asteroid otherAsteroid)

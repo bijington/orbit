@@ -9,25 +9,30 @@ public partial class MainPage : ContentPage
     private readonly IGameSceneManager gameSceneManager;
     private readonly UserInputManager userInputManager;
     private readonly AudioService audioService;
+    private readonly IDeviceDisplay deviceDisplay;
 
     public static bool ShowBounds { get; private set; } = false;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         UserInputManager userInputManager,
-        AudioService audioService)
+        AudioService audioService,
+        IDeviceDisplay deviceDisplay)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.userInputManager = userInputManager;
         this.audioService = audioService;
+        this.deviceDisplay = deviceDisplay;
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
     private async void OnGameSceneManagerStateChanged(object sender, GameStateChangedEventArgs e)
     {
+        this.deviceDisplay.KeepScreenOn = false;
+
         switch (e.State)
         {
             case GameState.Loaded:
@@ -40,6 +45,8 @@ public partial class MainPage : ContentPage
                 break;
 
             case GameState.Started:
+                this.deviceDisplay.KeepScreenOn = true;
+
                 await Task.WhenAll(
                     Play.ScaleTo(0, 250, Easing.SinOut),
                     TitleLabel.FadeTo(0, 500, Easing.SinOut));

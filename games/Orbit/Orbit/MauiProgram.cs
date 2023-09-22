@@ -28,6 +28,7 @@ public static class MauiProgram
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
                 .AddSingleton(FileSystem.Current)
+                .AddSingleton(DeviceDisplay.Current)
 
                 // Audio
                 .AddSingleton(AudioManager.Current)
