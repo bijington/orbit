@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<Planet>()
             .AddTransient<PlanetHealthIndicator>()
             .AddTransient<Shadow>()
-            .AddTransient<Ship>()
+            .AddScoped<Ship>()
             .AddTransient<Sun>()
             .AddScoped<Thruster>();
 }

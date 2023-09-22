@@ -5,24 +5,29 @@ namespace Orbit.GameObjects;
 public class Pulse : GameObject
 {
     private readonly IGameSceneManager gameSceneManager;
+    private readonly Ship ship;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
     Movement movement;
+    float originalAngle;
 
     public Pulse(
-        IGameSceneManager gameSceneManager)
+        IGameSceneManager gameSceneManager,
+        Ship ship)
     {
         image = LoadImage("pulse.png");
 
         this.gameSceneManager = gameSceneManager;
+        this.ship = ship;
     }
 
-    public void SetMovement(Movement movement)
+    public void SetMovement(Movement movement, float angle)
     {
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
+        originalAngle = angle;
 
         //x = 0.5f;
         //y = 0.5f;
@@ -32,15 +37,18 @@ public class Pulse : GameObject
     {
         base.Render(canvas, dimensions);
 
-        var size = Math.Min(dimensions.Width, dimensions.Height) / 16;
-
         Bounds = new RectF(
-            (x * dimensions.Width) - size,
-            (y * dimensions.Height) - size,
-            size * 2,
-            size * 2);
+            (x * dimensions.Width),
+            (y * dimensions.Height),
+            image.Width,
+            image.Height);
 
-        //canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
+        canvas.Rotate(originalAngle);
+        canvas.Translate(ship.Bounds.Width / 4, 0);
+        canvas.Rotate(-30);
+
+        canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
         {
@@ -48,21 +56,13 @@ public class Pulse : GameObject
             canvas.StrokeSize = 4;
             canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-            canvas.StrokeColor = Colors.White;
+            canvas.StrokeColor = Colors.Orange;
             canvas.StrokeDashPattern = new[] { 1f, 2f };
             canvas.DrawLine(
                 movement.OriginX * dimensions.Width,
                 movement.OriginY * dimensions.Height,
                 movement.DestinationX * dimensions.Width,
                 movement.DestinationY * dimensions.Height);
-        }
-
-        var collision = gameSceneManager.FindCollision(this);
-
-        if (collision is Asteroid otherAsteroid)
-        {
-            CurrentScene.Remove(otherAsteroid);
-            CurrentScene.Remove(this);
         }
     }
 
@@ -74,5 +74,10 @@ public class Pulse : GameObject
 
         x += movement.SpeedX;
         y += movement.SpeedY;
+
+        if (x <= -0.1 || x >= 1.1 || y <= -0.1 || y >= 1.1)
+        {
+            CurrentScene.Remove(this);
+        }
     }
 }

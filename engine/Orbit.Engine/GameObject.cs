@@ -36,11 +36,18 @@ public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
     {
         canvas.SaveState();
-        //canvas.ResetState();
 
         Render(canvas, dirtyRect);
 
         canvas.RestoreState();
+    }
+
+    public virtual void OnAdded()
+    {
+    }
+
+    public virtual void OnRemoved()
+    {
     }
 
     protected override void OnGameObjectAdded(GameObject gameObject)

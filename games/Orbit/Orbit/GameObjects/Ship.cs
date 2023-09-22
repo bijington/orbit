@@ -4,8 +4,6 @@ namespace Orbit.GameObjects;
 
 public class Ship : GameObject
 {
-    readonly Microsoft.Maui.Graphics.IImage slowDownImage;
-    readonly Microsoft.Maui.Graphics.IImage speedUpImage;
     readonly Microsoft.Maui.Graphics.IImage image;
     private readonly IGameSceneManager gameSceneManager;
     private readonly Thruster thruster;
@@ -25,9 +23,7 @@ public class Ship : GameObject
         Battery battery,
         UserInputManager userInputManager)
     {
-        image = LoadImage("ship_none.png");
-        speedUpImage = LoadImage("ship_forward.png");
-        slowDownImage = LoadImage("ship_reverse.png");
+        image = LoadImage("ship.png");
 
         this.gameSceneManager = gameSceneManager;
         this.thruster = thruster;
@@ -38,33 +34,41 @@ public class Ship : GameObject
         Add(battery);
 
         gun.Ship = this;
+        thruster.Ship = this;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
+        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
 
-        var size = Math.Min(dimensions.Width, dimensions.Height) / 20;
+        var a = MathF.Cos(angle) * orbitRadius;
+        var o = MathF.Sin(angle) * orbitRadius;
+
+        Console.WriteLine($"a = {a} o = {o}");
 
         Bounds = new RectF(
-            dimensions.Center.X - size,
-            dimensions.Center.Y - size,
-            size * 2,
-            size * 2);
-
-        var orbitRadius = Bounds.Width * 3;
+            dimensions.Center.X + a,
+            dimensions.Center.Y - o,
+            image.Width,
+            image.Height);
 
         canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
         canvas.Rotate(angle);
-        var image = this.thruster.IsThrusting ? GetImage(userInputManager.TouchMode) : GetImage(TouchMode.None);
-        canvas.DrawImage(image, orbitRadius, 0, Bounds.Width, Bounds.Height);
+        canvas.Translate(orbitRadius, 0);
+        canvas.Rotate(90);
+
+
+
+        canvas.DrawImage(image, -Bounds.Width / 2, -Bounds.Height / 2, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(orbitRadius, 0, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(-Bounds.Width / 2, -Bounds.Height / 2, Bounds.Width, Bounds.Height);
         }
+
+        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
@@ -73,11 +77,4 @@ public class Ship : GameObject
 
         angle += this.thruster.Thrust;
     }
-
-    private Microsoft.Maui.Graphics.IImage GetImage(TouchMode touchMode) => touchMode switch
-    {
-        TouchMode.SlowDown => slowDownImage,
-        TouchMode.SpeedUp => speedUpImage,
-        _ => image
-    };
 }

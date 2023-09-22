@@ -80,11 +80,13 @@ public class Asteroid : GameObject
             planet.OnHit(25);
             CurrentScene.Remove(this);
 
-            var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
-            remains.SetBounds(this.Bounds);
-            CurrentScene.Add(remains);
-
             this.vibration.Vibrate();
+        }
+
+        if (collision is Pulse pulse)
+        {
+            CurrentScene.Remove(this);
+            CurrentScene.Remove(pulse);
         }
 
         if (collision is Ship ship)
@@ -103,5 +105,14 @@ public class Asteroid : GameObject
         }
 
         // TODO: remove when off screen.
+    }
+
+    public override void OnRemoved()
+    {
+        base.OnRemoved();
+
+        var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
+        remains.SetBounds(this.Bounds);
+        CurrentScene.Add(remains);
     }
 }
