@@ -8,10 +8,12 @@ public class HomeScene : GameScene
     public HomeScene(
         Ship ship,
         Sun sun,
-        Planet planet)
+        Planet planet,
+        VersionOverlay versionOverlay)
     {
         Add(sun);
         Add(ship);
         Add(planet);
+        Add(versionOverlay);
     }
 }
