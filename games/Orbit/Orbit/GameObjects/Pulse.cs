@@ -11,6 +11,7 @@ public class Pulse : GameObject
     float y;
     Movement movement;
     float originalAngle;
+    readonly RadialGradientPaint pulsePaint;
 
     public Pulse(
         IGameSceneManager gameSceneManager,
@@ -20,6 +21,14 @@ public class Pulse : GameObject
 
         this.gameSceneManager = gameSceneManager;
         this.ship = ship;
+
+        pulsePaint = new RadialGradientPaint(
+            new PaintGradientStop[]
+            {
+                new PaintGradientStop(0, Color.FromRgb(94, 87, 172)),
+                new PaintGradientStop(0.5f, Color.FromRgb(137, 202, 240)),
+                new PaintGradientStop(1f, Color.FromRgb(61, 54, 90))
+            });
     }
 
     public void SetMovement(Movement movement, float angle)
@@ -37,6 +46,12 @@ public class Pulse : GameObject
     {
         base.Render(canvas, dimensions);
 
+        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
+        canvas.Rotate(ship.angle);
+        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
+        canvas.Translate(orbitRadius, 0);
+        canvas.Rotate(-36);
+
         // TODO: convert this to real world bounds.
         Bounds = new RectF(
             (x * dimensions.Width),
@@ -44,28 +59,12 @@ public class Pulse : GameObject
             10,
             10);
 
-        Console.WriteLine($"Pulse bounds: {this.Bounds}");
-
-        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
-        canvas.Rotate(originalAngle);
-        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
-        canvas.Translate(orbitRadius, 0);
-        canvas.Rotate(-36);
-
         var transformedBounds = new RectF(
-            (x * dimensions.Width),
-            (y * dimensions.Height),
+            x * dimensions.Width,
+            y * dimensions.Height,
             10,
             10);
-        canvas.SetFillPaint(
-            new RadialGradientPaint(
-                new PaintGradientStop[]
-                {
-                    new PaintGradientStop(0, Color.FromRgb(94, 87, 172)),
-                    new PaintGradientStop(0.5f, Color.FromRgb(137, 202, 240)),
-                    new PaintGradientStop(1f, Color.FromRgb(61, 54, 90))
-                }),
-            transformedBounds);
+        canvas.SetFillPaint(pulsePaint, transformedBounds);
 
         canvas.FillEllipse(transformedBounds.X, transformedBounds.Y, transformedBounds.Width, transformedBounds.Height);
 

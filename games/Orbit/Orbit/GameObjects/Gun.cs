@@ -27,24 +27,7 @@ public class Gun : GameObject
         //canvas.DrawImage(image, 0, 0, image.Width, image.Height);
 
 
-        if (elapsed >= firingSpeed)
-        {
-            elapsed = 0;
-
-            Pulse pulse = serviceProvider.GetRequiredService<Pulse>();
-
-            var a = Ship.angle;
-
-            pulse.SetMovement(
-                new Movement(
-                    new PointF(
-                        0, 0),
-                    new Point(2, 2),
-                    new Point(0.005, 0.005)),
-                Ship.angle);
-
-            CurrentScene.Add(pulse);
-        }
+        
 
         //canvas.DrawImage(image, orbitRadius, 0, image.Width, image.Height);
 
@@ -59,5 +42,22 @@ public class Gun : GameObject
         base.Update(millisecondsSinceLastUpdate);
 
         elapsed += millisecondsSinceLastUpdate;
+
+        if (elapsed >= firingSpeed)
+        {
+            elapsed = 0;
+
+            Pulse pulse = serviceProvider.GetRequiredService<Pulse>();
+
+            pulse.SetMovement(
+                new Movement(
+                    new PointF(
+                        0, 0),
+                    new Point(2, 2),
+                    new Point(0.005, 0.005)),
+                Ship.angle);
+
+            CurrentScene.Add(pulse);
+        }
     }
 }
