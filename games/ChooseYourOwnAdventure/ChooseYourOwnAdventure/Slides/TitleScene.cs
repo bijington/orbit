@@ -21,7 +21,7 @@ public class TitleScene : SlideSceneBase
             1,
             Styling.Font,
             (float)Styling.ScaledFontSize(0.17),
-            new PointF(40, dimensions.Height * 0.25f),
+            new PointF(40, dimensions.Height * 0.2f),
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
 
@@ -33,9 +33,9 @@ public class TitleScene : SlideSceneBase
             1,
             Styling.Font,
             (float)Styling.ScaledFontSize(0.1),
-            new PointF(40, dimensions.Height * 0.25f),
+            new PointF(40, dimensions.Height * 0.5f),
             HorizontalAlignment.Center,
-            VerticalAlignment.Top);
+            VerticalAlignment.Center);
 
         canvas.DrawString(
             dimensions,

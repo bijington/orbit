@@ -17,12 +17,14 @@ public class CharacterSelectionScene : SlideSceneBase
 
     public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
-        images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
+        try
         {
-            ["shaun.png"] = LoadImage("shaun.png")
-        };
+            images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
+            {
+                ["shaun.png"] = LoadImage("shaun.png")
+            };
 
-        this.characters = new List<Character>
+            this.characters = new List<Character>
         {
             new Character
             {
@@ -73,7 +75,13 @@ public class CharacterSelectionScene : SlideSceneBase
             }
         };
 
-        this.controllerManager = controllerManager;
+            this.controllerManager = controllerManager;
+        }
+        catch (Exception ex)
+        {
+
+        }
+        
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

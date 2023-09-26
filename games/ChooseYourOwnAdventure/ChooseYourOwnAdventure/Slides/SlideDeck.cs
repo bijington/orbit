@@ -7,7 +7,7 @@ public static class SlideDeck
         typeof(TitleScene),
         typeof(CharacterSelectionScene),
         typeof(TutorialScene),
-        typeof(SuperWordsearchScene),
+        typeof(RedVersusBluePillScene),
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
