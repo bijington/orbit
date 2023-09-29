@@ -6,9 +6,13 @@ namespace BuildingGames.Slides;
 
 public abstract class VoteSceneBase : SlideSceneBase
 {
-    private HubConnection hubConnection;
+    private readonly HubConnection hubConnection;
     protected int Option1VoteCount;
     protected int Option2VoteCount;
+    protected abstract Type Option1DestinationType { get; }
+    protected abstract Type Option2DestinationType { get; }
+
+    public Type DestinationSceneType => Option1VoteCount > Option2VoteCount ? Option1DestinationType : Option2DestinationType;
 
     public VoteSceneBase(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
@@ -25,17 +29,29 @@ public abstract class VoteSceneBase : SlideSceneBase
             });
 
             hubConnection.StartAsync().Wait();
-
-            var voteState = new VoteState
-            {
-                Title = "Red or blue?",
-                Option1Label = "Red",
-                Option2Label = "Blue"
-            };
-            hubConnection.SendAsync("OpenVoting", voteState).Wait();
         }
         catch (Exception ex)
         {
         }
+    }
+
+    protected async Task OpenVote(string title, string option1, string option2, bool isPrizeOnOffer)
+    {
+        var voteState = new VoteState
+        {
+            Title = title,
+            Option1Label = option1,
+            Option2Label = option2,
+            IsOpen = true,
+            SelectWinner = isPrizeOnOffer
+        };
+
+        await hubConnection.SendAsync("OpenVoting", voteState);
+    }
+
+    protected async Task CloseVote()
+    {
+        await hubConnection.SendAsync("CloseVoting");
+        await hubConnection.StopAsync();
     }
 }

@@ -4,35 +4,34 @@ namespace BuildingGames.Slides;
 
 public class TutorialScene : SlideSceneBase
 {
-	public TutorialScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public TutorialScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
-	}
+    }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial", canvas, dimensions);
+        Styling.RenderTitle("- Prologue -", canvas, dimensions);
+        // Who here has a creative itch?
+//Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
+
+//Join me in learning about how we can build video games with.NET MAUI in the form of a ‘choose your own adventure’ style game. You as the collective audience will be able to choose the paths that we go down and influence the content that gets presented.
+
+//Learn through our own voting system how we can combine technology such as SignalR to provide real time multi - player support into our.NET MAUI based games as well as many other cool techniques to really make our games or applications feel alive.
 
         canvas.DrawString(
             dimensions,
-            @"- Cross-platform application framework
+            @"- Love of gaming and reading
 
-  - Mobile: Android and iOS
+- Happy childhood memories
 
-  - Desktop: macOS and Windows
+- Serial procrastination
 
-  - Smart things: Tizen - Samsung devices
-
-- Evolution of Xamarin.Forms
-
-  - Version 8.0 coming this November
-
-  - Finally a first class citizen of the .NET ecosystem
-
-  - More familiar to other .NET code bases",
+- Scratch that creative itch"
+            ,
             Styling.TitleColor,
             Colors.Transparent,
             1,
-            Styling.Font,
+            Styling.CodeFont,
             (float)Styling.ScaledFontSize(0.048),
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,

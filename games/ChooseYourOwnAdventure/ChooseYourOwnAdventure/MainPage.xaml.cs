@@ -67,13 +67,17 @@ public partial class MainPage : ContentPage
             {
 
             }
-            
         }
     }
 
     private void OnCurrentSceneNext(SlideSceneBase sender)
     {
-        if (SlideDeck.GetNextSlideType() is Type nextSlideType)
+        if (sender is VoteSceneBase voteSceneBase)
+        {
+            SlideDeck.SetCurrentSlideType(voteSceneBase.DestinationSceneType);
+            this.LoadSlide(voteSceneBase.DestinationSceneType);
+        }
+        else if (SlideDeck.GetNextSlideType() is Type nextSlideType)
         {
             this.LoadSlide(nextSlideType);
         }

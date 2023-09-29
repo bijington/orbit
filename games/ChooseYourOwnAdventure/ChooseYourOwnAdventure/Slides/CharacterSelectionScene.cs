@@ -25,55 +25,55 @@ public class CharacterSelectionScene : SlideSceneBase
             };
 
             this.characters = new List<Character>
-        {
-            new Character
             {
-                Name = "Shaun Lawrence",
-                Strengths = new List<string>
+                new Character
                 {
-                    "15+ years experience",
-                    "Microsoft MVP",
-                    "Author of 'Introducing .NET MAUI'"
+                    Name = "Shaun Lawrence",
+                    Strengths = new List<string>
+                    {
+                        "Software Engineer/Consultant",
+                        "Microsoft MVP",
+                        "Author of 'Introducing .NET MAUI'"
+                    },
+                    Weaknesses = new List<string>
+                    {
+                        "Distracted easily",
+                        "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes",
+                        "Cake"
+                    },
+                    ImageName = "shaun.png"
                 },
-                Weaknesses = new List<string>
+                new Character
                 {
-                    "Distracted easily",
-                    "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes",
-                    "Cake"
+                    Name = "??",
+                    IsLocked = true,
+                    UnlockCriteria = "Listen for 60 minutes to unlock this character"
                 },
-                ImageName = "shaun.png"
-            },
-            new Character
-            {
-                Name = "??",
-                IsLocked = true,
-                UnlockCriteria = "Listen for 60 minutes to unlock this character"
-            },
-            new Character
-            {
-                Name = "??",
-                IsLocked = true,
-                UnlockCriteria = "Listen for 120 minutes to unlock this character"
-            },
-            new Character
-            {
-                Name = "??",
-                IsLocked = true,
-                UnlockCriteria = "Listen for 180 minutes to unlock this character"
-            },
-            new Character
-            {
-                Name = "??",
-                IsLocked = true,
-                UnlockCriteria = "Listen for 240 minutes to unlock this character"
-            },
-            new Character
-            {
-                Name = "??",
-                IsLocked = true,
-                UnlockCriteria = "Listen for 300 minutes to unlock this character"
-            }
-        };
+                new Character
+                {
+                    Name = "??",
+                    IsLocked = true,
+                    UnlockCriteria = "Listen for 120 minutes to unlock this character"
+                },
+                new Character
+                {
+                    Name = "??",
+                    IsLocked = true,
+                    UnlockCriteria = "Listen for 180 minutes to unlock this character"
+                },
+                new Character
+                {
+                    Name = "??",
+                    IsLocked = true,
+                    UnlockCriteria = "Listen for 240 minutes to unlock this character"
+                },
+                new Character
+                {
+                    Name = "??",
+                    IsLocked = true,
+                    UnlockCriteria = "Listen for 300 minutes to unlock this character"
+                }
+            };
 
             this.controllerManager = controllerManager;
         }

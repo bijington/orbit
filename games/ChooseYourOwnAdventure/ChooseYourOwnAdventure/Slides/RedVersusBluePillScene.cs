@@ -6,12 +6,17 @@ public class RedVersusBluePillScene : VoteSceneBase
 {
     private int currentTransition = 0;
     private const int transitions = 2;
+    private readonly Microsoft.Maui.Graphics.IImage image;
+
+    protected override Type Option1DestinationType => typeof(TheGameEngineApproachScene);
+    protected override Type Option2DestinationType => typeof(SlideLottie);
 
     public RedVersusBluePillScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
     {
+        image = LoadImage("voting_site_qrcode.png");
 	}
 
-    public override void Progress()
+    public override async void Progress()
     {
         // If we are complete then fire the Next event.
         if (currentTransition == transitions)
@@ -20,6 +25,15 @@ public class RedVersusBluePillScene : VoteSceneBase
         }
 
         currentTransition++;
+
+        if (currentTransition == 1)
+        {
+            await OpenVote("Red or blue pill?", "Red pill", "Blue pill", true);
+        }
+        if (currentTransition == 2)
+        {
+            await CloseVote();
+        }
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -39,6 +53,13 @@ public class RedVersusBluePillScene : VoteSceneBase
                 HorizontalAlignment.Center,
                 VerticalAlignment.Top,
                 TextFlow.OverflowBounds);
+        }
+
+        if (currentTransition == 0)
+        {
+            var size = Math.Min(dimensions.Width, dimensions.Height) / 2;
+
+            canvas.DrawImage(image, (dimensions.Width - size) / 2, (dimensions.Height - size) / 2, size, size);
         }
 
         if (currentTransition >= 1)
