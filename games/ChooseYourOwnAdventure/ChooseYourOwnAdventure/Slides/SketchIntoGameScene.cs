@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class SketchIntoGameScene : SlideSceneBase
 {
-	public SketchIntoGameScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+	public SketchIntoGameScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
 	}
 

@@ -4,11 +4,13 @@ namespace BuildingGames.Slides;
 
 public class TitleScene : SlideSceneBase
 {
+    private readonly AchievementManager achievementManager;
     private float startAlpha = 1f;
     private float increment = -0.05f;
 
-    public TitleScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public TitleScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager) : base(pointer, achievement)
     {
+        this.achievementManager = achievementManager;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -69,5 +71,7 @@ public class TitleScene : SlideSceneBase
         {
             increment = -0.05f;
         }
+
+        achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
     }
 }

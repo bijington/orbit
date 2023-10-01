@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class TheFinalBossScene : SlideSceneBase
 {
-	public TheFinalBossScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+	public TheFinalBossScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
 	{
 	}
 

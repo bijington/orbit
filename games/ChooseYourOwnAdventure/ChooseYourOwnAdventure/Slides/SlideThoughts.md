@@ -18,7 +18,7 @@ In fact I have a copy with me today which I plan to give away at random. More on
 I guess part of the main reason I am here talking to you all today is because I have learned to fully embrace what I have labelled as weakenesses here.
 I do get distracted easily and much like Magpie I like to chase after the next shiny thing.
 I am also great at following that shiny thing down a deep deep rabbit hole, get lost or stuck down there and then end up eating some cake to cheer me up.
-In fact I now wonder whether I have somehow been rewarding this behaviour...
+In fact I now wonder whether I have somehow been rewarding this behaviour... Cake Driven Development
 
 # Prologue
 
@@ -42,3 +42,13 @@ Slides around game controller support?
 
 Decision around accessibility?
 
+# Flow
+
+```mermaid
+flowchart TD
+    Title --> CharacterSelection[Character selection]
+    CharacterSelection --> Prologue
+    Prologue --> RedBlue{Red vs Blue pill}
+    RedBlue -- Blue --> Lottie
+    RedBlue -- Red --> Game
+```

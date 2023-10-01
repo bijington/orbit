@@ -5,7 +5,7 @@ namespace BuildingGames.Slides;
 
 public abstract class SlideSceneBase : GameScene
 {
-    public SlideSceneBase(Pointer pointer, Achievement achievement)
+    public SlideSceneBase(Pointer pointer, AchievementBanner achievement)
     {
         Add(pointer);
         Add(achievement);

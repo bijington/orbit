@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection RegisterGameObjects(this IServiceCollection services) =>
         services
-            .AddSingleton<Achievement>()
+            .AddSingleton<AchievementBanner>()
             .AddScoped<Ship>()
             .AddTransient<Pointer>();
 }

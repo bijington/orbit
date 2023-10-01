@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class DotnetMauiGraphicsScene : SlideSceneBase
 {
-	public DotnetMauiGraphicsScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+	public DotnetMauiGraphicsScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
 	}
 

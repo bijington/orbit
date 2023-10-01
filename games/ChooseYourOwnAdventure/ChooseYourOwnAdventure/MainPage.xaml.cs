@@ -7,20 +7,63 @@ public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
     private readonly ControllerManager controllerManager;
+    private readonly AchievementManager achievementManager;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
-        ControllerManager controllerManager)
+        ControllerManager controllerManager,
+        AchievementManager achievementManager)
 	{
 		InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
+        this.achievementManager = achievementManager;
+
+        this.achievementManager.AchievementUnlocked += AchievementManager_AchievementUnlocked;
 
         LoadSlide(SlideDeck.CurrentSlideType);
 
         this.controllerManager.Initialise();
         this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
+
+        var ratio = ContrastRatioComparer.GetContrastRatio(Styling.Secondary, Styling.Primary);
+        var ratio2 = ContrastRatioComparer.GetContrastRatio(Colors.White, Styling.Primary);
+    }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+
+        this.achievementManager.AchievementUnlocked -= AchievementManager_AchievementUnlocked;
+        this.controllerManager.ButtonPressed -= ControllerManager_ButtonPressed;
+    }
+
+    private async void AchievementManager_AchievementUnlocked(Achievement obj)
+    {
+        try
+        {
+            await Task.Delay(2000);
+
+            this.AchievementTitle.Text = obj.Name;
+            this.AchievementDescription.Text = obj.Description;
+
+            this.AchievementBanner.Scale = 0;
+            this.AchievementBanner.IsVisible = true;
+
+            await this.AchievementBanner.ScaleTo(1, 350, Easing.CubicInOut);
+
+            await Task.Delay(5000);
+
+            await this.AchievementBanner.FadeTo(0, 350, Easing.CubicInOut);
+
+            this.AchievementBanner.Scale = 0;
+            this.AchievementBanner.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     private void ControllerManager_ButtonPressed(ControllerButton controllerButton)

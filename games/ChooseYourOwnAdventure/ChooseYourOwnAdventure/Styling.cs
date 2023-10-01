@@ -24,7 +24,7 @@ public class Styling
             TitleColor,
             Colors.Black,
             1,
-            CodeFont,
+            Font,
             (float)TitleSize,
             new PointF(40, 40),
             HorizontalAlignment.Center,

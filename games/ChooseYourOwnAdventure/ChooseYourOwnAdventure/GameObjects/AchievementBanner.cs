@@ -2,7 +2,7 @@
 
 namespace BuildingGames.GameObjects;
 
-public class Achievement : GameObject
+public class AchievementBanner : GameObject
 {
     private double duration;
     private double threshold = 60 * 1000 * 1000; // 1 hour

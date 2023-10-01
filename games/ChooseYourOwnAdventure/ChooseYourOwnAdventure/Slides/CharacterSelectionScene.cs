@@ -15,7 +15,7 @@ public class CharacterSelectionScene : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
         try
         {

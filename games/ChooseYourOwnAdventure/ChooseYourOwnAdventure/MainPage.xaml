@@ -7,15 +7,37 @@
     Shell.NavBarIsVisible="False">
 
     <Grid>
-        <!--<Image
-            Source="background.png"
-            Aspect="AspectFill"
-            Opacity="0.6" />-->
-
         <engine:GameSceneView
             x:Name="GameView"
             BackgroundColor="#18263A"
             StartInteraction="GameView_StartInteraction" />
+
+        <Frame
+            x:Name="AchievementBanner"
+            VerticalOptions="Start"
+            Margin="40"
+            HasShadow="False"
+            IsVisible="False"
+            CornerRadius="40"
+            HeightRequest="100"
+            WidthRequest="500"
+            Padding="5">
+            <Grid ColumnDefinitions="80,*" RowDefinitions="*,*">
+                <Image
+                    Source="trophy.png"
+                    Grid.RowSpan="2" />
+
+                <Label
+                    x:Name="AchievementTitle"
+                    Grid.Column="1" />
+
+                <Label
+                    x:Name="AchievementDescription"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontSize="30" />
+            </Grid>
+        </Frame>
     </Grid>
  
 </ContentPage>

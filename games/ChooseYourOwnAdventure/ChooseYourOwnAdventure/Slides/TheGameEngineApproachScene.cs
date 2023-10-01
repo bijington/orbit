@@ -9,7 +9,7 @@ public class TheGameEngineApproachScene : SlideSceneBase
 
     private readonly IList<string> textTransitions;
 
-    public TheGameEngineApproachScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public TheGameEngineApproachScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
 	{
         textTransitions = new List<string>
         {

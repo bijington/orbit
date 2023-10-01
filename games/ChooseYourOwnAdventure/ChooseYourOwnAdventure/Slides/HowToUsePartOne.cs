@@ -7,7 +7,7 @@ public class HowToUsePartOne : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage image;
     private readonly float aspectRatio;
 
-    public HowToUsePartOne(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public HowToUsePartOne(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
         image = LoadImage("how_to_part_one.png");
         aspectRatio = image.Width / image.Height;

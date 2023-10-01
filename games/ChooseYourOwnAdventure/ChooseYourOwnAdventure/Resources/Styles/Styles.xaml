@@ -148,7 +148,7 @@
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource Secondary}" />
         <Setter Property="FontFamily" Value="Josefin Sans" />
-        <Setter Property="FontSize" Value="43" />
+        <Setter Property="FontSize" Value="40" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

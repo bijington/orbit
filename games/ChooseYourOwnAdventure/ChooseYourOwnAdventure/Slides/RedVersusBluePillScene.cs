@@ -11,7 +11,7 @@ public class RedVersusBluePillScene : VoteSceneBase
     protected override Type Option1DestinationType => typeof(TheGameEngineApproachScene);
     protected override Type Option2DestinationType => typeof(SlideLottie);
 
-    public RedVersusBluePillScene(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public RedVersusBluePillScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
         image = LoadImage("voting_site_qrcode.png");
 	}

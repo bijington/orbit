@@ -7,7 +7,7 @@ public class Slidey : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 1;
 
-    public Slidey(Pointer pointer, Achievement achievement) : base(pointer, achievement)
+    public Slidey(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
     }
 
