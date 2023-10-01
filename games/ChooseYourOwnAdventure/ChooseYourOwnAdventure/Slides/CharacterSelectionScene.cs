@@ -28,7 +28,7 @@ public class CharacterSelectionScene : SlideSceneBase
             {
                 new Character
                 {
-                    Name = "Shaun Lawrence",
+                    Name = "Shaun Lawrence (He/Him)",
                     Strengths = new List<string>
                     {
                         "Software Engineer/Consultant",
@@ -124,7 +124,7 @@ public class CharacterSelectionScene : SlideSceneBase
                         Colors.Transparent,
                         1,
                         Styling.Font,
-                        150,
+                        (float)Styling.ScaledFontSize(0.15),
                         bounds.Location,
                         HorizontalAlignment.Center,
                         VerticalAlignment.Center);

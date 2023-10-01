@@ -64,4 +64,10 @@
 	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.83" />
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\EmbeddedResources\book_cover.jpg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\EmbeddedResources\book_cover.jpg" />
+	</ItemGroup>
 </Project>

@@ -2,15 +2,15 @@
 
 namespace BuildingGames.Slides;
 
-public class TutorialScene : SlideSceneBase
+public class TutorialPartTwoScene : SlideSceneBase
 {
-    public TutorialScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public TutorialPartTwoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is .NET MAUI?", canvas, dimensions);
+        Styling.RenderTitle("Tutorial - What is .SignalR?", canvas, dimensions);
         // Who here has a creative itch?
 //Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
 
@@ -20,21 +20,17 @@ public class TutorialScene : SlideSceneBase
 
         canvas.DrawString(
             dimensions,
-            @"- Multi-platform App UI
+            @"- Open-source
 
-- Cross-platform framework
+- ASP.NET Core
 
-  - Mobile - Android and iOS
+- Real-time communication
 
-  - Desktop - macOS and Windows
+- Bi-directional connection
 
-  - Smart Samsung things - Tizen
+- Scalable
 
-- Evolution of Xamarin.Forms
-
-  - First version 6 with 8 coming in November
-
-  - First class features such as AppBuilder, etc."
+- Manages complexity for us"
             ,
             Styling.TitleColor,
             Colors.Transparent,

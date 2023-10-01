@@ -2,18 +2,20 @@
 
 namespace BuildingGames.Slides;
 
-public class RedVersusBluePillScene : VoteSceneBase
+public class ChooseDifficultyScene : VoteSceneBase
 {
     private int currentTransition = 0;
     private const int transitions = 2;
     private readonly Microsoft.Maui.Graphics.IImage image;
     private readonly AchievementManager achievementManager;
     private string decision;
+    private const string option1 = "I'm Too Young To Die";
+    private const string option2 = "Hurt Me Plenty";
 
-    protected override Type Option1DestinationType => typeof(TheGameEngineApproachScene);
-    protected override Type Option2DestinationType => typeof(SlideLottie);
+    protected override Type Option1DestinationType => typeof(SlideLottie);
+    protected override Type Option2DestinationType => typeof(TheGameEngineApproachScene);
 
-    public RedVersusBluePillScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager) : base(pointer, achievement)
+    public ChooseDifficultyScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager) : base(pointer, achievement)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;
@@ -31,7 +33,7 @@ public class RedVersusBluePillScene : VoteSceneBase
 
         if (currentTransition == 1)
         {
-            await OpenVote("Red or blue pill?", "Red pill", "Blue pill", true);
+            await OpenVote("Choose your difficulty", option1, option2, true);
         }
         if (currentTransition == 2)
         {
@@ -44,11 +46,11 @@ public class RedVersusBluePillScene : VoteSceneBase
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
-                this.decision = "You chose the Red pill. Let's go and check out some fun game engine based concepts.";
+                this.decision = $"You chose '{option1}'. Let's ease ourselves in gently.";
             }
             else
             {
-                this.decision = "You chose the Blue pill. Let's go and check out how we can apply common concepts in a .NET MAUI app.";
+                this.decision = $"You chose '{option2}'. Let's get stuck right in.";
             }
         }
     }
@@ -83,9 +85,23 @@ public class RedVersusBluePillScene : VoteSceneBase
         {
             canvas.Alpha = 1.0f;
             canvas.Font = Styling.Font;
+            canvas.FontSize = (float)Styling.ScaledFontSize(0.08);
+
+            canvas.DrawString(
+                option1,
+                new RectF(0, 0, dimensions.Width / 2, dimensions.Height),
+                HorizontalAlignment.Center,
+                VerticalAlignment.Center,
+                TextFlow.OverflowBounds);
+            canvas.DrawString(
+                option2,
+                new RectF(dimensions.Width / 2, 0, dimensions.Width / 2, dimensions.Height),
+                HorizontalAlignment.Center,
+                VerticalAlignment.Center,
+                TextFlow.OverflowBounds);
+
             canvas.FontSize = (float)Styling.ScaledFontSize(0.3);
 
-            canvas.FontColor = Colors.Red;
             canvas.DrawString(
                 Option1VoteCount.ToString(),
                 new RectF(0, 0, dimensions.Width / 2, dimensions.Height),
@@ -93,7 +109,6 @@ public class RedVersusBluePillScene : VoteSceneBase
                 VerticalAlignment.Bottom,
                 TextFlow.OverflowBounds);
 
-            canvas.FontColor = Colors.Blue;
             canvas.DrawString(
                 Option2VoteCount.ToString(),
                 new RectF(dimensions.Width / 2, 0, dimensions.Width / 2, dimensions.Height),

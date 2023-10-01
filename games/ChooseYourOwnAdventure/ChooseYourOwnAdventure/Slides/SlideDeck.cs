@@ -6,14 +6,19 @@ public static class SlideDeck
     {
         typeof(TitleScene),
         typeof(CharacterSelectionScene),
+        typeof(PrologueScene),
         typeof(TutorialScene),
-        typeof(RedVersusBluePillScene), // SlideLottie or TheGameEngineApproachScene
+        typeof(TutorialPartTwoScene),
+        typeof(ChooseDifficultyScene),
+        //typeof(RedVersusBluePillScene), // SlideLottie or TheGameEngineApproachScene
 
         // Option 2
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
         typeof(WhatsOurProgressScene), // Need to get back on track
+
+        // Decision -  Background on the game engine, or just show me how to use it?
 
         // Option 1
         typeof(TheGameEngineApproachScene),
@@ -24,7 +29,7 @@ public static class SlideDeck
 
         // Single vs Multi player? Look at Orbit vs Drawing game?
 
-        // Decision to look at code behind this or accessibility?
+        // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
 
         typeof(HowToUsePartOne),
         typeof(HowToUsePartTwo),

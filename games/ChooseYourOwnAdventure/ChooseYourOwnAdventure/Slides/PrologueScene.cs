@@ -2,15 +2,18 @@
 
 namespace BuildingGames.Slides;
 
-public class TutorialScene : SlideSceneBase
+public class PrologueScene : SlideSceneBase
 {
-    public TutorialScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    private readonly Microsoft.Maui.Graphics.IImage bookCover;
+
+    public PrologueScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
+        bookCover = LoadImage("book_cover.jpg");
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is .NET MAUI?", canvas, dimensions);
+        Styling.RenderTitle("Prologue", canvas, dimensions);
         // Who here has a creative itch?
 //Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
 
@@ -20,21 +23,15 @@ public class TutorialScene : SlideSceneBase
 
         canvas.DrawString(
             dimensions,
-            @"- Multi-platform App UI
+            @"- Childhood love of gaming and reading
 
-- Cross-platform framework
+- Content is built into an application/game
 
-  - Mobile - Android and iOS
+- Carried away with features
 
-  - Desktop - macOS and Windows
+- You decide the content
 
-  - Smart Samsung things - Tizen
-
-- Evolution of Xamarin.Forms
-
-  - First version 6 with 8 coming in November
-
-  - First class features such as AppBuilder, etc."
+- Win a prize"
             ,
             Styling.TitleColor,
             Colors.Transparent,
@@ -44,6 +41,9 @@ public class TutorialScene : SlideSceneBase
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
+
+        //827 × 1254
+        canvas.DrawImage(bookCover, dimensions.Width / 5, dimensions.Height * 0.65f, bookCover.Width * 0.3f, bookCover.Height * 0.3f);
 
         base.Render(canvas, dimensions);
     }

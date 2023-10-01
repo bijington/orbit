@@ -15,14 +15,14 @@ I am honoured to have been awarded with the Microsoft MVP award for the past 2 y
 I was also 'lucky' enough to be given the opportunity to write a book. My publishing keeps telling me off for not talking about it enough so it is titled 'Introducing .NET MAUI' and is available at all good online book retailers.
 In fact I have a copy with me today which I plan to give away at random. More on this shortly...
 
-I guess part of the main reason I am here talking to you all today is because I have learned to fully embrace what I have labelled as weakenesses here.
+I guess part of the main reason I am here talking to you all today is because I have learned to fully embrace what I have labelled as weaknesses here.
 I do get distracted easily and much like Magpie I like to chase after the next shiny thing.
 I am also great at following that shiny thing down a deep deep rabbit hole, get lost or stuck down there and then end up eating some cake to cheer me up.
 In fact I now wonder whether I have somehow been rewarding this behaviour... Cake Driven Development
 
 # Prologue
 
-So that is enough about my, let's take a brief look at what we will be covering today and how...
+So that is enough about me, let's take a brief look at what we will be covering today and how...
 
 I am very passionate about gaming, exposing our creative sides and just generally having a bit of fun, because of this I could talk for hours and at one or two meetups I have.
 We only have 60 minutes today and ironically given my childhood love of 'choose your own adventure' books I am now terrible at decision making and try my best to avoid it where I can.
@@ -34,7 +34,11 @@ I mentioned before that I would be giving a copy of my book away today. If all g
 after voting on the last decision point one lucky voter will be shown a congratulations message. The message does say to come down and collect your prize, it might be best to take a screenshot and then come down
 at the end of the talk.
 
-# Tutorial
+# Tutorial - What is .NET MAUI?
+
+As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us.
+
+# Tutorial - What is SignalR?
 
 Test run of the voting system?
 
@@ -46,9 +50,18 @@ Decision around accessibility?
 
 ```mermaid
 flowchart TD
-    Title --> CharacterSelection[Character selection]
-    CharacterSelection --> Prologue
-    Prologue --> RedBlue{Red vs Blue pill}
-    RedBlue -- Blue --> Lottie
-    RedBlue -- Red --> Game
+    TitleScene --> CharacterSelectionScene[Character selection]
+    CharacterSelectionScene --> TutorialScene
+    TutorialScene --> RedVersusBluePillScene{Red vs Blue pill}
+    RedVersusBluePillScene -- Blue --> SlideLottie
+    RedVersusBluePillScene -- Red --> TheGameEngineApproachScene
+
+    SlideLottie --> SlideAnimations
+    SlideAnimations --> SlideAnimationsPartTwo
+    SlideAnimationsPartTwo --> WhatsOurProgressScene
+
+    TheGameEngineApproachScene --> DotnetMauiGraphicsScene
+    DotnetMauiGraphicsScene --> FittingItIntoDotnetMauiScene
+    FittingItIntoDotnetMauiScene --> SketchIntoGameScene
+    SketchIntoGameScene --> TheBirthOfAnotherDistractionScene
 ```

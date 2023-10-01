@@ -20,15 +20,20 @@ public partial class MainPage : ContentPage
         this.controllerManager = controllerManager;
         this.achievementManager = achievementManager;
 
-        this.achievementManager.AchievementUnlocked += AchievementManager_AchievementUnlocked;
-
         LoadSlide(SlideDeck.CurrentSlideType);
 
         this.controllerManager.Initialise();
-        this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
-
+        
         var ratio = ContrastRatioComparer.GetContrastRatio(Styling.Secondary, Styling.Primary);
         var ratio2 = ContrastRatioComparer.GetContrastRatio(Colors.White, Styling.Primary);
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        this.achievementManager.AchievementUnlocked += AchievementManager_AchievementUnlocked;
+        this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
     }
 
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
@@ -43,8 +48,6 @@ public partial class MainPage : ContentPage
     {
         try
         {
-            await Task.Delay(2000);
-
             this.AchievementTitle.Text = obj.Name;
             this.AchievementDescription.Text = obj.Description;
 

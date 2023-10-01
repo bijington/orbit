@@ -13,5 +13,7 @@ public static class AchievementNames
 {
 	public const string FirstDecision = "Decision maker";
 
-	public const string NextSpeaker = "Next!";
+    public const string StaleMate = "Stale mate";
+
+    public const string NextSpeaker = "Next!";
 }
