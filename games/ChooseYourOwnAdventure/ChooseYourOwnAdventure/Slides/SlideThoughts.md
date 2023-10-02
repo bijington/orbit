@@ -38,13 +38,39 @@ at the end of the talk.
 
 As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us.
 
+- Multi-platform App UI
+
+- Cross-platform framework
+
+  - Mobile - Android and iOS
+
+  - Desktop - macOS and Windows
+
+  - Smart Samsung things - Tizen
+
+- Evolution of Xamarin.Forms
+
+  - First class features such as AppBuilder, etc.
+
+- Build with the platform
+
 # Tutorial - What is SignalR?
 
-Test run of the voting system?
+- Open-source
 
-Slides around game controller support?
+- ASP.NET Core
 
-Decision around accessibility?
+- Real-time communication
+
+- Bi-directional connection
+
+- Scalable
+
+- Manages complexity for us
+
+- Supports many platforms - JS, C#, F#, VB, Java
+
+# Choose difficulty
 
 # Flow
 
@@ -58,7 +84,7 @@ flowchart TD
 
     SlideLottie --> SlideAnimations
     SlideAnimations --> SlideAnimationsPartTwo
-    SlideAnimationsPartTwo --> WhatsOurProgressScene
+    SlideAnimationsPartTwo --> SlideParticleEffects
 
     TheGameEngineApproachScene --> DotnetMauiGraphicsScene
     DotnetMauiGraphicsScene --> FittingItIntoDotnetMauiScene

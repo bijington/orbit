@@ -118,10 +118,10 @@ public partial class MainPage : ContentPage
 
     private void OnCurrentSceneNext(SlideSceneBase sender)
     {
-        if (sender is VoteSceneBase voteSceneBase)
+        if (sender is IDestinationKnowingScene destinationKnowingScene)
         {
-            SlideDeck.SetCurrentSlideType(voteSceneBase.DestinationSceneType);
-            this.LoadSlide(voteSceneBase.DestinationSceneType);
+            SlideDeck.SetCurrentSlideType(destinationKnowingScene.DestinationSceneType);
+            this.LoadSlide(destinationKnowingScene.DestinationSceneType);
         }
         else if (SlideDeck.GetNextSlideType() is Type nextSlideType)
         {

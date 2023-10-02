@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BuildingGames.Slides;
 
-public abstract class VoteSceneBase : SlideSceneBase
+public abstract class VoteSceneBase : SlideSceneBase, IDestinationKnowingScene
 {
     private readonly HubConnection hubConnection;
     protected int Option1VoteCount;

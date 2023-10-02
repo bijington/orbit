@@ -2,6 +2,7 @@
 
 public static class SlideDeck
 {
+    // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
         typeof(TitleScene),
@@ -9,25 +10,38 @@ public static class SlideDeck
         typeof(PrologueScene),
         typeof(TutorialScene),
         typeof(TutorialPartTwoScene),
+        typeof(HowToUseSignalRScene),
+
+        // Decision Time
+        typeof(VotingSystemOrDrawingGameScene),
+
+        // Option 1
+        typeof(DemoTimePoliticiansScene),
+
+        // Option 2
+        typeof(DemoTimeArtistsScene),
+
+        // Decision Time
         typeof(ChooseDifficultyScene),
         //typeof(RedVersusBluePillScene), // SlideLottie or TheGameEngineApproachScene
 
-        // Option 2
+        // Option 1 - Feels like it doesn't really fit
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
-        typeof(WhatsOurProgressScene), // Need to get back on track
+        typeof(SlideParticleEffects),
 
-        // Decision -  Background on the game engine, or just show me how to use it?
-
-        // Option 1
+        // Option 2
         typeof(TheGameEngineApproachScene),
         typeof(DotnetMauiGraphicsScene),
         typeof(FittingItIntoDotnetMauiScene),
         typeof(SketchIntoGameScene),
-        typeof(TheBirthOfAnotherDistractionScene), // Need to get back on track
+        typeof(TheBirthOfAnotherDistractionScene),
+
+        // Decision - Background on the game engine, or just show me how to use it?
 
         // Single vs Multi player? Look at Orbit vs Drawing game?
+        
 
         // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
 
@@ -36,10 +50,13 @@ public static class SlideDeck
         typeof(HowToUsePartThree),
         typeof(HowToUsePartFour),
         typeof(HowToUsePartFive),
+
         typeof(TipsAndTricksSimpleScene),
         typeof(TipsAndTricksSimplePartTwoScene),
         typeof(TipsAndTricksDeviceScene),
+
         typeof(TheFinalBossScene),
+        typeof(SummaryScene),
         typeof(Credits)
     };
 

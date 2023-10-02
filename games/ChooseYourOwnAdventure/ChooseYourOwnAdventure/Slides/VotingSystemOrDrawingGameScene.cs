@@ -1,23 +1,22 @@
 ﻿using BuildingGames.GameObjects;
-using Microsoft.Maui.Graphics;
 
 namespace BuildingGames.Slides;
 
-public class ChooseDifficultyScene : VoteSceneBase
+public class VotingSystemOrDrawingGameScene : VoteSceneBase
 {
     private int currentTransition = 0;
-    private const int transitions = 2;
+    private const int transitions = 3;
     private readonly Microsoft.Maui.Graphics.IImage image;
     private readonly AchievementManager achievementManager;
     private readonly Decisions decisions;
     private string decision;
-    private const string option1 = "I'm Too Young To Die";
-    private const string option2 = "Hurt Me Plenty";
+    private const string option1 = "Politicians";
+    private const string option2 = "Artists";
 
-    protected override Type Option1DestinationType => typeof(SlideLottie);
-    protected override Type Option2DestinationType => typeof(TheGameEngineApproachScene);
+    protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
+    protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
 
-    public ChooseDifficultyScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public VotingSystemOrDrawingGameScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;
@@ -34,11 +33,11 @@ public class ChooseDifficultyScene : VoteSceneBase
 
         currentTransition++;
 
-        if (currentTransition == 1)
-        {
-            await OpenVote("Choose your difficulty", option1, option2, true);
-        }
         if (currentTransition == 2)
+        {
+            await OpenVote("Which group will you jon?", option1, option2, true);
+        }
+        if (currentTransition == 3)
         {
             await CloseVote();
 
@@ -46,39 +45,45 @@ public class ChooseDifficultyScene : VoteSceneBase
             {
                 this.achievementManager.UpdateProgress(AchievementNames.StaleMate, 100);
                 this.decision = "You chouldn't decide.";
-                this.decisions.RecordDecision($"You chouldn't decide a difficulty.");
+                this.decisions.RecordDecision($"You chouldn't decide who to join.");
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
-                this.decision = $"You chose '{option1}'. Let's ease ourselves in gently.";
-                this.decisions.RecordDecision($"Difficulty of '{option1}'");
+                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
+                this.decision = $"You chose '{option1}'. Let's take a look at how this voting system has been built.";
+                this.decisions.RecordDecision($"Joined the '{option1}' group");
             }
             else
             {
-                this.decision = $"You chose '{option2}'. Let's get stuck right in.";
-                this.decisions.RecordDecision($"Difficulty of '{option2}'");
+                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
+                this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time drawing game.";
+                this.decisions.RecordDecision($"Joined the '{option2}' group");
             }
         }
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Difficulty select", canvas, dimensions);
+        if (currentTransition == 0)
+        {
+            Styling.RenderTitle("Decision time!", canvas, dimensions);
+        }
 
-        var introduction = @$"{option1} - You are new to .NET MAUI and just want to learn some quick tricks
+        var introduction = @$"The mystical elders of the SignalR guild have tasked you with understanding how to ply the craft of SignalR. In order to do this you must decide which group to join:
+{option1} - Understand how the voting system within todays talk is functioning.
 
-{option2} - Show me the cool stuff!";
+{option2} - See how to use SignalR to build a real-time drawing game.";
 
         canvas.Alpha = 1.0f;
         canvas.Font = Styling.Font;
         canvas.FontSize = (float)Styling.ScaledFontSize(0.05);
         canvas.FontColor = Styling.TitleColor;
 
-        if (currentTransition is > 0 and < 2)
+        if (currentTransition is > 0 and < 3)
         {
             canvas.DrawString(
                 introduction,
-                new RectF(20, dimensions.Height * 0.18f, dimensions.Width - 40, dimensions.Height),
+                new RectF(20, 20, dimensions.Width - 40, dimensions.Height),
                 HorizontalAlignment.Center,
                 VerticalAlignment.Top,
                 TextFlow.OverflowBounds);
@@ -88,10 +93,10 @@ public class ChooseDifficultyScene : VoteSceneBase
         {
             var size = Math.Min(dimensions.Width, dimensions.Height) / 2;
 
-            canvas.DrawImage(image, (dimensions.Width - size) / 2, (dimensions.Height - size) / 2, size, size);
+            canvas.DrawImage(image, (dimensions.Width - size) / 2, (dimensions.Height - size) * 0.75f, size, size);
         }
 
-        if (currentTransition == 1)
+        if (currentTransition == 2)
         {
             canvas.Alpha = 1.0f;
             canvas.Font = Styling.Font;
@@ -127,7 +132,7 @@ public class ChooseDifficultyScene : VoteSceneBase
                 TextFlow.OverflowBounds);
         }
 
-        if (currentTransition == 2)
+        if (currentTransition == 3)
         {
             canvas.DrawString(
                 @$"Voting is now closed!

@@ -27,6 +27,7 @@ public static class MauiProgram
                 .AddTransient<MainPage>()
                 .AddSingleton<ControllerManager>()
                 .AddSingleton<AchievementManager>()
+                .AddSingleton<Decisions>()
                 .RegisterGameObjects()
                 .RegisterScenes();
 

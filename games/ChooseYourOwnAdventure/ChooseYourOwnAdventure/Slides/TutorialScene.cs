@@ -4,8 +4,11 @@ namespace BuildingGames.Slides;
 
 public class TutorialScene : SlideSceneBase
 {
+    private readonly Microsoft.Maui.Graphics.IImage image;
+
     public TutorialScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
+        image = LoadImage("dotnet_bot_iot.png");
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -32,9 +35,9 @@ public class TutorialScene : SlideSceneBase
 
 - Evolution of Xamarin.Forms
 
-  - First version 6 with 8 coming in November
+  - First class features such as AppBuilder, etc.
 
-  - First class features such as AppBuilder, etc."
+- Build with the platform"
             ,
             Styling.TitleColor,
             Colors.Transparent,
@@ -44,6 +47,13 @@ public class TutorialScene : SlideSceneBase
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
+
+        canvas.DrawImage(
+            image,
+            dimensions.Width * 0.65f,
+            dimensions.Height / 4,
+            image.Width * 2.5f,
+            image.Height * 2.5f);
 
         base.Render(canvas, dimensions);
     }

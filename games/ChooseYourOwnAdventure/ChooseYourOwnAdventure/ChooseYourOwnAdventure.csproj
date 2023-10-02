@@ -66,8 +66,20 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\EmbeddedResources\book_cover.jpg" />
+	  <None Remove="Resources\EmbeddedResources\dotnet_bot_mobileapps.png" />
+	  <None Remove="Resources\EmbeddedResources\dotnet_bot_gamedevelopment.png" />
+	  <None Remove="Resources\EmbeddedResources\signalr.png" />
+	  <None Remove="Resources\EmbeddedResources\dotnet_bot_iot.png" />
+	  <None Remove="Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\EmbeddedResources\book_cover.jpg" />
+	  <BundleResource Include="Resources\EmbeddedResources\dotnet_bot_mobileapps.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\dotnet_bot_gamedevelopment.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\signalr.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\dotnet_bot_iot.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Behaviors\" />
 	</ItemGroup>
 </Project>

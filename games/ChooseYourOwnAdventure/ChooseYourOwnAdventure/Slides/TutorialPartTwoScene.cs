@@ -4,13 +4,16 @@ namespace BuildingGames.Slides;
 
 public class TutorialPartTwoScene : SlideSceneBase
 {
+    private readonly Microsoft.Maui.Graphics.IImage image;
+
     public TutorialPartTwoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
+        image = LoadImage("signalr.png");
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is .SignalR?", canvas, dimensions);
+        Styling.RenderTitle("Tutorial - What is SignalR?", canvas, dimensions);
         // Who here has a creative itch?
 //Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
 
@@ -30,7 +33,9 @@ public class TutorialPartTwoScene : SlideSceneBase
 
 - Scalable
 
-- Manages complexity for us"
+- Manages complexity for us
+
+- Supports many platforms - JS, C#, F#, VB, Java"
             ,
             Styling.TitleColor,
             Colors.Transparent,
@@ -40,6 +45,13 @@ public class TutorialPartTwoScene : SlideSceneBase
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
+
+        canvas.DrawImage(
+            image,
+            dimensions.Width * 0.4f,
+            dimensions.Height / 4,
+            image.Width * 2.5f,
+            image.Height * 2.5f);
 
         base.Render(canvas, dimensions);
     }
