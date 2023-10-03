@@ -2,15 +2,17 @@
 
 namespace BuildingGames.Slides;
 
-public class SketchIntoGameScene : SlideSceneBase
+public class GameDemoScene : SlideSceneBase, IDestinationKnowingScene
 {
-	public SketchIntoGameScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+	public GameDemoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
 	}
 
+    public Type DestinationSceneType => typeof(SummaryScene);
+
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Turning sketch into prototype", canvas, dimensions);
+        Styling.RenderTitle("Finally game time", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,

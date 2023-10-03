@@ -31,7 +31,7 @@ public class RedVersusBluePillScene : VoteSceneBase
 
         if (currentTransition == 1)
         {
-            await OpenVote("Red or blue pill?", "Red pill", "Blue pill", true);
+            await OpenVote("Red or blue pill?", "Red pill", "Blue pill", false);
         }
         if (currentTransition == 2)
         {

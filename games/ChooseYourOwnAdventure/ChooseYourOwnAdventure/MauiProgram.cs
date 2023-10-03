@@ -28,6 +28,7 @@ public static class MauiProgram
                 .AddSingleton<ControllerManager>()
                 .AddSingleton<AchievementManager>()
                 .AddSingleton<Decisions>()
+                .AddSingleton(DeviceDisplay.Current)
                 .RegisterGameObjects()
                 .RegisterScenes();
 

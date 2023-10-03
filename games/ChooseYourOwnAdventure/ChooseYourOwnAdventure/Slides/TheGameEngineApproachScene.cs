@@ -68,7 +68,7 @@ public class TheGameEngineApproachScene : SlideSceneBase
             canvas.DrawRoundedRectangle(loopBounds, 30);
 
             const float boxWidth = 400;
-            const float boxHeight = 100;
+            float boxHeight = loopBounds.Height / 7f;
             float halfWidth = boxWidth / 2;
 
             if (currentTransition > 1)
@@ -116,7 +116,7 @@ public class TheGameEngineApproachScene : SlideSceneBase
             Colors.Transparent,
             1,
             Styling.CodeFont,
-            (float)Styling.ScaledFontSize(0.04),
+            (float)Styling.ScaledFontSize(0.035),
             new PointF(x, y),
             HorizontalAlignment.Center,
             VerticalAlignment.Center);

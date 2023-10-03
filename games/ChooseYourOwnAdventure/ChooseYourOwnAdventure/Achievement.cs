@@ -13,6 +13,8 @@ public static class AchievementNames
 {
 	public const string FirstDecision = "Decision maker";
 
+    public const string FinalDecision = "Decision master";
+
     public const string StaleMate = "Stale mate";
 
     public const string NextSpeaker = "Next!";

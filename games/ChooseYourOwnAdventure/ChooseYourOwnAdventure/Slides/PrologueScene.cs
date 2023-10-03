@@ -4,25 +4,40 @@ namespace BuildingGames.Slides;
 
 public class PrologueScene : SlideSceneBase
 {
+    private int currentTransition = 0;
+    private const int transitions = 4;
+
     private readonly Microsoft.Maui.Graphics.IImage bookCover;
+    private readonly Microsoft.Maui.Graphics.IImage nes;
+    private readonly IList<string> textTransitions;
 
     public PrologueScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
         bookCover = LoadImage("book_cover.jpg");
-    }
+        nes = LoadImage("nes.jpg");
 
-    public override void Render(ICanvas canvas, RectF dimensions)
-    {
-        Styling.RenderTitle("Prologue", canvas, dimensions);
-        // Who here has a creative itch?
-//Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
+        textTransitions = new List<string>
+        {
+            @"- Childhood love of gaming and reading",
 
-//Join me in learning about how we can build video games with.NET MAUI in the form of a ‘choose your own adventure’ style game. You as the collective audience will be able to choose the paths that we go down and influence the content that gets presented.
+            @"- Childhood love of gaming and reading
 
-//Learn through our own voting system how we can combine technology such as SignalR to provide real time multi - player support into our.NET MAUI based games as well as many other cool techniques to really make our games or applications feel alive.
+- Content is built into an application/game",
 
-        canvas.DrawString(
-            dimensions,
+            @"- Childhood love of gaming and reading
+
+- Content is built into an application/game
+
+- Carried away with features",
+
+            @"- Childhood love of gaming and reading
+
+- Content is built into an application/game
+
+- Carried away with features
+
+- You decide the content",
+
             @"- Childhood love of gaming and reading
 
 - Content is built into an application/game
@@ -32,7 +47,27 @@ public class PrologueScene : SlideSceneBase
 - You decide the content
 
 - Win a prize"
-            ,
+        };
+    }
+
+    public override void Progress()
+    {
+        // If we are complete then fire the Next event.
+        if (currentTransition == transitions)
+        {
+            base.Progress();
+        }
+
+        currentTransition++;
+    }
+
+    public override void Render(ICanvas canvas, RectF dimensions)
+    {
+        Styling.RenderTitle("Prologue", canvas, dimensions);
+
+        canvas.DrawString(
+            dimensions,
+            textTransitions[currentTransition],
             Styling.TitleColor,
             Colors.Transparent,
             1,
@@ -42,8 +77,17 @@ public class PrologueScene : SlideSceneBase
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 
-        //827 × 1254
-        canvas.DrawImage(bookCover, dimensions.Width / 5, dimensions.Height * 0.65f, bookCover.Width * 0.3f, bookCover.Height * 0.3f);
+        if (currentTransition == 0)
+        {
+            canvas.DrawImage(nes, dimensions.Width * 0.65f, dimensions.Height * 0.18f, nes.Width * 0.3f, nes.Height * 0.3f);
+        }
+
+        if (currentTransition == 4)
+        {
+            //827 × 1254
+            var bookWidth = bookCover.Width * 0.3f;
+            canvas.DrawImage(bookCover, dimensions.Center.X - bookWidth / 2, dimensions.Height * 0.5f, bookWidth, bookCover.Height * 0.3f);
+        }
 
         base.Render(canvas, dimensions);
     }

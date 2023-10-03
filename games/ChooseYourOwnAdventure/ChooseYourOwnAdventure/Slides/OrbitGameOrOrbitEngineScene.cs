@@ -2,7 +2,7 @@
 
 namespace BuildingGames.Slides;
 
-public class VotingSystemOrDrawingGameScene : VoteSceneBase
+public class OrbitGameOrOrbitEngineScene : VoteSceneBase
 {
     private int currentTransition = 0;
     private const int transitions = 3;
@@ -10,13 +10,13 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
     private readonly AchievementManager achievementManager;
     private readonly Decisions decisions;
     private string decision;
-    private const string option1 = "Politicians";
-    private const string option2 = "Artists";
+    private const string option1 = "Engine";
+    private const string option2 = "Game";
 
-    protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
-    protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
+    protected override Type Option1DestinationType => typeof(HowToUsePartOne);
+    protected override Type Option2DestinationType => typeof(GameDemoScene);
 
-    public VotingSystemOrDrawingGameScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public OrbitGameOrOrbitEngineScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;
@@ -35,7 +35,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Which group will you jon?", option1, option2, false);
+            await OpenVote("Show me the...", option1, option2, true);
         }
         if (currentTransition == 3)
         {
@@ -49,15 +49,15 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
-                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
-                this.decision = $"You chose '{option1}'. Let's take a look at how this voting system has been built.";
-                this.decisions.RecordDecision($"Joined the '{option1}' group");
+                this.achievementManager.UpdateProgress(AchievementNames.FinalDecision, 100);
+                this.decision = $"You chose '{option1}'. Let's take a look at what's under the hood";
+                this.decisions.RecordDecision($"To see how the {option1} works");
             }
             else
             {
-                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
-                this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time drawing game.";
-                this.decisions.RecordDecision($"Joined the '{option2}' group");
+                this.achievementManager.UpdateProgress(AchievementNames.FinalDecision, 100);
+                this.decision = $"You chose '{option2}'. Let's play!";
+                this.decisions.RecordDecision($"Some {option2} time");
             }
         }
     }
@@ -69,10 +69,10 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             Styling.RenderTitle("Decision time!", canvas, dimensions);
         }
 
-        var introduction = @$"The mystical elders of the SignalR guild have tasked you with understanding how to ply the craft of SignalR. In order to do this you must decide which group to join:
-{option1} - Understand how the voting system within todays talk is functioning.
+        var introduction = @$"Having been given an overview of a game engine approach, which application would you like to see:
+{option1} - See how the engine is made.
 
-{option2} - See how to use SignalR to build a real-time drawing game.";
+{option2} - See how used to build a specific game.";
 
         canvas.Alpha = 1.0f;
         canvas.Font = Styling.Font;

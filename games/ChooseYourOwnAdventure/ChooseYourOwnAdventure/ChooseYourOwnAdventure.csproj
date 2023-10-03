@@ -71,6 +71,14 @@
 	  <None Remove="Resources\EmbeddedResources\signalr.png" />
 	  <None Remove="Resources\EmbeddedResources\dotnet_bot_iot.png" />
 	  <None Remove="Behaviors\" />
+	  <None Remove="Resources\EmbeddedResources\gyroscope.png" />
+	  <None Remove="Resources\EmbeddedResources\touch.png" />
+	  <None Remove="Resources\EmbeddedResources\keyboard.png" />
+	  <None Remove="Resources\EmbeddedResources\controller.png" />
+	  <None Remove="Resources\EmbeddedResources\paint.png" />
+	  <None Remove="Resources\EmbeddedResources\update.png" />
+	  <None Remove="Resources\EmbeddedResources\wait.png" />
+	  <None Remove="Resources\EmbeddedResources\nes.jpg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\EmbeddedResources\book_cover.jpg" />
@@ -78,6 +86,14 @@
 	  <BundleResource Include="Resources\EmbeddedResources\dotnet_bot_gamedevelopment.png" />
 	  <BundleResource Include="Resources\EmbeddedResources\signalr.png" />
 	  <BundleResource Include="Resources\EmbeddedResources\dotnet_bot_iot.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\gyroscope.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\touch.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\keyboard.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\controller.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\paint.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\update.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\wait.png" />
+	  <BundleResource Include="Resources\EmbeddedResources\nes.jpg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Behaviors\" />

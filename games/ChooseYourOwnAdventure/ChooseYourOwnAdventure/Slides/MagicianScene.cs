@@ -2,7 +2,7 @@
 
 namespace BuildingGames.Slides;
 
-public class VotingSystemOrDrawingGameScene : VoteSceneBase
+public class MagicianScene : VoteSceneBase
 {
     private int currentTransition = 0;
     private const int transitions = 3;
@@ -10,13 +10,13 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
     private readonly AchievementManager achievementManager;
     private readonly Decisions decisions;
     private string decision;
-    private const string option1 = "Politicians";
-    private const string option2 = "Artists";
+    private const string option1 = "Sure what's 5 minutes";
+    private const string option2 = "No I need to carry on";
 
-    protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
-    protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
+    protected override Type Option1DestinationType => typeof(SlideLottie);
+    protected override Type Option2DestinationType => typeof(TheGameEngineApproachScene);
 
-    public VotingSystemOrDrawingGameScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public MagicianScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;
@@ -35,7 +35,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Which group will you jon?", option1, option2, false);
+            await OpenVote("Do you want to learn some quick tricks?", option1, option2, false);
         }
         if (currentTransition == 3)
         {
@@ -50,14 +50,18 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             else if (Option1VoteCount > Option2VoteCount)
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
-                this.decision = $"You chose '{option1}'. Let's take a look at how this voting system has been built.";
-                this.decisions.RecordDecision($"Joined the '{option1}' group");
+                this.decision = @$"You chose '{option1}'. You put down your things and move in closer to hear what the magician has to say.
+
+Turn to page {SlideDeck.GetSlideIndex(DestinationSceneType)}";
+                this.decisions.RecordDecision("You put down your things and move in closer to hear what the magician has to say.");
             }
             else
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
-                this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time drawing game.";
-                this.decisions.RecordDecision($"Joined the '{option2}' group");
+                this.decision = @$"You chose '{option2}'. You smile, decline politely and carry on walking.
+
+Turn to page {SlideDeck.GetSlideIndex(DestinationSceneType)}";
+                this.decisions.RecordDecision("You smile, decline politely and carry on walking.");
             }
         }
     }
@@ -69,10 +73,11 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             Styling.RenderTitle("Decision time!", canvas, dimensions);
         }
 
-        var introduction = @$"The mystical elders of the SignalR guild have tasked you with understanding how to ply the craft of SignalR. In order to do this you must decide which group to join:
-{option1} - Understand how the voting system within todays talk is functioning.
+        var introduction = @$"You meet a magician on your journey, for the simple cost of 5 minutes of your time they offer to show you some quick tricks to make even a basic application look and feel alive:
 
-{option2} - See how to use SignalR to build a real-time drawing game.";
+{option1}
+
+{option2}";
 
         canvas.Alpha = 1.0f;
         canvas.Font = Styling.Font;

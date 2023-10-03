@@ -36,7 +36,7 @@ public class ChooseDifficultyScene : VoteSceneBase
 
         if (currentTransition == 1)
         {
-            await OpenVote("Choose your difficulty", option1, option2, true);
+            await OpenVote("Choose your difficulty", option1, option2, false);
         }
         if (currentTransition == 2)
         {

@@ -1,7 +1,7 @@
 ﻿
 # Title
 
-Welcome the audience
+Welcome the audience, thank you all for joining me today as we embark upon an adventure to learn about building games in .NET MAUI.
 
 # Character selection
 
@@ -24,19 +24,21 @@ In fact I now wonder whether I have somehow been rewarding this behaviour... Cak
 
 So that is enough about me, let's take a brief look at what we will be covering today and how...
 
-I am very passionate about gaming, exposing our creative sides and just generally having a bit of fun, because of this I could talk for hours and at one or two meetups I have.
-We only have 60 minutes today and ironically given my childhood love of 'choose your own adventure' books I am now terrible at decision making and try my best to avoid it where I can.
-Therefore the structure of the content today will be up to you the collective audience or the real characters of this story.
-I have tried to devise some key decision points around certain topics and through a SignalR based voting system plus the fact that the slides are built entirely inside a .NET MAUI application/game
-you can and assuming no bugs raise their ugly heads, will drive the specific parts of those topics. In fact one decision point allows us to even look into the code that drives todays content.
+I have been very passionate about gaming ever since saving up to buy my first ever console back in 1992 - the NES. That in combination of a plentiful supply of second hand choose your own adventure books from my nan has helped get me here today.
 
-I mentioned before that I would be giving a copy of my book away today. If all goes well and I will be honest this part scares me a little as I saw some inconsistencies in leading up to this part
+There are some things that I would like to introduce you all to before we get going on the content.
+
+The first is that all of the content you see today is either baked into a .NET MAUI based game or code within Visual Studio, because I decided to go this route I really struggled to prevent myself from getting carried away with functionality in the hope that the system presenting the content also makes up part of the content itself.
+
+Another point, and while this have been a nice selling point on my talk submission is has proven to be somewhat of a challenge... you will be influencing the content that gets shown today. Through the magic of SignalR you will be able to navigate to a blazor based web page and when each decision point is reached, provide your vote. I should add that I owe a big thanks to a good friend Gerald for having already built some of the SignalR voting system. Thanks to the wonders of open-source I was able to fork it and bend it to suit my needs. One decision point will actually allow you to choose to understand the voting system itself.
+
+And finally, I mentioned before that I would be giving a copy of my book away today. If all goes well and I will be honest this part scares me a little as I saw some inconsistencies in leading up to this part
 after voting on the last decision point one lucky voter will be shown a congratulations message. The message does say to come down and collect your prize, it might be best to take a screenshot and then come down
 at the end of the talk.
 
 # Tutorial - What is .NET MAUI?
 
-As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us.
+As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us. There are 2 key components affecting us today and the is .NET MAUI.
 
 - Multi-platform App UI
 
@@ -56,6 +58,8 @@ As with all good games this talk wouldn't be complete without first introducing 
 
 # Tutorial - What is SignalR?
 
+The second key component is SignalR.
+
 - Open-source
 
 - ASP.NET Core
@@ -70,24 +74,65 @@ As with all good games this talk wouldn't be complete without first introducing 
 
 - Supports many platforms - JS, C#, F#, VB, Java
 
+# How to use SignalR
+
+
+
+# Voting time
+
+This is our first vote so let's hope it works! As I mentioned before you can navigate to a web page, so if you scan this QR code on screen it will open the page for you.
+
+# Voting system demo
+
+# Drawing game demo
+
+
+
 # Choose difficulty
 
 # Flow
 
 ```mermaid
 flowchart TD
-    TitleScene --> CharacterSelectionScene[Character selection]
-    CharacterSelectionScene --> TutorialScene
-    TutorialScene --> RedVersusBluePillScene{Red vs Blue pill}
-    RedVersusBluePillScene -- Blue --> SlideLottie
-    RedVersusBluePillScene -- Red --> TheGameEngineApproachScene
+    TitleScene --> CharacterSelectionScene
+    CharacterSelectionScene --> PrologueScene
+    PrologueScene --> TutorialScene
+    TutorialScene --> TutorialPartTwoScene
+    TutorialPartTwoScene --> HowToUseSignalRScene
 
+    HowToUseSignalRScene --> VotingSystemOrDrawingGameScene
+
+    VotingSystemOrDrawingGameScene --Artists--> DemoTimeArtistsScene
+    VotingSystemOrDrawingGameScene --Politicians--> DemoTimePoliticiansScene
+
+    DemoTimeArtistsScene --> MagicianScene
+    DemoTimePoliticiansScene --> MagicianScene
+
+    MagicianScene --Divert--> SlideLottie
     SlideLottie --> SlideAnimations
     SlideAnimations --> SlideAnimationsPartTwo
     SlideAnimationsPartTwo --> SlideParticleEffects
+    SlideParticleEffects --> SlideCombined
+    SlideCombined --> TheGameEngineApproachScene
 
-    TheGameEngineApproachScene --> DotnetMauiGraphicsScene
-    DotnetMauiGraphicsScene --> FittingItIntoDotnetMauiScene
-    FittingItIntoDotnetMauiScene --> SketchIntoGameScene
-    SketchIntoGameScene --> TheBirthOfAnotherDistractionScene
+    MagicianScene --StayOnCourse--> TheGameEngineApproachScene
+
+    TheGameEngineApproachScene --> ProcessUserInputScene
+    ProcessUserInputScene --> UpdateScene
+    UpdateScene --> RenderScene
+    RenderScene --> WaitScene
+
+    WaitScene --> OrbitGameOrOrbitEngineScene
+
+    OrbitGameOrOrbitEngineScene --Engine--> HowToUsePartOne
+    HowToUsePartOne --> HowToUsePartTwo
+    HowToUsePartTwo --> HowToUsePartThree
+    HowToUsePartThree --> HowToUsePartFour
+    HowToUsePartFour --> HowToUsePartFive
+    HowToUsePartFive --> SummaryScene
+
+    OrbitGameOrOrbitEngineScene --Game--> DemoTime
+
+    DemoTime --> SummaryScene
+    SummaryScene --> Credits
 ```

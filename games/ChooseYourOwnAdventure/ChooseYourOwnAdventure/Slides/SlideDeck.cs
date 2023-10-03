@@ -13,35 +13,35 @@ public static class SlideDeck
         typeof(HowToUseSignalRScene),
 
         // Decision Time
-        typeof(VotingSystemOrDrawingGameScene),
+        typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes
 
         // Option 1
-        typeof(DemoTimePoliticiansScene),
+        typeof(DemoTimePoliticiansScene), // Possibly break down HowToUseSignalRScene into the specific scenarios
 
         // Option 2
         typeof(DemoTimeArtistsScene),
 
         // Decision Time
-        typeof(ChooseDifficultyScene),
+        typeof(MagicianScene),
+        //typeof(ChooseDifficultyScene), // Maybe offer a slight detour on our journey to learn these things?
         //typeof(RedVersusBluePillScene), // SlideLottie or TheGameEngineApproachScene
 
-        // Option 1 - Feels like it doesn't really fit
+        // Optional extra from MagicianScene - might not fit but it offers some nice insights.
         typeof(SlideLottie),
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
         typeof(SlideParticleEffects),
+        typeof(SlideCombined),
 
-        // Option 2
         typeof(TheGameEngineApproachScene),
-        typeof(DotnetMauiGraphicsScene),
-        typeof(FittingItIntoDotnetMauiScene),
-        typeof(SketchIntoGameScene),
-        typeof(TheBirthOfAnotherDistractionScene),
+        typeof(ProcessUserInputScene),
+        typeof(UpdateScene),
+        typeof(RenderScene),
+        typeof(WaitScene),
 
-        // Decision - Background on the game engine, or just show me how to use it?
-
-        // Single vs Multi player? Look at Orbit vs Drawing game?
-        
+        // Decision deep dive into Orbit game or look at the engine behind it?
+        typeof(OrbitGameOrOrbitEngineScene),
+        typeof(GameDemoScene),
 
         // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
 
@@ -51,11 +51,11 @@ public static class SlideDeck
         typeof(HowToUsePartFour),
         typeof(HowToUsePartFive),
 
-        typeof(TipsAndTricksSimpleScene),
-        typeof(TipsAndTricksSimplePartTwoScene),
-        typeof(TipsAndTricksDeviceScene),
+        //typeof(TipsAndTricksSimpleScene),
+        //typeof(TipsAndTricksSimplePartTwoScene),
+        //typeof(TipsAndTricksDeviceScene),
 
-        typeof(TheFinalBossScene),
+        //typeof(TheFinalBossScene),
         typeof(SummaryScene),
         typeof(Credits)
     };
@@ -63,6 +63,8 @@ public static class SlideDeck
     private static int currentSlideIndex = 0;
 
     public static Type CurrentSlideType => Slides[currentSlideIndex];
+
+    public static int GetSlideIndex(Type type) => Slides.IndexOf(type) + 1;
 
     public static void SetCurrentSlideType(Type type)
     {

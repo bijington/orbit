@@ -8,18 +8,20 @@ public partial class MainPage : ContentPage
     private readonly IGameSceneManager gameSceneManager;
     private readonly ControllerManager controllerManager;
     private readonly AchievementManager achievementManager;
+    private readonly IDeviceDisplay deviceDisplay;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         ControllerManager controllerManager,
-        AchievementManager achievementManager)
+        AchievementManager achievementManager,
+        IDeviceDisplay deviceDisplay)
 	{
 		InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
         this.achievementManager = achievementManager;
-
+        this.deviceDisplay = deviceDisplay;
         LoadSlide(SlideDeck.CurrentSlideType);
 
         this.controllerManager.Initialise();
@@ -34,6 +36,8 @@ public partial class MainPage : ContentPage
 
         this.achievementManager.AchievementUnlocked += AchievementManager_AchievementUnlocked;
         this.controllerManager.ButtonPressed += ControllerManager_ButtonPressed;
+
+        this.deviceDisplay.KeepScreenOn = true;
     }
 
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
