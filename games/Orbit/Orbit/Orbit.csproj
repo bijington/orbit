@@ -64,4 +64,14 @@
 	    <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\Raw\laser.mp3" />
+	  <None Remove="Resources\Raw\main.mp3" />
+	  <None Remove="Resources\Raw\menumusic.wav" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Raw\laser.mp3" />
+	  <BundleResource Include="Resources\Raw\main.mp3" />
+	  <BundleResource Include="Resources\Raw\menumusic.wav" />
+	</ItemGroup>
 </Project>

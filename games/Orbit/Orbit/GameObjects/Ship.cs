@@ -6,6 +6,7 @@ public class Ship : GameObject
 {
     readonly Microsoft.Maui.Graphics.IImage image;
     private readonly Thruster thruster;
+    private readonly float aspectRatio;
     public float angle = 0f;
 
     // TODO: Different types of collision here:
@@ -20,6 +21,8 @@ public class Ship : GameObject
         Battery battery)
     {
         image = LoadImage("ship.png");
+
+        aspectRatio = image.Width / image.Height;
 
         this.thruster = thruster;
 
@@ -39,14 +42,19 @@ public class Ship : GameObject
         var adjacent = MathF.Cos(theta) * orbitRadius;
         var opposite = MathF.Sin(theta) * orbitRadius;
 
-        var halfWidth = image.Width / 2;
-        var halfHeight = image.Height / 2;
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 10;
+
+        var imageWidth = size;
+        var imageHeight = size / aspectRatio;
+
+        var halfWidth = imageWidth / 2;
+        var halfHeight = imageHeight / 2;
 
         Bounds = new RectF(
             dimensions.Center.X + adjacent - halfWidth,
             dimensions.Center.Y + opposite - halfHeight,
-            image.Width,
-            image.Height);
+            imageWidth,
+            imageHeight);
 
         canvas.Translate(Bounds.X + halfWidth, Bounds.Y + halfHeight);
         canvas.Rotate(angle + 90);

@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
-    x:Class="Orbit.MainPage">
+    x:Class="Orbit.MainPage"
+    BackgroundColor="Black">
 
     <Grid>
         <Image

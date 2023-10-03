@@ -41,7 +41,8 @@ public partial class MainPage : ContentPage
                 Play.IsVisible = true;
                 TitleLabel.IsVisible = true;
 
-                await this.audioService.Play(AudioItem.HomeBackgroundMusic, true);
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             case GameState.Started:
@@ -58,11 +59,17 @@ public partial class MainPage : ContentPage
 
                 Play.Scale = 1;
                 TitleLabel.Opacity = 1;
+
+                this.audioService.Stop(AudioItem.Music.HomeBackground);
+                await this.audioService.Play(AudioItem.Music.Main, true);
                 break;
 
             case GameState.Paused:
                 PauseMenu.IsVisible = true;
                 TitleLabel.IsVisible = false;
+
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             case GameState.GameOver:

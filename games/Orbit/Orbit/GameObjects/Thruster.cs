@@ -44,11 +44,11 @@ public class Thruster : GameObject
 
         if (this.IsThrusting)
         {
-            _ = this.audioService.Play(AudioItem.ThrusterSoundEffect, false);
+            _ = this.audioService.Play(AudioItem.SoundEffect.Thruster, false);
         }
         else
         {
-            this.audioService.Stop(AudioItem.ThrusterSoundEffect);
+            this.audioService.Stop(AudioItem.SoundEffect.Thruster);
         }
 
         base.Update(millisecondsSinceLastUpdate);
