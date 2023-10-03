@@ -41,31 +41,29 @@ public class Ship : GameObject
     {
         var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
 
-        var a = MathF.Cos(angle) * orbitRadius;
-        var o = MathF.Sin(angle) * orbitRadius;
+        var theta = angle * MathF.PI / 180;
+        var adjacent = MathF.Cos(theta) * orbitRadius;
+        var opposite = MathF.Sin(theta) * orbitRadius;
 
-        Console.WriteLine($"a = {a} o = {o}");
+        var halfWidth = image.Width / 2;
+        var halfHeight = image.Height / 2;
 
         Bounds = new RectF(
-            dimensions.Center.X + a,
-            dimensions.Center.Y + o,
+            dimensions.Center.X + adjacent - halfWidth,
+            dimensions.Center.Y + opposite - halfHeight,
             image.Width,
             image.Height);
 
-        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
-        canvas.Rotate(angle);
-        canvas.Translate(orbitRadius, 0);
-        canvas.Rotate(90);
+        canvas.Translate(Bounds.X + halfWidth, Bounds.Y + halfHeight);
+        canvas.Rotate(angle + 90);
 
-
-
-        canvas.DrawImage(image, -Bounds.Width / 2, -Bounds.Height / 2, Bounds.Width, Bounds.Height);
+        canvas.DrawImage(image, -halfWidth, -halfHeight, Bounds.Width, Bounds.Height);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(-Bounds.Width / 2, -Bounds.Height / 2, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(-halfWidth, -halfHeight, Bounds.Width, Bounds.Height);
         }
 
         base.Render(canvas, dimensions);
@@ -75,6 +73,6 @@ public class Ship : GameObject
     {
         base.Update(millisecondsSinceLastUpdate);
 
-        angle += this.thruster.Thrust;
+        angle = (angle + this.thruster.Thrust) % 360;
     }
 }

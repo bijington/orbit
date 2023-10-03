@@ -29,9 +29,6 @@ public class Asteroid : GameObject
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
-
-        //x = 0.5f;
-        //y = 0.5f;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
@@ -55,8 +52,6 @@ public class Asteroid : GameObject
             (y * dimensions.Height) - size,
             size * 2,
             size * 2);
-
-        Console.WriteLine($"Asteroid bounds: {this.Bounds}");
 
         canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
@@ -100,12 +95,13 @@ public class Asteroid : GameObject
             CurrentScene.Remove(pulse);
         }
 
-        //if (collision is Ship ship)
-        //{
-        //    CurrentScene.Remove(this);
+        if (collision is Ship ship)
+        {
+            CurrentScene.Remove(this);
 
-        //    // TODO: Damage the ship;
-        //}
+            // TODO: Damage the ship;
+            gameSceneManager.GameOver();
+        }
 
         // TODO: Allow collision with other asteroids.
         if (collision is Asteroid otherAsteroid)

@@ -4,24 +4,14 @@ namespace Orbit.GameObjects;
 
 public class Pulse : GameObject
 {
-    private readonly IGameSceneManager gameSceneManager;
-    private readonly Ship ship;
-    Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
     Movement movement;
     float originalAngle;
     readonly RadialGradientPaint pulsePaint;
 
-    public Pulse(
-        IGameSceneManager gameSceneManager,
-        Ship ship)
+    public Pulse()
     {
-        image = LoadImage("pulse.png");
-
-        this.gameSceneManager = gameSceneManager;
-        this.ship = ship;
-
         pulsePaint = new RadialGradientPaint(
             new PaintGradientStop[]
             {
@@ -36,43 +26,41 @@ public class Pulse : GameObject
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
-        originalAngle = angle;
 
-        //x = 0.5f;
-        //y = 0.5f;
+        originalAngle = angle;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         base.Render(canvas, dimensions);
 
-        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
-        canvas.Rotate(ship.angle);
         var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
-        canvas.Translate(orbitRadius, 0);
-        canvas.Rotate(-36);
 
-        // TODO: convert this to real world bounds.
+        var theta = originalAngle * MathF.PI / 180;
+        var adjacent = MathF.Cos(theta) * (x * dimensions.Width);
+        var opposite = MathF.Sin(theta) * (y * dimensions.Height);
+
+        var shipAdjacent = MathF.Cos(theta) * orbitRadius;
+        var shipOpposite = MathF.Sin(theta) * orbitRadius;
+
+        var halfWidth = 5;
+        var halfHeight = 5;
+
         Bounds = new RectF(
-            (x * dimensions.Width),
-            (y * dimensions.Height),
+            dimensions.Center.X + adjacent + shipAdjacent - halfWidth,
+            dimensions.Center.Y + opposite + shipOpposite - halfHeight,
             10,
             10);
 
-        var transformedBounds = new RectF(
-            x * dimensions.Width,
-            y * dimensions.Height,
-            10,
-            10);
-        canvas.SetFillPaint(pulsePaint, transformedBounds);
+        canvas.SetFillPaint(pulsePaint, Bounds);
 
-        canvas.FillEllipse(transformedBounds.X, transformedBounds.Y, transformedBounds.Width, transformedBounds.Height);
+        canvas.FillEllipse(Bounds);
 
         if (MainPage.ShowBounds)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(transformedBounds.X, transformedBounds.Y, transformedBounds.Width, transformedBounds.Height);
+            canvas.DrawEllipse(Bounds);
 
             canvas.StrokeColor = Colors.Orange;
             canvas.StrokeDashPattern = new[] { 1f, 2f };

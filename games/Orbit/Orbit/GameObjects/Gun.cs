@@ -5,8 +5,7 @@ namespace Orbit.GameObjects;
 public class Gun : GameObject
 {
     private readonly IServiceProvider serviceProvider;
-    readonly Microsoft.Maui.Graphics.IImage image;
-    private double firingSpeed = 800;
+    private double firingSpeed = 400;
     private double elapsed = 0;
 
     public Ship Ship { get; set; }
@@ -14,27 +13,6 @@ public class Gun : GameObject
     public Gun(IServiceProvider serviceProvider)
     {
         this.serviceProvider = serviceProvider;
-
-        image = LoadImage("side_guns.png");
-    }
-
-    public override bool IsCollisionDetectionEnabled => true;
-
-    public override void Render(ICanvas canvas, RectF dimensions)
-    {
-        base.Render(canvas, dimensions);
-
-        //canvas.DrawImage(image, 0, 0, image.Width, image.Height);
-
-
-        
-
-        //canvas.DrawImage(image, orbitRadius, 0, image.Width, image.Height);
-
-        //canvas.StrokeColor = Colors.OrangeRed;
-        //canvas.StrokeSize = 4;
-        //canvas.StrokeDashPattern = new float[] { 4, 4 };
-        //canvas.DrawEllipse(175, -125, 300, 300);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
@@ -51,8 +29,7 @@ public class Gun : GameObject
 
             pulse.SetMovement(
                 new Movement(
-                    new PointF(
-                        0, 0),
+                    new PointF(0, 0),
                     new Point(2, 2),
                     new Point(0.005, 0.005)),
                 Ship.angle);
