@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
             .AddTransient<Pulse>()
             .AddScoped<Planet>()
             .AddTransient<PlanetHealthIndicator>()
+            .AddTransient<ScoreDisplay>()
             .AddTransient<Shadow>()
             .AddScoped<Ship>()
             .AddTransient<Sun>()

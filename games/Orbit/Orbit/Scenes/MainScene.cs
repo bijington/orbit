@@ -5,8 +5,6 @@ namespace Orbit;
 
 public class MainScene : GameScene
 {
-    private readonly Ship ship;
-
     public MainScene(
         Ship ship,
         Sun sun,
@@ -14,7 +12,8 @@ public class MainScene : GameScene
         BatteryLevelIndicator batteryLevelIndicator,
         PlanetHealthIndicator planetHealthIndicator,
         AsteroidLauncher asteroidLauncher,
-        VersionOverlay versionOverlay)
+        VersionOverlay versionOverlay,
+        ScoreDisplay scoreDisplay)
     {
         Add(sun);
         Add(ship);
@@ -23,6 +22,6 @@ public class MainScene : GameScene
         Add(batteryLevelIndicator);
         Add(planetHealthIndicator);
         Add(versionOverlay);
-        this.ship = ship;
+        Add(scoreDisplay);
     }
 }

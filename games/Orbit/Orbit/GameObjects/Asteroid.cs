@@ -7,6 +7,7 @@ public class Asteroid : GameObject
     private readonly IGameSceneManager gameSceneManager;
     private readonly IServiceProvider serviceProvider;
     private readonly IVibration vibration;
+    private readonly StatisticsManager statisticsManager;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
@@ -15,13 +16,15 @@ public class Asteroid : GameObject
     public Asteroid(
         IGameSceneManager gameSceneManager,
         IServiceProvider serviceProvider,
-        IVibration vibration)
+        IVibration vibration,
+        StatisticsManager statisticsManager)
     {
         image = LoadImage("asteroid.png");
 
         this.gameSceneManager = gameSceneManager;
         this.serviceProvider = serviceProvider;
         this.vibration = vibration;
+        this.statisticsManager = statisticsManager;
     }
 
     public void SetMovement(Movement movement)
@@ -78,6 +81,8 @@ public class Asteroid : GameObject
             CurrentScene.Remove(this);
 
             this.vibration.Vibrate();
+
+            statisticsManager.RegisterScore(-25);
         }
 
         if (collision is Pulse pulse)
@@ -93,6 +98,8 @@ public class Asteroid : GameObject
             canvas.DrawRectangle(pulse.Bounds);
 
             CurrentScene.Remove(pulse);
+
+            statisticsManager.RegisterScore(25);
         }
 
         if (collision is Ship ship)

@@ -25,17 +25,18 @@ public static class MauiProgram
                 .AddTransient<MainPage>()
 
                 // Essentials
+                .AddSingleton(DeviceDisplay.Current)
+                .AddSingleton(FileSystem.Current)
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
-                .AddSingleton(FileSystem.Current)
-                .AddSingleton(DeviceDisplay.Current)
 
                 // Audio
                 .AddSingleton(AudioManager.Current)
 
                 // Internals
-                .AddSingleton<UserInputManager>()
                 .AddSingleton<AudioService>()
+                .AddSingleton<StatisticsManager>()
+                .AddSingleton<UserInputManager>()
 
                 .RegisterGameObjects()
                 .RegisterScenes();
