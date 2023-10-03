@@ -5,9 +5,7 @@ namespace Orbit.GameObjects;
 public class Ship : GameObject
 {
     readonly Microsoft.Maui.Graphics.IImage image;
-    private readonly IGameSceneManager gameSceneManager;
     private readonly Thruster thruster;
-    private readonly UserInputManager userInputManager;
     public float angle = 0f;
 
     // TODO: Different types of collision here:
@@ -17,17 +15,13 @@ public class Ship : GameObject
     public override bool IsCollisionDetectionEnabled => true;
 
     public Ship(
-        IGameSceneManager gameSceneManager,
         Thruster thruster,
         Gun gun,
-        Battery battery,
-        UserInputManager userInputManager)
+        Battery battery)
     {
         image = LoadImage("ship.png");
 
-        this.gameSceneManager = gameSceneManager;
         this.thruster = thruster;
-        this.userInputManager = userInputManager;
 
         Add(gun);
         Add(thruster);
