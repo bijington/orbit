@@ -9,8 +9,9 @@ public class Pulse : GameObject
     Movement movement;
     float originalAngle;
     readonly RadialGradientPaint pulsePaint;
+    private readonly SettingsManager settingsManager;
 
-    public Pulse()
+    public Pulse(SettingsManager settingsManager)
     {
         pulsePaint = new RadialGradientPaint(
             new PaintGradientStop[]
@@ -19,6 +20,7 @@ public class Pulse : GameObject
                 new PaintGradientStop(0.5f, Color.FromRgb(137, 202, 240)),
                 new PaintGradientStop(1f, Color.FromRgb(61, 54, 90))
             });
+        this.settingsManager = settingsManager;
     }
 
     public void SetMovement(Movement movement, float angle)
@@ -56,7 +58,7 @@ public class Pulse : GameObject
 
         canvas.FillEllipse(Bounds);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;

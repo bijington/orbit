@@ -10,14 +10,14 @@ public partial class MainPage : ContentPage
     private readonly UserInputManager userInputManager;
     private readonly AudioService audioService;
     private readonly IDeviceDisplay deviceDisplay;
-
-    public static bool ShowBounds { get; private set; } = false;
+    private readonly SettingsManager settingsManager;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         UserInputManager userInputManager,
         AudioService audioService,
-        IDeviceDisplay deviceDisplay)
+        IDeviceDisplay deviceDisplay,
+        SettingsManager settingsManager)
     {
         InitializeComponent();
 
@@ -25,6 +25,7 @@ public partial class MainPage : ContentPage
         this.userInputManager = userInputManager;
         this.audioService = audioService;
         this.deviceDisplay = deviceDisplay;
+        this.settingsManager = settingsManager;
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
@@ -144,12 +145,14 @@ public partial class MainPage : ContentPage
 
     void OnDebugSwitchToggled(object sender, ToggledEventArgs e)
     {
-        ShowBounds = e.Value;
+        settingsManager.ShowDebug = e.Value;
     }
 
     void OnShowButtonsSwitchToggled(object sender, ToggledEventArgs e)
     {
         userInputManager.SetInputMode(e.Value ? UserInputMode.Buttons : UserInputMode.TouchOnScreen);
+
+        settingsManager.ShowControls = e.Value;
 
         ButtonPanel.IsVisible = e.Value;
     }

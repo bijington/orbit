@@ -6,6 +6,7 @@ public class Ship : GameObject
 {
     readonly Microsoft.Maui.Graphics.IImage image;
     private readonly Thruster thruster;
+    private readonly SettingsManager settingsManager;
     private readonly float aspectRatio;
     public float angle = 0f;
 
@@ -18,14 +19,15 @@ public class Ship : GameObject
     public Ship(
         Thruster thruster,
         Gun gun,
-        Battery battery)
+        Battery battery,
+        SettingsManager settingsManager)
     {
         image = LoadImage("ship.png");
 
         aspectRatio = image.Width / image.Height;
 
         this.thruster = thruster;
-
+        this.settingsManager = settingsManager;
         Add(gun);
         Add(thruster);
         Add(battery);
@@ -61,7 +63,7 @@ public class Ship : GameObject
 
         canvas.DrawImage(image, -halfWidth, -halfHeight, Bounds.Width, Bounds.Height);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;

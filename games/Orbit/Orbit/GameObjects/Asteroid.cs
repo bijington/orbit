@@ -8,6 +8,7 @@ public class Asteroid : GameObject
     private readonly IServiceProvider serviceProvider;
     private readonly IVibration vibration;
     private readonly StatisticsManager statisticsManager;
+    private readonly SettingsManager settingsManager;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
@@ -17,7 +18,8 @@ public class Asteroid : GameObject
         IGameSceneManager gameSceneManager,
         IServiceProvider serviceProvider,
         IVibration vibration,
-        StatisticsManager statisticsManager)
+        StatisticsManager statisticsManager,
+        SettingsManager settingsManager)
     {
         image = LoadImage("asteroid.png");
 
@@ -25,6 +27,7 @@ public class Asteroid : GameObject
         this.serviceProvider = serviceProvider;
         this.vibration = vibration;
         this.statisticsManager = statisticsManager;
+        this.settingsManager = settingsManager;
     }
 
     public void SetMovement(Movement movement)
@@ -58,7 +61,7 @@ public class Asteroid : GameObject
 
         canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
