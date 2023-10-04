@@ -11,13 +11,15 @@ public partial class MainPage : ContentPage
     private readonly AudioService audioService;
     private readonly IDeviceDisplay deviceDisplay;
     private readonly SettingsManager settingsManager;
+    private readonly StatisticsManager statisticsManager;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         UserInputManager userInputManager,
         AudioService audioService,
         IDeviceDisplay deviceDisplay,
-        SettingsManager settingsManager)
+        SettingsManager settingsManager,
+        StatisticsManager statisticsManager)
     {
         InitializeComponent();
 
@@ -26,6 +28,7 @@ public partial class MainPage : ContentPage
         this.audioService = audioService;
         this.deviceDisplay = deviceDisplay;
         this.settingsManager = settingsManager;
+        this.statisticsManager = statisticsManager;
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
@@ -39,6 +42,7 @@ public partial class MainPage : ContentPage
             case GameState.Loaded:
                 Pause.IsVisible = false;
                 PauseMenu.IsVisible = false;
+                GameOverMenu.IsVisible = false;
                 Play.IsVisible = true;
                 TitleLabel.IsVisible = true;
 
@@ -48,6 +52,7 @@ public partial class MainPage : ContentPage
 
             case GameState.Started:
                 this.deviceDisplay.KeepScreenOn = true;
+                this.statisticsManager.RegisterScore(-this.statisticsManager.Score);
 
                 await Task.WhenAll(
                     Play.ScaleTo(0, 250, Easing.SinOut),
@@ -55,6 +60,7 @@ public partial class MainPage : ContentPage
 
                 Pause.IsVisible = true;
                 PauseMenu.IsVisible = false;
+                GameOverMenu.IsVisible = false;
                 Play.IsVisible = false;
                 TitleLabel.IsVisible = false;
 
@@ -74,9 +80,13 @@ public partial class MainPage : ContentPage
                 break;
 
             case GameState.GameOver:
-                await DisplayAlert("Game over", "", "Boo");
+                GameOverMenu.IsVisible = true;
+                TitleLabel.IsVisible = false;
 
-                gameSceneManager.LoadScene<HomeScene>(GameView);
+                ScoreLabel.Text = statisticsManager.Score.ToString();
+
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             default:

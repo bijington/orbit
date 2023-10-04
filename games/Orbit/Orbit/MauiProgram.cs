@@ -36,7 +36,7 @@ public static class MauiProgram
                 // Internals
                 .AddSingleton<AudioService>()
                 .AddSingleton<SettingsManager>()
-                .AddScoped<StatisticsManager>()
+                .AddSingleton<StatisticsManager>()
                 .AddSingleton<UserInputManager>()
 
                 .RegisterGameObjects()

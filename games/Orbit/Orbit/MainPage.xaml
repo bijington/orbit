@@ -30,29 +30,52 @@
             IsVisible="false"
             Margin="50"
             Spacing="40">
-            <Button
-                ImageSource="fast_rewind.png"
-                BackgroundColor="White"
-                CornerRadius="30"
-                WidthRequest="80"
-                HeightRequest="80"
-                VerticalOptions="Center"
-                SemanticProperties.Description="Slow down."
-                SemanticProperties.Hint="Slow the ship down."
-                Pressed="OnSlowDownButtonPressed"
-                Released="OnSlowDownButtonReleased" />
 
-            <Button
-                ImageSource="fast_forward.png"
-                BackgroundColor="White"
-                CornerRadius="30"
+            <Border
                 WidthRequest="80"
                 HeightRequest="80"
-                VerticalOptions="Center"
-                SemanticProperties.Description="Speed up."
-                SemanticProperties.Hint="Speed the ship up."
-                Pressed="OnSpeedUpButtonPressed"
-                Released="OnSpeedUpButtonReleased" />
+                BackgroundColor="White"
+                StrokeThickness="10"
+                Stroke="LightSteelBlue">
+
+                <Border.StrokeShape>
+                    <Path Data="M0,40 L20,0 L80,0 L80,40 L60,80 L0,80 Z" />
+                </Border.StrokeShape>
+
+                <Button
+                    ImageSource="fast_rewind.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="80"
+                    HeightRequest="80"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Slow down."
+                    SemanticProperties.Hint="Slow the ship down."
+                    Pressed="OnSlowDownButtonPressed"
+                    Released="OnSlowDownButtonReleased" />
+            </Border>
+
+            <Border
+                WidthRequest="80"
+                HeightRequest="80"
+                BackgroundColor="White"
+                StrokeThickness="10"
+                Stroke="LightSteelBlue">
+
+                <Border.StrokeShape>
+                    <Path Data="M0,40 L20,0 L80,0 L80,40 L60,80 L0,80 Z" />
+                </Border.StrokeShape>
+
+                <Button
+                    ImageSource="fast_forward.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="80"
+                    HeightRequest="80"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Speed up."
+                    SemanticProperties.Hint="Speed the ship up."
+                    Pressed="OnSpeedUpButtonPressed"
+                    Released="OnSpeedUpButtonReleased" />
+            </Border>
 
         </HorizontalStackLayout>
 
@@ -214,6 +237,74 @@
                         FontFamily="SpaceMonoBold"
                         FontSize="20"
                         Text="Quit"
+                        TextTransform="Uppercase"
+                        Clicked="OnQuitButtonClicked" />
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border
+            BackgroundColor="Black"
+            x:Name="GameOverMenu"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsVisible="False"
+            StrokeThickness="10"
+            WidthRequest="340"
+            HeightRequest="340"
+            Stroke="White">
+
+            <Border.StrokeShape>
+                <Path Data="M0,50 L30,0 L340,0 L340,290 L310,340 L0,340 Z" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout
+                WidthRequest="300"
+                Margin="20"
+                Spacing="10">
+                <Label
+                    Text="Game over"
+                    TextColor="White"
+                    TextTransform="Uppercase"
+                    FontFamily="SpaceMonoBold"
+                    FontSize="30"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="You scored"
+                    FontFamily="SpaceMonoBold"
+                    FontSize="20"
+                    TextTransform="Uppercase"
+                    HorizontalOptions="Center"
+                    TextColor="White" />
+
+                <Label
+                    x:Name="ScoreLabel"
+                    FontFamily="SpaceMonoBold"
+                    FontSize="50"
+                    TextTransform="Uppercase"
+                    HorizontalOptions="Center"
+                    TextColor="White" />
+
+                <Border
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="300"
+                    HeightRequest="60"
+                    BackgroundColor="White"
+                    StrokeThickness="10"
+                    Stroke="LightSteelBlue">
+
+                    <Border.StrokeShape>
+                        <Path Data="M0,30 L20,0 L300,0 L300,30 L280,60 L0,60 Z" />
+                    </Border.StrokeShape>
+
+                    <Button
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        FontFamily="SpaceMonoBold"
+                        FontSize="20"
+                        Text="OK"
                         TextTransform="Uppercase"
                         Clicked="OnQuitButtonClicked" />
                 </Border>

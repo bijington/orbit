@@ -20,6 +20,7 @@ public class ScoreDisplay : GameObject
         base.Render(canvas, dimensions);
 
         canvas.FontSize = 20;
+        canvas.FontColor = Colors.White;
 
         canvas.DrawString(
             score.ToString(),
