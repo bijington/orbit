@@ -38,10 +38,10 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\Splash\splash.svg" Color="#000000" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#000000" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -63,15 +63,5 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	    <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="Resources\Raw\laser.mp3" />
-	  <None Remove="Resources\Raw\main.mp3" />
-	  <None Remove="Resources\Raw\menumusic.wav" />
-	</ItemGroup>
-	<ItemGroup>
-	  <BundleResource Include="Resources\Raw\laser.mp3" />
-	  <BundleResource Include="Resources\Raw\main.mp3" />
-	  <BundleResource Include="Resources\Raw\menumusic.wav" />
 	</ItemGroup>
 </Project>
