@@ -9,6 +9,7 @@ public class Planet : GameObject
     const float rotationIncrement = -0.25f;
     private readonly IGameSceneManager gameSceneManager;
     private readonly IVibration vibration;
+    private readonly SettingsManager settingsManager;
 
     public float HealthPoints { get; private set; } = 100;
 
@@ -17,11 +18,13 @@ public class Planet : GameObject
     public Planet(
         IGameSceneManager gameSceneManager,
         Shadow shadow,
-        IVibration vibration)
+        IVibration vibration,
+        SettingsManager settingsManager)
     {
         image = LoadImage("planet.png");
         this.gameSceneManager = gameSceneManager;
         this.vibration = vibration;
+        this.settingsManager = settingsManager;
         Add(shadow);
 
         shadow.Planet = this;
@@ -45,7 +48,7 @@ public class Planet : GameObject
 
         canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;

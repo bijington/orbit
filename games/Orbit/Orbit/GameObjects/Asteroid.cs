@@ -7,6 +7,8 @@ public class Asteroid : GameObject
     private readonly IGameSceneManager gameSceneManager;
     private readonly IServiceProvider serviceProvider;
     private readonly IVibration vibration;
+    private readonly StatisticsManager statisticsManager;
+    private readonly SettingsManager settingsManager;
     Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
@@ -15,13 +17,17 @@ public class Asteroid : GameObject
     public Asteroid(
         IGameSceneManager gameSceneManager,
         IServiceProvider serviceProvider,
-        IVibration vibration)
+        IVibration vibration,
+        StatisticsManager statisticsManager,
+        SettingsManager settingsManager)
     {
         image = LoadImage("asteroid.png");
 
         this.gameSceneManager = gameSceneManager;
         this.serviceProvider = serviceProvider;
         this.vibration = vibration;
+        this.statisticsManager = statisticsManager;
+        this.settingsManager = settingsManager;
     }
 
     public void SetMovement(Movement movement)
@@ -29,9 +35,6 @@ public class Asteroid : GameObject
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
-
-        //x = 0.5f;
-        //y = 0.5f;
     }
 
     public override bool IsCollisionDetectionEnabled => true;
@@ -58,7 +61,7 @@ public class Asteroid : GameObject
 
         canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
@@ -80,11 +83,26 @@ public class Asteroid : GameObject
             planet.OnHit(25);
             CurrentScene.Remove(this);
 
-            var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
-            remains.SetBounds(this.Bounds);
-            CurrentScene.Add(remains);
-
             this.vibration.Vibrate();
+
+            statisticsManager.RegisterScore(-25);
+        }
+
+        if (collision is Pulse pulse)
+        {
+            canvas.StrokeColor = Colors.Purple;
+            canvas.StrokeSize = 4;
+            canvas.DrawRectangle(this.Bounds);
+
+            CurrentScene.Remove(this);
+
+            canvas.StrokeColor = Colors.Yellow;
+            canvas.StrokeSize = 4;
+            canvas.DrawRectangle(pulse.Bounds);
+
+            CurrentScene.Remove(pulse);
+
+            statisticsManager.RegisterScore(25);
         }
 
         if (collision is Ship ship)
@@ -92,6 +110,7 @@ public class Asteroid : GameObject
             CurrentScene.Remove(this);
 
             // TODO: Damage the ship;
+            gameSceneManager.GameOver();
         }
 
         // TODO: Allow collision with other asteroids.
@@ -103,5 +122,14 @@ public class Asteroid : GameObject
         }
 
         // TODO: remove when off screen.
+    }
+
+    public override void OnRemoved()
+    {
+        base.OnRemoved();
+
+        var remains = this.serviceProvider.GetRequiredService<AsteroidRemains>();
+        remains.SetBounds(this.Bounds);
+        CurrentScene.Add(remains);
     }
 }

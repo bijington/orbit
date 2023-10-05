@@ -11,7 +11,9 @@ public class MainScene : GameScene
         Planet planet,
         BatteryLevelIndicator batteryLevelIndicator,
         PlanetHealthIndicator planetHealthIndicator,
-        AsteroidLauncher asteroidLauncher)
+        AsteroidLauncher asteroidLauncher,
+        VersionOverlay versionOverlay,
+        ScoreDisplay scoreDisplay)
     {
         Add(sun);
         Add(ship);
@@ -19,5 +21,7 @@ public class MainScene : GameScene
         Add(planet);
         Add(batteryLevelIndicator);
         Add(planetHealthIndicator);
+        Add(versionOverlay);
+        Add(scoreDisplay);
     }
 }

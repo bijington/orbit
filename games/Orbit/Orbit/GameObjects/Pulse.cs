@@ -4,65 +4,73 @@ namespace Orbit.GameObjects;
 
 public class Pulse : GameObject
 {
-    private readonly IGameSceneManager gameSceneManager;
-    Microsoft.Maui.Graphics.IImage image;
     float x;
     float y;
     Movement movement;
+    float originalAngle;
+    readonly RadialGradientPaint pulsePaint;
+    private readonly SettingsManager settingsManager;
 
-    public Pulse(
-        IGameSceneManager gameSceneManager)
+    public Pulse(SettingsManager settingsManager)
     {
-        image = LoadImage("pulse.png");
-
-        this.gameSceneManager = gameSceneManager;
+        pulsePaint = new RadialGradientPaint(
+            new PaintGradientStop[]
+            {
+                new PaintGradientStop(0, Color.FromRgb(94, 87, 172)),
+                new PaintGradientStop(0.5f, Color.FromRgb(137, 202, 240)),
+                new PaintGradientStop(1f, Color.FromRgb(61, 54, 90))
+            });
+        this.settingsManager = settingsManager;
     }
 
-    public void SetMovement(Movement movement)
+    public void SetMovement(Movement movement, float angle)
     {
         this.movement = movement;
         x = movement.OriginX;
         y = movement.OriginY;
 
-        //x = 0.5f;
-        //y = 0.5f;
+        originalAngle = angle;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         base.Render(canvas, dimensions);
 
-        var size = Math.Min(dimensions.Width, dimensions.Height) / 16;
+        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
+
+        var theta = originalAngle * MathF.PI / 180;
+        var adjacent = MathF.Cos(theta) * (x * dimensions.Width);
+        var opposite = MathF.Sin(theta) * (y * dimensions.Height);
+
+        var shipAdjacent = MathF.Cos(theta) * orbitRadius;
+        var shipOpposite = MathF.Sin(theta) * orbitRadius;
+
+        var halfWidth = 5;
+        var halfHeight = 5;
 
         Bounds = new RectF(
-            (x * dimensions.Width) - size,
-            (y * dimensions.Height) - size,
-            size * 2,
-            size * 2);
+            dimensions.Center.X + adjacent + shipAdjacent - halfWidth,
+            dimensions.Center.Y + opposite + shipOpposite - halfHeight,
+            10,
+            10);
 
-        //canvas.DrawImage(image, Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+        canvas.SetFillPaint(pulsePaint, Bounds);
 
-        if (MainPage.ShowBounds)
+        canvas.FillEllipse(Bounds);
+
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(Bounds);
 
-            canvas.StrokeColor = Colors.White;
+            canvas.StrokeColor = Colors.Orange;
             canvas.StrokeDashPattern = new[] { 1f, 2f };
             canvas.DrawLine(
                 movement.OriginX * dimensions.Width,
                 movement.OriginY * dimensions.Height,
                 movement.DestinationX * dimensions.Width,
                 movement.DestinationY * dimensions.Height);
-        }
-
-        var collision = gameSceneManager.FindCollision(this);
-
-        if (collision is Asteroid otherAsteroid)
-        {
-            CurrentScene.Remove(otherAsteroid);
-            CurrentScene.Remove(this);
         }
     }
 
@@ -74,5 +82,10 @@ public class Pulse : GameObject
 
         x += movement.SpeedX;
         y += movement.SpeedY;
+
+        if (x <= -0.1 || x >= 1.1 || y <= -0.1 || y >= 1.1)
+        {
+            CurrentScene.Remove(this);
+        }
     }
 }
