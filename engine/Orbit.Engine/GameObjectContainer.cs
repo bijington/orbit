@@ -33,12 +33,12 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
 
     protected virtual void OnGameObjectAdded(GameObject gameObject)
     {
-
+        gameObject.OnAdded();
     }
 
     protected virtual void OnGameObjectRemoved(GameObject gameObject)
     {
-
+        gameObject.OnRemoved();
     }
 
     protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)

@@ -4,7 +4,7 @@ namespace Orbit.GameObjects;
 
 public class Sun : GameObject
 {
-    Microsoft.Maui.Graphics.IImage image;
+    readonly Microsoft.Maui.Graphics.IImage image;
 
     public Sun()
     {

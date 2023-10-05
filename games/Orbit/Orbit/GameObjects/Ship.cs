@@ -4,12 +4,10 @@ namespace Orbit.GameObjects;
 
 public class Ship : GameObject
 {
-    readonly Microsoft.Maui.Graphics.IImage slowDownImage;
-    readonly Microsoft.Maui.Graphics.IImage speedUpImage;
     readonly Microsoft.Maui.Graphics.IImage image;
-    private readonly IGameSceneManager gameSceneManager;
     private readonly Thruster thruster;
-    private readonly UserInputManager userInputManager;
+    private readonly SettingsManager settingsManager;
+    private readonly float aspectRatio;
     public float angle = 0f;
 
     // TODO: Different types of collision here:
@@ -19,65 +17,66 @@ public class Ship : GameObject
     public override bool IsCollisionDetectionEnabled => true;
 
     public Ship(
-        IGameSceneManager gameSceneManager,
         Thruster thruster,
         Gun gun,
         Battery battery,
-        UserInputManager userInputManager)
+        SettingsManager settingsManager)
     {
-        image = LoadImage("ship_none.png");
-        speedUpImage = LoadImage("ship_forward.png");
-        slowDownImage = LoadImage("ship_reverse.png");
+        image = LoadImage("ship.png");
 
-        this.gameSceneManager = gameSceneManager;
+        aspectRatio = image.Width / image.Height;
+
         this.thruster = thruster;
-        this.userInputManager = userInputManager;
-
+        this.settingsManager = settingsManager;
         Add(gun);
         Add(thruster);
         Add(battery);
 
         gun.Ship = this;
+        thruster.Ship = this;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
+        var orbitRadius = Math.Min(dimensions.Width, dimensions.Height) / 4;
 
-        var size = Math.Min(dimensions.Width, dimensions.Height) / 20;
+        var theta = angle * MathF.PI / 180;
+        var adjacent = MathF.Cos(theta) * orbitRadius;
+        var opposite = MathF.Sin(theta) * orbitRadius;
+
+        var size = Math.Min(dimensions.Width, dimensions.Height) / 10;
+
+        var imageWidth = size;
+        var imageHeight = size / aspectRatio;
+
+        var halfWidth = imageWidth / 2;
+        var halfHeight = imageHeight / 2;
 
         Bounds = new RectF(
-            dimensions.Center.X - size,
-            dimensions.Center.Y - size,
-            size * 2,
-            size * 2);
+            dimensions.Center.X + adjacent - halfWidth,
+            dimensions.Center.Y + opposite - halfHeight,
+            imageWidth,
+            imageHeight);
 
-        var orbitRadius = Bounds.Width * 3;
+        canvas.Translate(Bounds.X + halfWidth, Bounds.Y + halfHeight);
+        canvas.Rotate(angle + 90);
 
-        canvas.Translate(dimensions.Center.X, dimensions.Center.Y);
-        canvas.Rotate(angle);
-        var image = this.thruster.IsThrusting ? GetImage(userInputManager.TouchMode) : GetImage(TouchMode.None);
-        canvas.DrawImage(image, orbitRadius, 0, Bounds.Width, Bounds.Height);
+        canvas.DrawImage(image, -halfWidth, -halfHeight, Bounds.Width, Bounds.Height);
 
-        if (MainPage.ShowBounds)
+        if (settingsManager.ShowDebug)
         {
             canvas.StrokeColor = Colors.OrangeRed;
             canvas.StrokeSize = 4;
-            canvas.DrawEllipse(orbitRadius, 0, Bounds.Width, Bounds.Height);
+            canvas.DrawEllipse(-halfWidth, -halfHeight, Bounds.Width, Bounds.Height);
         }
+
+        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
     {
         base.Update(millisecondsSinceLastUpdate);
 
-        angle += this.thruster.Thrust;
+        angle = (angle + this.thruster.Thrust) % 360;
     }
-
-    private Microsoft.Maui.Graphics.IImage GetImage(TouchMode touchMode) => touchMode switch
-    {
-        TouchMode.SlowDown => slowDownImage,
-        TouchMode.SpeedUp => speedUpImage,
-        _ => image
-    };
 }

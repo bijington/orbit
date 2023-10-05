@@ -9,59 +9,84 @@ public partial class MainPage : ContentPage
     private readonly IGameSceneManager gameSceneManager;
     private readonly UserInputManager userInputManager;
     private readonly AudioService audioService;
-
-    public static bool ShowBounds { get; private set; } = false;
+    private readonly IDeviceDisplay deviceDisplay;
+    private readonly SettingsManager settingsManager;
+    private readonly StatisticsManager statisticsManager;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         UserInputManager userInputManager,
-        AudioService audioService)
+        AudioService audioService,
+        IDeviceDisplay deviceDisplay,
+        SettingsManager settingsManager,
+        StatisticsManager statisticsManager)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.userInputManager = userInputManager;
         this.audioService = audioService;
+        this.deviceDisplay = deviceDisplay;
+        this.settingsManager = settingsManager;
+        this.statisticsManager = statisticsManager;
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
 
     private async void OnGameSceneManagerStateChanged(object sender, GameStateChangedEventArgs e)
     {
+        this.deviceDisplay.KeepScreenOn = false;
+
         switch (e.State)
         {
             case GameState.Loaded:
                 Pause.IsVisible = false;
                 PauseMenu.IsVisible = false;
+                GameOverMenu.IsVisible = false;
                 Play.IsVisible = true;
                 TitleLabel.IsVisible = true;
 
-                await this.audioService.Play(AudioItem.HomeBackgroundMusic, true);
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             case GameState.Started:
+                this.deviceDisplay.KeepScreenOn = true;
+                this.statisticsManager.RegisterScore(-this.statisticsManager.Score);
+
                 await Task.WhenAll(
                     Play.ScaleTo(0, 250, Easing.SinOut),
                     TitleLabel.FadeTo(0, 500, Easing.SinOut));
 
                 Pause.IsVisible = true;
                 PauseMenu.IsVisible = false;
+                GameOverMenu.IsVisible = false;
                 Play.IsVisible = false;
                 TitleLabel.IsVisible = false;
 
                 Play.Scale = 1;
                 TitleLabel.Opacity = 1;
+
+                this.audioService.Stop(AudioItem.Music.HomeBackground);
+                await this.audioService.Play(AudioItem.Music.Main, true);
                 break;
 
             case GameState.Paused:
                 PauseMenu.IsVisible = true;
                 TitleLabel.IsVisible = false;
+
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             case GameState.GameOver:
-                await DisplayAlert("Game over", "", "Boo");
+                GameOverMenu.IsVisible = true;
+                TitleLabel.IsVisible = false;
 
-                gameSceneManager.LoadScene<HomeScene>(GameView);
+                ScoreLabel.Text = statisticsManager.Score.ToString();
+
+                this.audioService.Stop(AudioItem.Music.Main);
+                await this.audioService.Play(AudioItem.Music.HomeBackground, true);
                 break;
 
             default:
@@ -130,12 +155,14 @@ public partial class MainPage : ContentPage
 
     void OnDebugSwitchToggled(object sender, ToggledEventArgs e)
     {
-        ShowBounds = e.Value;
+        settingsManager.ShowDebug = e.Value;
     }
 
     void OnShowButtonsSwitchToggled(object sender, ToggledEventArgs e)
     {
         userInputManager.SetInputMode(e.Value ? UserInputMode.Buttons : UserInputMode.TouchOnScreen);
+
+        settingsManager.ShowControls = e.Value;
 
         ButtonPanel.IsVisible = e.Value;
     }

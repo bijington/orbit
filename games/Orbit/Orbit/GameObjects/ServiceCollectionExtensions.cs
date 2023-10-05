@@ -13,8 +13,10 @@ public static class ServiceCollectionExtensions
             .AddTransient<Pulse>()
             .AddScoped<Planet>()
             .AddTransient<PlanetHealthIndicator>()
+            .AddTransient<ScoreDisplay>()
             .AddTransient<Shadow>()
-            .AddTransient<Ship>()
+            .AddScoped<Ship>()
             .AddTransient<Sun>()
-            .AddScoped<Thruster>();
+            .AddScoped<Thruster>()
+            .AddSingleton<VersionOverlay>();
 }
