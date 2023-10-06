@@ -94,6 +94,13 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             var size = Math.Min(dimensions.Width, dimensions.Height) / 2;
 
             canvas.DrawImage(image, (dimensions.Width - size) / 2, (dimensions.Height - size) * 0.75f, size, size);
+
+            canvas.DrawString(
+                "https://choose-your-own-adventure-poll.azurewebsites.net",
+                new RectF(20, dimensions.Height * 0.2f, dimensions.Width - 40, dimensions.Height),
+                HorizontalAlignment.Center,
+                VerticalAlignment.Top,
+                TextFlow.OverflowBounds);
         }
 
         if (currentTransition == 2)
