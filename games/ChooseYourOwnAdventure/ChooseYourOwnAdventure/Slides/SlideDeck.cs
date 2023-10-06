@@ -5,21 +5,21 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        //typeof(TitleScene),
-        //typeof(CharacterSelectionScene),
-        //typeof(PrologueScene),
-        //typeof(TutorialScene),
-        //typeof(TutorialPartTwoScene),
-        //typeof(HowToUseSignalRScene),
+        typeof(TitleScene),
+        typeof(CharacterSelectionScene),
+        typeof(PrologueScene),
+        typeof(TutorialScene),
+        typeof(TutorialPartTwoScene),
+        typeof(HowToUseSignalRScene),
 
-        //// Decision Time
-        //typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes - 14 minutes
+        // Decision Time
+        typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes - 14 minutes
 
-        //// Option 1
-        //typeof(DemoTimePoliticiansScene), // Roughly 10 minutes - 14 minutes
+        // Option 1
+        typeof(DemoTimePoliticiansScene), // Roughly 10 minutes - 14 minutes
 
-        //// Option 2
-        //typeof(DemoTimeArtistsScene),
+        // Option 2
+        typeof(DemoTimeArtistsScene),
 
         // Summarise this point
         typeof(Stage1SummaryScene),
@@ -61,7 +61,7 @@ public static class SlideDeck
         typeof(TipsAndTricksSimplePartTwoScene),
         typeof(TipsAndTricksDeviceScene),
 
-        //typeof(TheFinalBossScene),
+        typeof(TheFinalBossScene),
         typeof(SummaryScene),
         typeof(Credits)
     };

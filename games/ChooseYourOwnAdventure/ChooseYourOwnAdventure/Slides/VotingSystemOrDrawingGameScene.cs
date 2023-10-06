@@ -35,7 +35,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Which group will you join?", option1, option2, false);
+            await OpenVote("Where will you invest your knowledge?", option1, option2, false);
         }
         if (currentTransition == 3)
         {
@@ -45,19 +45,19 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             {
                 this.achievementManager.UpdateProgress(AchievementNames.StaleMate, 100);
                 this.decision = "You chouldn't decide.";
-                this.decisions.RecordDecision($"You chouldn't decide who to join.");
+                this.decisions.RecordDecision($"You chouldn't decide who to help.");
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
                 this.decision = $"You chose '{option1}'. Let's take a look at how this voting system has been built.";
-                this.decisions.RecordDecision($"Joined the '{option1}' group");
+                this.decisions.RecordDecision($"'{option1}'");
             }
             else
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
                 this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time drawing game.";
-                this.decisions.RecordDecision($"Joined the '{option2}' group");
+                this.decisions.RecordDecision($"'{option2}'");
             }
         }
     }

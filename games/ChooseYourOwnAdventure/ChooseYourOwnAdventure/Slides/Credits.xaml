@@ -67,12 +67,12 @@
             Grid.Column="1" />
 
         <Label
-            Text="Inspiration"
+            Text="Voting system"
             Grid.Row="5"
             Grid.Column="1" />
 
         <controls:LinkButton
-            Text="https://github.com/davidwengier/Trains.NET"
+            Text="https://github.com/bijington/SignalRVotingPoll"
             Clicked="OnLinkButtonClicked"
             Grid.Row="6"
             Grid.Column="1" />
@@ -81,8 +81,8 @@
             Source="repository_qrcode.png"
             Grid.Row="7"
             Grid.ColumnSpan="2"
-            MaximumWidthRequest="500"
-            MaximumHeightRequest="500"
+            MaximumWidthRequest="900"
+            MaximumHeightRequest="900"
             HorizontalOptions="Center"
             VerticalOptions="Center"/>
     </Grid>
