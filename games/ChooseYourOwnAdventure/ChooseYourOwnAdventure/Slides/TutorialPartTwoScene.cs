@@ -6,7 +6,7 @@ public class TutorialPartTwoScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
-    public TutorialPartTwoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public TutorialPartTwoScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("signalr.png");
     }

@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class TheFinalBossScene : SlideSceneBase
 {
-	public TheFinalBossScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+	public TheFinalBossScene(Pointer pointer) : base(pointer)
 	{
 	}
 
@@ -14,9 +14,7 @@ public class TheFinalBossScene : SlideSceneBase
 
         canvas.DrawString(
             dimensions,
-            @"- A better name? MAGE - Multi-platform App Game Engine
-
-- Better Accessibility options
+            @"- Better Accessibility options
 
 - Physics - Collisions / Gravity
 

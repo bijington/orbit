@@ -16,7 +16,7 @@ public class MagicianScene : VoteSceneBase
     protected override Type Option1DestinationType => typeof(SlideLottie);
     protected override Type Option2DestinationType => typeof(TheGameEngineApproachScene);
 
-    public MagicianScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public MagicianScene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;

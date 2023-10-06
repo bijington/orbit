@@ -7,7 +7,7 @@ public class VotingSignalRScene : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 8;
 
-    public VotingSignalRScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public VotingSignalRScene(Pointer pointer) : base(pointer)
     {
     }
 

@@ -9,7 +9,7 @@ public class ProcessUserInputScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage keyboard;
     private readonly Microsoft.Maui.Graphics.IImage gyroscope;
 
-    public ProcessUserInputScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public ProcessUserInputScene(Pointer pointer) : base(pointer)
     {
         controller = LoadImage("controller.png");
         touch = LoadImage("touch.png");

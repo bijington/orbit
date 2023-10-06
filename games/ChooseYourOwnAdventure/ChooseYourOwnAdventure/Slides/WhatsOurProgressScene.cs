@@ -10,7 +10,7 @@ public class WhatsOurProgressScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage sketch;
     private readonly float aspectRatio;
 
-	public WhatsOurProgressScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+	public WhatsOurProgressScene(Pointer pointer) : base(pointer)
 	{
         sketch = LoadImage("orbit_sketch.jpg");
         aspectRatio = sketch.Width / sketch.Height;

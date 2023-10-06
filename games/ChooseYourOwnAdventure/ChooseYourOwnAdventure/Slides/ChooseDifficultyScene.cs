@@ -1,5 +1,4 @@
 ﻿using BuildingGames.GameObjects;
-using Microsoft.Maui.Graphics;
 
 namespace BuildingGames.Slides;
 
@@ -17,7 +16,7 @@ public class ChooseDifficultyScene : VoteSceneBase
     protected override Type Option1DestinationType => typeof(SlideLottie);
     protected override Type Option2DestinationType => typeof(TheGameEngineApproachScene);
 
-    public ChooseDifficultyScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public ChooseDifficultyScene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;

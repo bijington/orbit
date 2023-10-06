@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class DemoTimePoliticiansScene : SlideSceneBase, IDestinationKnowingScene
 {
-	public DemoTimePoliticiansScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+	public DemoTimePoliticiansScene(Pointer pointer) : base(pointer)
     {
 	}
 

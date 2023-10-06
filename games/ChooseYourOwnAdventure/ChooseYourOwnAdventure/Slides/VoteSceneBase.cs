@@ -14,7 +14,7 @@ public abstract class VoteSceneBase : SlideSceneBase, IDestinationKnowingScene
 
     public Type DestinationSceneType => Option1VoteCount > Option2VoteCount ? Option1DestinationType : Option2DestinationType;
 
-    public VoteSceneBase(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public VoteSceneBase(Pointer pointer) : base(pointer)
     {
         try
         {

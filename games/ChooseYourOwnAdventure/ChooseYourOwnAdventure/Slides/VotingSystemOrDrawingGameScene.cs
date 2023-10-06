@@ -16,7 +16,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
     protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
     protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
 
-    public VotingSystemOrDrawingGameScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public VotingSystemOrDrawingGameScene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;

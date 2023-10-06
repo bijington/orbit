@@ -9,7 +9,7 @@ public class FittingItIntoDotnetMauiScene : SlideSceneBase
 
     private readonly IList<string> textTransitions;
 
-    public FittingItIntoDotnetMauiScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public FittingItIntoDotnetMauiScene(Pointer pointer) : base(pointer)
     {
         textTransitions = new List<string>
         {

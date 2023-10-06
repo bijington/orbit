@@ -11,7 +11,7 @@ public class PrologueScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage nes;
     private readonly IList<string> textTransitions;
 
-    public PrologueScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public PrologueScene(Pointer pointer) : base(pointer)
     {
         bookCover = LoadImage("book_cover.jpg");
         nes = LoadImage("nes.jpg");

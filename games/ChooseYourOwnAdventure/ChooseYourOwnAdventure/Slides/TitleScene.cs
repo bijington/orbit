@@ -8,7 +8,7 @@ public class TitleScene : SlideSceneBase
     private float startAlpha = 1f;
     private float increment = -0.05f;
 
-    public TitleScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager) : base(pointer, achievement)
+    public TitleScene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         this.achievementManager = achievementManager;
     }

@@ -7,7 +7,7 @@ public class HowToUseSignalRScene : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 8;
 
-    public HowToUseSignalRScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public HowToUseSignalRScene(Pointer pointer) : base(pointer)
     {
     }
 

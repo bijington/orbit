@@ -13,7 +13,7 @@ public class TipsAndTricksSimplePartTwoScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage pulse;
     private readonly Microsoft.Maui.Graphics.IImage collectible;
 
-    public TipsAndTricksSimplePartTwoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public TipsAndTricksSimplePartTwoScene(Pointer pointer) : base(pointer)
     {
         ship = LoadImage("ship_basic.png");
         guns = LoadImage("guns.png");

@@ -10,7 +10,7 @@ public class Stage1SummaryScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage image;
     private readonly IList<string> textTransitions;
 
-    public Stage1SummaryScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public Stage1SummaryScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("orbit_sketch.jpg");
 

@@ -6,7 +6,7 @@ public class ProcessUserInputPartTwoScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage controller;
 
-    public ProcessUserInputPartTwoScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public ProcessUserInputPartTwoScene(Pointer pointer) : base(pointer)
     {
         controller = LoadImage("game_controller.png");
     }

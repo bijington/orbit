@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class TipsAndTricksDeviceScene : SlideSceneBase
 {
-	public TipsAndTricksDeviceScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+	public TipsAndTricksDeviceScene(Pointer pointer) : base(pointer)
     {
 	}
 

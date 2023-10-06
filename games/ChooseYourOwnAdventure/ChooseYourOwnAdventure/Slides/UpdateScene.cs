@@ -7,7 +7,7 @@ public class UpdateScene : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 1;
 
-    public UpdateScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public UpdateScene(Pointer pointer) : base(pointer)
     {
     }
 

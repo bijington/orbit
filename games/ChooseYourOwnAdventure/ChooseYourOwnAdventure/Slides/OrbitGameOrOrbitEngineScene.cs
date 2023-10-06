@@ -10,13 +10,13 @@ public class OrbitGameOrOrbitEngineScene : VoteSceneBase
     private readonly AchievementManager achievementManager;
     private readonly Decisions decisions;
     private string decision;
-    private const string option1 = "Engine";
+    private const string option1 = "Slides";
     private const string option2 = "Game";
 
     protected override Type Option1DestinationType => typeof(HowToUsePartOne);
     protected override Type Option2DestinationType => typeof(GameDemoScene);
 
-    public OrbitGameOrOrbitEngineScene(Pointer pointer, AchievementBanner achievement, AchievementManager achievementManager, Decisions decisions) : base(pointer, achievement)
+    public OrbitGameOrOrbitEngineScene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
         image = LoadImage("voting_site_qrcode.png");
         this.achievementManager = achievementManager;
@@ -45,7 +45,7 @@ public class OrbitGameOrOrbitEngineScene : VoteSceneBase
             {
                 this.achievementManager.UpdateProgress(AchievementNames.StaleMate, 100);
                 this.decision = "You chouldn't decide.";
-                this.decisions.RecordDecision($"You chouldn't decide who to join.");
+                this.decisions.RecordDecision($"You chouldn't decide what to see.");
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
@@ -70,7 +70,7 @@ public class OrbitGameOrOrbitEngineScene : VoteSceneBase
         }
 
         var introduction = @$"Having been given an overview of a game engine approach, which application would you like to see:
-{option1} - See how the engine is made.
+{option1} - See how the slides are made.
 
 {option2} - See how used to build a specific game.";
 

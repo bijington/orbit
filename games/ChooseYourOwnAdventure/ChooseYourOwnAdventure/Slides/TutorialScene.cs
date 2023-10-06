@@ -6,7 +6,7 @@ public class TutorialScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
-    public TutorialScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public TutorialScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("dotnet_bot_iot.png");
     }

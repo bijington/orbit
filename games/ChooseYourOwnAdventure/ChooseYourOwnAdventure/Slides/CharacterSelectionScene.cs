@@ -18,7 +18,7 @@ public class CharacterSelectionScene : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
-    public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer) : base(pointer)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {

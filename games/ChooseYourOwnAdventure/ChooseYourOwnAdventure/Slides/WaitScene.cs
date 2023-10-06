@@ -6,7 +6,7 @@ public class WaitScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage wait;
 
-    public WaitScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public WaitScene(Pointer pointer) : base(pointer)
     {
         wait = LoadImage("wait.png");
     }

@@ -4,7 +4,7 @@ namespace BuildingGames.Slides;
 
 public class TheBirthOfAnotherDistractionScene : SlideSceneBase
 {
-    public TheBirthOfAnotherDistractionScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public TheBirthOfAnotherDistractionScene(Pointer pointer) : base(pointer)
     {
     }
 

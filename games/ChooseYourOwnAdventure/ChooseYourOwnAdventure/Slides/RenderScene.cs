@@ -14,7 +14,7 @@ public class RenderScene : SlideSceneBase
 
     private readonly IList<string> textTransitions;
 
-    public RenderScene(Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
+    public RenderScene(Pointer pointer) : base(pointer)
     {
         paint = LoadImage("paint.png");
         asteroid = LoadImage("asteroid.png");

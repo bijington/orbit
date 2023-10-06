@@ -6,7 +6,7 @@ public class SummaryScene : SlideSceneBase
 {
     private readonly Decisions decisions;
 
-    public SummaryScene(Pointer pointer, AchievementBanner achievement, Decisions decisions) : base(pointer, achievement)
+    public SummaryScene(Pointer pointer, Decisions decisions) : base(pointer)
     {
         this.decisions = decisions;
     }
