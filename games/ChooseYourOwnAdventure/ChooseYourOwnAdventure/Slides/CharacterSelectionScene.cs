@@ -9,6 +9,9 @@ public class CharacterSelectionScene : SlideSceneBase
     const int columns = 3;
     const int rows = 2;
 
+    private int currentTransition = 0;
+    private const int transitions = 1;
+
     private readonly IDictionary<string, Microsoft.Maui.Graphics.IImage> images;
     private readonly IList<Character> characters;
     private readonly ControllerManager controllerManager;
@@ -17,71 +20,74 @@ public class CharacterSelectionScene : SlideSceneBase
 
     public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer, AchievementBanner achievement) : base(pointer, achievement)
     {
-        try
+        images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
         {
-            images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
-            {
-                ["shaun.png"] = LoadImage("shaun.png")
-            };
+            ["shaun.png"] = LoadImage("shaun.png")
+        };
 
-            this.characters = new List<Character>
-            {
-                new Character
-                {
-                    Name = "Shaun Lawrence (He/Him)",
-                    Strengths = new List<string>
-                    {
-                        "Software Engineer/Consultant",
-                        "Microsoft MVP",
-                        "Author of 'Introducing .NET MAUI'"
-                    },
-                    Weaknesses = new List<string>
-                    {
-                        "Distracted easily",
-                        "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes",
-                        "Cake"
-                    },
-                    ImageName = "shaun.png"
-                },
-                new Character
-                {
-                    Name = "??",
-                    IsLocked = true,
-                    UnlockCriteria = "Listen for 60 minutes to unlock this character"
-                },
-                new Character
-                {
-                    Name = "??",
-                    IsLocked = true,
-                    UnlockCriteria = "Listen for 120 minutes to unlock this character"
-                },
-                new Character
-                {
-                    Name = "??",
-                    IsLocked = true,
-                    UnlockCriteria = "Listen for 180 minutes to unlock this character"
-                },
-                new Character
-                {
-                    Name = "??",
-                    IsLocked = true,
-                    UnlockCriteria = "Listen for 240 minutes to unlock this character"
-                },
-                new Character
-                {
-                    Name = "??",
-                    IsLocked = true,
-                    UnlockCriteria = "Listen for 300 minutes to unlock this character"
-                }
-            };
-
-            this.controllerManager = controllerManager;
-        }
-        catch (Exception ex)
+        this.characters = new List<Character>
         {
+            new Character
+            {
+                Name = "Shaun Lawrence (He/Him)",
+                Strengths = new List<string>
+                {
+                    "Software Engineer/Consultant",
+                    "Microsoft MVP",
+                    "Author of 'Introducing .NET MAUI'"
+                },
+                Weaknesses = new List<string>
+                {
+                    "Distracted easily",
+                    "Disappearing down what seem like fun little projects but turn out to be very very deep rabbit holes",
+                    "Cake"
+                },
+                ImageName = "shaun.png"
+            },
+            new Character
+            {
+                Name = "??",
+                IsLocked = true,
+                UnlockCriteria = "Listen for 60 minutes to unlock this character"
+            },
+            new Character
+            {
+                Name = "??",
+                IsLocked = true,
+                UnlockCriteria = "Listen for 120 minutes to unlock this character"
+            },
+            new Character
+            {
+                Name = "??",
+                IsLocked = true,
+                UnlockCriteria = "Listen for 180 minutes to unlock this character"
+            },
+            new Character
+            {
+                Name = "??",
+                IsLocked = true,
+                UnlockCriteria = "Listen for 240 minutes to unlock this character"
+            },
+            new Character
+            {
+                Name = "??",
+                IsLocked = true,
+                UnlockCriteria = "Listen for 300 minutes to unlock this character"
+            }
+        };
 
+        this.controllerManager = controllerManager;
+    }
+
+    public override void Progress()
+    {
+        // If we are complete then fire the Next event.
+        if (currentTransition == transitions)
+        {
+            base.Progress();
         }
-        
+
+        currentTransition++;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -202,6 +208,21 @@ public class CharacterSelectionScene : SlideSceneBase
                 new PointF(dimensions.Center.X + padding, yOffset + 100),
                 HorizontalAlignment.Left,
                 VerticalAlignment.Center);
+        }
+
+        if (currentTransition == 1)
+        {
+            canvas.DrawString(
+                dimensions,
+                @"Cake Driven Development",
+                Styling.TitleColor,
+                Colors.Transparent,
+                1,
+                Styling.Font,
+                (float)Styling.ScaledFontSize(0.058),
+                new PointF(40, dimensions.Height * 0.88f),
+                HorizontalAlignment.Center,
+                VerticalAlignment.Top);
         }
 
         base.Render(canvas, dimensions);

@@ -79,6 +79,7 @@
 	  <None Remove="Resources\EmbeddedResources\update.png" />
 	  <None Remove="Resources\EmbeddedResources\wait.png" />
 	  <None Remove="Resources\EmbeddedResources\nes.jpg" />
+	  <None Remove="Resources\EmbeddedResources\game_controller.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\EmbeddedResources\book_cover.jpg" />
@@ -94,6 +95,7 @@
 	  <BundleResource Include="Resources\EmbeddedResources\update.png" />
 	  <BundleResource Include="Resources\EmbeddedResources\wait.png" />
 	  <BundleResource Include="Resources\EmbeddedResources\nes.jpg" />
+	  <BundleResource Include="Resources\EmbeddedResources\game_controller.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Behaviors\" />

@@ -8,7 +8,7 @@ public class DemoTimePoliticiansScene : SlideSceneBase, IDestinationKnowingScene
     {
 	}
 
-    public Type DestinationSceneType => typeof(MagicianScene);
+    public Type DestinationSceneType => typeof(Stage1SummaryScene);
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

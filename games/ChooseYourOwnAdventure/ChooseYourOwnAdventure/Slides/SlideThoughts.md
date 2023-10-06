@@ -71,6 +71,11 @@ The second key component is SignalR.
 - Scalable
 
 - Manages complexity for us
+    - Fallback via
+    - WebSockets
+    - Event Source (Server-sent events)
+    - Forever Frame (hidden iFrame)
+    - Long Polling
 
 - Supports many platforms - JS, C#, F#, VB, Java
 
@@ -87,8 +92,17 @@ This is our first vote so let's hope it works! As I mentioned before you can nav
 # Drawing game demo
 
 
+# Stage complete
 
-# Choose difficulty
+OK so we have covered in some detail what SignalR is and how we can use it within both a server-side and client-side application. And in fact nothing in the client-side really breaks outside of the mould of a typical business application.
+
+I would now like to take you on a bit of a journey to understand how I got to this point, the big bang idea (it's a space game so the pun was definitely intended).
+
+But first I believe we have the option for a minor distraction coming up.
+
+# Magician
+
+Decision time
 
 # Flow
 

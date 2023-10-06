@@ -5,21 +5,24 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(TitleScene),
-        typeof(CharacterSelectionScene),
-        typeof(PrologueScene),
-        typeof(TutorialScene),
-        typeof(TutorialPartTwoScene),
-        typeof(HowToUseSignalRScene),
+        //typeof(TitleScene),
+        //typeof(CharacterSelectionScene),
+        //typeof(PrologueScene),
+        //typeof(TutorialScene),
+        //typeof(TutorialPartTwoScene),
+        //typeof(HowToUseSignalRScene),
 
-        // Decision Time
-        typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes
+        //// Decision Time
+        //typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes - 14 minutes
 
-        // Option 1
-        typeof(DemoTimePoliticiansScene), // Possibly break down HowToUseSignalRScene into the specific scenarios
+        //// Option 1
+        //typeof(DemoTimePoliticiansScene), // Roughly 10 minutes - 14 minutes
 
-        // Option 2
-        typeof(DemoTimeArtistsScene),
+        //// Option 2
+        //typeof(DemoTimeArtistsScene),
+
+        // Summarise this point
+        typeof(Stage1SummaryScene),
 
         // Decision Time
         typeof(MagicianScene),
@@ -31,13 +34,16 @@ public static class SlideDeck
         typeof(SlideAnimations),
         typeof(SlideAnimationsPartTwo),
         typeof(SlideParticleEffects),
-        typeof(SlideCombined),
+        typeof(SlideCombined), // Roughly 5 minutes
+
+        // What is powering the talk today?
 
         typeof(TheGameEngineApproachScene),
         typeof(ProcessUserInputScene),
+        typeof(ProcessUserInputPartTwoScene),
         typeof(UpdateScene),
         typeof(RenderScene),
-        typeof(WaitScene),
+        typeof(WaitScene), // 14 minutes
 
         // Decision deep dive into Orbit game or look at the engine behind it?
         typeof(OrbitGameOrOrbitEngineScene),
@@ -51,9 +57,9 @@ public static class SlideDeck
         typeof(HowToUsePartFour),
         typeof(HowToUsePartFive),
 
-        //typeof(TipsAndTricksSimpleScene),
-        //typeof(TipsAndTricksSimplePartTwoScene),
-        //typeof(TipsAndTricksDeviceScene),
+        typeof(TipsAndTricksSimpleScene),
+        typeof(TipsAndTricksSimplePartTwoScene),
+        typeof(TipsAndTricksDeviceScene),
 
         //typeof(TheFinalBossScene),
         typeof(SummaryScene),

@@ -10,8 +10,8 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
     private readonly AchievementManager achievementManager;
     private readonly Decisions decisions;
     private string decision;
-    private const string option1 = "Politicians";
-    private const string option2 = "Artists";
+    private const string option1 = "Democracy";
+    private const string option2 = "The arts";
 
     protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
     protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
@@ -35,7 +35,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Which group will you jon?", option1, option2, false);
+            await OpenVote("Which group will you join?", option1, option2, false);
         }
         if (currentTransition == 3)
         {
@@ -69,7 +69,7 @@ public class VotingSystemOrDrawingGameScene : VoteSceneBase
             Styling.RenderTitle("Decision time!", canvas, dimensions);
         }
 
-        var introduction = @$"The mystical elders of the SignalR guild have tasked you with understanding how to ply the craft of SignalR. In order to do this you must decide which group to join:
+        var introduction = @$"Now that you have gained some knowledge of the power of SignalR the .NET elders would like to task you with using that power to help one of the following:
 {option1} - Understand how the voting system within todays talk is functioning.
 
 {option2} - See how to use SignalR to build a real-time drawing game.";

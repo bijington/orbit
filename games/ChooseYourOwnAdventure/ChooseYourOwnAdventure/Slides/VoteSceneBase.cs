@@ -28,7 +28,7 @@ public abstract class VoteSceneBase : SlideSceneBase, IDestinationKnowingScene
                 Option2VoteCount = votes[1];
             });
 
-            hubConnection.StartAsync().Wait();
+            _ = hubConnection.StartAsync();
         }
         catch (Exception ex)
         {
