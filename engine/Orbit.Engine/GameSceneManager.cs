@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Maui.Dispatching;
-
-namespace Orbit.Engine;
+﻿namespace Orbit.Engine;
 
 public class GameSceneManager : IGameSceneManager
 {

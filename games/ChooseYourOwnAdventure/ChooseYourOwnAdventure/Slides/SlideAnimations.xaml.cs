@@ -17,7 +17,7 @@ public partial class SlideAnimations : SlidePageBase
         Points.Text = @"
 - Amazingly powerful and yet simple API
 
-- Pre built animations provided with Xamarin.Forms
+- Pre built animations provided with .NET MAUI
 
 - Ability to manipulate built in controls";
     }

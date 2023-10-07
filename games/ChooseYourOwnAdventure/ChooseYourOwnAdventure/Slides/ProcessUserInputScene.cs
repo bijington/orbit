@@ -21,9 +21,7 @@ public class ProcessUserInputScene : SlideSceneBase
     {
         Styling.RenderTitle("Process user input", canvas, dimensions);
 
-        // https://developer.android.com/games/sdk/game-controller
-        // https://developer.apple.com/documentation/gamecontroller/gccontroller
-        // https://learn.microsoft.com/windows/apps/design/input/gamepad-and-remote-interactions
+
         canvas.DrawString(
             dimensions,
             @"- Game controller support

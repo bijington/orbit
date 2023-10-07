@@ -77,7 +77,7 @@ public class PrologueScene : SlideSceneBase
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 
-        if (currentTransition == 0)
+        //if (currentTransition == 0)
         {
             canvas.DrawImage(nes, dimensions.Width * 0.65f, dimensions.Height * 0.18f, nes.Width * 0.3f, nes.Height * 0.3f);
         }

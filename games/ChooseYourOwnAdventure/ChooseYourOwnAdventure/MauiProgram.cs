@@ -25,6 +25,7 @@ public static class MauiProgram
             })
             .Services
                 .AddTransient<MainPage>()
+                .AddTransient<PresenterPage>()
                 .AddSingleton<ControllerManager>()
                 .AddSingleton<AchievementManager>()
                 .AddSingleton<Decisions>()

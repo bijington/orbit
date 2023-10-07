@@ -71,6 +71,8 @@ public class RenderScene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
+        base.Render(canvas, dimensions);
+
         Styling.RenderTitle("Render", canvas, dimensions);
 
         canvas.DrawString(
@@ -122,8 +124,6 @@ public class RenderScene : SlideSceneBase
 
             canvas.DrawRectangle(-(asteroid.Width * 0.8f) / 2, -(asteroid.Height * 0.8f) / 2, asteroid.Width * 0.8f, asteroid.Height * 0.8f);
         }
-
-        base.Render(canvas, dimensions);
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
@@ -132,9 +132,9 @@ public class RenderScene : SlideSceneBase
 
         if (currentTransition == 3)
         {
-            asteroidX -= 2f;
+            asteroidX -= 0.2f;
 
-            angle -= 1f;
+            angle -= 0.1f;
         }
     }
 

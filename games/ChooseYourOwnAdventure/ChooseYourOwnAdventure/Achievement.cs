@@ -18,4 +18,6 @@ public static class AchievementNames
     public const string StaleMate = "Stale mate";
 
     public const string NextSpeaker = "Next!";
+
+	public const string KnowItAll = "Know it all!";
 }

@@ -51,7 +51,7 @@ public class OrbitGameOrOrbitEngineScene : VoteSceneBase
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FinalDecision, 100);
                 this.decision = $"You chose '{option1}'. Let's take a look at what's under the hood";
-                this.decisions.RecordDecision($"To see how the {option1} works");
+                this.decisions.RecordDecision($"To see how the {option1} work");
             }
             else
             {

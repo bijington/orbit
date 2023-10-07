@@ -8,7 +8,7 @@ public class GameDemoScene : SlideSceneBase, IDestinationKnowingScene
     {
 	}
 
-    public Type DestinationSceneType => typeof(SummaryScene);
+    public Type DestinationSceneType => typeof(TipsAndTricksSimpleScene);
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

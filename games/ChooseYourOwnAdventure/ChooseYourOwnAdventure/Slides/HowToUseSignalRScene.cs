@@ -7,8 +7,9 @@ public class HowToUseSignalRScene : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 8;
 
-    public HowToUseSignalRScene(Pointer pointer) : base(pointer)
+    public HowToUseSignalRScene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
+        achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);
     }
 
     public override void Progress()

@@ -34,6 +34,7 @@ public class CharacterSelectionScene : SlideSceneBase
                 {
                     "Software Engineer/Consultant",
                     "Microsoft MVP",
+                    ".NET MAUI CommunityToolkit",
                     "Author of 'Introducing .NET MAUI'"
                 },
                 Weaknesses = new List<string>
@@ -184,14 +185,14 @@ public class CharacterSelectionScene : SlideSceneBase
                 VerticalAlignment.Center);
 
             canvas.DrawString(
-                new RectF(dimensions.Center.X + padding, yOffset + 200, columnWidth, 100),
+                new RectF(dimensions.Center.X + padding, yOffset + 280, columnWidth, 100),
                 $"Weaknesses:{Environment.NewLine} - {string.Join($"{Environment.NewLine} - ", character.Weaknesses)}",
                 Styling.TitleColor,
                 Colors.Transparent,
                 1,
                 font,
                 (float)Styling.ScaledFontSize(0.04),
-                new PointF(dimensions.Center.X + padding, yOffset + 200),
+                new PointF(dimensions.Center.X + padding, yOffset + 280),
                 HorizontalAlignment.Left,
                 VerticalAlignment.Center);
         }

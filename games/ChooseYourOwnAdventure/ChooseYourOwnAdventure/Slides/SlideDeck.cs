@@ -70,11 +70,15 @@ public static class SlideDeck
 
     public static Type CurrentSlideType => Slides[currentSlideIndex];
 
+    public static event Action<Type> SlideChanged;
+
     public static int GetSlideIndex(Type type) => Slides.IndexOf(type) + 1;
 
     public static void SetCurrentSlideType(Type type)
     {
         currentSlideIndex = Slides.IndexOf(type);
+
+        SlideChanged?.Invoke(Slides[currentSlideIndex]);
     }
 
     public static Type GetNextSlideType()
@@ -84,6 +88,8 @@ public static class SlideDeck
         if (nextSceneIndex < Slides.Count)
         {
             currentSlideIndex = nextSceneIndex;
+
+            SlideChanged?.Invoke(Slides[currentSlideIndex]);
 
             return Slides[currentSlideIndex];
         }
@@ -98,6 +104,8 @@ public static class SlideDeck
         if (previousSceneIndex >= 0)
         {
             currentSlideIndex = previousSceneIndex;
+
+            SlideChanged?.Invoke(Slides[currentSlideIndex]);
 
             return Slides[currentSlideIndex];
         }

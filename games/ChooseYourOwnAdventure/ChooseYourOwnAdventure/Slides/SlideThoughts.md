@@ -119,9 +119,10 @@ flowchart TD
     VotingSystemOrDrawingGameScene --Artists--> DemoTimeArtistsScene
     VotingSystemOrDrawingGameScene --Politicians--> DemoTimePoliticiansScene
 
-    DemoTimeArtistsScene --> MagicianScene
-    DemoTimePoliticiansScene --> MagicianScene
+    DemoTimeArtistsScene --> Stage1SummaryScene
+    DemoTimePoliticiansScene --> Stage1SummaryScene
 
+    Stage1SummaryScene --> MagicianScene
     MagicianScene --Divert--> SlideLottie
     SlideLottie --> SlideAnimations
     SlideAnimations --> SlideAnimationsPartTwo

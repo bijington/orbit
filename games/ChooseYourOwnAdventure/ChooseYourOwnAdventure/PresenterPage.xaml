@@ -3,14 +3,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
-    x:Class="BuildingGames.MainPage"
+    x:Class="BuildingGames.PresenterPage"
     Shell.NavBarIsVisible="False">
 
-    <Grid>
+    <Grid RowDefinitions="10,Auto,*">
         <engine:GameSceneView
             x:Name="GameView"
-            BackgroundColor="#18263A"
-            StartInteraction="GameView_StartInteraction" />
+            BackgroundColor="#18263A" />
 
         <Frame
             x:Name="AchievementBanner"
@@ -29,17 +28,20 @@
 
                 <Label
                     x:Name="AchievementTitle"
-                    VerticalOptions="Center"
                     Grid.Column="1" />
 
                 <Label
                     x:Name="AchievementDescription"
-                    VerticalOptions="Center"
                     Grid.Row="1"
                     Grid.Column="1"
                     FontSize="30" />
             </Grid>
         </Frame>
+
+        <Label Text="Notes" Grid.Row="1" />
+
+        <ScrollView Grid.Row="2">
+            <Label x:Name="NotesLabel" />
+        </ScrollView>
     </Grid>
- 
 </ContentPage>

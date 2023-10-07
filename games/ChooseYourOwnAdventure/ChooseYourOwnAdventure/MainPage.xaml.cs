@@ -9,12 +9,14 @@ public partial class MainPage : ContentPage
     private readonly ControllerManager controllerManager;
     private readonly AchievementManager achievementManager;
     private readonly IDeviceDisplay deviceDisplay;
+    private static bool multipleScreens;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         ControllerManager controllerManager,
         AchievementManager achievementManager,
-        IDeviceDisplay deviceDisplay)
+        IDeviceDisplay deviceDisplay,
+        IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
 
@@ -25,9 +27,12 @@ public partial class MainPage : ContentPage
         LoadSlide(SlideDeck.CurrentSlideType);
 
         this.controllerManager.Initialise();
-        
-        var ratio = ContrastRatioComparer.GetContrastRatio(Styling.Secondary, Styling.Primary);
-        var ratio2 = ContrastRatioComparer.GetContrastRatio(Colors.White, Styling.Primary);
+
+        if (multipleScreens == false)
+        {
+            multipleScreens = true;
+            Application.Current.OpenWindow(new Window(serviceProvider.GetRequiredService<PresenterPage>()));
+        }
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -97,6 +102,7 @@ public partial class MainPage : ContentPage
 
         if (sceneType.IsAssignableTo(typeof(SlideSceneBase)))
         {
+            this.gameSceneManager.Stop();
             this.gameSceneManager.LoadScene(sceneType, GameView);
 
             if (GameView.Scene is SlideSceneBase nextScene)

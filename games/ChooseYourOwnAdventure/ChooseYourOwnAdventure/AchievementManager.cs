@@ -13,7 +13,8 @@ public class AchievementManager
 			new Achievement { Name = AchievementNames.FirstDecision, Description = "Made your first decision" },
             new Achievement { Name = AchievementNames.StaleMate, Description = "You couldn't decide either?" },
             new Achievement { Name = "Social gamer", Description = "" },
-			new Achievement { Name = AchievementNames.NextSpeaker, Description = "Unlocked the next speaker"}
+			new Achievement { Name = AchievementNames.NextSpeaker, Description = "Unlocked the next speaker"},
+            new Achievement { Name = AchievementNames.KnowItAll, Description = "Completed the tutorial"}
         };
 	}
 

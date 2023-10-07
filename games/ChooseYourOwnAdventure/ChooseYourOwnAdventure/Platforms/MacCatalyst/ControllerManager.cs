@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Foundation;
 using GameController;
+using UIKit;
 
 namespace BuildingGames;
 
@@ -28,7 +29,20 @@ public partial class ControllerManager
 
     public async Task Initialise()
     {
+        UIScreen.Notifications.ObserveDidConnect(ScreenConnected);
+        UIScreen.Notifications.ObserveModeDidChange(ScreenConnected);
+        UIScreen.Notifications.ObserveReferenceDisplayModeStatusDidChange(ScreenConnected);
+
+        var a = UIScreen.Screens.Count();
+        var main = UIScreen.MainScreen;
+
+        //UIScreen.MainScreen
         await GCController.StartWirelessControllerDiscoveryAsync();
+    }
+
+    public void ScreenConnected(object sender, NSNotificationEventArgs e)
+    {
+        var a = UIScreen.Screens.Count();
     }
 
     private void Changed(GCPhysicalInputProfile gamepad, GCControllerElement element)
