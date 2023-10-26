@@ -169,7 +169,7 @@ I think this is a great example of how you can achieve something that is entirel
 
 just rotating images in a Xamarin.Forms application. This was good to make it look like it worked but the next step was to turn that PoC into something
 
-that actually did work. For that I believed I needed to get involved with using a game engine based approach in order to manage the complexity that was
+that actually did work. I don't know about anyone else here but this is has been my typical job for the past few years. For that I believed I needed to get involved with using a game engine based approach in order to manage the complexity that was
 
 going to be gravitating towards me.
 
