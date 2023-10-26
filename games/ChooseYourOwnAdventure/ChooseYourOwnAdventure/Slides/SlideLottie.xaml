@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<slides:SlidePageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BuildingGames.Slides.SlideLottie"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:controls="clr-namespace:BuildingGames.Controls"
+    xmlns:slides="clr-namespace:BuildingGames.Slides"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="*,*"
+        RowDefinitions="Auto,*"
+        Margin="40">
+
+        <controls:TitleLabel
+            Text="Lottie animations"
+            Grid.ColumnSpan="2" />
+
+        <Label
+            x:Name="Points"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+
+        <Image
+            x:Name="Sample"
+            Source="sample_lottie.png"
+            VerticalOptions="Center"
+            Grid.Row="1"
+            IsVisible="False" />
+
+        <skia:SKLottieView
+            x:Name="LottieAnimation"
+            Source="trophy.json"
+            RepeatCount="100"
+            RepeatMode="Restart"
+            IsAnimationEnabled="False"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Grid.Column="1"
+            Grid.Row="1"
+            WidthRequest="400"
+            HeightRequest="400" />
+    </Grid>
+</slides:SlidePageBase>

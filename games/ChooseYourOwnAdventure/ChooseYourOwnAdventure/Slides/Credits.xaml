@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BuildingGames.Controls"
+    x:Class="BuildingGames.Slides.Credits"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="*,*"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
+        Margin="20">
+
+        <controls:TitleLabel
+            Text="Thank you!"
+            Margin="10"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"/>
+
+        <Label
+            Text="Slides and sample source code"
+            Grid.Row="1" />
+
+        <controls:LinkButton
+            Text="https://github.com/bijington/orbit"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="2" />
+
+        <Label
+            Text="Blog"
+            Grid.Row="3" />
+
+        <controls:LinkButton
+            Text="https://blog.bijington.com"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="4" />
+
+        <Label
+            Text="Social"
+            Grid.Row="5" />
+
+        <controls:LinkButton
+            Text="https://twitter.com/Bijington"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="6" />
+
+        <Label
+            Text="Lottie files"
+            Grid.Row="1"
+            Grid.Column="1" />
+
+        <controls:LinkButton
+            Text="https://lottiefiles.com"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="2"
+            Grid.Column="1" />
+
+        <Label
+            Text="Game art"
+            Grid.Row="3"
+            Grid.Column="1" />
+
+        <controls:LinkButton
+            Text="https://opengameart.org"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="4"
+            Grid.Column="1" />
+
+        <Label
+            Text="Voting system"
+            Grid.Row="5"
+            Grid.Column="1" />
+
+        <controls:LinkButton
+            Text="https://github.com/bijington/SignalRVotingPoll"
+            Clicked="OnLinkButtonClicked"
+            Grid.Row="6"
+            Grid.Column="1" />
+
+        <Image
+            Source="repository_qrcode.png"
+            Grid.Row="7"
+            Grid.ColumnSpan="2"
+            MaximumWidthRequest="900"
+            MaximumHeightRequest="900"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+    </Grid>
+
+</ContentPage>

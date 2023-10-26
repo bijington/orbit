@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<slides:SlidePageBase
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BuildingGames.Slides.SlideCombined"
+    xmlns:controls="clr-namespace:BuildingGames.Controls"
+    xmlns:slides="clr-namespace:BuildingGames.Slides"
+    xmlns:behaviors="clr-namespace:BuildingGames.Behaviors"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*"
+        Margin="40">
+
+        <controls:TitleLabel
+            Text="Combining it together" />
+
+        <BoxView
+            x:Name="Box"
+            WidthRequest="10"
+            HeightRequest="10"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Color="Transparent"
+            BackgroundColor="Transparent"
+            Grid.Row="1">
+            <BoxView.Behaviors>
+                <behaviors:ParticleEmitterBehavior
+                    Image="star"
+                    x:Name="ParticleEmitter"
+                    NumberOfParticles="40"
+                    LifeTime="0.3"
+                    Scale="2"
+                    Speed="0.3" />
+
+            </BoxView.Behaviors>
+        </BoxView>
+
+        <Frame
+            x:Name="Tile"
+            IsClippedToBounds="True"
+            Padding="0"
+            HasShadow="False"
+            CornerRadius="100"
+            WidthRequest="200"
+            HeightRequest="200"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Grid.Row="1"
+            BackgroundColor="{StaticResource Tertiary}">
+
+            <Path
+                Fill="{StaticResource Secondary}"
+                Data="M25,0 L50,0 L50,25 C50,38.8071187 38.8071187,50 25,50 L0,50 L0,25 C0,11.1928813 11.1928813,0 25,0 Z"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsVisible="False"
+                WidthRequest="50"
+                HeightRequest="50" />
+        </Frame>
+    </Grid>
+</slides:SlidePageBase>
