@@ -83,7 +83,7 @@ public abstract class SlidePageBase : ContentPage
             {
                 await Shell.Current.GoToAsync($"/{nameof(MainPage)}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -94,7 +94,7 @@ public abstract class SlidePageBase : ContentPage
             {
                 await Shell.Current.GoToAsync($"/{sceneType.Name}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

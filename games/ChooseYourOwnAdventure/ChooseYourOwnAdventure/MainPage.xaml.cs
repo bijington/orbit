@@ -72,7 +72,7 @@ public partial class MainPage : ContentPage
             this.AchievementBanner.Scale = 0;
             this.AchievementBanner.IsVisible = false;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
         }
@@ -119,7 +119,7 @@ public partial class MainPage : ContentPage
             {
                 await Shell.Current.GoToAsync($"/{sceneType.Name}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

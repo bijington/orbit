@@ -30,7 +30,7 @@ public abstract class VoteSceneBase : SlideSceneBase, IDestinationKnowingScene
 
             _ = hubConnection.StartAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
         }
     }
