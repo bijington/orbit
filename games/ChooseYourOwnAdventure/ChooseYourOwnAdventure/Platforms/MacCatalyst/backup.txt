@@ -1,0 +1,17 @@
+<key>UIApplicationSceneManifest</key>
+    <dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+			<key>UISceneConfigurations</key>
+			<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>   
+					<key>UISceneDelegateClassName</key>		    
+					<string>SceneDelegate</string>		    
+					<key>UISceneConfigurationName</key>		    
+					<string>__MAUI_DEFAULT_SCENE_CONFIGURATION__</string>    
+				</dict>
+			</array>
+		</dict>
+	</dict>

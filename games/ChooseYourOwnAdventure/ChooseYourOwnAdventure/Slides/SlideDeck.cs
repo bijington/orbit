@@ -5,7 +5,8 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(TitleScene),
+        //typeof(TitleScene),
+        typeof(WorldScene),
         typeof(CharacterSelectionScene),
         typeof(PrologueScene),
         typeof(TutorialScene),
