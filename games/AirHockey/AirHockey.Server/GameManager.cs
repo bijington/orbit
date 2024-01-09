@@ -18,6 +18,7 @@ public class GameManager
             PuckState.Y = 0.5;
             PuckState.VelocityX = 0.01;
             PuckState.VelocityY = 0.001;
+            ScoreState = new();
         }
 
         public Guid Id { get; }
@@ -27,6 +28,8 @@ public class GameManager
         public PlayerState PlayerTwo { get; set; }
 
         public PuckState PuckState { get; }
+
+        public ScoreState ScoreState { get; }
     }
 
     public class PlayerState
@@ -41,8 +44,6 @@ public class GameManager
         public double X { get; set; }
 
         public double Y { get; set; }
-
-        public int Score { get; set; }
 
         public static PlayerState Empty { get; } = new PlayerState(Guid.Empty);
     }

@@ -20,7 +20,7 @@ public class Puck : GameObject
         var x = (float)puckState.X * dimensions.Width;
         var y = (float)puckState.Y * dimensions.Height;
 
-        canvas.FillColor = Colors.Purple;
+        canvas.FillColor = Colors.Orange;
         canvas.FillCircle(x, y, 40);
     }
 }

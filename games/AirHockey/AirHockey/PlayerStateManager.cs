@@ -10,6 +10,8 @@ public class PlayerStateManager
 
     public PuckState PuckState { get; private set; }
 
+    public ScoreState ScoreState { get; private set; }
+
     public PlayerStateManager()
 	{
         hubConnection = new HubConnectionBuilder()
@@ -17,15 +19,20 @@ public class PlayerStateManager
             .Build();
 
         PuckState = new();
+        ScoreState = new();
 
         // Handle others in group logic through the "OthersInGroup" property in SignalR.
         // Direction of updates... send up to server.
         // Do we send input up to the server and render response back???
         hubConnection.On<PuckState>(EventNames.PuckStateUpdated, (puckState) =>
         {
-            Console.WriteLine("PUCK IT");
             PuckState = puckState;
         });
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, (scoreState) =>
+        {
+            ScoreState = scoreState;
+        });
+
         hubConnection.On<PlayerState>("UpdatePlayerState", msg =>
         {
             try

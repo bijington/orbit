@@ -11,7 +11,9 @@ public class MainScene : GameScene
     public MainScene(
         Paddle playerPaddle,
         Paddle opponentPaddle,
-        Puck puck)
+        Puck puck,
+        ScoreDisplay playerScore,
+        ScoreDisplay opponentScore)
     {
         playerPaddle.Color = Colors.Orange;
         Add(playerPaddle);
@@ -21,7 +23,12 @@ public class MainScene : GameScene
         Add(opponentPaddle);
         this.opponentPaddle = opponentPaddle;
 
+        playerScore.ScoreIndex = 0;
+        opponentScore.ScoreIndex = 1;
+
         Add(puck);
+        Add(playerScore);
+        Add(opponentScore);
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

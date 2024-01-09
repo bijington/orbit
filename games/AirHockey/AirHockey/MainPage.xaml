@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
-    x:Class="AirHockey.MainPage">
+    x:Class="AirHockey.MainPage"
+    Shell.NavBarIsVisible="False">
 			 
     <engine:GameSceneView
         x:Name="GameView"
-        BackgroundColor="Transparent"
+        BackgroundColor="White"
         StartInteraction="GameView_StartInteraction"
         EndInteraction="GameView_EndInteraction"
         DragInteraction="GameView_DragInteraction"

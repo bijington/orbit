@@ -21,6 +21,8 @@ public class GameWorker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
+            int delayInMilliseconds = 5;
+
             var game = this.gameManager.Games.FirstOrDefault();
 
             if (game is null)
@@ -37,15 +39,23 @@ public class GameWorker : BackgroundService
 
             if (game.PuckState.Y > 1.0)
             {
-                game.PlayerTwo.Score++;
+                game.ScoreState.ScoreTwo++;
                 game.PuckState.Y = 0.5;
                 game.PuckState.VelocityY = -game.PuckState.VelocityY;
+
+                await _hubContext.Clients.All.SendAsync(EventNames.ScoreUpdated, game.ScoreState);
+
+                delayInMilliseconds = 5000;
             }
             else if (game.PuckState.Y < 0.0)
             {
-                game.PlayerOne.Score++;
+                game.ScoreState.ScoreOne++;
                 game.PuckState.Y = 0.5;
                 game.PuckState.VelocityY = -game.PuckState.VelocityY;
+
+                await _hubContext.Clients.All.SendAsync(EventNames.ScoreUpdated, game.ScoreState);
+
+                delayInMilliseconds = 5000;
             }
 
             if (game.PuckState.X > 1.0)
@@ -67,14 +77,14 @@ public class GameWorker : BackgroundService
                 _logger.LogInformation("GameWorker running at: {time} with: {playerOneId} and {playerOneId}", DateTimeOffset.Now, game.PlayerOne.Id, game.PlayerTwo.Id);
 
                 var playerOne = game.PlayerOne;
-                _logger.LogInformation("Player one at: {x},{y} with score: {score}", playerOne.X, playerOne.Y, playerOne.Score);
+                _logger.LogInformation("Player one at: {x},{y} with score: {score}", playerOne.X, playerOne.Y, game.ScoreState.ScoreOne);
 
                 var playerTwo = game.PlayerTwo;
-                _logger.LogInformation("Player two at: {x},{y} with score: {score}", playerTwo.X, playerTwo.Y, playerTwo.Score);
+                _logger.LogInformation("Player two at: {x},{y} with score: {score}", playerTwo.X, playerTwo.Y, game.ScoreState.ScoreTwo);
 
                 _logger.LogInformation("Puck at: {x},{y}", game.PuckState.X, game.PuckState.Y);
             }
-            await Task.Delay(5, stoppingToken);
+            await Task.Delay(delayInMilliseconds, stoppingToken);
         }
     }
 }
