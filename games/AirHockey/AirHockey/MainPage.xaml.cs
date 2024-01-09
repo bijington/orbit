@@ -29,7 +29,14 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
 
-        await playerStateManager.Connect();
+        try 
+        {
+            await playerStateManager.Connect();    
+        }
+        catch (Exception ex)
+        {
+            
+        }
 
         playerStateManager.RegisterCallback(state => this.mainScene.UpdateOpponentPlayerState(state.X, state.Y));
     }
@@ -65,13 +72,11 @@ public partial class MainPage : ContentPage
 
         var bounds = GameView.Bounds;
 
-        var replicatedY = bounds.Height - touch.Y;
-        var replicatedX = bounds.Width - touch.X;
+        var relativeY = touch.Y / bounds.Height;
+        var relativeX = touch.X / bounds.Width;
 
-        _ = playerStateManager.UpdateState((int)replicatedX, (int)replicatedY);
+        _ = playerStateManager.UpdateState((int)relativeX, (int)relativeY);
 
         this.mainScene.UpdatePlayerState((int)touch.X, (int)touch.Y);
     }
 }
-
-

@@ -10,7 +10,8 @@ public class MainScene : GameScene
 
     public MainScene(
         Paddle playerPaddle,
-        Paddle opponentPaddle)
+        Paddle opponentPaddle,
+        Puck puck)
     {
         playerPaddle.Color = Colors.Orange;
         Add(playerPaddle);
@@ -19,12 +20,12 @@ public class MainScene : GameScene
         opponentPaddle.Color = Colors.Blue;
         Add(opponentPaddle);
         this.opponentPaddle = opponentPaddle;
+
+        Add(puck);
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        base.Render(canvas, dimensions);
-
         canvas.StrokeSize = 10;
         canvas.StrokeColor = Colors.Red;
 
@@ -34,6 +35,8 @@ public class MainScene : GameScene
         canvas.FillCircle(dimensions.Center, 45);
         canvas.FillColor = Colors.Red;
         canvas.FillCircle(dimensions.Center, 5);
+
+        base.Render(canvas, dimensions);
     }
 
     public void UpdatePlayerState(float x, float y)

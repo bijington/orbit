@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using AirHockey.Shared;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace AirHockey;
 
@@ -7,12 +8,24 @@ public class PlayerStateManager
     private HubConnection hubConnection;
     Action<PlayerState> onUpdatePlayerState;
 
+    public PuckState PuckState { get; private set; }
+
     public PlayerStateManager()
 	{
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:7030/Game")
+            .WithUrl("https://localhost:7226/Game")
             .Build();
 
+        PuckState = new();
+
+        // Handle others in group logic through the "OthersInGroup" property in SignalR.
+        // Direction of updates... send up to server.
+        // Do we send input up to the server and render response back???
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, (puckState) =>
+        {
+            Console.WriteLine("PUCK IT");
+            PuckState = puckState;
+        });
         hubConnection.On<PlayerState>("UpdatePlayerState", msg =>
         {
             try
@@ -28,6 +41,8 @@ public class PlayerStateManager
                 Console.WriteLine(ex.Message);
             }
         });
+
+        // Update score
     }
 
     public Task Connect()
@@ -51,9 +66,22 @@ public class PlayerStateManager
     }
 }
 
+public class GameState
+{
+    public PlayerState PlayerOne { get; set; }
+
+    public PlayerState PlayerTwo { get; set; }
+
+    public PuckState Puck { get; set; }
+}
+
 public class PlayerState
 {
-    public int X { get; set; }
+    public int Id { get; set; }
 
-    public int Y { get; set; }
+    public float X { get; set; }
+
+    public float Y { get; set; }
+
+    // TODO: Size?
 }

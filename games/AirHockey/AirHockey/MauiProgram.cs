@@ -19,7 +19,8 @@ public static class MauiProgram
             })
             .Services
                 .AddTransient<MainPage>()
-                .AddTransient<PlayerStateManager>()
+                .AddSingleton<PlayerStateManager>()
+                .AddSingleton<GameSceneManager>()
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
                 .RegisterGameObjects()

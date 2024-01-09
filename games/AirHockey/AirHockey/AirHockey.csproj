@@ -51,5 +51,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
+      <ProjectReference Include="..\AirHockey.Shared\AirHockey.Shared.csproj" />
 	</ItemGroup>
 </Project>
