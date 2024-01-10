@@ -1,10 +1,10 @@
-﻿using Orbit.Engine;
+using Orbit.Engine;
 
 namespace AirHockey.GameObjects;
 
-public class Paddle : GameObject
+public class OpponentPaddle : GameObject
 {
-    public Paddle(PlayerStateManager playerStateManager)
+    public OpponentPaddle(PlayerStateManager playerStateManager)
     {
         this.playerStateManager = playerStateManager;
     }
@@ -15,13 +15,13 @@ public class Paddle : GameObject
     {
         base.Render(canvas, dimensions);
 
-        var playerState = playerStateManager.PlayerState;
+        var playerState = playerStateManager.OpponentState;
 
         var x = (float)playerState.X * dimensions.Width;
-        var y = (float)playerState.Y * dimensions.Height;
+        var y = (float)Math.Abs(playerState.Y - 1) * dimensions.Height;
         var size = (float)playerState.Size * dimensions.Height;
 
-        canvas.FillColor = Colors.Blue;
+        canvas.FillColor = Colors.Red;
         canvas.FillCircle(x, y, size);
     }
 }

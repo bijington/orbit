@@ -14,6 +14,8 @@ public class ScoreDisplay : GameObject
 
     public int ScoreIndex { get; set; }
 
+    public Color PlayerColor { get; set; }
+
     public ScoreDisplay(PlayerStateManager playerStateManager)
     {
         this.playerStateManager = playerStateManager;
@@ -25,7 +27,7 @@ public class ScoreDisplay : GameObject
 
         canvas.Alpha = alpha;
         canvas.Font = Microsoft.Maui.Graphics.Font.Default;
-        canvas.FontColor = Colors.Black;
+        canvas.FontColor = PlayerColor;
         canvas.FontSize = 200;
         
         if (ScoreIndex == 0)

@@ -6,36 +6,43 @@ namespace AirHockey.Server.Hubs;
 
 public class GameHub : Hub
 {
-    // public async Task PlayerConnected(Player player)
-    // {
-    //     // Add the player to the game group name.
-    //     await Groups.AddToGroupAsync(Context.ConnectionId, player.GroupName);
-
-    //     await Clients.OthersInGroup(player.GroupName).SendAsync("PlayerConnected", player);
-    // }
-
-    // public async Task SessionStarted(SessionStarted session)
-    // {
-    //     await Clients.Group(session.GroupName).SendAsync("SessionStarted", session);
-    // }
-
-    // public async Task UpdateDrawingState(DrawingState drawingState)
-    // {
-    //     await Clients.OthersInGroup(drawingState.GroupName).SendAsync("UpdateDrawingState", drawingState);
-    // }
-
-    // public async Task GuessAttempt(Guess guess)
-    // {
-    //     await Clients.OthersInGroup(guess.GroupName).SendAsync("GuessAttempt", guess);
-    // }
-
-    // public async Task GuessCorrect(GuessCorrect guessCorrect)
-    // {
-    //     await Clients.Group(guessCorrect.GroupName).SendAsync("GuessCorrect", guessCorrect);
-    // }
-
-    internal async Task PuckMoved(Guid gameId, PuckState puckState)
+    public GameHub(GameManager gameManager)
     {
-        await Clients.Group(gameId.ToString()).SendAsync(EventNames.PuckStateUpdated, puckState);
+        this.gameManager = gameManager;
+    }
+
+    private readonly GameManager gameManager;
+
+    public async Task PlayGame(Guid playerId)
+    {
+        var game = this.gameManager.PlayGame(playerId);
+
+        var connectedPlayer = game.PlayerOne.Id == playerId ? game.PlayerOne : game.PlayerTwo;
+
+        await Clients.All.SendAsync(EventNames.PlayerConnected, connectedPlayer);
+
+        if (game.PlayerTwo != PlayerState.Empty)
+        {
+            await Clients.All.SendAsync(EventNames.GameStarted);
+        }
+    }
+
+    public async Task UpdatePlayerState(PlayerState playerState)
+    {
+        var game = this.gameManager.Games.FirstOrDefault(g => g.PlayerOne.Id == playerState.Id || g.PlayerTwo.Id == playerState.Id);
+
+        if (game is not null)
+        {
+            if (game.PlayerOne.Id == playerState.Id)
+            {
+                game.PlayerOne = playerState;
+            }
+            else
+            {
+                game.PlayerTwo = playerState;
+            }
+
+            await Clients.Others.SendAsync(EventNames.PlayerStateUpdated, playerState);
+        }
     }
 }

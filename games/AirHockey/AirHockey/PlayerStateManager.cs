@@ -6,7 +6,10 @@ namespace AirHockey;
 public class PlayerStateManager
 {
     private HubConnection hubConnection;
-    Action<PlayerState> onUpdatePlayerState;
+
+    public PlayerState PlayerState { get; private set; }
+
+    public PlayerState OpponentState { get; private set; }
 
     public PuckState PuckState { get; private set; }
 
@@ -20,41 +23,41 @@ public class PlayerStateManager
 
         PuckState = new();
         ScoreState = new();
+        PlayerState = new(Guid.NewGuid());
+        PlayerState.Size = 0.025;
 
-        // Handle others in group logic through the "OthersInGroup" property in SignalR.
-        // Direction of updates... send up to server.
-        // Do we send input up to the server and render response back???
-        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, (puckState) =>
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
         {
             PuckState = puckState;
         });
-        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, (scoreState) =>
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, scoreState =>
         {
             ScoreState = scoreState;
         });
 
-        hubConnection.On<PlayerState>("UpdatePlayerState", msg =>
+        hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
         {
-            try
-            {
-                Console.WriteLine($"Received message {msg.X}");
-                this.onUpdatePlayerState?.Invoke(msg);
-                //Console.WriteLine($"From {msg.UserName}");
-                //UpdateProperties(msg);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to receive message");
-                Console.WriteLine(ex.Message);
-            }
+            OpponentState = playerState;
         });
 
-        // Update score
+        hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
+        {
+            if (PlayerState.Id == playerState.Id)
+            {
+                PlayerState = playerState;
+            }
+            else
+            {
+                OpponentState = playerState;
+            }
+        });
     }
 
-    public Task Connect()
+    public async Task Connect()
     {
-        return hubConnection.StartAsync();
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
     }
 
     public Task Disconnect()
@@ -62,33 +65,10 @@ public class PlayerStateManager
         return hubConnection.StopAsync();
     }
 
-    public void RegisterCallback(Action<PlayerState> onUpdatePlayerState)
+    public async Task UpdateState(float x, float y)
     {
-        this.onUpdatePlayerState = onUpdatePlayerState;
+        PlayerState.X = x;
+        PlayerState.Y = y;
+        await hubConnection.SendAsync(MethodNames.UpdatePlayerState, PlayerState);
     }
-
-    public async Task UpdateState(int x, int y)
-    {
-        await hubConnection.SendAsync("UpdatePlayerState", new PlayerState { X = x, Y = y });
-    }
-}
-
-public class GameState
-{
-    public PlayerState PlayerOne { get; set; }
-
-    public PlayerState PlayerTwo { get; set; }
-
-    public PuckState Puck { get; set; }
-}
-
-public class PlayerState
-{
-    public int Id { get; set; }
-
-    public float X { get; set; }
-
-    public float Y { get; set; }
-
-    // TODO: Size?
 }

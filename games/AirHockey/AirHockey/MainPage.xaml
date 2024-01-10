@@ -6,12 +6,21 @@
     x:Class="AirHockey.MainPage"
     Shell.NavBarIsVisible="False">
 			 
-    <engine:GameSceneView
-        x:Name="GameView"
-        BackgroundColor="White"
-        StartInteraction="GameView_StartInteraction"
-        EndInteraction="GameView_EndInteraction"
-        DragInteraction="GameView_DragInteraction"
-        />
+    <Grid>   
+        <engine:GameSceneView
+            x:Name="GameView"
+            BackgroundColor="White"
+            StartInteraction="GameView_StartInteraction"
+            EndInteraction="GameView_EndInteraction"
+            DragInteraction="GameView_DragInteraction" />
+
+        <Button 
+            Text="Play" 
+            Clicked="OnPlayButtonClicked"
+            MinimumHeightRequest="40" 
+            MinimumWidthRequest="200"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+    </Grid>
  
 </ContentPage>

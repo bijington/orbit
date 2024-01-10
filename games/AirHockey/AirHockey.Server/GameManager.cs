@@ -12,10 +12,13 @@ public class GameManager
         {
             Id = id;
             PlayerOne = playerOne;
+            PlayerOne.Size = 0.025;
             PlayerTwo = PlayerState.Empty;
+            PlayerTwo.Size = 0.025;
             PuckState = new();
             PuckState.X = 0.5;
             PuckState.Y = 0.5;
+            PuckState.Size = 0.02;
             PuckState.VelocityX = 0.01;
             PuckState.VelocityY = 0.001;
             ScoreState = new();
@@ -23,7 +26,7 @@ public class GameManager
 
         public Guid Id { get; }
 
-        public PlayerState PlayerOne { get; }
+        public PlayerState PlayerOne { get; set; }
 
         public PlayerState PlayerTwo { get; set; }
 
@@ -32,27 +35,11 @@ public class GameManager
         public ScoreState ScoreState { get; }
     }
 
-    public class PlayerState
-    {
-        public PlayerState(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; }
-
-        public double X { get; set; }
-
-        public double Y { get; set; }
-
-        public static PlayerState Empty { get; } = new PlayerState(Guid.Empty);
-    }
-
     private readonly IList<Game> games = new List<Game>();
 
     public IReadOnlyList<Game> Games => this.games.Where(g => g.PlayerTwo != PlayerState.Empty).ToList();
 
-    public Guid PlayGame(Guid playerId)
+    public Game PlayGame(Guid playerId)
     {
         var openGame = this.games.FirstOrDefault(g => g.PlayerTwo == PlayerState.Empty);
 
@@ -68,6 +55,6 @@ public class GameManager
             openGame.PlayerTwo = player;
         }
 
-        return openGame.Id;
+        return openGame;
     }
 }

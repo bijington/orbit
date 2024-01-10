@@ -5,26 +5,20 @@ namespace AirHockey.Scenes;
 
 public class MainScene : GameScene
 {
-    private readonly Paddle playerPaddle;
-    private readonly Paddle opponentPaddle;
-
     public MainScene(
         Paddle playerPaddle,
-        Paddle opponentPaddle,
+        OpponentPaddle opponentPaddle,
         Puck puck,
         ScoreDisplay playerScore,
         ScoreDisplay opponentScore)
     {
-        playerPaddle.Color = Colors.Orange;
         Add(playerPaddle);
-        this.playerPaddle = playerPaddle;
-
-        opponentPaddle.Color = Colors.Blue;
         Add(opponentPaddle);
-        this.opponentPaddle = opponentPaddle;
 
         playerScore.ScoreIndex = 0;
+        playerScore.PlayerColor = Colors.Blue;
         opponentScore.ScoreIndex = 1;
+        opponentScore.PlayerColor = Colors.Red;
 
         Add(puck);
         Add(playerScore);
@@ -44,15 +38,5 @@ public class MainScene : GameScene
         canvas.FillCircle(dimensions.Center, 5);
 
         base.Render(canvas, dimensions);
-    }
-
-    public void UpdatePlayerState(float x, float y)
-    {
-        playerPaddle.UpdatePlayerState(x, y);
-    }
-
-    public void UpdateOpponentPlayerState(float x, float y)
-    {
-        opponentPaddle.UpdatePlayerState(x, y);
     }
 }

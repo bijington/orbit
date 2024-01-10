@@ -6,6 +6,8 @@ public class PuckState
 
     public double Y { get; set; }
 
+    public double Size { get; set; }
+
     public double VelocityX { get; set; }
 
     public double VelocityY { get; set; }

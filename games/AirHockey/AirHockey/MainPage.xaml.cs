@@ -1,4 +1,5 @@
-﻿using AirHockey.Scenes;
+﻿using System.Diagnostics;
+using AirHockey.Scenes;
 using Orbit.Engine;
 
 namespace AirHockey;
@@ -21,24 +22,22 @@ public partial class MainPage : ContentPage
         this.mainScene = mainScene;
         //gameSceneManager.StateChanged += GameSceneManager_StateChanged;
         gameSceneManager.LoadScene<MainScene>(GameView);
-
-        gameSceneManager.Start();
     }
 
-    protected async override void OnAppearing()
+    private async void OnPlayButtonClicked(object sender, EventArgs eventArgs)
     {
-        base.OnAppearing();
-
         try 
         {
-            await playerStateManager.Connect();    
+            await playerStateManager.Connect();
+
+            gameSceneManager.Start();
         }
         catch (Exception ex)
         {
-            
-        }
+            Debug.WriteLine(ex.ToString());
 
-        playerStateManager.RegisterCallback(state => this.mainScene.UpdateOpponentPlayerState(state.X, state.Y));
+            await DisplayAlert("Error playing game", ex.ToString(), "OK");
+        }
     }
 
     void GameView_EndInteraction(object sender, TouchEventArgs e)
@@ -75,8 +74,6 @@ public partial class MainPage : ContentPage
         var relativeY = touch.Y / bounds.Height;
         var relativeX = touch.X / bounds.Width;
 
-        _ = playerStateManager.UpdateState((int)relativeX, (int)relativeY);
-
-        this.mainScene.UpdatePlayerState((int)touch.X, (int)touch.Y);
+        _ = playerStateManager.UpdateState((float)relativeX, (float)relativeY);
     }
 }
