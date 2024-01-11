@@ -19,9 +19,9 @@ public class OpponentPaddle : GameObject
 
         var x = (float)playerState.X * dimensions.Width;
         var y = (float)Math.Abs(playerState.Y - 1) * dimensions.Height;
-        var size = (float)playerState.Size * dimensions.Height;
+        var size = (float)playerState.Size * dimensions.Width;
 
-        canvas.FillColor = Colors.Red;
+        canvas.FillColor = playerState.IsBottom ? Colors.Red : Colors.Blue;
         canvas.FillCircle(x, y, size);
     }
 }

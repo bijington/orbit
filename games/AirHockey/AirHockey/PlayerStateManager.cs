@@ -24,7 +24,6 @@ public class PlayerStateManager
         PuckState = new();
         ScoreState = new();
         PlayerState = new(Guid.NewGuid());
-        PlayerState.Size = 0.025;
 
         hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
         {
@@ -49,6 +48,20 @@ public class PlayerStateManager
             else
             {
                 OpponentState = playerState;
+            }
+        });
+
+        hubConnection.On<GameState>(EventNames.GameStarted, gameState =>
+        {
+            if (PlayerState.Id == gameState.PlayerOne.Id)
+            {
+                PlayerState = gameState.PlayerOne;
+                OpponentState = gameState.PlayerTwo;
+            }
+            else
+            {
+                PlayerState = gameState.PlayerTwo;
+                OpponentState = gameState.PlayerOne;
             }
         });
     }

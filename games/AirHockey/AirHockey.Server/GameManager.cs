@@ -12,9 +12,7 @@ public class GameManager
         {
             Id = id;
             PlayerOne = playerOne;
-            PlayerOne.Size = 0.025;
             PlayerTwo = PlayerState.Empty;
-            PlayerTwo.Size = 0.025;
             PuckState = new();
             PuckState.X = 0.5;
             PuckState.Y = 0.5;
@@ -48,6 +46,7 @@ public class GameManager
         if (openGame is null)
         {
             openGame = new Game(Guid.NewGuid(), player);
+            player.IsBottom = true;
             this.games.Add(openGame);
         }
         else

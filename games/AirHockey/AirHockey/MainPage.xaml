@@ -6,16 +6,19 @@
     x:Class="AirHockey.MainPage"
     Shell.NavBarIsVisible="False">
 			 
-    <Grid>   
+    <Grid BackgroundColor="White">   
+        <Label x:Name="Debugging" TextColor="Black"/>
+
         <engine:GameSceneView
             x:Name="GameView"
-            BackgroundColor="White"
+            BackgroundColor="Transparent"
             StartInteraction="GameView_StartInteraction"
             EndInteraction="GameView_EndInteraction"
             DragInteraction="GameView_DragInteraction" />
 
         <Button 
             Text="Play" 
+            x:Name="PlayButton"
             Clicked="OnPlayButtonClicked"
             MinimumHeightRequest="40" 
             MinimumWidthRequest="200"

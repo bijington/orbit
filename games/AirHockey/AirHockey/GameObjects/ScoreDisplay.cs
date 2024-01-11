@@ -27,13 +27,15 @@ public class ScoreDisplay : GameObject
 
         canvas.Alpha = alpha;
         canvas.Font = Microsoft.Maui.Graphics.Font.Default;
-        canvas.FontColor = PlayerColor;
         canvas.FontSize = 200;
         
         if (ScoreIndex == 0)
         {
+            var playerState = playerStateManager.PlayerState;
+            canvas.FontColor = playerState.IsBottom ? Colors.Red : Colors.Blue;
+
             canvas.DrawString(
-                this.playerStateManager.ScoreState.ScoreOne.ToString(),
+                playerState.IsBottom ? this.playerStateManager.ScoreState.ScoreOne.ToString() : this.playerStateManager.ScoreState.ScoreTwo.ToString(),
                 new Rect(0, dimensions.Center.Y, dimensions.Width, dimensions.Height / 2),
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -42,8 +44,11 @@ public class ScoreDisplay : GameObject
         }
         else
         {
+            var playerState = playerStateManager.OpponentState;
+            canvas.FontColor = playerState.IsBottom ? Colors.Red : Colors.Blue;
+
             canvas.DrawString(
-                this.playerStateManager.ScoreState.ScoreTwo.ToString(),
+                playerState.IsBottom ? this.playerStateManager.ScoreState.ScoreOne.ToString() : this.playerStateManager.ScoreState.ScoreTwo.ToString(),
                 new Rect(0, 0, dimensions.Width, dimensions.Height / 2),
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,

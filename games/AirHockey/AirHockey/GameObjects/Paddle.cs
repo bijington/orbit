@@ -19,9 +19,9 @@ public class Paddle : GameObject
 
         var x = (float)playerState.X * dimensions.Width;
         var y = (float)playerState.Y * dimensions.Height;
-        var size = (float)playerState.Size * dimensions.Height;
+        var size = (float)playerState.Size * dimensions.Width;
 
-        canvas.FillColor = Colors.Blue;
+        canvas.FillColor = playerState.IsBottom ? Colors.Red : Colors.Blue;
         canvas.FillCircle(x, y, size);
     }
 }

@@ -19,7 +19,13 @@ public class Puck : GameObject
 
         var x = (float)puckState.X * dimensions.Width;
         var y = (float)puckState.Y * dimensions.Height;
-        var size = (float)puckState.Size * dimensions.Height;
+
+        if (this.playerStateManager.PlayerState.IsBottom is false)
+        {
+            y = (float)Math.Abs(puckState.Y - 1) * dimensions.Height;
+        }
+
+        var size = (float)puckState.Size * dimensions.Width;
 
         canvas.FillColor = Colors.Orange;
         canvas.FillCircle(x, y, size);

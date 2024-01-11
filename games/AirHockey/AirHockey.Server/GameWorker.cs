@@ -27,7 +27,7 @@ public class GameWorker : BackgroundService
 
             if (game is not null)
             {
-                this.logger.LogInformation("Found game to process {id}", game.Id);
+                //this.logger.LogInformation("Found game to process {id}", game.Id);
 
                 await ProcessGame(game);
             }
@@ -47,9 +47,15 @@ public class GameWorker : BackgroundService
         var radius = game.PlayerOne.Size / 2;
         var puckRadius = game.PuckState.Size / 2;
 
-        if (IsIntersection(game.PlayerOne.X + radius, game.PlayerOne.Y + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
+        if (Physics.DoCirclesIntersect(game.PlayerOne.X + radius, game.PlayerOne.Y + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
-            this.logger.LogInformation("HIT!!!");
+            this.logger.LogInformation("Player one HIT!!!");
+            game.PuckState.VelocityX = -game.PuckState.VelocityX;
+            game.PuckState.VelocityY = -game.PuckState.VelocityY;
+        }
+        else if (Physics.DoCirclesIntersect(game.PlayerTwo.X + radius, Math.Abs(game.PlayerTwo.Y - 1) + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
+        {
+            this.logger.LogInformation("Player two HIT!!!");
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
             game.PuckState.VelocityY = -game.PuckState.VelocityY;
         }
@@ -88,39 +94,23 @@ public class GameWorker : BackgroundService
 
         // Check for paddle collision
 
-        if (this.logger.IsEnabled(LogLevel.Information))
-        {
-            this.logger.LogInformation(
-                "GameWorker running at: {time} with: {playerOneId} at {x},{y} and {playerOneId}",
-                DateTimeOffset.Now,
-                game.PlayerOne.Id,
-                game.PlayerOne.X,
-                game.PlayerOne.Y,
-                game.PlayerTwo.Id);
+        // if (this.logger.IsEnabled(LogLevel.Information))
+        // {
+        //     this.logger.LogInformation(
+        //         "GameWorker running at: {time} with: {playerOneId} at {x},{y} and {playerOneId}",
+        //         DateTimeOffset.Now,
+        //         game.PlayerOne.Id,
+        //         game.PlayerOne.X,
+        //         game.PlayerOne.Y,
+        //         game.PlayerTwo.Id);
 
-            var playerOne = game.PlayerOne;
-            this.logger.LogInformation("Player one at: {x},{y} with score: {score}", playerOne.X, playerOne.Y, game.ScoreState.ScoreOne);
+        //     var playerOne = game.PlayerOne;
+        //     this.logger.LogInformation("Player one at: {x},{y} with score: {score}", playerOne.X, playerOne.Y, game.ScoreState.ScoreOne);
 
-            var playerTwo = game.PlayerTwo;
-            this.logger.LogInformation("Player two at: {x},{y} with score: {score}", playerTwo.X, playerTwo.Y, game.ScoreState.ScoreTwo);
+        //     var playerTwo = game.PlayerTwo;
+        //     this.logger.LogInformation("Player two at: {x},{y} with score: {score}", playerTwo.X, playerTwo.Y, game.ScoreState.ScoreTwo);
 
-            this.logger.LogInformation("Puck at: {x},{y}", game.PuckState.X, game.PuckState.Y);
-        }
-    }
-
-    private bool IsIntersection(double x1, double y1, double r1, double x2, double y2, double r2)
-    {
-        // double x1 = one.Center.X;
-        // double x2 = two.Center.X;
-        // double y1 = one.Center.Y;
-        // double y2 = two.Center.Y;
-
-        // double r1 = one.Width / 2;
-        // double r2 = two.Width / 2;
-
-        double d = Math.Sqrt((x1 - x2) * (x1 - x2)
-                            + (y1 - y2) * (y1 - y2));
-
-        return d <= Math.Abs(r1 - r2) || d <= r1 + r2;
+        //     this.logger.LogInformation("Puck at: {x},{y}", game.PuckState.X, game.PuckState.Y);
+        // }
     }
 }
