@@ -50,12 +50,18 @@ public class GameWorker : BackgroundService
         if (Physics.DoCirclesIntersect(game.PlayerOne.X + radius, game.PlayerOne.Y + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
             this.logger.LogInformation("Player one HIT!!!");
+            // var angle = Physics.CalculateAngleAfterCollision(game.PlayerOne, game.PuckState);
+            // Physics.ApplyForceAfterCollision(game.PlayerOne, game.PuckState, angle);
+            // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
             game.PuckState.VelocityY = -game.PuckState.VelocityY;
         }
         else if (Physics.DoCirclesIntersect(game.PlayerTwo.X + radius, Math.Abs(game.PlayerTwo.Y - 1) + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
             this.logger.LogInformation("Player two HIT!!!");
+            // var angle = Physics.CalculateAngleAfterCollision(game.PlayerTwo, game.PuckState);
+            // Physics.ApplyForceAfterCollision(game.PlayerTwo, game.PuckState, angle);
+            // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
             game.PuckState.VelocityY = -game.PuckState.VelocityY;
         }

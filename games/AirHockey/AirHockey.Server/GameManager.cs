@@ -16,7 +16,6 @@ public class GameManager
             PuckState = new();
             PuckState.X = 0.5;
             PuckState.Y = 0.5;
-            PuckState.Size = 0.02;
             PuckState.VelocityX = 0.01;
             PuckState.VelocityY = 0.001;
             ScoreState = new();

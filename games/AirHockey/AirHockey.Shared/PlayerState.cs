@@ -16,6 +16,8 @@ public class PlayerState
 
     public double Size { get; }
 
+    public double Mass { get; } = 2;
+
     public bool IsBottom { get; set; }
 
     public static PlayerState Empty { get; } = new PlayerState(Guid.Empty);

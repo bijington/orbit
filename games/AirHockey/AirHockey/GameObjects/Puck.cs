@@ -27,7 +27,9 @@ public class Puck : GameObject
 
         var size = (float)puckState.Size * dimensions.Width;
 
+        var radius = size / 2;
+
         canvas.FillColor = Colors.Orange;
-        canvas.FillCircle(x, y, size);
+        canvas.FillCircle(x + radius, y + radius, radius);
     }
 }
