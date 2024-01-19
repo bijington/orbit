@@ -4,14 +4,14 @@ namespace BuildingGames;
 
 public partial class PresenterPage : ContentPage
 {
-	public PresenterPage()
-	{
-		InitializeComponent();
+    public PresenterPage()
+    {
+        InitializeComponent();
 
         this.NotesLabel.Text = slideNotes[typeof(TitleScene)];
 
         SlideDeck.SlideChanged += SlideDeck_SlideChanged;
-	}
+     }
 
     private void SlideDeck_SlideChanged(Type slideType)
     {

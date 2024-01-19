@@ -31,7 +31,7 @@ public partial class MainPage : ContentPage
         if (multipleScreens == false)
         {
             multipleScreens = true;
-            //Application.Current.OpenWindow(new Window(serviceProvider.GetRequiredService<PresenterPage>()));
+            Application.Current.OpenWindow(new Window(serviceProvider.GetRequiredService<PresenterPage>()));
         }
     }
 
