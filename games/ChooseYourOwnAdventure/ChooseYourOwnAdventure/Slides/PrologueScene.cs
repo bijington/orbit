@@ -11,6 +11,19 @@ public class PrologueScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage nes;
     private readonly IList<string> textTransitions;
 
+    public override string Notes => 
+    @"I have been very passionate about gaming ever since saving up to buy my first ever console back in 1992 - the NES. That in combination of a plentiful supply of second hand choose your own adventure books from my nan has helped get me here today.
+
+There are some things that I would like to introduce you all to before we get going on the content.
+
+The first is that all of the content you see today is either baked into a .NET MAUI based game or code within Visual Studio, because I decided to go this route I really struggled to prevent myself from getting carried away with functionality in the hope that the system presenting the content also makes up part of the content itself.
+
+Another point, and while this have been a nice selling point on my talk submission is has proven to be somewhat of a challenge... you will be influencing the content that gets shown today. Through the magic of SignalR you will be able to navigate to a blazor based web page and when each decision point is reached, provide your vote. I should add that I owe a big thanks to a good friend Gerald for having already built some of the SignalR voting system. Thanks to the wonders of open-source I was able to fork it and bend it to suit my needs. One decision point will actually allow you to choose to understand the voting system itself.
+
+And finally, I mentioned before that I would be giving a copy of my book away today. If all goes well and I will be honest this part scares me a little as I saw some inconsistencies in leading up to this part
+after voting on the last decision point one lucky voter will be shown a congratulations message. The message does say to come down and collect your prize, it might be best to take a screenshot and then come down
+at the end of the talk.";
+
     public PrologueScene(Pointer pointer) : base(pointer)
     {
         bookCover = LoadImage("book_cover.jpg");

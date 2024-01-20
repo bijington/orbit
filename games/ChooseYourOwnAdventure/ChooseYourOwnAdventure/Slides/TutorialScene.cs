@@ -6,6 +6,25 @@ public class TutorialScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
+    public override string Notes => 
+        @"As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us. There are 2 key components affecting us today and the is .NET MAUI.
+
+- Multi-platform App UI
+
+- Cross-platform framework
+
+  - Mobile - Android and iOS
+
+  - Desktop - macOS and Windows
+
+  - Smart Samsung things - Tizen
+
+- Evolution of Xamarin.Forms
+
+  - First class features such as AppBuilder, etc.
+
+- Build with the platform";
+
     public TutorialScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("dotnet_bot_iot.png");

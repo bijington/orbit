@@ -6,6 +6,28 @@ public class TutorialPartTwoScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
+    public override string Notes => 
+        @"The second key component is SignalR.
+
+- Open-source
+
+- ASP.NET Core
+
+- Real-time communication
+
+- Bi-directional connection
+
+- Scalable
+
+- Manages complexity for us
+    - Fallback via
+    - WebSockets
+    - Event Source (Server-sent events)
+    - Forever Frame (hidden iFrame)
+    - Long Polling
+
+- Supports many platforms - JS, C#, F#, VB, Java";
+
     public TutorialPartTwoScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("signalr.png");

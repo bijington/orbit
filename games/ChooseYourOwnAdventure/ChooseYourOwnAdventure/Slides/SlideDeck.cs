@@ -5,6 +5,7 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
+        typeof(WorldScene),
         typeof(TitleScene),
         typeof(CharacterSelectionScene),
         typeof(PrologueScene),
@@ -73,9 +74,15 @@ public static class SlideDeck
 
     public static Type CurrentSlideType => Slides[currentSlideIndex];
 
+    public static event Action<string> SlideNotesChanged;
     public static event Action<Type> SlideChanged;
 
     public static int GetSlideIndex(Type type) => Slides.IndexOf(type) + 1;
+
+    public static void SetSlideNotes(string notes)
+    {
+        SlideNotesChanged?.Invoke(notes);
+    }
 
     public static void SetCurrentSlideType(Type type)
     {

@@ -7,6 +7,23 @@ public class HowToUseSignalRScene : SlideSceneBase
     private int currentTransition = 0;
     private const int transitions = 8;
 
+    public override string Notes => 
+        @"Signal R is server based and therefore we need to host it somewhere. For this demo I am making use of the Azure App Service and the free tier
+
+The central part to SignalR are hubs, this is where the communication takes place
+
+If we imagine that a single client opens a connection to the hub
+
+Then some more clients come along and also open a connection
+
+The first connection can initial a communication with the other connected devices.
+
+The direction of the communication can be two-way, so the client sending the signal on the left of this diagram could also receive the information
+
+We also have the power to determine which clients will receive the information and we will gain some insight into this in our live demo
+
+Which leads me nicely onto";
+
     public HowToUseSignalRScene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);

@@ -13,6 +13,15 @@ public class TitleScene : SlideSceneBase
         this.achievementManager = achievementManager;
     }
 
+    public override string Notes => 
+        @"Welcome everyone, thank you all for joining me today. 
+        
+        You know NDC has a special place in my heart - I spoke here last year which was my first ever in-person talk at a conference. 
+        
+        Todays talk is related to that talk but we are branching out with the content. 
+        
+        Join me as we embark upon an adventure to learn about building games in .NET MAUI.";
+
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         canvas.DrawString(
