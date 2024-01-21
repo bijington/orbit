@@ -21,7 +21,7 @@ public class TutorialScene : SlideSceneBase
 
 - Evolution of Xamarin.Forms
 
-  - First class features such as AppBuilder, etc.
+  - First class features such as AppBuilder, etc. We will get to see how much of a difference this makes when we get to jump between both our server side and client side code.
 
 - Build with the platform";
 

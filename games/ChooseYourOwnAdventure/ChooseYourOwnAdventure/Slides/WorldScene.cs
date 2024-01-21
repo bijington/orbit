@@ -5,19 +5,15 @@ namespace BuildingGames.Slides;
 
 public class WorldScene : SlideSceneBase
 {
-    private readonly AchievementManager achievementManager;
-    private readonly WorldMap worldMap;
-    private float startAlpha = 1f;
-    private float increment = -0.05f;
-
     public WorldScene(
         Pointer pointer,
-        AchievementManager achievementManager,
         WorldMap worldMap) : base(pointer)
     {
-        this.achievementManager = achievementManager;
-        this.worldMap = worldMap;
-
         Add(worldMap);
     }
+
+    public override string Notes => 
+        @"I would like you all to use some imagination now, we need to imagine that we are a junior developer and we have been tasked with building a game.
+        
+        Joke about how the audience (including myself) don't look like juniors?";
 }

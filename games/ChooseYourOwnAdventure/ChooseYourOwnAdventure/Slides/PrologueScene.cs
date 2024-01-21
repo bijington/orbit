@@ -14,6 +14,12 @@ public class PrologueScene : SlideSceneBase
     public override string Notes => 
     @"I have been very passionate about gaming ever since saving up to buy my first ever console back in 1992 - the NES. That in combination of a plentiful supply of second hand choose your own adventure books from my nan has helped get me here today.
 
+I love how all aspects of video games have the potential to create worlds that we can get lost in, or even inspire us to be creative.
+
+On the subject of creativity, I remember reading a book very early on in my career that really shaped my thinking. It was called ‘The Pragmatic Programmer’ and it was written by Andrew Hunt and David Thomas. In the book they talk about how the brain is split into two parts, the linear and the rich. The linear side is the logical side and the rich side is the creative side. They go on to discuss how deliberately switching between the two sides can help us to solve problems.
+
+I have been very fortunate to have been able to combine my love of gaming with my love of software development and I am very excited to be able to share some of that with you today.
+
 There are some things that I would like to introduce you all to before we get going on the content.
 
 The first is that all of the content you see today is either baked into a .NET MAUI based game or code within Visual Studio, because I decided to go this route I really struggled to prevent myself from getting carried away with functionality in the hope that the system presenting the content also makes up part of the content itself.
@@ -22,7 +28,9 @@ Another point, and while this have been a nice selling point on my talk submissi
 
 And finally, I mentioned before that I would be giving a copy of my book away today. If all goes well and I will be honest this part scares me a little as I saw some inconsistencies in leading up to this part
 after voting on the last decision point one lucky voter will be shown a congratulations message. The message does say to come down and collect your prize, it might be best to take a screenshot and then come down
-at the end of the talk.";
+at the end of the talk.
+
+Please don't worry, no personal data is collected from the voting system and I will not be able to see who voted for what. I will however be able to see the total number of votes for each option.";
 
     public PrologueScene(Pointer pointer) : base(pointer)
     {

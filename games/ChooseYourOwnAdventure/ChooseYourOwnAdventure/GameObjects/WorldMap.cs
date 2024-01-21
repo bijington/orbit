@@ -7,55 +7,53 @@ public class WorldMap : GameObject
     private readonly IDictionary<TileTypes, Microsoft.Maui.Graphics.IImage> images = new Dictionary<TileTypes, Microsoft.Maui.Graphics.IImage>();
     private readonly Microsoft.Maui.Graphics.IImage character;
     private const int columns = 30;
-    private const int rows = 26;
+    private const int rows = 20;
 
     private TileTypes[,] tiles = 
     {
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.GreenTopLeft, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTop, TileTypes.GreenTopRight, TileTypes.Water, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenTopLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenTopRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.GreenBottomLeft, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.Green, TileTypes.GreenRight, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.GreenBottomLeft, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.GreenBottom, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water },
-        { TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water, TileTypes.Water },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.GrTL, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTo, TileTypes.GrTR, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrTL, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Post, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrTR, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Path, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Hill, TileTypes.Path, TileTypes.Hill, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Hill, TileTypes.Path, TileTypes.Hill, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Hill, TileTypes.Path, TileTypes.Hill, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrLe, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrRi, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.GrBL, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.Gree, TileTypes.GrBR, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.GrBL, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBo, TileTypes.GrBR, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
+        { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
     };
 
     public WorldMap()
     {
         var tileTypes = new[]
         {
-            TileTypes.Green,
-            TileTypes.Mountain,
+            TileTypes.Gree,
+            TileTypes.Moun,
             TileTypes.Tree,
-            TileTypes.Water,
-            TileTypes.Water1,
-            TileTypes.Water2,
+            TileTypes.Wate,
+            TileTypes.Wat1,
+            TileTypes.Wat2,
             TileTypes.Step,
-            TileTypes.BottomEdge,
-            TileTypes.RightEdge,
-            TileTypes.LeftEdge,
-            TileTypes.TopEdge,
-            TileTypes.FireOne,
-            TileTypes.FireTwo,
+            TileTypes.BoEd,
+            TileTypes.RiEd,
+            TileTypes.LeEd,
+            TileTypes.ToEd,
+            TileTypes.Fir1,
+            TileTypes.Fir2,
+            TileTypes.Door,
+            TileTypes.Wall,
+            TileTypes.Roof,
+            TileTypes.Sign,
         };
 
         try
@@ -67,7 +65,7 @@ public class WorldMap : GameObject
                     continue;
                 }
 
-                var image = LoadImage($"{type.ToString().ToLower()}.png");
+                var image = LoadImage($"t_{type.ToString().ToLower()}.png");
                 images.Add(type, image);
             }
         }
@@ -79,7 +77,7 @@ public class WorldMap : GameObject
         character = LoadImage("character.png");
     }
 
-    private TileTypes waterOverlayIndex = TileTypes.Water1;
+    private TileTypes WateOverlayIndex = TileTypes.Wat1;
     private int fireIndex = 11;
     private double elapsedMilliseconds = 0;
 
@@ -93,13 +91,13 @@ public class WorldMap : GameObject
         {
             elapsedMilliseconds = 0;
 
-            if (waterOverlayIndex == TileTypes.Water1)
+            if (WateOverlayIndex == TileTypes.Wat1)
             {
-                waterOverlayIndex = TileTypes.Water2;
+                WateOverlayIndex = TileTypes.Wat2;
             }
             else
             {
-                waterOverlayIndex = TileTypes.Water1;
+                WateOverlayIndex = TileTypes.Wat1;
             }
 
             fireIndex++;
@@ -127,69 +125,25 @@ public class WorldMap : GameObject
                 {
                     var tileType = this.tiles[y, x];
 
-                    RenderTile(tileType, TileTypes.Green, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.Gree, canvas, x, y, tileSize);
 
-                    if (tileType.HasFlag(TileTypes.Water))
+                    if (tileType.HasFlag(TileTypes.Wate))
                     {
-                        canvas.DrawImage(images[TileTypes.Water], x * tileSize, y * tileSize, tileSize, tileSize);
-                        canvas.DrawImage(images[waterOverlayIndex], x * tileSize, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[TileTypes.Wate], x * tileSize, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[WateOverlayIndex], x * tileSize, y * tileSize, tileSize, tileSize);
                     }
 
-                    RenderTile(tileType, TileTypes.TopEdge, canvas, x, y, tileSize);
-                    RenderTile(tileType, TileTypes.BottomEdge, canvas, x, y, tileSize);
-                    RenderTile(tileType, TileTypes.LeftEdge, canvas, x, y, tileSize);
-                    RenderTile(tileType, TileTypes.RightEdge, canvas, x, y, tileSize);
-                    // if (x is 0 or columns - 1 || y is 0 or rows - 1)
-                    // {
-                    //     canvas.DrawImage(images[3], x * tileSize, y * tileSize, tileSize, tileSize);
-
-                    //     // canvas.FillColor = Colors.Blue;
-                    //     // canvas.FillRectangle(x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     canvas.DrawImage(images[waterOverlayIndex], x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     if (y is rows - 1 && x is > 0 and < columns - 1)
-                    //     {
-                    //         canvas.DrawImage(images[7], x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     }
-                    //     else if (y is > 0 and < rows - 1 && x is columns - 1)
-                    //     {
-                    //         canvas.DrawImage(images[8], x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     }
-                    //     else if (y is > 0 and < rows - 1 && x is 0)
-                    //     {
-                    //         canvas.DrawImage(images[9], x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     }
-                    //     else if (y is 0 && x is > 0 and < columns - 1)
-                    //     {
-                    //         canvas.DrawImage(images[10], x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     }
-                    // }
-                    // else
-                    // {
-                    //     // canvas.FillColor = Colors.Green;
-                    //     // canvas.FillRectangle(x * tileSize, y * tileSize, tileSize, tileSize);
-                    //     canvas.DrawImage(image, x * tileSize, y * tileSize, tileSize, tileSize);
-                    // }
-
-                    // if (y is 3 && x is >= 2 and <= columns - 3)
-                    // {
-                    //     canvas.DrawImage(images[6], x * tileSize, y * tileSize, tileSize, tileSize);
-                    // }
-                    // if (x is 2 or columns - 3 && y is 2 or rows - 3)
-                    // {
-                    //     canvas.DrawImage(tree, x * tileSize, y * tileSize, tileSize, tileSize);
-                    // }
-                    // if (y % 2 == 0 && x % 3 == 0)
-                    // {
-                    //     canvas.DrawImage(tree, x * tileSize, y * tileSize, tileSize, tileSize);
-                    // }
-                    // else
-                    // {
-                    //     canvas.DrawImage(images[1], x * tileSize, y * tileSize, tileSize, tileSize);
-                    // }
+                    RenderTile(tileType, TileTypes.ToEd, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.BoEd, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.LeEd, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.RiEd, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.Step, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.Moun, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.Sign, canvas, x, y, tileSize);
                 }
             }
 
-            canvas.DrawImage(character, 3 * tileSize, 3 * tileSize, tileSize, tileSize);
+            canvas.DrawImage(character, 4 * tileSize, 4 * tileSize, tileSize, tileSize);
 
             //canvas.DrawImage(images[fireIndex], 4 * tileSize, 4 * tileSize, tileSize, tileSize);
         }
@@ -213,26 +167,34 @@ public class WorldMap : GameObject
 internal enum TileTypes
 {
     None = 0,
-    Green = 1,
-    Mountain = 2,
+    Gree = 1,
+    Moun = 2,
     Tree = 4,
-    Water = 8,
-    Water1 = 16,
-    Water2 = 32,
+    Wate = 8,
+    Wat1 = 16,
+    Wat2 = 32,
     Step = 64,
-    BottomEdge = 128,
-    RightEdge = 256,
-    LeftEdge = 512,
-    TopEdge = 1024,
-    FireOne = 2048,
-    FireTwo = 4096,
+    BoEd = 128,
+    RiEd = 256,
+    LeEd = 512,
+    ToEd = 1024,
+    Fir1 = 2048,
+    Fir2 = 4096,
+    Door = 8192,
+    Wall = 16384,
+    Roof = 32768,
+    Sign = 65536,
 
-    GreenLeft = Green | LeftEdge,
-    GreenRight = Green | RightEdge,
-    GreenBottom = Green | BottomEdge,
-    GreenTop = Green | TopEdge,
-    GreenTopLeft = Green | TopEdge | LeftEdge,
-    GreenTopRight = Green | TopEdge | RightEdge,
-    GreenBottomLeft = Green | BottomEdge | LeftEdge,
-    GreenBottomRight = Green | BottomEdge | RightEdge,
+    GrLe = Gree | LeEd,
+    GrRi = Gree | RiEd,
+    GrBo = Gree | BoEd,
+    GrTo = Gree | ToEd,
+    GrTL = Gree | ToEd | LeEd,
+    GrTR = Gree | ToEd | RiEd,
+    GrBL = Gree | BoEd | LeEd,
+    GrBR = Gree | BoEd | RiEd,
+
+    Path = Step | Gree,
+    Hill = Moun | Gree,
+    Post = Sign | Gree,
 }

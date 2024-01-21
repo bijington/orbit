@@ -13,17 +13,15 @@ public class TutorialPartTwoScene : SlideSceneBase
 
 - ASP.NET Core
 
-- Real-time communication
+- Real-time Bi-directional communication
 
-- Bi-directional connection
+- Automatic connection management
 
 - Scalable
 
 - Manages complexity for us
-    - Fallback via
     - WebSockets
-    - Event Source (Server-sent events)
-    - Forever Frame (hidden iFrame)
+    - Server-Sent events
     - Long Polling
 
 - Supports many platforms - JS, C#, F#, VB, Java";

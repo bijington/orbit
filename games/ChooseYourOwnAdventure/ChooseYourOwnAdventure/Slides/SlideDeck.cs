@@ -1,20 +1,24 @@
-﻿namespace BuildingGames.Slides;
+﻿using BuildingGames.Slides.Gaming;
+
+namespace BuildingGames.Slides;
 
 public static class SlideDeck
 {
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(WorldScene),
         typeof(TitleScene),
         typeof(CharacterSelectionScene),
         typeof(PrologueScene),
-        typeof(TutorialScene),
         typeof(WorldScene),
+        typeof(TutorialScene),
+        typeof(TutorialPartTwoScene),
+
+        // Decision 1 - would you like to learn about the general concepts of what a game engine is?
         typeof(DecisionTime1Scene),
 
-        typeof(TutorialPartTwoScene),
-        typeof(HowToUseSignalRScene),
+        
+        typeof(GamingTutorial1Scene),
 
         // Decision Time
         typeof(VotingSystemOrDrawingGameScene), // Roughly 17 minutes - 14 minutes
@@ -23,7 +27,10 @@ public static class SlideDeck
         typeof(DemoTimePoliticiansScene), // Roughly 10 minutes - 14 minutes
 
         // Option 2
-        typeof(DemoTimeArtistsScene),
+        typeof(GamingTutorial1Scene),
+        typeof(GamingTutorial2Scene),
+        typeof(GamingTutorial3Scene),
+        typeof(GamingTutorialDemoScene),
 
         // Summarise this point
         typeof(Stage1SummaryScene),

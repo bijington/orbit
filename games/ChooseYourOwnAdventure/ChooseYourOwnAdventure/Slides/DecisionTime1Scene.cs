@@ -1,4 +1,5 @@
 using BuildingGames.GameObjects;
+using BuildingGames.Slides.Gaming;
 
 namespace BuildingGames.Slides;
 
@@ -14,7 +15,7 @@ public class DecisionTime1Scene : VoteSceneBase
     private const string option2 = "Sports";
 
     protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
-    protected override Type Option2DestinationType => typeof(DemoTimeArtistsScene);
+    protected override Type Option2DestinationType => typeof(GamingTutorial1Scene);
 
     public DecisionTime1Scene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
