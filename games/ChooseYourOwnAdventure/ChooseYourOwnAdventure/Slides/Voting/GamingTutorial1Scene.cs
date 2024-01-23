@@ -1,8 +1,8 @@
 ﻿using BuildingGames.GameObjects;
 
-namespace BuildingGames.Slides.Gaming;
+namespace BuildingGames.Slides.Voting;
 
-public class GamingTutorial1Scene : SlideSceneBase
+public class VotingTutorial1Scene : SlideSceneBase
 {
     private int currentTransition = 0;
     private readonly int transitions = 8;
@@ -36,7 +36,7 @@ We also have the power to determine which clients will receive the information a
 Which leads me nicely onto
 """;
 
-    public GamingTutorial1Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
+    public VotingTutorial1Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);
 
@@ -96,13 +96,14 @@ Which leads me nicely onto
 
         if (currentTransition >= (int)Transition.SignalRServer)
         {
+            // SignalR Server
             canvas.FillColor = Styling.Secondary;
             canvas.FillEllipse(signalRBounds);
 
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Server",
+                "SignalR Server",
                 signalRBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -155,13 +156,14 @@ Which leads me nicely onto
 
         if (currentTransition >= (int)Transition.Hub)
         {
+            // Hub
             canvas.FillColor = Styling.Tertiary;
             canvas.FillRoundedRectangle(hubBounds, 30);
 
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Real-time",
+                "Hub",
                 hubBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -176,7 +178,7 @@ Which leads me nicely onto
             canvas.FontSize = (float)Styling.ScaledFontSize(0.025f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Background task",
+                "Background Service",
                 backgroundServiceBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,

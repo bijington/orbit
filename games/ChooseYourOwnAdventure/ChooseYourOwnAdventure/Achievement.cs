@@ -19,5 +19,5 @@ public static class AchievementNames
 
     public const string NextSpeaker = "Next!";
 
-	public const string KnowItAll = "Know it all!";
+	public const string KnowItAll = "Training wheels off";
 }

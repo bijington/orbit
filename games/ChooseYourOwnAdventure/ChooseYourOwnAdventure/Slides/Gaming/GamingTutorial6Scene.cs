@@ -2,13 +2,13 @@ using BuildingGames.GameObjects;
 
 namespace BuildingGames.Slides.Gaming;
 
-public class GamingTutorial3Scene : SlideSceneBase
+public class GamingTutorial6Scene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
-	public GamingTutorial3Scene(Pointer pointer) : base(pointer)
+	public GamingTutorial6Scene(Pointer pointer) : base(pointer)
     {
-        image = LoadImage("gaming_tutorial_3.png");
+        image = LoadImage("gaming_tutorial_6.png");
 	}
 
     public override string Notes => 
@@ -16,7 +16,7 @@ public class GamingTutorial3Scene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Registering the hub", canvas, dimensions);
+        Styling.RenderTitle("Client - Add Nuget Package", canvas, dimensions);
 
         var imageWidth = image.Width;
         var imageHeight = image.Height;
@@ -25,19 +25,12 @@ public class GamingTutorial3Scene : SlideSceneBase
 
         base.Render(canvas, dimensions);
 
-        var a = @"
-var builder = WebApplication.CreateBuilder(args);
+        var a = """
+// dotnet CLI
+dotnet add package Microsoft.AspNetCore.SignalR.Client --version 8.0.1
 
-// Register SignalR dependencies.
-builder.Services.AddSignalR();
-
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-
-// Map our hub implementation to /Game from the main url.
-app.MapHub<GameHub>(""Game"");
-
-app.Run();";
+// PackageReference
+<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
+""";
     }
 }

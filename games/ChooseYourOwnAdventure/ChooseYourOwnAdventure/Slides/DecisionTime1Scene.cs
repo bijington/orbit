@@ -1,5 +1,6 @@
 using BuildingGames.GameObjects;
 using BuildingGames.Slides.Gaming;
+using BuildingGames.Slides.Voting;
 
 namespace BuildingGames.Slides;
 
@@ -14,7 +15,7 @@ public class DecisionTime1Scene : VoteSceneBase
     private const string option1 = "Democracy";
     private const string option2 = "Sports";
 
-    protected override Type Option1DestinationType => typeof(DemoTimePoliticiansScene);
+    protected override Type Option1DestinationType => typeof(VotingTutorial1Scene);
     protected override Type Option2DestinationType => typeof(GamingTutorial1Scene);
 
     public DecisionTime1Scene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
@@ -69,6 +70,8 @@ public class DecisionTime1Scene : VoteSceneBase
         {
             Styling.RenderTitle("Decision time!", canvas, dimensions);
         }
+
+        // Opt to seek knowledge of democracy from the gods or the Dark arts of gaming from the mages.
 
         var introduction = @$"Now that you have gained some knowledge of the power of SignalR the .NET elders would like to task you with using that power to help one of the following:
 {option1} - Understand how the voting system within todays talk is functioning.

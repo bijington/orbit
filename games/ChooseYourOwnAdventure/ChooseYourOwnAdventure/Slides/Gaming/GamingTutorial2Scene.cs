@@ -4,8 +4,11 @@ namespace BuildingGames.Slides.Gaming;
 
 public class GamingTutorial2Scene : SlideSceneBase
 {
+    private readonly Microsoft.Maui.Graphics.IImage image;
+
 	public GamingTutorial2Scene(Pointer pointer) : base(pointer)
     {
+        image = LoadImage("gaming_tutorial_2.png");
 	}
 
     public override string Notes => 
@@ -18,6 +21,11 @@ public class GamingTutorial2Scene : SlideSceneBase
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         Styling.RenderTitle("Creating a hub", canvas, dimensions);
+
+        var imageWidth = image.Width;
+        var imageHeight = image.Height;
+
+        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Center.Y - imageHeight / 2, imageWidth, imageHeight);
 
         base.Render(canvas, dimensions);
 
@@ -34,17 +42,23 @@ public class GameHub : Hub
 
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-        await Clients.Group(groupName).SendAsync(EventNames.PlayerConnected, connectedPlayer);
+        await Clients
+            .Group(groupName)
+            .SendAsync(EventNames.PlayerConnected, connectedPlayer);
 
         if (game.PlayerTwo != PlayerState.Empty)
         {
-            await Clients.Group(groupName).SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
+            await Clients
+                .Group(groupName)
+                .SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
         }
     }
 
     public async Task UpdatePlayerState(PlayerState playerState)
     {
-        await Clients.OthersInGroup(playerState.GameId).SendAsync(EventNames.PlayerStateUpdated, playerState);
+        await Clients
+            .OthersInGroup(playerState.GameId)
+            .SendAsync(EventNames.PlayerStateUpdated, playerState);
     }
 }";
     }

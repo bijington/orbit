@@ -1,39 +1,38 @@
 ﻿using BuildingGames.GameObjects;
 
-namespace BuildingGames.Slides;
+namespace BuildingGames.Slides.Tutorials;
 
-public class TutorialPartTwoScene : SlideSceneBase
+public class TutorialScene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
     public override string Notes => 
-        @"The second key component is SignalR.
+        @"As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us. There are 2 key components affecting us today and the is .NET MAUI.
 
-- Open-source
+- Multi-platform App UI
 
-- ASP.NET Core
+- Cross-platform framework
 
-- Real-time Bi-directional communication
+  - Mobile - Android and iOS
 
-- Automatic connection management
+  - Desktop - macOS and Windows
 
-- Scalable
+  - Smart Samsung things - Tizen
 
-- Manages complexity for us
-    - WebSockets
-    - Server-Sent events
-    - Long Polling
+- Evolution of Xamarin.Forms
 
-- Supports many platforms - JS, C#, F#, VB, Java";
+  - First class features such as AppBuilder, etc. We will get to see how much of a difference this makes when we get to jump between both our server side and client side code.
 
-    public TutorialPartTwoScene(Pointer pointer) : base(pointer)
+- Build with the platform";
+
+    public TutorialScene(Pointer pointer) : base(pointer)
     {
-        image = LoadImage("signalr.png");
+        image = LoadImage("dotnet_bot_iot.png");
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is SignalR?", canvas, dimensions);
+        Styling.RenderTitle("Tutorial - What is .NET MAUI?", canvas, dimensions);
         // Who here has a creative itch?
 //Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
 
@@ -43,19 +42,21 @@ public class TutorialPartTwoScene : SlideSceneBase
 
         canvas.DrawString(
             dimensions,
-            @"- Open-source
+            @"- Multi-platform App UI
 
-- ASP.NET Core
+- Cross-platform framework
 
-- Real-time communication
+  - Mobile - Android and iOS
 
-- Bi-directional connection
+  - Desktop - macOS and Windows
 
-- Scalable
+  - Smart Samsung things - Tizen
 
-- Manages complexity for us
+- Evolution of Xamarin.Forms
 
-- Supports many platforms - JS, C#, F#, VB, Java"
+  - First class features such as AppBuilder, etc.
+
+- Build with the platform"
             ,
             Styling.TitleColor,
             Colors.Transparent,
@@ -68,7 +69,7 @@ public class TutorialPartTwoScene : SlideSceneBase
 
         canvas.DrawImage(
             image,
-            dimensions.Width * 0.4f,
+            dimensions.Width * 0.65f,
             dimensions.Height / 4,
             image.Width * 2.5f,
             image.Height * 2.5f);
