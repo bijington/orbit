@@ -38,7 +38,15 @@
             </Grid>
         </Frame>
 
-        <Label Text="Notes" Grid.Row="1" />
+        <HorizontalStackLayout
+            Grid.Row="1"
+            Spacing="10"
+            Padding="10">
+            
+            <Label Text="Notes" />
+
+            <Label x:Name="CurrentTime" HorizontalOptions="End" />
+        </HorizontalStackLayout>
 
         <ScrollView Grid.Row="2">
             <Label x:Name="NotesLabel" />

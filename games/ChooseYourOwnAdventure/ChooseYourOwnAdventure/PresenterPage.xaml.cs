@@ -9,6 +9,18 @@ public partial class PresenterPage : ContentPage
         InitializeComponent();
 
         SlideDeck.SlideNotesChanged += SlideDeck_SlideNotesChanged;
+
+        this.UpdateTime();;
+    }
+
+    private void UpdateTime()
+    {
+        this.Dispatcher.DispatchDelayed(TimeSpan.FromSeconds(1), () =>
+        {
+            this.CurrentTime.Text = DateTime.Now.ToString("HH:mm:ss");
+
+            this.UpdateTime();
+        });
     }
 
     private void SlideDeck_SlideNotesChanged(string notes)
