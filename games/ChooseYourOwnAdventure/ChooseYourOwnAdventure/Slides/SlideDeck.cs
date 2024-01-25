@@ -10,7 +10,6 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        // typeof(DuckTypingScene),
         // typeof(TitleScene),
         // typeof(CharacterSelectionScene),
         // typeof(PrologueScene),
@@ -25,17 +24,21 @@ public static class SlideDeck
         // typeof(RenderScene),
         // typeof(WaitScene), // 14 minutes
 
-        // // Decision 1 - would you like to learn about the general concepts of what a game engine is?
+        // typeof(WorldScene),
+
+        // // Decision 1
         // typeof(DecisionTime1Scene),
 
-        // // Option 1
-        // typeof(VotingTutorial1Scene),
+        // Option 1
+        typeof(VotingTutorial0Scene),
+        typeof(VotingTutorial1Scene),
+        typeof(TutorialPartTwoScene),
 
-        // // WHY USE BACKGROUND SERVICE??
-        // // Option 2
-        // typeof(GamingTutorial0Scene),
-        // typeof(GamingTutorial1Scene),
-        // typeof(TutorialPartTwoScene),
+        // WHY USE BACKGROUND SERVICE??
+        // Option 2
+        typeof(GamingTutorial0Scene),
+        typeof(GamingTutorial1Scene),
+        typeof(TutorialPartTwoScene),
         typeof(TutorialPartThreeScene),
         typeof(GamingTutorial2Scene),
         typeof(GamingTutorial3Scene),
@@ -47,9 +50,7 @@ public static class SlideDeck
         typeof(GamingTutorialWrapUp1Scene),
         typeof(GamingTutorialWrapUp2Scene),
 
-        // // Summarise this point
-        // typeof(Stage1SummaryScene),
-
+        // Summarise this point
         typeof(WorldScene),
 
         // // Decision Time
@@ -67,23 +68,21 @@ public static class SlideDeck
         // What is powering the talk today?
 
         // Decision deep dive into Orbit game or look at the engine behind it?
-        typeof(OrbitGameOrOrbitEngineScene),
-        typeof(GameDemoScene),
+        // typeof(OrbitGameOrOrbitEngineScene),
+        // typeof(GameDemoScene),
 
         // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
-
-        typeof(HowToUsePartOne),
-        typeof(HowToUsePartTwo),
-        typeof(HowToUsePartThree),
-        typeof(HowToUsePartFour),
-        typeof(HowToUsePartFive),
+        typeof(ColourSchemeScene),
+        typeof(DuckTypingScene),
+        typeof(VisualAssistanceScene),
+        typeof(NonVisualFeedbackScene),
 
         typeof(TipsAndTricksSimpleScene),
         typeof(TipsAndTricksSimplePartTwoScene),
         typeof(TipsAndTricksDeviceScene),
 
-        typeof(TheFinalBossScene),
         typeof(SummaryScene),
+        typeof(WorldScene),
         typeof(Credits)
     };
 

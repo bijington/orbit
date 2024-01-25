@@ -26,7 +26,7 @@ So who am I?
 My name is Shaun Lawrence
 - I am a software engineer/consultant and have been working with .NET based technologies since my career began roughly 17 years ago.
 - I am honoured to have been awarded with the Microsoft MVP award for the past 2 years.
-- I was also 'lucky' enough to be given the opportunity to write a book. My publishing keeps telling me off for not talking about it enough so it is titled 'Introducing .NET MAUI' and is available at all good online book retailers.
+- I was also 'lucky' enough to be given the opportunity to write a book. My publisher keeps telling me off for not talking about it enough so it is titled 'Introducing .NET MAUI' and is available at all good online book retailers.
 - In fact I have a copy with me today which I plan to give away at random. More on this shortly...
 
 - I guess part of the main reason I am here talking to you all today is because I have learned to fully embrace what I have labelled as weaknesses here.

@@ -14,26 +14,7 @@ public class VotingTutorial1Scene : SlideSceneBase
 
     public override string Notes => 
 """
-So what are we building? We have 2 devices, they could be next to each other or they could be on opposite sides of the world. We want to allow the owners of the device to play a game of air hockey against each other.
-
-Now we could aim to go with a peer-to-peer based approach using a protocol such as Bluetooth but we need to consider the following:
-- Who should be responsible for enforcing the rules of the game?
-
-Let's ignore peer-to-peer for now. And given the title or synopsis of this talk, it should hopefully be pretty clear that we are going to use a server and on that server we are going to use SignalR.
-
-Signal R is server based and therefore we need to host it somewhere. For this demo I am making use of the Azure App Service and the free tier
-
-The central part to SignalR are hubs, this is where the communication takes place
-
-Now we can imagine that the 2 devices open up a connection to the hub.
-
-The first connection can initial a communication with the other connected devices.
-
-The direction of the communication can be two-way, so the client sending the signal on the left of this diagram could also receive the information
-
-We also have the power to determine which clients will receive the information and we will gain some insight into this in our live demo
-
-Which leads me nicely onto
+So what are we building? 
 """;
 
     public VotingTutorial1Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
@@ -86,10 +67,11 @@ Which leads me nicely onto
         var backgroundServiceBounds = new RectF(dimensions.Center.X - backgroundServiceWidth / 2, hubBounds.Bottom, backgroundServiceWidth, backgroundServiceHeight);
 
         var device1Height = dimensions.Height / 4;
-        var device1Width = dimensions.Width / 14;
+        var device1Width = device1Height * 1.5f;
         var device1Bounds = new RectF(dimensions.Width / 6, dimensions.Center.Y - device1Height / 2, device1Width, device1Height);
 
-        var device2Bounds = new RectF(dimensions.Width * (5f / 6f) - device1Width, dimensions.Center.Y - device1Height / 2, device1Width, device1Height);
+        var device2Width = device1Height * 0.6f;
+        var device2Bounds = new RectF(dimensions.Width * (5f / 6f) - device2Width, dimensions.Center.Y - device1Height / 2, device2Width, device1Height);
 
         var device1CommunicationsColor = Colors.Yellow;
         var device2CommunicationsColor = Colors.Red;
@@ -103,7 +85,7 @@ Which leads me nicely onto
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "SignalR Server",
+                "Server",
                 signalRBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -120,7 +102,7 @@ Which leads me nicely onto
             canvas.DrawLine(device2Bounds.Center, hubBounds.Center);
         }
 
-        if (currentTransition is (int)Transition.Device1ToHubCommunications or (int)Transition.Device1ToDevice2Communications)
+        if (currentTransition is (int)Transition.Device1ToDevice2Communications)
         {
             canvas.StrokeSize = communicationsStrokeSize;
             canvas.StrokeDashPattern = communicationsStrokePattern;
@@ -134,17 +116,9 @@ Which leads me nicely onto
             DrawToDeviceCommunications(canvas, device2Bounds, hubBounds, device1CommunicationsColor);
         }
 
-        if (currentTransition is (int)Transition.Device2ToHubCommunications or (int)Transition.Device2ToDevice1Communications)
-        {
-            canvas.StrokeSize = communicationsStrokeSize;
-            canvas.StrokeDashPattern = communicationsStrokePattern;
-
-            canvas.StrokeColor = device2CommunicationsColor;
-            canvas.DrawLine(hubBounds.Center.X + communicationsOffset, hubBounds.Center.Y - communicationsOffset, device2Bounds.Center.X + communicationsOffset, device2Bounds.Center.Y - communicationsOffset);
-        }
-
         if (currentTransition is (int)Transition.Device2ToDevice1Communications)
         {
+            DrawFromDeviceCommunications(canvas, device2Bounds, hubBounds, device2CommunicationsColor);
             DrawToDeviceCommunications(canvas, device1Bounds, hubBounds, device2CommunicationsColor);
         }
 
@@ -170,28 +144,6 @@ Which leads me nicely onto
                 TextFlow.OverflowBounds);
         }
 
-        if (currentTransition >= (int)Transition.BackgroundService)
-        {
-            canvas.FillColor = Styling.Secondary;
-            canvas.FillRoundedRectangle(backgroundServiceBounds, 30);
-
-            canvas.FontSize = (float)Styling.ScaledFontSize(0.025f);
-            canvas.FontColor = Styling.Primary;
-            canvas.DrawString(
-                "Background Service",
-                backgroundServiceBounds,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Center,
-                TextFlow.OverflowBounds);
-        }
-
-        if (currentTransition == (int)Transition.SomethingInBetween)
-        {
-            DrawFromDeviceCommunications(canvas, device1Bounds, device2Bounds, device1CommunicationsColor);
-
-            DrawToDeviceCommunications(canvas, device1Bounds, device2Bounds, device2CommunicationsColor);
-        }
-
         if (currentTransition >= (int)Transition.Devices)
         {
             // Device 1
@@ -207,6 +159,12 @@ Which leads me nicely onto
 
             canvas.FillColor = Styling.Primary;
             canvas.FillRectangle(device2Bounds.X + 10, device2Bounds.Y + 30, device2Bounds.Width - 20, device2Bounds.Height - 60);
+
+            canvas.FillColor = Styling.Secondary;
+            canvas.FillRoundedRectangle(device2Bounds.X + 40, device2Bounds.Y + 40, device2Bounds.Width, device2Bounds.Height, 20);
+
+            canvas.FillColor = Styling.Primary;
+            canvas.FillRectangle(device2Bounds.X + 50, device2Bounds.Y + 80, device2Bounds.Width - 20, device2Bounds.Height - 60);
         }
 
         base.Render(canvas, dimensions);
@@ -234,16 +192,11 @@ Which leads me nicely onto
     {
         None,
         Devices,
-        SomethingInBetween,
-        WhatFits,
         SignalRServer,
         Hub,
         DeviceToHubConnections,
-        Device1ToHubCommunications,
-        Device2ToHubCommunications,
         Device1ToDevice2Communications,
         Device2ToDevice1Communications,
-        BackgroundService,
         HubToDevicesCommunications,
     }
 }

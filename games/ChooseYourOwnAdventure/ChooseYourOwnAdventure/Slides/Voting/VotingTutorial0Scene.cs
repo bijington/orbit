@@ -1,23 +1,19 @@
 ﻿using BuildingGames.GameObjects;
 
-namespace BuildingGames.Slides.Gaming;
+namespace BuildingGames.Slides.Voting;
 
-public class GamingTutorial0Scene : SlideSceneBase
+public class VotingTutorial0Scene : SlideSceneBase
 {
     public override string Notes => 
 """
-So what are we building? We are going to need to pair 2 devices together to play a game of air hockey. 
-
-We will need to match players randomly, 
+So what are we building? We want to provide the ability to
 
 We will need to be device independent, by this we mean that we will allow for different device sizes to play together. After all .NET MAUI supports a variety of platforms and devices.
 
-We will also need a central rule enforcer. This reminds me of one of our attempts to stay sane during lockdown a few years ago, we arranged for our eldest daughter to play Guess Who with one of her school friends via video call. Things got a bit heated towards the end of the game, questions of cheating only for us to discover that there are different people in some sets. Who knew??
-
-With a central server we can prevent this.
+We will also need a central rule enforcer. This reminds me of one of our attempts to stay sane during lockdown a few years ago, we arranged for our eldest daughter to play Guess Who with one of her school friends. Things got a bit heated towards the end of the game, questions of cheating only for us to discover that there are different people in some sets. Who knew??
 """;
 
-    public GamingTutorial0Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
+    public VotingTutorial0Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);
     }
@@ -29,13 +25,13 @@ With a central server we can prevent this.
         canvas.DrawString(
             dimensions,
 """
-- Online, 2 player hockey game
+- Provide a voting system
 
-- Match players randomly
+- Allow for a vote to be opened and closed
 
-- Be device independent
+- Allow for a client to vote
 
-- Central rule enforcer
+- Allow for a client to see the results of the vote
 """,
             Styling.TitleColor,
             Colors.Transparent,

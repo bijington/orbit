@@ -37,9 +37,9 @@ public class DecisionTime1Scene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Where will you invest your knowledge?", option1, option2, false);
+            await OpenVote("Where will you invest your knowledge?", option1, option2, true);
         }
-        if (currentTransition == 3)
+        else if (currentTransition == 3)
         {
             await CloseVote();
 
