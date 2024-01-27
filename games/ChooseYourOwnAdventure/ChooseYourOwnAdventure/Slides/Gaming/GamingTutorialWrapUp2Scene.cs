@@ -2,16 +2,11 @@ using BuildingGames.GameObjects;
 
 namespace BuildingGames.Slides.Gaming;
 
-public class GamingTutorialWrapUp2Scene : SlideSceneBase, IDestinationKnowingScene
+public class GamingTutorialWrapUp2Scene : SlideSceneBase
 {
-    private readonly Microsoft.Maui.Graphics.IImage image;
-
 	public GamingTutorialWrapUp2Scene(Pointer pointer) : base(pointer)
     {
-        image = LoadImage("gaming_wrapup_1.jpg");
 	}
-
-    public Type DestinationSceneType => typeof(Stage1SummaryScene);
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
@@ -43,11 +38,6 @@ https://playfab.com/multiplayer/#servers
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
-
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
-
-        canvas.DrawImage(image, dimensions.Right - imageWidth - 80, dimensions.Bottom - imageHeight - 80, imageWidth, imageHeight);
 
         base.Render(canvas, dimensions);
     }

@@ -12,6 +12,8 @@ public class WorldScene : SlideSceneBase
         Add(worldMap);
     }
 
+    public override string BackgroundMusic => "adventure.mp3";
+
     public override string Notes => 
 """
 I would like you all to use some imagination now, we need to imagine that we are a junior developer and we have been tasked with building a game.

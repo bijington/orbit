@@ -13,7 +13,7 @@ public class DecisionTime1Scene : VoteSceneBase
     private readonly Decisions decisions;
     private string decision;
     private const string option1 = "Democracy";
-    private const string option2 = "Sports";
+    private const string option2 = "Gaming";
 
     protected override Type Option1DestinationType => typeof(VotingTutorial1Scene);
     protected override Type Option2DestinationType => typeof(GamingTutorial1Scene);
@@ -37,7 +37,7 @@ public class DecisionTime1Scene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Where will you invest your knowledge?", option1, option2, true);
+            await OpenVote("Which knowledge do you seek?", option1, option2, true);
         }
         else if (currentTransition == 3)
         {
@@ -58,7 +58,7 @@ public class DecisionTime1Scene : VoteSceneBase
             else
             {
                 this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
-                this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time drawing game.";
+                this.decision = $"You chose '{option2}'. Let's take a look at how to build a real-time air hockey game.";
                 this.decisions.RecordDecision($"'{option2}'");
             }
         }
@@ -73,10 +73,10 @@ public class DecisionTime1Scene : VoteSceneBase
 
         // Opt to seek knowledge of democracy from the gods or the Dark arts of gaming from the mages.
 
-        var introduction = @$"Now that you have gained some knowledge of the power of SignalR the .NET elders would like to task you with using that power to help one of the following:
-{option1} - Understand how the voting system within todays talk is functioning.
+        var introduction = @$"Now that you have gained some knowledge of game development, it's time to make a decision. Will you seek knowledge of democracy from the agile gods or the dark arts of gaming from the mages?
+{option1} - See how to build todays voting system.
 
-{option2} - See how to use SignalR to build a real-time drawing game.";
+{option2} - See how to build a real-time air hockey game.";
 
         canvas.Alpha = 1.0f;
         canvas.Font = Styling.Font;

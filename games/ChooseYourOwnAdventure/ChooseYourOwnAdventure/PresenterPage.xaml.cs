@@ -4,13 +4,18 @@ namespace BuildingGames;
 
 public partial class PresenterPage : ContentPage
 {
+        private DateTime scheduledFinish;
+
     public PresenterPage()
     {
         InitializeComponent();
 
         SlideDeck.SlideNotesChanged += SlideDeck_SlideNotesChanged;
+        this.NotesLabel.Text = SlideDeck.Notes;
 
-        this.UpdateTime();;
+        this.scheduledFinish = new DateTime(2024, 02, 01, 12, 40, 00);
+
+        this.UpdateTime();
     }
 
     private void UpdateTime()
@@ -18,6 +23,7 @@ public partial class PresenterPage : ContentPage
         this.Dispatcher.DispatchDelayed(TimeSpan.FromSeconds(1), () =>
         {
             this.CurrentTime.Text = DateTime.Now.ToString("HH:mm:ss");
+            this.Countdown.Text = (this.scheduledFinish - DateTime.Now).ToString("hh\\:mm\\:ss");
 
             this.UpdateTime();
         });
@@ -25,7 +31,7 @@ public partial class PresenterPage : ContentPage
 
     private void SlideDeck_SlideNotesChanged(string notes)
     {
-        this.NotesLabel.Text = notes;
+        this.NotesLabel.Text = SlideDeck.Notes;
     }
 
     private readonly IDictionary<Type, string> slideNotes = new Dictionary<Type, string>

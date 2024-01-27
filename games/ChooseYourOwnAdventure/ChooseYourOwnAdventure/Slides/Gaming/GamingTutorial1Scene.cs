@@ -94,15 +94,17 @@ Which leads me nicely onto
         var device1CommunicationsColor = Colors.Yellow;
         var device2CommunicationsColor = Colors.Red;
 
-        if (currentTransition >= (int)Transition.SignalRServer)
+        if (currentTransition >= (int)Transition.Server)
         {
             canvas.FillColor = Styling.Secondary;
             canvas.FillEllipse(signalRBounds);
 
+            var text = currentTransition >= (int)Transition.Specifics ? "ASP.NET Core Web app" : "Server";
+
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Server",
+                text,
                 signalRBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -153,30 +155,34 @@ Which leads me nicely onto
             DrawToDeviceCommunications(canvas, device2Bounds, hubBounds, Styling.Tertiary);
         }
 
-        if (currentTransition >= (int)Transition.Hub)
+        if (currentTransition >= (int)Transition.Realtime)
         {
             canvas.FillColor = Styling.Tertiary;
             canvas.FillRoundedRectangle(hubBounds, 30);
 
+            var text = currentTransition >= (int)Transition.Specifics ? "SignalR Hub" : "Real-time";
+
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Real-time",
+                text,
                 hubBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
                 TextFlow.OverflowBounds);
         }
 
-        if (currentTransition >= (int)Transition.BackgroundService)
+        if (currentTransition >= (int)Transition.GameState)
         {
             canvas.FillColor = Styling.Secondary;
             canvas.FillRoundedRectangle(backgroundServiceBounds, 30);
 
+            var text = currentTransition >= (int)Transition.Specifics ? "BackgroundService" : "Game state";
+
             canvas.FontSize = (float)Styling.ScaledFontSize(0.025f);
             canvas.FontColor = Styling.Primary;
             canvas.DrawString(
-                "Background task",
+                text,
                 backgroundServiceBounds,
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
@@ -234,14 +240,15 @@ Which leads me nicely onto
         Devices,
         SomethingInBetween,
         WhatFits,
-        SignalRServer,
-        Hub,
+        Server,
+        Realtime,
         DeviceToHubConnections,
         Device1ToHubCommunications,
         Device2ToHubCommunications,
         Device1ToDevice2Communications,
         Device2ToDevice1Communications,
-        BackgroundService,
+        GameState,
         HubToDevicesCommunications,
+        Specifics,
     }
 }

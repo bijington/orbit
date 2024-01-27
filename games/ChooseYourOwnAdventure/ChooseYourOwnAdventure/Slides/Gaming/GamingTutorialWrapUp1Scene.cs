@@ -2,7 +2,7 @@ using BuildingGames.GameObjects;
 
 namespace BuildingGames.Slides.Gaming;
 
-public class GamingTutorialWrapUp1Scene : SlideSceneBase, IDestinationKnowingScene
+public class GamingTutorialWrapUp1Scene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
@@ -10,8 +10,6 @@ public class GamingTutorialWrapUp1Scene : SlideSceneBase, IDestinationKnowingSce
     {
         image = LoadImage("gaming_wrapup_1.jpg");
 	}
-
-    public Type DestinationSceneType => typeof(Stage1SummaryScene);
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

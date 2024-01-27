@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterGameObjects(this IServiceCollection services) =>
         services
             .AddScoped<Ship>()
+            .AddTransient<Bat>()
             .AddTransient<WorldMap>()
             .AddTransient<Pointer>();
 }

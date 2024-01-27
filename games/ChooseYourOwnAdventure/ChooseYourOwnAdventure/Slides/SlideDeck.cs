@@ -10,31 +10,39 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        // typeof(TitleScene),
-        // typeof(CharacterSelectionScene),
-        // typeof(PrologueScene),
-        // typeof(WorldScene),
-        // typeof(TutorialScene),
+        typeof(TitleScene),
+        typeof(CharacterSelectionScene),
+        typeof(PrologueScene),
+        typeof(WorldScene),
+        typeof(TutorialScene),
 
-        // // What is powering the talk today?
-        // typeof(TheGameEngineApproachScene),
-        // typeof(ProcessUserInputScene),
-        // //typeof(ProcessUserInputPartTwoScene), - voting option?
-        // typeof(UpdateScene),
-        // typeof(RenderScene),
-        // typeof(WaitScene), // 14 minutes
+        // Why .NET MAUI for games?
+        typeof(WhyDotnetMauiScene),
 
-        // typeof(WorldScene),
+        // What is powering the talk today?
+        typeof(TheGameEngineApproachScene),
+        typeof(ProcessUserInputScene),
+        typeof(UpdateScene),
+        typeof(RenderScene),
+        typeof(WaitScene), // 14 minutes
 
-        // // Decision 1
-        // typeof(DecisionTime1Scene),
+        // How to section?
+        typeof(HowToUsePartOne),
+        typeof(HowToUsePartTwo),
+        typeof(HowToUsePartThree),
+        typeof(HowToUsePartFour),
+        typeof(HowToUsePartFive),
+
+        typeof(WorldScene),
+
+        // Decision 1
+        typeof(DecisionTime1Scene),
 
         // Option 1
         typeof(VotingTutorial0Scene),
         typeof(VotingTutorial1Scene),
         typeof(TutorialPartTwoScene),
 
-        // WHY USE BACKGROUND SERVICE??
         // Option 2
         typeof(GamingTutorial0Scene),
         typeof(GamingTutorial1Scene),
@@ -71,6 +79,10 @@ public static class SlideDeck
         // typeof(OrbitGameOrOrbitEngineScene),
         // typeof(GameDemoScene),
 
+        // Key design check list.
+
+        typeof(DecisionTime2Scene),
+
         // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
         typeof(ColourSchemeScene),
         typeof(DuckTypingScene),
@@ -81,6 +93,7 @@ public static class SlideDeck
         typeof(TipsAndTricksSimplePartTwoScene),
         typeof(TipsAndTricksDeviceScene),
 
+        typeof(TheYearOfAIScene),
         typeof(SummaryScene),
         typeof(WorldScene),
         typeof(Credits)
@@ -95,9 +108,15 @@ public static class SlideDeck
 
     public static int GetSlideIndex(Type type) => Slides.IndexOf(type) + 1;
 
-    public static void SetSlideNotes(string notes)
+    private static string notes;
+    public static string Notes
     {
-        SlideNotesChanged?.Invoke(notes);
+        get => notes;
+        set
+        {
+            notes = value;
+            SlideNotesChanged?.Invoke(notes);
+        }
     }
 
     public static void SetCurrentSlideType(Type type)

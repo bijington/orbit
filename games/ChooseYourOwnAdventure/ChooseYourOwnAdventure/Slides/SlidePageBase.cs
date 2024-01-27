@@ -16,7 +16,7 @@ public abstract class SlidePageBase : ContentPage
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
 
-        SlideDeck.SetSlideNotes(this.Notes);
+        SlideDeck.Notes = this.Notes;
     }
 
     protected virtual string Notes { get; }

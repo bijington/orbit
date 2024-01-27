@@ -1,6 +1,7 @@
 ﻿using BuildingGames.GameObjects;
 using BuildingGames.Slides;
 using Orbit.Engine;
+using Plugin.Maui.Audio;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace BuildingGames;
@@ -29,6 +30,8 @@ public static class MauiProgram
                 .AddSingleton<ControllerManager>()
                 .AddSingleton<AchievementManager>()
                 .AddSingleton<Decisions>()
+                .AddSingleton(AudioManager.Current)
+                .AddSingleton(FileSystem.Current)
                 .AddSingleton(DeviceDisplay.Current)
                 .RegisterGameObjects()
                 .RegisterScenes();

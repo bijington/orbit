@@ -9,8 +9,10 @@ public abstract class SlideSceneBase : GameScene
     {
         Add(pointer);
 
-        SlideDeck.SetSlideNotes(this.Notes);
+        SlideDeck.Notes = this.Notes;
     }
+
+    public virtual string BackgroundMusic { get; }
 
     public virtual string Notes { get; }
 
