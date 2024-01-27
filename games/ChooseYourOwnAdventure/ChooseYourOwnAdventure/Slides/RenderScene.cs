@@ -14,6 +14,25 @@ public class RenderScene : SlideSceneBase
 
     private readonly IList<string> textTransitions;
 
+    public override string Notes =>
+"""
+The final stop in our loop is to render the game.
+
+We will be utilising that unified graphics API that we spoke about earlier. Which provides us with a GraphicsView and canvas to draw on.
+
+This is where we will be able to draw the player and the enemies on the screen.
+
+The interaction with the graphics API is stack based. 
+
+So to simplify the render of a rotating asteroid gravitating towards our ship we can:
+
+- Translate to the centre of the asteroid
+
+- Rotate the canvas
+
+- and draw. This allows us to build up our scene in a very simple way.
+""";
+
     public RenderScene(Pointer pointer) : base(pointer)
     {
         paint = LoadImage("paint.png");

@@ -1,4 +1,5 @@
 using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides.Gaming;
 
@@ -6,6 +7,7 @@ public class GamingTutorialWrapUp2Scene : SlideSceneBase
 {
 	public GamingTutorialWrapUp2Scene(Pointer pointer) : base(pointer)
     {
+        Character.Position = Character.Positions.Decision2;
 	}
 
     public override void Render(ICanvas canvas, RectF dimensions)

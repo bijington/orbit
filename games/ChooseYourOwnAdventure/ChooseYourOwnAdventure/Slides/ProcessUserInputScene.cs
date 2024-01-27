@@ -17,6 +17,25 @@ public class ProcessUserInputScene : SlideSceneBase
         gyroscope = LoadImage("gyroscope.png");
     }
 
+    public override string Notes => 
+"""
+The processing of user input can come in many different forms. Thanks to the cross platform nature of .NET MAUI we can support many different input types.
+
+- Game controller support
+
+  - Android - Paddleboat
+    
+  - iOS/MacCatalyst - GCController
+    
+  - Windows
+
+Touch/Mouse
+
+Keyboard
+
+Accelerometer / gyroscope
+""";
+
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         Styling.RenderTitle("Process user input", canvas, dimensions);

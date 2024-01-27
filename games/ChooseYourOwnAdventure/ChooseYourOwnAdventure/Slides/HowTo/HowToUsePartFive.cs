@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides;
 
@@ -11,6 +12,8 @@ public class HowToUsePartFive : SlideSceneBase
     {
         image = LoadImage("how_to_part_five.png");
         aspectRatio = image.Width / image.Height;
+
+        Character.Position = Character.Positions.Decision1;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

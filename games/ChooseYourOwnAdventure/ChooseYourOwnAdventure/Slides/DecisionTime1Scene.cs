@@ -15,8 +15,8 @@ public class DecisionTime1Scene : VoteSceneBase
     private const string option1 = "Democracy";
     private const string option2 = "Gaming";
 
-    protected override Type Option1DestinationType => typeof(VotingTutorial1Scene);
-    protected override Type Option2DestinationType => typeof(GamingTutorial1Scene);
+    protected override Type Option1DestinationType => typeof(VotingTutorial0Scene);
+    protected override Type Option2DestinationType => typeof(GamingTutorial0Scene);
 
     public DecisionTime1Scene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {

@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides.Voting;
 
@@ -16,6 +17,10 @@ We will also need a central rule enforcer. This reminds me of one of our attempt
     public VotingTutorial0Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);
+
+        Character.Position = Character.Positions.Democracy1;
+        Character.Position = Character.Positions.Democracy2;
+        Character.Position = Character.Positions.Democracy3;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

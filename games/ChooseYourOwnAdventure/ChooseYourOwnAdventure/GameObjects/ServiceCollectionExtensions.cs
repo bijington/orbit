@@ -1,5 +1,6 @@
 ﻿using BuildingGames.GameObjects.Slidey;
 using ChooseYourOwnAdventure;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.GameObjects;
 
@@ -9,6 +10,7 @@ public static class ServiceCollectionExtensions
         services
             .AddScoped<Ship>()
             .AddTransient<Bat>()
+            .AddSingleton<Character>()
             .AddTransient<WorldMap>()
             .AddTransient<Pointer>();
 }

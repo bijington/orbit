@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides.Tutorials;
 
@@ -7,7 +8,9 @@ public class TutorialScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage image;
 
     public override string Notes => 
-        @"As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us. There are 2 key components affecting us today and the is .NET MAUI.
+"""
+As with all good games this talk wouldn't be complete without first introducing you all to your environment and how it effects us.
+Let's get to grips with our first tutorial
 
 - Multi-platform App UI
 
@@ -23,11 +26,14 @@ public class TutorialScene : SlideSceneBase
 
   - First class features such as AppBuilder, etc. We will get to see how much of a difference this makes when we get to jump between both our server side and client side code.
 
-- Build with the platform";
+- Build with the platform
+""";
 
     public TutorialScene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("dotnet_bot_iot.png");
+
+        Character.Position = Character.Positions.Tutorial1;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

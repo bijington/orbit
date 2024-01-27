@@ -18,6 +18,12 @@ My journey so far has enabled me to stay in my safe, happy place - the .NET ecos
 
 - Unified Graphics API for each platform
 
+Essentially .NET MAUI Graphics offers us with a surface that can render pixel perfect graphics on any platform supported by .NET MAUI. We should consider .NET MAUI Graphics as an abstraction layer, like .NET MAUI itself, on top of the platform specific drawing libraries. So we get all the power of each platform but with a simple unified .NET API that we as developers can work with.
+
+By delegating out to the platform specific drawing libraries we can obtain great performance when rendering our games because the platform specific libraries (with the current exception of Windows) provides the ability to utilise hardware acceleration for us.
+
+We do also have the ability to switch out the .NET MAUI implementation for graphics rendering and replace with SkiaSharp or even a custom implementation if we so desire.
+
 - .NET is fast!
 
 - Mature ecosystem
@@ -35,6 +41,8 @@ My journey so far has enabled me to stay in my safe, happy place - the .NET ecos
 - .NET is my happy place
 
 - Unified Graphics API for each platform
+
+- Multiple Graphics options
 
 - .NET is fast!
 

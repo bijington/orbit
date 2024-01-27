@@ -26,6 +26,8 @@ public static class SlideDeck
         typeof(RenderScene),
         typeof(WaitScene), // 14 minutes
 
+        typeof(WorldScene),
+
         // How to section?
         typeof(HowToUsePartOne),
         typeof(HowToUsePartTwo),

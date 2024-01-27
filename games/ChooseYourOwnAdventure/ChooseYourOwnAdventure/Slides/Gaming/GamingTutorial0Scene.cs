@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides.Gaming;
 
@@ -20,6 +21,12 @@ With a central server we can prevent this.
     public GamingTutorial0Scene(Pointer pointer, AchievementManager achievementManager) : base(pointer)
     {
         achievementManager.UpdateProgress(AchievementNames.KnowItAll, 100);
+
+        Character.Position = Character.Positions.Sports1;
+        Character.Position = Character.Positions.Sports2;
+        Character.Position = Character.Positions.Sports3;
+        Character.Position = Character.Positions.Sports4;
+        Character.Position = Character.Positions.Sports5;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)

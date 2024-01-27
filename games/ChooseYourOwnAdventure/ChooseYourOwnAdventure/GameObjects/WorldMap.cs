@@ -1,11 +1,13 @@
 using Orbit.Engine;
+using ChooseYourOwnAdventure.GameObjects;
+using BuildingGames;
 
 namespace ChooseYourOwnAdventure;
 
 public class WorldMap : GameObject
 {
     private readonly IDictionary<TileTypes, Microsoft.Maui.Graphics.IImage> images = new Dictionary<TileTypes, Microsoft.Maui.Graphics.IImage>();
-    private readonly Microsoft.Maui.Graphics.IImage character;
+    private readonly Character character;
     private readonly Bat bat;
     private const int columns = 30;
     private const int rows = 20;
@@ -35,9 +37,10 @@ public class WorldMap : GameObject
         { TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate, TileTypes.Wate },
     };
 
-    public WorldMap(Bat bat)
+    public WorldMap(Bat bat, Character character)
     {
         Add(bat);
+        Add(character);
         
         this.tileTypes = new[]
         {
@@ -89,8 +92,8 @@ public class WorldMap : GameObject
 
         }
 
-        character = LoadImage("character.png");
         this.bat = bat;
+        this.character = character;
     }
 
     private TileTypes WateOverlayIndex = TileTypes.Wat1;
@@ -169,9 +172,26 @@ public class WorldMap : GameObject
                 }
             }
 
-            canvas.DrawImage(character, 4 * tileSize, 4 * tileSize, tileSize, tileSize);
+            character.TileSize = new Size(tileSize, tileSize);
 
             bat.Bounds = new RectF(11 * tileSize, 11 * tileSize, tileSize, tileSize);
+
+            if (Character.Journey.Count > 1)
+            {
+                for (var i = 0; i < Character.Journey.Count - 1; i++)
+                {
+                    var current = Character.Journey[i];
+                    var next = Character.Journey[i + 1];
+
+                    canvas.StrokeColor = Styling.Primary;
+                    canvas.StrokeSize = tileSize / 5;
+                    canvas.DrawLine(
+                        current.X * tileSize + tileSize / 2,
+                        current.Y * tileSize + tileSize / 2,
+                        next.X * tileSize + tileSize / 2,
+                        next.Y * tileSize + tileSize / 2);
+                }
+            }
 
             base.Render(canvas, dimensions);
         }

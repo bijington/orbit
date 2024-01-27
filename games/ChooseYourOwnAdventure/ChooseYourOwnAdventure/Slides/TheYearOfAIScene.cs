@@ -1,4 +1,5 @@
 using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides;
 
@@ -6,6 +7,7 @@ public class TheYearOfAIScene : SlideSceneBase
 {
 	public TheYearOfAIScene(Pointer pointer) : base(pointer)
     {
+        Character.Position = Character.Positions.AppStore;
 	}
 
     public override string Notes =>
@@ -26,11 +28,11 @@ Although it did highlight another statement that we are all likely to reiterate,
         canvas.DrawString(
             dimensions,
 """
-- Storyline creation
+- Storyline creation - ChatGPT
 
-- Physics/complicated maths or algorithms
+- Physics/complicated maths or algorithms - GitHub Copilot
 
-- Visual design
+- Visual design - Bing Image Creator
 """,
             Styling.TitleColor,
             Colors.Transparent,
