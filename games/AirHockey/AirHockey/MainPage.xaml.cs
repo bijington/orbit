@@ -59,6 +59,6 @@ public partial class MainPage : ContentPage
         _ = playerStateManager.UpdateState((float)relativeX, (float)relativeY);
 
         this.Debugging.Text = 
-        $"{this.playerStateManager.PlayerState.Id} vs {this.playerStateManager.OpponentState.Id}";
+        $"{this.playerStateManager.PlayerState.Id} vs {this.playerStateManager.OpponentState?.Id}";
     }
 }

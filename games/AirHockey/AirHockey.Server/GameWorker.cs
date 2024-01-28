@@ -55,6 +55,8 @@ public class GameWorker : BackgroundService
             // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
             game.PuckState.VelocityY = -game.PuckState.VelocityY;
+
+            await this.hubContext.Clients.All.SendAsync(EventNames.PuckCollision, game.PlayerOne.Id);
         }
         else if (Physics.DoCirclesIntersect(game.PlayerTwo.X + radius, Math.Abs(game.PlayerTwo.Y - 1) + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
@@ -64,6 +66,8 @@ public class GameWorker : BackgroundService
             // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
             game.PuckState.VelocityY = -game.PuckState.VelocityY;
+
+            await this.hubContext.Clients.All.SendAsync(EventNames.PuckCollision, game.PlayerTwo.Id);
         }
         else if (game.PuckState.Y > 1.0)
         {
@@ -89,10 +93,14 @@ public class GameWorker : BackgroundService
         if (game.PuckState.X > 1.0)
         {
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
+
+            await this.hubContext.Clients.All.SendAsync(EventNames.WallCollision);
         }
         else if (game.PuckState.X < 0.0)
         {
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
+
+            await this.hubContext.Clients.All.SendAsync(EventNames.WallCollision);
         }
 
         //.Group(game.Id.ToString())

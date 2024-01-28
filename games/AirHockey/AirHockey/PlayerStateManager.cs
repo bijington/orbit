@@ -1,11 +1,16 @@
 ﻿using AirHockey.Shared;
 using Microsoft.AspNetCore.SignalR.Client;
+using Plugin.Maui.Audio;
 
 namespace AirHockey;
 
 public class PlayerStateManager
 {
     private HubConnection hubConnection;
+    private IAudioPlayer collisionPlayer;
+    private IAudioPlayer wallCollisionPlayer;
+    private readonly IAudioManager audioManager;
+    private readonly IFileSystem fileSystem;
 
     public PlayerState PlayerState { get; private set; }
 
@@ -15,15 +20,18 @@ public class PlayerStateManager
 
     public ScoreState ScoreState { get; private set; }
 
-    public PlayerStateManager()
+    public PlayerStateManager(
+        IAudioManager audioManager,
+        IFileSystem fileSystem,
+        IHapticFeedback hapticFeedback)
 	{
         hubConnection = new HubConnectionBuilder()
             .WithUrl("https://localhost:7226/Game")
             .Build();
 
-        PuckState = new();
+        PuckState = new()  { X = 0.5f, Y = 0.5f };
         ScoreState = new();
-        PlayerState = new(Guid.NewGuid());
+        PlayerState = new(Guid.NewGuid()) { X = 0.5f, Y = 0.75f };
 
         hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
         {
@@ -37,6 +45,21 @@ public class PlayerStateManager
         hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
         {
             OpponentState = playerState;
+        });
+
+        hubConnection.On<Guid>(EventNames.PuckCollision, playerId =>
+        {
+            this.collisionPlayer.Play();
+
+            if (playerId == PlayerState.Id)
+            {
+                hapticFeedback.Perform(HapticFeedbackType.Click);
+            }
+        });
+
+        hubConnection.On(EventNames.WallCollision, () =>
+        {
+            this.wallCollisionPlayer.Play();
         });
 
         hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
@@ -64,10 +87,15 @@ public class PlayerStateManager
                 OpponentState = gameState.PlayerOne;
             }
         });
+        this.audioManager = audioManager;
+        this.fileSystem = fileSystem;
     }
 
     public async Task Connect()
     {
+        this.collisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("ting.m4a"));
+        this.wallCollisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("wall_collision.mp3"));
+
         await hubConnection.StartAsync();
 
         await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);

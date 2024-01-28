@@ -1,6 +1,7 @@
 ﻿using AirHockey.GameObjects;
 using AirHockey.Scenes;
 using Orbit.Engine;
+using Plugin.Maui.Audio;
 
 namespace AirHockey;
 
@@ -23,6 +24,8 @@ public static class MauiProgram
                 .AddSingleton<GameSceneManager>()
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
+                .AddSingleton(AudioManager.Current)
+                .AddSingleton(FileSystem.Current)
                 .RegisterGameObjects()
                 .RegisterScenes();
 

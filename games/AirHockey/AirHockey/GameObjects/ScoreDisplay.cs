@@ -45,6 +45,12 @@ public class ScoreDisplay : GameObject
         else
         {
             var playerState = playerStateManager.OpponentState;
+
+            if (playerState is null)
+            {
+                return;
+            }
+            
             canvas.FontColor = playerState.IsBottom ? Colors.Red : Colors.Blue;
 
             canvas.DrawString(
