@@ -10,10 +10,12 @@ public class MainScene : GameScene
         OpponentPaddle opponentPaddle,
         Puck puck,
         ScoreDisplay playerScore,
-        ScoreDisplay opponentScore)
+        ScoreDisplay opponentScore,
+        GameManager gameManager)
     {
         Add(playerPaddle);
         Add(opponentPaddle);
+        Add(gameManager);
 
         playerScore.ScoreIndex = 0;
         playerScore.PlayerColor = Colors.Blue;

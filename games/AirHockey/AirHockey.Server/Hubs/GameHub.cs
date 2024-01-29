@@ -23,11 +23,14 @@ public class GameHub : Hub
 
         this.logger.LogInformation("Player connected {id}", playerId);
 
-        await Clients.All.SendAsync(EventNames.PlayerConnected, connectedPlayer);
+        var groupName = game.Id.ToString();
+        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
+        await Clients.Group(groupName).SendAsync(EventNames.PlayerConnected, connectedPlayer);
 
         if (game.PlayerTwo != PlayerState.Empty)
         {
-            await Clients.All.SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
+            await Clients.Group(groupName).SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
         }
     }
 
@@ -50,7 +53,8 @@ public class GameHub : Hub
                 game.PlayerTwo = playerState;
             }
 
-            await Clients.Others.SendAsync(EventNames.PlayerStateUpdated, playerState);
+            var groupName = game.Id.ToString();
+            await Clients.OthersInGroup(groupName).SendAsync(EventNames.PlayerStateUpdated, playerState);
         }
     }
 }

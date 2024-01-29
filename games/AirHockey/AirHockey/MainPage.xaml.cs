@@ -7,7 +7,7 @@ namespace AirHockey;
 public partial class MainPage : ContentPage
 {
     private readonly IGameSceneManager gameSceneManager;
-    private PlayerStateManager playerStateManager;
+    private readonly PlayerStateManager playerStateManager;
 
 	public MainPage(
         IGameSceneManager gameSceneManager,
@@ -21,15 +21,16 @@ public partial class MainPage : ContentPage
         gameSceneManager.LoadScene<MainScene>(GameView);
     }
 
-    private async void OnPlayButtonClicked(object sender, EventArgs eventArgs)
+    private async void OnOnlineButtonClicked(object sender, EventArgs eventArgs)
     {
         try 
         {
+            await playerStateManager.Initialise();
             await playerStateManager.Connect();
 
             gameSceneManager.Start();
 
-            PlayButton.IsVisible = false;
+            ButtonPanel.IsVisible = false;
         }
         catch (Exception ex)
         {
@@ -39,15 +40,27 @@ public partial class MainPage : ContentPage
         }
     }
 
-    void GameView_EndInteraction(object sender, TouchEventArgs e)
+    private async void OnOfflineButtonClicked(object sender, EventArgs eventArgs)
     {
+        try 
+        {
+            // Need to split between PlayerStateManager and GameManager...
+            await playerStateManager.Initialise();
+            //await playerStateManager.Connect();
+
+            gameSceneManager.Start();
+
+            ButtonPanel.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.ToString());
+
+            await DisplayAlert("Error playing game", ex.ToString(), "OK");
+        }
     }
 
-    void GameView_StartInteraction(object sender, TouchEventArgs e)
-    {
-    }
-
-    void GameView_DragInteraction(System.Object sender, Microsoft.Maui.Controls.TouchEventArgs e)
+    void GameView_DragInteraction(object sender, TouchEventArgs e)
     {
         var touch = e.Touches.First();
 

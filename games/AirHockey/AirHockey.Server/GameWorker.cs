@@ -21,15 +21,13 @@ public class GameWorker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            int delayInMilliseconds = 5;
+            int delayInMilliseconds = 16;
 
             var game = this.gameManager.Games.FirstOrDefault();
 
             if (game is not null)
             {
-                //this.logger.LogInformation("Found game to process {id}", game.Id);
-
-                await this.gameStateManager.UpdateGame(game, 5);
+                await this.gameStateManager.UpdateGame(game, delayInMilliseconds);
             }
 
             await Task.Delay(delayInMilliseconds, stoppingToken);

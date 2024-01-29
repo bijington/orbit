@@ -10,6 +10,8 @@ public class PlayerState
 
     public Guid Id { get; }
 
+    public Guid GameId { get; internal set; }
+
     public double X { get; set; }
 
     public double Y { get; set; }

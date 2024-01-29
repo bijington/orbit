@@ -18,8 +18,8 @@ public class GameStateManager
         int delayInMilliseconds = 5;
 
         // Perform movement
-        game.PuckState.X += game.PuckState.VelocityX;
-        game.PuckState.Y += game.PuckState.VelocityY;
+        game.PuckState.X += game.PuckState.VelocityX * millisecondsSinceLastUpdate;
+        game.PuckState.Y += game.PuckState.VelocityY * millisecondsSinceLastUpdate;
 
         var radius = game.PlayerOne.Size / 2;
         var puckRadius = game.PuckState.Size / 2;
@@ -81,27 +81,5 @@ public class GameStateManager
         }
 
         await this.gameLifeCycleHandler.PuckStateUpdated(game.Id, game.PuckState);
-        //await this.hubContext.Clients.All.SendAsync(EventNames.PuckStateUpdated, game.PuckState);
-
-        // Check for paddle collision
-
-        // if (this.logger.IsEnabled(LogLevel.Information))
-        // {
-        //     this.logger.LogInformation(
-        //         "GameWorker running at: {time} with: {playerOneId} at {x},{y} and {playerOneId}",
-        //         DateTimeOffset.Now,
-        //         game.PlayerOne.Id,
-        //         game.PlayerOne.X,
-        //         game.PlayerOne.Y,
-        //         game.PlayerTwo.Id);
-
-        //     var playerOne = game.PlayerOne;
-        //     this.logger.LogInformation("Player one at: {x},{y} with score: {score}", playerOne.X, playerOne.Y, game.ScoreState.ScoreOne);
-
-        //     var playerTwo = game.PlayerTwo;
-        //     this.logger.LogInformation("Player two at: {x},{y} with score: {score}", playerTwo.X, playerTwo.Y, game.ScoreState.ScoreTwo);
-
-        //     this.logger.LogInformation("Puck at: {x},{y}", game.PuckState.X, game.PuckState.Y);
-        // }
     }
 }

@@ -4,13 +4,14 @@ using Plugin.Maui.Audio;
 
 namespace AirHockey;
 
-public class PlayerStateManager
+public class PlayerStateManager : IGameLifeCycleHandler
 {
     private HubConnection hubConnection;
     private IAudioPlayer collisionPlayer;
     private IAudioPlayer wallCollisionPlayer;
     private readonly IAudioManager audioManager;
     private readonly IFileSystem fileSystem;
+    private readonly IHapticFeedback hapticFeedback;
 
     public PlayerState PlayerState { get; private set; }
 
@@ -33,34 +34,17 @@ public class PlayerStateManager
         ScoreState = new();
         PlayerState = new(Guid.NewGuid()) { X = 0.5f, Y = 0.75f };
 
-        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
-        {
-            PuckState = puckState;
-        });
-        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, scoreState =>
-        {
-            ScoreState = scoreState;
-        });
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, async puckState => await PuckStateUpdated(Guid.Empty, puckState));
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, async scoreState => await ScoreUpdated(Guid.Empty, scoreState));
 
         hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
         {
             OpponentState = playerState;
         });
 
-        hubConnection.On<Guid>(EventNames.PuckCollision, playerId =>
-        {
-            this.collisionPlayer.Play();
+        hubConnection.On<Guid>(EventNames.PuckCollision, async (playerId) => await PuckCollision(Guid.Empty, playerId));
 
-            if (playerId == PlayerState.Id)
-            {
-                hapticFeedback.Perform(HapticFeedbackType.Click);
-            }
-        });
-
-        hubConnection.On(EventNames.WallCollision, () =>
-        {
-            this.wallCollisionPlayer.Play();
-        });
+        hubConnection.On(EventNames.WallCollision, async () => await WallCollision(Guid.Empty));
 
         hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
         {
@@ -89,13 +73,17 @@ public class PlayerStateManager
         });
         this.audioManager = audioManager;
         this.fileSystem = fileSystem;
+        this.hapticFeedback = hapticFeedback;
+    }
+
+    public async Task Initialise()
+    {
+        this.collisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("ting.m4a"));
+        this.wallCollisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("wall_collision.mp3"));
     }
 
     public async Task Connect()
     {
-        this.collisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("ting.m4a"));
-        this.wallCollisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("wall_collision.mp3"));
-
         await hubConnection.StartAsync();
 
         await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
@@ -111,5 +99,34 @@ public class PlayerStateManager
         PlayerState.X = x;
         PlayerState.Y = y;
         await hubConnection.SendAsync(MethodNames.UpdatePlayerState, PlayerState);
+    }
+
+    public Task PuckCollision(Guid gameId, Guid playerId)
+    {
+        this.collisionPlayer.Play();
+
+        if (playerId == PlayerState.Id)
+        {
+            hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+        return Task.CompletedTask;
+    }
+
+    public Task PuckStateUpdated(Guid gameId, PuckState puckState)
+    {
+        PuckState = puckState;
+        return Task.CompletedTask;
+    }
+
+    public Task ScoreUpdated(Guid gameId, ScoreState scoreState)
+    {
+        ScoreState = scoreState;
+        return Task.CompletedTask;
+    }
+
+    public Task WallCollision(Guid gameId)
+    {
+        this.wallCollisionPlayer.Play();
+        return Task.CompletedTask;
     }
 }

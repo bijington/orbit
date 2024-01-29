@@ -15,25 +15,21 @@ public class SignalRGameLifeCycleHandler : IGameLifeCycleHandler
 
     public async Task PuckCollision(Guid gameId, Guid playerId)
     {
-        //await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.PuckCollision, playerId);
-        await this.hubContext.Clients.All.SendAsync(EventNames.PuckCollision, playerId);
+        await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.PuckCollision, playerId);
     }
 
     public async Task PuckStateUpdated(Guid gameId, PuckState puckState)
     {
-        //await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.PuckStateUpdated, puckState);
-        await this.hubContext.Clients.All.SendAsync(EventNames.PuckStateUpdated, puckState);
+        await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.PuckStateUpdated, puckState);
     }
 
     public async Task ScoreUpdated(Guid gameId, ScoreState scoreState)
     {
-        // await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.ScoreUpdated, scoreState);
-        await this.hubContext.Clients.All.SendAsync(EventNames.ScoreUpdated, scoreState);
+        await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.ScoreUpdated, scoreState);
     }
 
     public async Task WallCollision(Guid gameId)
     {
-        // await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.WallCollision);
-        await this.hubContext.Clients.All.SendAsync(EventNames.WallCollision);
+        await this.hubContext.Clients.Group(gameId.ToString()).SendAsync(EventNames.WallCollision);
     }
 }

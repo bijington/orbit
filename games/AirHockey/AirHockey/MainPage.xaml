@@ -12,18 +12,37 @@
         <engine:GameSceneView
             x:Name="GameView"
             BackgroundColor="Transparent"
-            StartInteraction="GameView_StartInteraction"
-            EndInteraction="GameView_EndInteraction"
             DragInteraction="GameView_DragInteraction" />
 
-        <Button 
-            Text="Play" 
-            x:Name="PlayButton"
-            Clicked="OnPlayButtonClicked"
-            MinimumHeightRequest="40" 
-            MinimumWidthRequest="200"
+        <Border 
+            x:Name="ButtonPanel"
             HorizontalOptions="Center"
-            VerticalOptions="Center" />
+            VerticalOptions="Center"
+            BackgroundColor="White"
+            Padding="20">
+
+            <VerticalStackLayout Spacing="20">
+
+                <Label 
+                    Text="Start" 
+                    FontSize="30" 
+                    TextColor="Black" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" />
+
+                <Button 
+                    Text="Online" 
+                    Clicked="OnOnlineButtonClicked"
+                    MinimumHeightRequest="40" 
+                    MinimumWidthRequest="200" />
+
+                <Button 
+                    Text="Offline" 
+                    Clicked="OnOfflineButtonClicked"
+                    MinimumHeightRequest="40" 
+                    MinimumWidthRequest="200" />
+            </VerticalStackLayout>
+        </Border>
     </Grid>
  
 </ContentPage>
