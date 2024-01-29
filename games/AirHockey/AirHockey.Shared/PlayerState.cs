@@ -5,7 +5,7 @@ public class PlayerState
     public PlayerState(Guid id)
     {
         Id = id;
-        Size = 0.025;
+        Size = 0.03;
     }
 
     public Guid Id { get; }
@@ -21,6 +21,10 @@ public class PlayerState
     public double Mass { get; } = 2;
 
     public bool IsBottom { get; set; }
+
+    public double VelocityX => 0;
+
+    public double VelocityY => 0;
 
     public static PlayerState Empty { get; } = new PlayerState(Guid.Empty);
 }

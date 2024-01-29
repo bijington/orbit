@@ -10,19 +10,19 @@ public class GameManager : GameObject
 
     public GameManager(GameStateManager gameStateManager)
     {
-        var player = new PlayerState(Guid.NewGuid());
+        // var player = new PlayerState(Guid.NewGuid());
 
-        game = new Game(Guid.NewGuid(), player)
-        {
-            PlayerTwo = new PlayerState(Guid.NewGuid())
-        };
-        this.gameStateManager = gameStateManager;
+        // game = new Game(Guid.NewGuid(), player)
+        // {
+        //     PlayerTwo = new PlayerState(Guid.NewGuid())
+        // };
+        // this.gameStateManager = gameStateManager;
     }
 
     public override void Update(double millisecondsSinceLastUpdate)
     {
         base.Update(millisecondsSinceLastUpdate);
 
-        this.gameStateManager.UpdateGame(game, millisecondsSinceLastUpdate);
+        // this.gameStateManager.UpdateGame(game, millisecondsSinceLastUpdate);
     }
 }

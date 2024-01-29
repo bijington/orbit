@@ -4,7 +4,7 @@ public class PuckState
 {
     public PuckState()
     {
-        Size = 0.02;
+        Size = 0.025;
     }
 
     public double X { get; set; }

@@ -24,25 +24,21 @@ public class GameStateManager
         var radius = game.PlayerOne.Size / 2;
         var puckRadius = game.PuckState.Size / 2;
 
-        if (Physics.DoCirclesIntersect(game.PlayerOne.X + radius, game.PlayerOne.Y + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
+        if (Physics.DoCirclesIntersect(game.PlayerOne.X, game.PlayerOne.Y, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
             this.logger.LogInformation("Player one HIT!!!");
             // var angle = Physics.CalculateAngleAfterCollision(game.PlayerOne, game.PuckState);
-            // Physics.ApplyForceAfterCollision(game.PlayerOne, game.PuckState, angle);
-            // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
-            game.PuckState.VelocityX = -game.PuckState.VelocityX;
-            game.PuckState.VelocityY = -game.PuckState.VelocityY;
+            Physics.ApplyForceAfterCollision(game.PlayerOne, game.PuckState);
+            this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
 
             await this.gameLifeCycleHandler.PuckCollision(game.Id, game.PlayerOne.Id);
         }
-        else if (Physics.DoCirclesIntersect(game.PlayerTwo.X + radius, Math.Abs(game.PlayerTwo.Y - 1) + radius, radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
+        else if (Physics.DoCirclesIntersect(game.PlayerTwo.X, Math.Abs(game.PlayerTwo.Y - 1), radius, game.PuckState.X + puckRadius, game.PuckState.Y + puckRadius, puckRadius))
         {
             this.logger.LogInformation("Player two HIT!!!");
             // var angle = Physics.CalculateAngleAfterCollision(game.PlayerTwo, game.PuckState);
-            // Physics.ApplyForceAfterCollision(game.PlayerTwo, game.PuckState, angle);
-            // this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
-            game.PuckState.VelocityX = -game.PuckState.VelocityX;
-            game.PuckState.VelocityY = -game.PuckState.VelocityY;
+            Physics.ApplyForceAfterCollision(game.PlayerTwo, game.PuckState);
+            this.logger.LogInformation("Puck velocity: {x},{y}", game.PuckState.VelocityX, game.PuckState.VelocityY);
 
             await this.gameLifeCycleHandler.PuckCollision(game.Id, game.PlayerTwo.Id);
         }
@@ -67,13 +63,13 @@ public class GameStateManager
             delayInMilliseconds = 5000;
         }
 
-        if (game.PuckState.X > 1.0)
+        if (game.PuckState.X + radius > 1.0)
         {
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
 
             await this.gameLifeCycleHandler.WallCollision(game.Id);
         }
-        else if (game.PuckState.X < 0.0)
+        else if (game.PuckState.X + radius < 0.0)
         {
             game.PuckState.VelocityX = -game.PuckState.VelocityX;
 
