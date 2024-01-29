@@ -14,7 +14,7 @@ public class ColourSchemeScene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Demo time", canvas, dimensions);
+        Styling.RenderTitle("Colours", canvas, dimensions);
 
         base.Render(canvas, dimensions);
     }
