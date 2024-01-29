@@ -21,4 +21,12 @@ This contains the shared code between the server and client applications. Hopefu
 
 It is currently configured to host the web app locally which can be done via:
 
+## Server
 
+```dotnetcli
+dotnet run --project AirHockey.Server/AirHockey.Server.csproj 
+```
+
+## Client
+
+Run from within Visual Studio or Visual Studio Code.
