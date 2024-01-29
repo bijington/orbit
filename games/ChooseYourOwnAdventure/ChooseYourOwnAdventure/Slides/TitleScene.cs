@@ -21,6 +21,8 @@ You know NDC has a special place in my heart - I spoke here last year which was 
 
 Todays talk is related to that talk but we are branching out with the content. 
 
+I am hoping to give some insight into a library that I have built, which aims to make it easier to build games in .NET MAUI. We will walk through how to use it from a conceptual view and then move onto a concrete example of your choice.
+
 Join me as we embark upon an adventure to learn about building games in .NET MAUI.
 """;
 

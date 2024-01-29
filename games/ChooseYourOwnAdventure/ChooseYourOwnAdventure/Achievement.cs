@@ -15,6 +15,10 @@ public static class AchievementNames
 
     public const string FinalDecision = "Decision master";
 
+	public const string Paragon = "Paragon";
+
+	public const string GoalOriented = "Goal oriented";
+
     public const string StaleMate = "Stale mate";
 
     public const string NextSpeaker = "Next!";

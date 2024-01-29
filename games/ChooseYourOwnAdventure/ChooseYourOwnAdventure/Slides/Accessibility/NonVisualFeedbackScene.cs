@@ -2,7 +2,7 @@ using BuildingGames.GameObjects;
 
 namespace BuildingGames.Slides.Accessibility;
 
-public class NonVisualFeedbackScene : SlideSceneBase
+public class NonVisualFeedbackScene : SlideSceneBase, IDestinationKnowingScene
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 	public NonVisualFeedbackScene(Pointer pointer) : base(pointer)
@@ -14,6 +14,8 @@ public class NonVisualFeedbackScene : SlideSceneBase
 """
 -
 """;
+
+    public Type DestinationSceneType => typeof(TheYearOfAIScene);
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

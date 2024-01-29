@@ -38,7 +38,7 @@ public class DecisionTime2Scene : VoteSceneBase
 
         if (currentTransition == 2)
         {
-            await OpenVote("Where will you invest your knowledge?", option1, option2, false);
+            await OpenVote("Will you allocate some time to helping this traveler?", option1, option2, false);
         }
         else if (currentTransition == 3)
         {
@@ -52,13 +52,13 @@ public class DecisionTime2Scene : VoteSceneBase
             }
             else if (Option1VoteCount > Option2VoteCount)
             {
-                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
+                this.achievementManager.UpdateProgress(AchievementNames.Paragon, 100);
                 this.decision = $"You chose to '{option1}'.";
                 this.decisions.RecordDecision($"'{option1}'");
             }
             else
             {
-                this.achievementManager.UpdateProgress(AchievementNames.FirstDecision, 100);
+                this.achievementManager.UpdateProgress(AchievementNames.GoalOriented, 100);
                 this.decision = $"You chose to '{option2}'.";
                 this.decisions.RecordDecision($"'{option2}'");
             }
