@@ -48,8 +48,10 @@
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Plugin.Maui.Audio" Version="3.0.0-preview2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
+      <ProjectReference Include="..\AirHockey.Shared\AirHockey.Shared.csproj" />
 	</ItemGroup>
 </Project>
