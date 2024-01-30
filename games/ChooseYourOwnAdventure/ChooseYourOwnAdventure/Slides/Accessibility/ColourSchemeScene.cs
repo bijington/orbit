@@ -16,6 +16,9 @@ public class ColourSchemeScene : SlideSceneBase
     {
         Styling.RenderTitle("Colours", canvas, dimensions);
 
+        // Render the splotch test images to highlight a lack of color depth.
+        // Render some patterns to show how to avoid the issue.
+
         base.Render(canvas, dimensions);
     }
 }

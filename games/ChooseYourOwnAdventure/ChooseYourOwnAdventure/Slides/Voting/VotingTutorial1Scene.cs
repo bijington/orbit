@@ -122,12 +122,6 @@ So what are we building?
             DrawToDeviceCommunications(canvas, device1Bounds, hubBounds, device2CommunicationsColor);
         }
 
-        if (currentTransition is (int)Transition.HubToDevicesCommunications)
-        {
-            DrawToDeviceCommunications(canvas, device1Bounds, hubBounds, Styling.Tertiary);
-            DrawToDeviceCommunications(canvas, device2Bounds, hubBounds, Styling.Tertiary);
-        }
-
         if (currentTransition >= (int)Transition.Hub)
         {
             // Hub
@@ -197,6 +191,5 @@ So what are we building?
         DeviceToHubConnections,
         Device1ToDevice2Communications,
         Device2ToDevice1Communications,
-        HubToDevicesCommunications,
     }
 }

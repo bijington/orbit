@@ -1,12 +1,12 @@
 using BuildingGames.GameObjects;
 
-namespace BuildingGames.Slides.Voting;
+namespace BuildingGames.Slides.Gaming;
 
-public class GamingTutorialWrapUp1Scene : SlideSceneBase
+public class VotingTutorialWrapUp1Scene : SlideSceneBase
 {
     private readonly Microsoft.Maui.Graphics.IImage image;
 
-	public GamingTutorialWrapUp1Scene(Pointer pointer) : base(pointer)
+	public VotingTutorialWrapUp1Scene(Pointer pointer) : base(pointer)
     {
         image = LoadImage("gaming_wrapup_1.jpg");
 	}

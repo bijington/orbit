@@ -27,7 +27,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bijington.chooseyourownadventure17</string>
+	<string>com.bijington.chooseyourownadventure19</string>
 	<key>CFBundleDisplayName</key>
 	<string>Buildings games in .NET MAUI</string>
 	<key>CFBundleName</key>

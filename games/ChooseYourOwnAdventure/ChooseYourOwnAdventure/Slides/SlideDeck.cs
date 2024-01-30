@@ -10,11 +10,10 @@ public static class SlideDeck
     // TODO: encapsulate this nicely to handle the branches and general navigation flow.
 	public static IList<Type> Slides { get; } = new List<Type>()
     {
-        typeof(VisualAssistanceScene),
         typeof(TitleScene),
         typeof(CharacterSelectionScene),
         typeof(PrologueScene),
-        typeof(WorldScene),
+        typeof(WorldScene), // 8:36
         typeof(TutorialScene),
 
         // Why .NET MAUI for games?
@@ -25,7 +24,7 @@ public static class SlideDeck
         typeof(ProcessUserInputScene),
         typeof(UpdateScene),
         typeof(RenderScene),
-        typeof(WaitScene), // 14 minutes
+        typeof(WaitScene), // 16:16
 
         typeof(WorldScene),
 
@@ -34,7 +33,7 @@ public static class SlideDeck
         typeof(HowToUsePartTwo),
         typeof(HowToUsePartThree),
         typeof(HowToUsePartFour),
-        typeof(HowToUsePartFive),
+        typeof(HowToUsePartFive), // 3:00
 
         typeof(WorldScene),
 
@@ -57,10 +56,10 @@ public static class SlideDeck
         typeof(GamingTutorial5Scene),
         typeof(GamingTutorial6Scene),
         typeof(GamingTutorial7Scene),
-        typeof(GamingTutorialDemoScene),
+        typeof(GamingTutorialDemoScene), // 20:32
         typeof(GamingTutorialWrapUp0Scene),
         typeof(GamingTutorialWrapUp1Scene),
-        typeof(GamingTutorialWrapUp2Scene),
+        typeof(GamingTutorialWrapUp2Scene), // 5:40
 
         // Summarise this point
         typeof(WorldScene),
@@ -87,12 +86,13 @@ public static class SlideDeck
 
         typeof(DecisionTime2Scene),
 
-        // Decision to look at code behind this or accessibility? - Perhaps make it simple for you or the user?
+        // Option 1
         typeof(ColourSchemeScene),
         typeof(DuckTypingScene),
         typeof(VisualAssistanceScene),
         typeof(NonVisualFeedbackScene),
 
+        // Option 2
         typeof(TipsAndTricksSimpleScene),
         typeof(TipsAndTricksSimplePartTwoScene),
         typeof(TipsAndTricksDeviceScene),
@@ -100,7 +100,7 @@ public static class SlideDeck
         typeof(TheYearOfAIScene),
         typeof(SummaryScene),
         typeof(WorldScene),
-        typeof(Credits)
+        typeof(Credits) // 6:32
     };
 
     private static int currentSlideIndex = 0;
