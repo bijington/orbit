@@ -139,34 +139,37 @@ public class WorldMap : GameObject
 
             float tileSize = (int)MathF.Min(height, width);
 
+            var renderWidth = tileSize * columns;
+            var offset = (dimensions.Width - renderWidth) / 2f;
+
             for (var x = 0; x < columns; x++)
             {
                 for (var y = 0; y < rows; y++)
                 {
                     var tileType = this.tiles[y, x];
 
-                    RenderTile(tileType, TileTypes.Gree, canvas, x, y, tileSize);
+                    RenderTile(tileType, TileTypes.Gree, canvas, x, y, tileSize, offset);
 
                     if (tileType.HasFlag(TileTypes.Wate))
                     {
-                        canvas.DrawImage(images[TileTypes.Wate], x * tileSize, y * tileSize, tileSize, tileSize);
-                        canvas.DrawImage(images[WateOverlayIndex], x * tileSize, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[TileTypes.Wate], x * tileSize + offset, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[WateOverlayIndex], x * tileSize + offset, y * tileSize, tileSize, tileSize);
                     }
                     else if (tileType.HasFlag(TileTypes.Fire))
                     {
-                        canvas.DrawImage(images[TileTypes.Gree], x * tileSize, y * tileSize, tileSize, tileSize);
-                        canvas.DrawImage(images[fireIndex], x * tileSize, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[TileTypes.Gree], x * tileSize + offset, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[fireIndex], x * tileSize + offset, y * tileSize, tileSize, tileSize);
                     }
                     else if (tileType.HasFlag(TileTypes.Tree))
                     {
-                        canvas.DrawImage(images[TileTypes.Gree], x * tileSize, y * tileSize, tileSize, tileSize);
-                        canvas.DrawImage(images[TileTypes.Tree], x * tileSize, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[TileTypes.Gree], x * tileSize + offset, y * tileSize, tileSize, tileSize);
+                        canvas.DrawImage(images[TileTypes.Tree], x * tileSize + offset, y * tileSize, tileSize, tileSize);
                     }
                     else
                     {
                         foreach (var type in this.tileTypes)
                         {
-                            RenderTile(tileType, type, canvas, x, y, tileSize);
+                            RenderTile(tileType, type, canvas, x, y, tileSize, offset);
                         }    
                     }
                 }
@@ -174,7 +177,7 @@ public class WorldMap : GameObject
 
             character.TileSize = new Size(tileSize, tileSize);
 
-            bat.Bounds = new RectF(11 * tileSize, 11 * tileSize, tileSize, tileSize);
+            bat.Bounds = new RectF(11 * tileSize + offset, 11 * tileSize, tileSize, tileSize);
 
             if (Character.Journey.Count > 1)
             {
@@ -186,9 +189,9 @@ public class WorldMap : GameObject
                     canvas.StrokeColor = Styling.Primary;
                     canvas.StrokeSize = tileSize / 5;
                     canvas.DrawLine(
-                        current.X * tileSize + tileSize / 2,
+                        current.X * tileSize + tileSize / 2 + offset,
                         current.Y * tileSize + tileSize / 2,
-                        next.X * tileSize + tileSize / 2,
+                        next.X * tileSize + tileSize / 2 + offset,
                         next.Y * tileSize + tileSize / 2);
                 }
             }
@@ -202,11 +205,11 @@ public class WorldMap : GameObject
         
     }
 
-    private void RenderTile(TileTypes currentType, TileTypes tileToRender, ICanvas canvas, int x, int y, float tileSize)
+    private void RenderTile(TileTypes currentType, TileTypes tileToRender, ICanvas canvas, int x, int y, float tileSize, float offset)
     {
         if (currentType.HasFlag(tileToRender))
         {
-            canvas.DrawImage(images[tileToRender], x * tileSize, y * tileSize, tileSize, tileSize);
+            canvas.DrawImage(images[tileToRender], x * tileSize + offset, y * tileSize, tileSize, tileSize);
         }
     }
 }
