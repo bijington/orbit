@@ -1,6 +1,8 @@
 ﻿using AirHockey.GameObjects;
 using AirHockey.Scenes;
+using AirHockey.Shared;
 using Orbit.Engine;
+using Plugin.Maui.Audio;
 
 namespace AirHockey;
 
@@ -19,9 +21,14 @@ public static class MauiProgram
             })
             .Services
                 .AddTransient<MainPage>()
-                .AddTransient<PlayerStateManager>()
+                .AddSingleton<PlayerStateManager>()
+                .AddSingleton<IGameLifeCycleHandler>(x => x.GetRequiredService<PlayerStateManager>())
+                .AddSingleton<GameSceneManager>()
+                .AddSingleton<GameStateManager>()
                 .AddSingleton(HapticFeedback.Default)
                 .AddSingleton(Vibration.Default)
+                .AddSingleton(AudioManager.Current)
+                .AddSingleton(FileSystem.Current)
                 .RegisterGameObjects()
                 .RegisterScenes();
 

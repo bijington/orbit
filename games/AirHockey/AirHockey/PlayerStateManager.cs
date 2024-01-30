@@ -1,38 +1,92 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using AirHockey.Shared;
+using Microsoft.AspNetCore.SignalR.Client;
+using Plugin.Maui.Audio;
 
 namespace AirHockey;
 
-public class PlayerStateManager
+public class PlayerStateManager : IGameLifeCycleHandler
 {
     private HubConnection hubConnection;
-    Action<PlayerState> onUpdatePlayerState;
+    private IAudioPlayer collisionPlayer;
+    private IAudioPlayer wallCollisionPlayer;
+    private readonly IAudioManager audioManager;
+    private readonly IFileSystem fileSystem;
+    private readonly IHapticFeedback hapticFeedback;
 
-    public PlayerStateManager()
+    public PlayerState PlayerState { get; private set; }
+
+    public PlayerState OpponentState { get; private set; }
+
+    public PuckState PuckState { get; private set; }
+
+    public ScoreState ScoreState { get; private set; }
+
+    public PlayerStateManager(
+        IAudioManager audioManager,
+        IFileSystem fileSystem,
+        IHapticFeedback hapticFeedback)
 	{
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:7030/Game")
+            .WithUrl("https://localhost:7226/Game")
             .Build();
 
-        hubConnection.On<PlayerState>("UpdatePlayerState", msg =>
+        PuckState = new()  { X = 0.5f, Y = 0.5f };
+        ScoreState = new();
+        PlayerState = new(Guid.NewGuid()) { X = 0.5f, Y = 0.75f };
+
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, async puckState => await PuckStateUpdated(Guid.Empty, puckState));
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, async scoreState => await ScoreUpdated(Guid.Empty, scoreState));
+
+        hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
         {
-            try
+            OpponentState = playerState;
+        });
+
+        hubConnection.On<Guid>(EventNames.PuckCollision, async (playerId) => await PuckCollision(Guid.Empty, playerId));
+
+        hubConnection.On(EventNames.WallCollision, async () => await WallCollision(Guid.Empty));
+
+        hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
+        {
+            if (PlayerState.Id == playerState.Id)
             {
-                Console.WriteLine($"Received message {msg.X}");
-                this.onUpdatePlayerState?.Invoke(msg);
-                //Console.WriteLine($"From {msg.UserName}");
-                //UpdateProperties(msg);
+                PlayerState = playerState;
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("Failed to receive message");
-                Console.WriteLine(ex.Message);
+                OpponentState = playerState;
             }
         });
+
+        hubConnection.On<GameState>(EventNames.GameStarted, gameState =>
+        {
+            if (PlayerState.Id == gameState.PlayerOne.Id)
+            {
+                PlayerState = gameState.PlayerOne;
+                OpponentState = gameState.PlayerTwo;
+            }
+            else
+            {
+                PlayerState = gameState.PlayerTwo;
+                OpponentState = gameState.PlayerOne;
+            }
+        });
+        this.audioManager = audioManager;
+        this.fileSystem = fileSystem;
+        this.hapticFeedback = hapticFeedback;
     }
 
-    public Task Connect()
+    public async Task Initialise()
     {
-        return hubConnection.StartAsync();
+        this.collisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("ting.m4a"));
+        this.wallCollisionPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync("wall_collision.mp3"));
+    }
+
+    public async Task Connect()
+    {
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
     }
 
     public Task Disconnect()
@@ -40,20 +94,39 @@ public class PlayerStateManager
         return hubConnection.StopAsync();
     }
 
-    public void RegisterCallback(Action<PlayerState> onUpdatePlayerState)
+    public async Task UpdateState(float x, float y)
     {
-        this.onUpdatePlayerState = onUpdatePlayerState;
+        PlayerState.X = x;
+        PlayerState.Y = y;
+        await hubConnection.SendAsync(MethodNames.UpdatePlayerState, PlayerState);
     }
 
-    public async Task UpdateState(int x, int y)
+    public Task PuckCollision(Guid gameId, Guid playerId)
     {
-        await hubConnection.SendAsync("UpdatePlayerState", new PlayerState { X = x, Y = y });
+        this.collisionPlayer.Play();
+
+        if (playerId == PlayerState.Id)
+        {
+            hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+        return Task.CompletedTask;
     }
-}
 
-public class PlayerState
-{
-    public int X { get; set; }
+    public Task PuckStateUpdated(Guid gameId, PuckState puckState)
+    {
+        PuckState = puckState;
+        return Task.CompletedTask;
+    }
 
-    public int Y { get; set; }
+    public Task ScoreUpdated(Guid gameId, ScoreState scoreState)
+    {
+        ScoreState = scoreState;
+        return Task.CompletedTask;
+    }
+
+    public Task WallCollision(Guid gameId)
+    {
+        this.wallCollisionPlayer.Play();
+        return Task.CompletedTask;
+    }
 }
