@@ -33,7 +33,7 @@ public class TutorialPartTwoScene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is SignalR?", canvas, dimensions);
+        Styling.RenderTitle("Tutorial - SignalR", canvas, dimensions);
         // Who here has a creative itch?
 //Growing up I used to love diving into a ‘choose your own adventure’ style book and then later on in life, the same concept in video game form.I would like to apply this concept in today’s talk… 
 

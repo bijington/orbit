@@ -99,7 +99,7 @@ Which leads me nicely onto
             canvas.FillColor = Styling.Secondary;
             canvas.FillEllipse(signalRBounds);
 
-            var text = currentTransition >= (int)Transition.Specifics ? "ASP.NET Core Web app" : "Server";
+            var text = currentTransition >= (int)Transition.Specifics ? "ASP.NET Core" : "Server";
 
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;
@@ -160,7 +160,7 @@ Which leads me nicely onto
             canvas.FillColor = Styling.Tertiary;
             canvas.FillRoundedRectangle(hubBounds, 30);
 
-            var text = currentTransition >= (int)Transition.Specifics ? "SignalR Hub" : "Real-time";
+            var text = currentTransition >= (int)Transition.Specifics ? "Hub" : "Real-time";
 
             canvas.FontSize = (float)Styling.ScaledFontSize(0.05f);
             canvas.FontColor = Styling.Primary;

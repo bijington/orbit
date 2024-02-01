@@ -26,7 +26,7 @@ The other new component from our diagram is the BackgroundService.
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Tutorial - What is a BackgroundService?", canvas, dimensions);
+        Styling.RenderTitle("Tutorial - BackgroundService", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,
