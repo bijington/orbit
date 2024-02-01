@@ -15,15 +15,9 @@ public class TitleScene : SlideSceneBase
 
     public override string Notes => 
 """
-Welcome everyone, thank you all for joining me today. 
+Welcome everyone, thank you all for joining me today. I hope you have all enjoyed the conference so far.
         
-You know NDC has a special place in my heart - I spoke here last year which was my first ever in-person talk at a conference. In this very room and at this very time slot.
-
-Todays talk is related to that talk but we are branching out with the content. 
-
 I am hoping to give some insight into a library that I have built, which aims to make it easier to build games in .NET MAUI. We will walk through how to use it from a conceptual view and then move onto a concrete example of your choice.
-
-Join me as we embark upon an adventure to learn about building games in .NET MAUI.
 """;
 
     public override void Render(ICanvas canvas, RectF dimensions)

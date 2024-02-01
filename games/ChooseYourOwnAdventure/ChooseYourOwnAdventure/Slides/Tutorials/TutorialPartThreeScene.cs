@@ -7,9 +7,17 @@ public class TutorialPartThreeScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage image;
 
     public override string Notes => 
-        """
-        s
-        """;
+"""
+The other new component from our diagram is the BackgroundService.
+
+- Run background tasks
+
+- Can be hosted in many ways
+
+- Event or timer based
+
+- Scalable
+""";
 
     public TutorialPartThreeScene(Pointer pointer) : base(pointer)
     {

@@ -14,6 +14,8 @@ public class GamingTutorial3Scene : SlideSceneBase
     public override string Notes => 
 """
 Let's take a look at each component and how we integrate it into our solution.
+
+First up is the Hub.
 """;
 
     public override void Render(ICanvas canvas, RectF dimensions)

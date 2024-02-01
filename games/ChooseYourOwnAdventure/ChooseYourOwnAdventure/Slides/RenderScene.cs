@@ -11,6 +11,7 @@ public class RenderScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage paint;
     private readonly Microsoft.Maui.Graphics.IImage asteroid;
     private readonly Microsoft.Maui.Graphics.IImage ship;
+    private readonly Microsoft.Maui.Graphics.IImage canvasInteractions;
 
     private readonly IList<string> textTransitions;
 
@@ -38,6 +39,7 @@ So to simplify the render of a rotating asteroid gravitating towards our ship we
         paint = LoadImage("paint.png");
         asteroid = LoadImage("asteroid.png");
         ship = LoadImage("ship_basic.png");
+        canvasInteractions = LoadImage("canvas_interactions.png");
 
         textTransitions = new List<string>
         {
@@ -142,6 +144,8 @@ So to simplify the render of a rotating asteroid gravitating towards our ship we
             canvas.DrawImage(asteroid, -(asteroid.Width * 0.8f) / 2, -(asteroid.Height * 0.8f) / 2, asteroid.Width * 0.8f, asteroid.Height * 0.8f);
 
             canvas.DrawRectangle(-(asteroid.Width * 0.8f) / 2, -(asteroid.Height * 0.8f) / 2, asteroid.Width * 0.8f, asteroid.Height * 0.8f);
+
+            //canvas.DrawImage(canvasInteractions, 40, dimensions.Height - canvasInteractions.Height - 40, canvasInteractions.Width, canvasInteractions.Height);
         }
     }
 

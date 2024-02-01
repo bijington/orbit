@@ -17,23 +17,26 @@ public static class SlideDeck
         typeof(TutorialScene),
 
         // Why .NET MAUI for games?
-        typeof(WhyDotnetMauiScene),
+        typeof(WhyDotnetMauiScene), // 12:46
+        typeof(IntroducingOrbitScene),
+
+        typeof(WorldScene),
 
         // What is powering the talk today?
         typeof(TheGameEngineApproachScene),
         typeof(ProcessUserInputScene),
         typeof(UpdateScene),
         typeof(RenderScene),
-        typeof(WaitScene), // 16:16
+        // typeof(WaitScene), // 16:16
 
         typeof(WorldScene),
 
         // How to section?
         typeof(HowToUsePartOne),
-        typeof(HowToUsePartTwo),
         typeof(HowToUsePartThree),
+        typeof(HowToUsePartFive),
+        typeof(HowToUsePartTwo),
         typeof(HowToUsePartFour),
-        typeof(HowToUsePartFive), // 3:00
 
         typeof(WorldScene),
 
@@ -44,6 +47,9 @@ public static class SlideDeck
         typeof(VotingTutorial0Scene),
         typeof(VotingTutorial1Scene),
         typeof(TutorialPartTwoScene),
+        typeof(VotingTutorialDemoScene),
+        typeof(VotingTutorialWrapUp1Scene),
+        typeof(VotingTutorialWrapUp2Scene),
 
         // Option 2
         typeof(GamingTutorial0Scene),
@@ -56,33 +62,13 @@ public static class SlideDeck
         typeof(GamingTutorial5Scene),
         typeof(GamingTutorial6Scene),
         typeof(GamingTutorial7Scene),
-        typeof(GamingTutorialDemoScene), // 20:32
+        typeof(GamingTutorialDemoScene),
         typeof(GamingTutorialWrapUp0Scene),
         typeof(GamingTutorialWrapUp1Scene),
         typeof(GamingTutorialWrapUp2Scene), // 5:40
 
         // Summarise this point
         typeof(WorldScene),
-
-        // // Decision Time
-        // typeof(MagicianScene),
-        // //typeof(ChooseDifficultyScene), // Maybe offer a slight detour on our journey to learn these things?
-        // //typeof(RedVersusBluePillScene), // SlideLottie or TheGameEngineApproachScene
-
-        // // Optional extra from MagicianScene - might not fit but it offers some nice insights.
-        // typeof(SlideLottie),
-        // typeof(SlideAnimations),
-        // typeof(SlideAnimationsPartTwo),
-        // typeof(SlideParticleEffects),
-        // typeof(SlideCombined), // Roughly 5 minutes
-
-        // What is powering the talk today?
-
-        // Decision deep dive into Orbit game or look at the engine behind it?
-        // typeof(OrbitGameOrOrbitEngineScene),
-        // typeof(GameDemoScene),
-
-        // Key design check list.
 
         typeof(DecisionTime2Scene),
 
@@ -98,7 +84,7 @@ public static class SlideDeck
         typeof(TipsAndTricksDeviceScene),
 
         typeof(TheYearOfAIScene),
-        typeof(SummaryScene),
+        //typeof(SummaryScene),
         typeof(WorldScene),
         typeof(Credits) // 6:32
     };

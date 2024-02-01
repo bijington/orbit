@@ -12,7 +12,9 @@ public class GamingTutorial4Scene : SlideSceneBase
 	}
 
     public override string Notes => 
-        @"";
+"""
+We mentioned that a Background Service is great for performing background tasks.
+""";
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {

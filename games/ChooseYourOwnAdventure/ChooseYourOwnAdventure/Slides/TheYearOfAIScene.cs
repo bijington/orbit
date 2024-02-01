@@ -5,9 +5,13 @@ namespace BuildingGames.Slides;
 
 public class TheYearOfAIScene : SlideSceneBase
 {
+    private readonly Microsoft.Maui.Graphics.IImage image;
+
 	public TheYearOfAIScene(Pointer pointer) : base(pointer)
     {
         Character.Position = Character.Positions.AppStore;
+
+        image = LoadImage("vote_green.jpeg");
 	}
 
     public override string Notes =>
@@ -42,6 +46,11 @@ Although it did highlight another statement that we are all likely to reiterate,
             new PointF(40, dimensions.Height * 0.18f),
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
+
+        var imageHeight = dimensions.Height / 2;
+        var imageWidth = imageHeight;
+
+        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Bottom - imageHeight * 1.1f, imageWidth, imageHeight);
 
         base.Render(canvas, dimensions);
     }

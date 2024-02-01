@@ -46,12 +46,12 @@
             Grid.Row="6" />
 
         <Label
-            Text="Lottie files"
+            Text="Audio credit"
             Grid.Row="1"
             Grid.Column="1" />
 
         <controls:LinkButton
-            Text="https://lottiefiles.com"
+            Text="Jean-Marie Alfonsi"
             Clicked="OnLinkButtonClicked"
             Grid.Row="2"
             Grid.Column="1" />

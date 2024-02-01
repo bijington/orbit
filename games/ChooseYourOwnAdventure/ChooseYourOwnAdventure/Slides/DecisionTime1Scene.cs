@@ -18,6 +18,14 @@ public class DecisionTime1Scene : VoteSceneBase
     protected override Type Option1DestinationType => typeof(VotingTutorial0Scene);
     protected override Type Option2DestinationType => typeof(GamingTutorial0Scene);
 
+    public override string Notes => 
+"""
+OK so here we go. If you are all happy to get out whatever internet connected devices you have and navigate to this URL or let the QR code get you there.
+
+We have a decision to make, 
+Now that you have gained some knowledge of game development, it's time to make a decision. Will you seek knowledge of democracy from the agile gods or the dark arts of gaming from the mages?
+""";
+
     public DecisionTime1Scene(Pointer pointer, AchievementManager achievementManager, Decisions decisions) : base(pointer)
     {
         image = LoadImage("voting_site_qrcode.png");
@@ -73,7 +81,7 @@ public class DecisionTime1Scene : VoteSceneBase
 
         // Opt to seek knowledge of democracy from the gods or the Dark arts of gaming from the mages.
 
-        var introduction = @$"Now that you have gained some knowledge of game development, it's time to make a decision. Will you seek knowledge of democracy from the agile gods or the dark arts of gaming from the mages?
+        var introduction = @$"Now that you have gained some knowledge of game development, it's time to make a decision. Do you want to continue learning, sticking in the logical side or shall we nip into the break room and expose that creative side?
 {option1} - See how to build todays voting system.
 
 {option2} - See how to build a real-time air hockey game.";

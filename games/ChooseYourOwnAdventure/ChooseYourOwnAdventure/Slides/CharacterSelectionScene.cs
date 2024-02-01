@@ -25,7 +25,7 @@ Today I will be the narrator of our story.
 So who am I?
 
 My name is Shaun Lawrence
-- I am a software engineer/consultant and have been working with .NET based technologies since my career began roughly 17 years ago.
+- I am a software engineer and have been working with .NET based technologies since my career began roughly 17 years ago.
 - I am honoured to have been awarded with the Microsoft MVP award for the past 2 years, primarily for my contributions to the .NET MAUI CommunityToolkit.
 - I was also 'lucky' enough to be given the opportunity to write a book. My publisher keeps telling me off for not talking about it enough so it is titled 'Introducing .NET MAUI' and is available at all good online book retailers.
 - In fact I have a copy with me today which I plan to give away at random. More on this shortly...
@@ -53,7 +53,7 @@ Coin the term Cake Driven Development
                 Name = "Shaun Lawrence (He/Him)",
                 Strengths = new List<string>
                 {
-                    "Software Engineer/Consultant",
+                    "Freelance Software Engineer",
                     "Microsoft MVP",
                     ".NET MAUI CommunityToolkit",
                     "Author of 'Introducing .NET MAUI'"

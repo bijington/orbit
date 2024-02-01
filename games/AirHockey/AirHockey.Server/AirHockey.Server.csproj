@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <ItemGroup>
     <ProjectReference Include="..\AirHockey.Shared\AirHockey.Shared.csproj" />
   </ItemGroup>

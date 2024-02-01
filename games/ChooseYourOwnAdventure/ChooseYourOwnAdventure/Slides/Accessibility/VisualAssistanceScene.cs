@@ -10,35 +10,22 @@ public class VisualAssistanceScene : SlideSceneBase
 
     public override string Notes => 
 """
-- Perceivable information and user interface
-    - Text alternatives are provided for non-text content
-    - Captions are provided for audio and video content
-    - Content is adaptable to different presentation formats
-    - Content is distinguishable from its background
+Web Content Accessibility Guidelines
 
-We've covered the concept of using SemanticProperties to aid the screen reader.
-Other things to consider is enabling your users to change the font size, or the colour scheme of your app.
+There are some fantastic resources out there that help to understand how we can make our apps more accessible.
 
-- Operable user interface and navigation
-    - Functionality is available from a keyboard
-    - Users have enough time to read and use the content
-    - Content does not cause seizures and physical reactions
-    - Users can easily navigate, find content, and determine where they are
-    - Users can use different input modalities beyond keyboard
+Both WCAG and Microsoft highlight some key details but a few quick tips are to consider things like
 
-We mentioned earlier on that .NET MAUI provides many possibilities to interact with an application.
+- Make sure your UI responds to system font scaling
 
-- Understandable information and user interface
-    - Text is readable and understandable
-    - Content appears and operates in predictable ways
-    - Users are helped to avoid and correct mistakes
+- Use colours that have a good contrast ratio (16:1)
 
-An example of this is to present the pucks trajectory to the user, so they can see where it is going to go.
+- Provide multiple modes of interaction
+    
+- Useful links
+https://www.w3.org/WAI/fundamentals/accessibility-principles/
 
-- Robust content and reliable interpretation
-    - Content is compatible with current and future user tools
-
-
+https://learn.microsoft.com/dotnet/maui/fundamentals/accessibility
 """;
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -48,14 +35,13 @@ An example of this is to present the pucks trajectory to the user, so they can s
         canvas.DrawString(
             dimensions,
 """
-- Perceivable information and user interface
+- Make sure your UI responds to system font scaling
 
-- Operable user interface and navigation
+- Use colours that have a good contrast ratio (16:1)
 
-- Understandable information and user interface
-
-- Robust content and reliable interpretation
+- Provide multiple modes of interaction
     
+- Useful links
 https://www.w3.org/WAI/fundamentals/accessibility-principles/
 
 https://learn.microsoft.com/dotnet/maui/fundamentals/accessibility

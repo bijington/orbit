@@ -12,7 +12,17 @@ public class NonVisualFeedbackScene : SlideSceneBase, IDestinationKnowingScene
 
     public override string Notes => 
 """
--
+- Haptic feedback
+
+- Vibration feedback
+
+- Audio feedback
+
+    - Sound effects
+
+    - Background music
+
+    - Screen reader
 """;
 
     public Type DestinationSceneType => typeof(TheYearOfAIScene);
