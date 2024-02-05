@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Maui.Graphics;
+﻿using Microsoft.Maui.Graphics;
 #if WINDOWS
 using Microsoft.Maui.Graphics.Win2D;
 #else

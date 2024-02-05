@@ -27,6 +27,9 @@ public class GameSceneManager : IGameSceneManager
     private GameSceneView gameSceneView;
     private DateTime lastUpdate;
 
+    /// <summary>
+    /// Gets the currently loaded <see cref="GameScene"/>.
+    /// </summary>
     public IGameScene CurrentScene { get; private set; }
 
     /// <summary>
