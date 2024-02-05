@@ -24,6 +24,8 @@ public class Character : GameObject
         }
     }
 
+    public float Offset { get; set; }
+
     public SizeF TileSize { get; set; }
 
     public static IList<PointF> Journey { get; set; } = new List<PointF>();
@@ -34,7 +36,7 @@ public class Character : GameObject
 
         canvas.DrawImage(
             image,
-            Position.X * TileSize.Width,
+            Offset + Position.X * TileSize.Width,
             Position.Y * TileSize.Height,
             TileSize.Width,
             TileSize.Height);

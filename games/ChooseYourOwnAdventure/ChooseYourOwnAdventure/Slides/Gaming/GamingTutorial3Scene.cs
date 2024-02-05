@@ -22,26 +22,8 @@ First up is the Hub.
     {
         Styling.RenderTitle("Registering the hub", canvas, dimensions);
 
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
-
-        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Center.Y - imageHeight / 2, imageWidth, imageHeight);
+        canvas.DrawCenteredScaledImage(image, dimensions, 0.5f);
 
         base.Render(canvas, dimensions);
-
-        var a = @"
-var builder = WebApplication.CreateBuilder(args);
-
-// Register SignalR dependencies.
-builder.Services.AddSignalR();
-
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-
-// Map our hub implementation to /Game from the main url.
-app.MapHub<GameHub>(""Game"");
-
-app.Run();";
     }
 }

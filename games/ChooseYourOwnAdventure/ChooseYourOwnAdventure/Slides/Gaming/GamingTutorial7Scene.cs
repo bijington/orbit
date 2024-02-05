@@ -33,30 +33,8 @@ public class GamingTutorial7Scene : SlideSceneBase
 
         var image = images[currentTransition];
 
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
-
-        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Center.Y - imageHeight / 2, imageWidth, imageHeight);
+        canvas.DrawCenteredScaledImage(image, dimensions, 0.5f);
 
         base.Render(canvas, dimensions);
-
-        var a = """
-// Build the connection.
-var hubConnection = new HubConnectionBuilder()
-    .WithUrl("https://localhost:7226/Game")
-    .Build();
-
-// Setup callbacks from server.
-hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
-{
-    PuckState = puckState;
-});
-
-// Start the connection.
-await hubConnection.StartAsync();
-
-// Send the initial state to the server.
-await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
-""";
     }
 }

@@ -4,14 +4,37 @@ namespace ChooseYourOwnAdventure;
 
 public class Bat : GameObject
 {
-    private readonly Microsoft.Maui.Graphics.IImage[] images;
-    private int imageIndex;
-    private double imageDisplayDuration = 200;
-    private double elapsedMilliseconds;
+    private Sprite batSprite;
 
     public Bat()
     {
-        images = [LoadImage("bat1.png"), LoadImage("bat2.png")];
+        batSprite = new Sprite(["bat1.png", "bat2.png"], 200);
+
+        Add(batSprite);
+    }
+
+    public override void Render(ICanvas canvas, RectF dimensions)
+    {
+        // Need to clean this up.
+        batSprite.Bounds = this.Bounds;
+
+        base.Render(canvas, dimensions);
+    }
+}
+
+public class Sprite : GameObject
+{
+    private readonly IReadOnlyList<Microsoft.Maui.Graphics.IImage> images;
+    private readonly double imageDisplayDuration = 200;
+    private int imageIndex;
+    private double elapsedMilliseconds;
+    private bool isRunning;
+
+    public Sprite(IReadOnlyList<string> imageNames, double imageDisplayDuration, bool autoStart = true)
+    {
+        this.images = imageNames.Select(LoadImage).ToList();
+        this.imageDisplayDuration = imageDisplayDuration;
+        this.isRunning = autoStart;
     }
 
     public override void Render(ICanvas canvas, RectF dimensions)
@@ -25,6 +48,11 @@ public class Bat : GameObject
     {
         base.Update(millisecondsSinceLastUpdate);
 
+        if (this.isRunning is false)
+        {
+            return;
+        }
+
         elapsedMilliseconds += millisecondsSinceLastUpdate;
 
         if (elapsedMilliseconds > imageDisplayDuration)
@@ -33,10 +61,27 @@ public class Bat : GameObject
 
             imageIndex++;
 
-            if (imageIndex >= images.Length)
+            if (imageIndex >= images.Count)
             {
                 imageIndex = 0;
             }
         }
+    }
+
+    public void Stop()
+    {
+        elapsedMilliseconds = 0;
+        imageIndex = 0;
+        this.isRunning = false;
+    }
+
+    public void Pause()
+    {
+        this.isRunning = false;
+    }
+
+    public void Start()
+    {
+        this.isRunning = true;
     }
 }

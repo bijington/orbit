@@ -45,8 +45,8 @@ https://learn.microsoft.com/aspnet/core/signalr/messagepackhubprotocol
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
+        var imageWidth = image.Width * 0.8f;
+        var imageHeight = image.Height * 0.8f;
 
         canvas.DrawImage(image, dimensions.Right - imageWidth - 80, dimensions.Bottom - imageHeight - 80, imageWidth, imageHeight);
 

@@ -24,44 +24,8 @@ SignalR provides us with a mechanism to send messages out to connected clients. 
     {
         Styling.RenderTitle("Creating a hub", canvas, dimensions);
 
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
-
-        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Center.Y - imageHeight / 2, imageWidth, imageHeight);
+        canvas.DrawCenteredScaledImage(image, dimensions, 0.5f);
 
         base.Render(canvas, dimensions);
-
-        var a = @"
-using Microsoft.AspNetCore.SignalR;
-
-namespace AirHockey.Server.Hubs;
-
-public class GameHub : Hub
-{
-    public async Task PlayGame(Guid playerId)
-    {
-        var groupName = gameId;
-
-        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-
-        await Clients
-            .Group(groupName)
-            .SendAsync(EventNames.PlayerConnected, connectedPlayer);
-
-        if (game.PlayerTwo != PlayerState.Empty)
-        {
-            await Clients
-                .Group(groupName)
-                .SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
-        }
-    }
-
-    public async Task UpdatePlayerState(PlayerState playerState)
-    {
-        await Clients
-            .OthersInGroup(playerState.GameId)
-            .SendAsync(EventNames.PlayerStateUpdated, playerState);
-    }
-}";
     }
 }

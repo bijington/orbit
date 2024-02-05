@@ -36,5 +36,25 @@ public static class ICanvasExtensions
             verticalAlignment,
             TextFlow.ClipBounds);
     }
+
+    public static void DrawCenteredScaledImage(
+        this ICanvas canvas,
+        Microsoft.Maui.Graphics.IImage image,
+        RectF dimensions,
+        float scale)
+    {
+        var aspectRatio = image.Width / image.Height;
+
+        var height = dimensions.Height * scale;
+        var width = height * aspectRatio;
+        
+        if (height > dimensions.Height)
+        {
+            height = dimensions.Height;
+            width = height * aspectRatio;
+        }
+
+        canvas.DrawImage(image, dimensions.Center.X - width / 2, dimensions.Center.Y - height / 2, width, height);
+    }
 }
 

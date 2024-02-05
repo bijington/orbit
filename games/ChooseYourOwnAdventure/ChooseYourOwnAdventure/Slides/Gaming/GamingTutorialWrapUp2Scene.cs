@@ -23,12 +23,6 @@ https://learn.microsoft.com/azure/well-architected/reliability/background-jobs
 - Background job queueing
 https://learn.microsoft.com/aspnet/core/fundamentals/host/hosted-services
 
-- MessagePack Hub Protocol
-https://learn.microsoft.com/aspnet/core/signalr/messagepackhubprotocol
-
-- Use strongly typed hubs
-https://learn.microsoft.com/aspnet/core/signalr/hubs#strongly-typed-hubs
-
 - PlayFab
 https://playfab.com/multiplayer/#servers
 """,

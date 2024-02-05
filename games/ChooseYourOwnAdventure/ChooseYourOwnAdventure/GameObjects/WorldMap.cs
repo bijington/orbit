@@ -142,6 +142,8 @@ public class WorldMap : GameObject
             var renderWidth = tileSize * columns;
             var offset = (dimensions.Width - renderWidth) / 2f;
 
+            this.character.Offset = offset;
+
             for (var x = 0; x < columns; x++)
             {
                 for (var y = 0; y < rows; y++)

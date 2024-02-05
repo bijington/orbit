@@ -18,26 +18,8 @@ public class GamingTutorial5Scene : SlideSceneBase
     {
         Styling.RenderTitle("Registering the Background Service", canvas, dimensions);
 
-        var imageWidth = image.Width;
-        var imageHeight = image.Height;
-
-        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Center.Y - imageHeight / 2, imageWidth, imageHeight);
+        canvas.DrawCenteredScaledImage(image, dimensions, 0.5f);
 
         base.Render(canvas, dimensions);
-
-        var a = @"
-using AirHockey.Server;
-using AirHockey.Server.Hubs;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Register the background service
-builder.Services.AddHostedService<GameWorker>();
-
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-
-app.Run();";
     }
 }
