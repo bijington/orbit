@@ -36,5 +36,6 @@ public abstract class GameScene : GameObjectContainer, IGameScene
         return d <= Math.Abs(r1 - r2) || d <= r1 + r2;
     }
 
+    /// <inheritdoc />
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect) => Render(canvas, dirtyRect);
 }

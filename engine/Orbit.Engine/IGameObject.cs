@@ -5,9 +5,7 @@
 /// </summary>
 public interface IGameObject : IRender, IUpdate
 {
-    RectF Bounds { get; }
+    RectF Bounds { get; } // TODO: Should this just be a flat set of primitives properties to save on allocations?
 
     GameScene CurrentScene { get; set; }
-
-    bool IsCollisionDetectionEnabled { get; }
 }

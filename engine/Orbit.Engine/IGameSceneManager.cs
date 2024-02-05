@@ -1,5 +1,8 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Interface definition representing an implementation capable of managing the state around a <see cref="GameScene"/>.
+/// </summary>
 public interface IGameSceneManager
 {
     /// <summary>
@@ -12,8 +15,16 @@ public interface IGameSceneManager
     /// </summary>
     event EventHandler<GameStateChangedEventArgs> StateChanged;
 
-    IGameObject FindCollision(GameObject gameObject);
+    /// <summary>
+    /// Moves the currently loaded <see cref="GameScene"/> into a completed state.
+    /// Transitions the current scene into the <see cref="GameState.Complete"/>.
+    /// </summary>
+    void Complete();
 
+    /// <summary>
+    /// Moves the currently loaded <see cref="GameScene"/> into a failed state.
+    /// Transitions the current scene into the <see cref="GameState.GameOver"/>.
+    /// </summary>
     void GameOver();
 
     /// <summary>
@@ -25,9 +36,29 @@ public interface IGameSceneManager
     void LoadScene<TScene>(GameSceneView gameSceneView)
         where TScene: IGameScene;
 
+    /// <summary>
+    /// Loads the supplied <paramref name="sceneType"/> into the supplied <paramref name="gameSceneView"/>.
+    /// Note that for each scene that is loaded a new <see cref="IServiceScope"/> will be created.
+    /// </summary>
+    /// <param name="sceneType">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/></typeparam>
+    /// <param name="gameSceneView">The destination <see cref="GameSceneView"/> to display.</param>
     void LoadScene(Type sceneType, GameSceneView gameSceneView);
 
+    /// <summary>
+    /// Starts the currently running <see cref="GameScene"/>.
+    /// Transitions the current scene into the <see cref="GameState.Paused"/>.
+    /// </summary>
     void Pause();
+
+    /// <summary>
+    /// Starts the currently loaded <see cref="GameScene"/>.
+    /// Transitions the current scene into the <see cref="GameState.Started"/>.
+    /// </summary>
     void Start();
+
+    /// <summary>
+    /// Stops the currently running <see cref="GameScene"/>.
+    /// Transitions the current scene into the <see cref="GameState.Loaded"/>.
+    /// </summary>
     void Stop();
 }

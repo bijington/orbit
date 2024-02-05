@@ -31,11 +31,25 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
         OnGameObjectRemoved(gameObject);
     }
 
+    /// <summary>
+    /// Lifecycle method called to inform a container that a <see cref="GameObject"/> has been added as a child of the container.
+    /// </summary>
+    /// <param name="gameObject">The <see cref="GameObject"/> that has been added to the container.</param>
+    /// <remarks>
+    /// Use this to perform any initialization that may be required when a new <see cref="GameObject"/> is added.
+    /// </remarks>
     protected virtual void OnGameObjectAdded(GameObject gameObject)
     {
         gameObject.OnAdded();
     }
 
+    /// <summary>
+    /// Lifecycle method called to inform a container that a <see cref="GameObject"/> has been removed as a child of the container.
+    /// </summary>
+    /// <param name="gameObject">The <see cref="GameObject"/> that has been removed from the container.</param>
+    /// <remarks>
+    /// Use this to tidy up any resource that may be required when a <see cref="GameObject"/> is removed from the container and most likely the game.
+    /// </remarks>
     protected virtual void OnGameObjectRemoved(GameObject gameObject)
     {
         gameObject.OnRemoved();

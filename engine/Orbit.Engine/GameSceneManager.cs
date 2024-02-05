@@ -1,7 +1,15 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Implementation of the <see cref="IGameSceneManager"/> interface, enabling support for the management of the life of a <see cref="GameScene"/>.
+/// </summary>
 public class GameSceneManager : IGameSceneManager
 {
+    /// <summary>
+    /// Creates a new instance of <see cref="GameSceneManager"/>.
+    /// </summary>
+    /// <param name="dispatcher">The <see cref="IDispatcher"/> implementation, responsible for managing the game engine looping mechanism.</param>
+    /// <param name="serviceScopeFactory">The <see cref="IServiceScopeFactory"/> implementation, responsible for enabling the ability to manage scoped service lifetimes.</param>
     public GameSceneManager(
         IDispatcher dispatcher,
         IServiceScopeFactory serviceScopeFactory)
@@ -13,12 +21,26 @@ public class GameSceneManager : IGameSceneManager
     private readonly IDispatcher dispatcher;
     private readonly IServiceScopeFactory serviceScopeFactory;
     private IServiceScope serviceScope;
-    private int callbackMilliseconds = 16;
+    private double callbackMilliseconds = 16;
+    private double frameRate = 62.5;
     private GameState gameState;
     private GameSceneView gameSceneView;
     private DateTime lastUpdate;
 
     public IGameScene CurrentScene { get; private set; }
+
+    /// <summary>
+    /// Gets the current frame rate in frames per second.
+    /// </summary>
+    public double FrameRate
+    {
+        get => frameRate;
+        set
+        {
+            frameRate = value;
+            callbackMilliseconds = value != 0 ? 1000d / value : 0;// TODO: Is this dangerous???
+        }
+    }
 
     /// <inheritdoc />
     public GameState State
@@ -42,6 +64,7 @@ public class GameSceneManager : IGameSceneManager
         LoadScene(typeof(TScene), gameSceneView);
     }
 
+    /// <inheritdoc />
     public void LoadScene(Type sceneType, GameSceneView gameSceneView)
     {
         this.serviceScope?.Dispose();
