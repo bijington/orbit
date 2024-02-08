@@ -17,7 +17,7 @@ public interface IGameSceneManager
 
     /// <summary>
     /// Moves the currently loaded <see cref="GameScene"/> into a completed state.
-    /// Transitions the current scene into the <see cref="GameState.Complete"/>.
+    /// Transitions the current scene into the <see cref="GameState.Completed"/>.
     /// </summary>
     void Complete();
 
@@ -31,7 +31,7 @@ public interface IGameSceneManager
     /// Loads the supplied <typeparamref name="TScene"/> into the supplied <paramref name="gameSceneView"/>.
     /// Note that for each scene that is loaded a new <see cref="IServiceScope"/> will be created.
     /// </summary>
-    /// <typeparam name="TScene">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/></typeparam>
+    /// <typeparam name="TScene">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/>.</typeparam>
     /// <param name="gameSceneView">The destination <see cref="GameSceneView"/> to display.</param>
     void LoadScene<TScene>(GameSceneView gameSceneView)
         where TScene: IGameScene;
@@ -40,7 +40,7 @@ public interface IGameSceneManager
     /// Loads the supplied <paramref name="sceneType"/> into the supplied <paramref name="gameSceneView"/>.
     /// Note that for each scene that is loaded a new <see cref="IServiceScope"/> will be created.
     /// </summary>
-    /// <param name="sceneType">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/></typeparam>
+    /// <param name="sceneType">An implementation of <see cref="IGameScene"/> to load into the supplied <paramref name="gameSceneView"/>.</param>
     /// <param name="gameSceneView">The destination <see cref="GameSceneView"/> to display.</param>
     void LoadScene(Type sceneType, GameSceneView gameSceneView);
 

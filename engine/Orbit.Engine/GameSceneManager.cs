@@ -85,9 +85,9 @@ public class GameSceneManager : IGameSceneManager
     }
 
     /// <inheritdoc />
-    public IGameObject FindCollision(GameObject gameObject)
+    public void Complete()
     {
-        return CurrentScene.FindCollision(gameObject);
+        State = GameState.Completed;
     }
 
     /// <inheritdoc />
