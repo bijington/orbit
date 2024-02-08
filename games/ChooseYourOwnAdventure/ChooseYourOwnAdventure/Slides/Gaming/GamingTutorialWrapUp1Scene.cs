@@ -22,7 +22,7 @@ We do not want that to happen here so we need to pack efficiently.
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Considerations - travel light", canvas, dimensions);
+        Styling.RenderTitle("Travel light", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,

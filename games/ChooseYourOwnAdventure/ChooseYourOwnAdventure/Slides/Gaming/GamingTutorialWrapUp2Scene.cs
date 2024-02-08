@@ -12,7 +12,7 @@ public class GamingTutorialWrapUp2Scene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Considerations - recommendations", canvas, dimensions);
+        Styling.RenderTitle("Recommendations", canvas, dimensions);
 
         canvas.DrawString(
             dimensions,

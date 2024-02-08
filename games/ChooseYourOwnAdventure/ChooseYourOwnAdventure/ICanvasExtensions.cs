@@ -48,10 +48,10 @@ public static class ICanvasExtensions
         var height = dimensions.Height * scale;
         var width = height * aspectRatio;
         
-        if (height > dimensions.Height)
+        if (width > dimensions.Width)
         {
-            height = dimensions.Height;
-            width = height * aspectRatio;
+            width = dimensions.Width * scale;
+            height = width / aspectRatio;
         }
 
         canvas.DrawImage(image, dimensions.Center.X - width / 2, dimensions.Center.Y - height / 2, width, height);

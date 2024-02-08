@@ -47,10 +47,10 @@ Although it did highlight another statement that we are all likely to reiterate,
             HorizontalAlignment.Left,
             VerticalAlignment.Top);
 
-        var imageHeight = dimensions.Height / 2;
-        var imageWidth = imageHeight;
+        // var imageHeight = dimensions.Height / 2;
+        // var imageWidth = imageHeight;
 
-        canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Bottom - imageHeight * 1.1f, imageWidth, imageHeight);
+        // canvas.DrawImage(image, dimensions.Center.X - imageWidth / 2, dimensions.Bottom - imageHeight * 1.1f, imageWidth, imageHeight);
 
         base.Render(canvas, dimensions);
     }

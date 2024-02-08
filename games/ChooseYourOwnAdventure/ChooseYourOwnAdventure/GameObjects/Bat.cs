@@ -8,7 +8,7 @@ public class Bat : GameObject
 
     public Bat()
     {
-        batSprite = new Sprite(["bat1.png", "bat2.png"], 200);
+        batSprite = new Sprite(imageNames: ["bat1.png", "bat2.png"], imageDisplayDuration: 200);
 
         Add(batSprite);
     }

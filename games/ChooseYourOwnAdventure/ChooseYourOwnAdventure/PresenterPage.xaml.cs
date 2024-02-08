@@ -13,7 +13,7 @@ public partial class PresenterPage : ContentPage
         SlideDeck.SlideNotesChanged += SlideDeck_SlideNotesChanged;
         this.NotesLabel.Text = SlideDeck.Notes;
 
-        this.scheduledFinish = new DateTime(2024, 02, 01, 12, 40, 00);
+        this.scheduledFinish = new DateTime(2024, 02, 06, 16, 15, 00);
 
         this.UpdateTime();
     }
