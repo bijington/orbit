@@ -9,6 +9,9 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
 {
     private readonly IList<IGameObject> gameObjects = new List<IGameObject>();
 
+    /// <summary>
+    /// Gets a snapshot of the game objects in the container.
+    /// </summary>
     protected IList<IGameObject> GameObjectsSnapshot => gameObjects.ToList();
 
     /// <inheritdoc />
@@ -55,6 +58,11 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
         gameObject.OnRemoved();
     }
 
+    /// <summary>
+    /// Loads an image from the specified resource name.
+    /// </summary>
+    /// <param name="imageName">The name of the image resource.</param>
+    /// <returns>The loaded image.</returns>
     protected Microsoft.Maui.Graphics.IImage LoadImage(string imageName)
     {
         var assembly = GetType().GetTypeInfo().Assembly;
