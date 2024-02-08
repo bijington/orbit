@@ -8,7 +8,13 @@ public abstract class SlideSceneBase : GameScene
     public SlideSceneBase(Pointer pointer)
     {
         Add(pointer);
+
+        SlideDeck.Notes = this.Notes;
     }
+
+    public virtual string BackgroundMusic { get; }
+
+    public virtual string Notes { get; }
 
     public virtual bool CanGoBack { get; } = true;
 

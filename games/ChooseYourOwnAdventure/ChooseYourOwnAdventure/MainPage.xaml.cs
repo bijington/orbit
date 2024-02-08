@@ -1,5 +1,6 @@
 ﻿using BuildingGames.Slides;
 using Orbit.Engine;
+using Plugin.Maui.Audio;
 
 namespace BuildingGames;
 
@@ -9,14 +10,19 @@ public partial class MainPage : ContentPage
     private readonly ControllerManager controllerManager;
     private readonly AchievementManager achievementManager;
     private readonly IDeviceDisplay deviceDisplay;
+    private readonly IAudioManager audioManager;
+    private readonly IFileSystem fileSystem;
     private static bool multipleScreens;
+    private IAudioPlayer audioPlayer;
 
     public MainPage(
         IGameSceneManager gameSceneManager,
         ControllerManager controllerManager,
         AchievementManager achievementManager,
         IDeviceDisplay deviceDisplay,
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider,
+        IAudioManager audioManager,
+        IFileSystem fileSystem)
 	{
 		InitializeComponent();
 
@@ -24,6 +30,8 @@ public partial class MainPage : ContentPage
         this.controllerManager = controllerManager;
         this.achievementManager = achievementManager;
         this.deviceDisplay = deviceDisplay;
+        this.audioManager = audioManager;
+        this.fileSystem = fileSystem;
         LoadSlide(SlideDeck.CurrentSlideType);
 
         this.controllerManager.Initialise();
@@ -94,6 +102,8 @@ public partial class MainPage : ContentPage
 
     async void LoadSlide(Type sceneType)
     {
+        this.audioPlayer?.Stop();
+
         if (GameView.Scene is SlideSceneBase previousScene)
         {
             previousScene.Back -= OnCurrentSceneBack;
@@ -109,6 +119,14 @@ public partial class MainPage : ContentPage
             {
                 nextScene.Back += OnCurrentSceneBack;
                 nextScene.Next += OnCurrentSceneNext;
+
+                if (string.IsNullOrEmpty(nextScene.BackgroundMusic) is false)
+                {
+                    this.audioPlayer = this.audioManager.CreatePlayer(await fileSystem.OpenAppPackageFileAsync(nextScene.BackgroundMusic));
+
+                    this.audioPlayer.Loop = true;
+                    this.audioPlayer.Play();
+                }
             }
 
             this.gameSceneManager.Start();

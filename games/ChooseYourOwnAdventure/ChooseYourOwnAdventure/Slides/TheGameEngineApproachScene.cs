@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides;
 
@@ -8,6 +9,23 @@ public class TheGameEngineApproachScene : SlideSceneBase
     private const int transitions = 5;
 
     private readonly IList<string> textTransitions;
+
+    public override string Notes =>
+"""
+We have covered a little bit about the what and the why around .NET MAUI, now I would like to talk a bit about the how and then we will jump into a real world example.
+
+So the how, we will be using the game engine approach.
+
+The game engine approach is a common approach to building games. It is a pattern that is used in many game engines and frameworks.
+
+The first stop in our loop is to process user input. This is where we will be able to react to the user pressing a button or moving a joystick.
+
+Next we will update the game state. This is where we will be able to move our player around the screen or update the position of an enemy.
+
+Then we will render the game. This is where we will be able to draw the player and the enemies on the screen.
+
+Finally we will wait. This is where we will wait for the next frame to be rendered. And allows us to control the speed of our game.
+""";
 
     public TheGameEngineApproachScene(Pointer pointer) : base(pointer)
 	{
@@ -25,6 +43,8 @@ public class TheGameEngineApproachScene : SlideSceneBase
             @"
    - Waits"
         };
+
+        Character.Position = Character.Positions.Tutorial2;
 	}
 
     public override void Progress()

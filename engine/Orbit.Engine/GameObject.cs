@@ -15,7 +15,7 @@ public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
 {
     private GameScene currentScene;
 
-    public RectF Bounds { get; protected set; }
+    public RectF Bounds { get; set; }
 
     public GameScene CurrentScene
     {
