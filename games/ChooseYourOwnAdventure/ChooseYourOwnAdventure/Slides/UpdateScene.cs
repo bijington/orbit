@@ -11,6 +11,15 @@ public class UpdateScene : SlideSceneBase
     {
     }
 
+    public override string Notes =>
+"""
+Our next stop is the updating of game state. This is where we will be able to move our player around the screen or update the position of an enemy.
+
+We will also be able to update the game state based on the time since the last update. 
+
+I strongly recommend that you keep the game state independent of the display.
+""";
+
     public override void Progress()
     {
         // If we are complete then fire the Next event.

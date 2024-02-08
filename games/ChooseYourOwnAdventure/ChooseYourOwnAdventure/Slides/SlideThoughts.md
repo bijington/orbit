@@ -1,7 +1,7 @@
 ﻿
 # Title
 
-Welcome the audience, thank you all for joining me today as we embark upon an adventure to learn about building games in .NET MAUI.
+Welcome the audience, thank you all for joining me today. You know NDC has a special place in my heart - I spoke here last year which was my first ever in-person talk at a conference. Todays talk is related to that talk but we are branching out with the content. Join me as we embark upon an adventure to learn about building games in .NET MAUI.
 
 # Character selection
 
@@ -35,6 +35,10 @@ Another point, and while this have been a nice selling point on my talk submissi
 And finally, I mentioned before that I would be giving a copy of my book away today. If all goes well and I will be honest this part scares me a little as I saw some inconsistencies in leading up to this part
 after voting on the last decision point one lucky voter will be shown a congratulations message. The message does say to come down and collect your prize, it might be best to take a screenshot and then come down
 at the end of the talk.
+
+# World map part 0
+
+Welcome to our world for the next check watch minutes. I mentioned before that we will be making use of SignalR and your very own opinions to decide how we navigate our way through this world through to our destination down here, the office. The very first part of our journey is to get to know our environment and how to play the game.
 
 # Tutorial - What is .NET MAUI?
 
@@ -79,20 +83,501 @@ The second key component is SignalR.
 
 - Supports many platforms - JS, C#, F#, VB, Java
 
-# How to use SignalR
+# World map part 1
+
+That's our tutorial completed. Now moving onto our first decision. I don't know about you all but I struggle so much with decision making in games and well in general. I find with gaming I always want to cover all outcomes. Anyway today I don't have to make the decisions it's all up to you.
+
+# Decision Time 1
+
+We could make this fit, have the tutorial screen presented by the elders and then set us off on a quest.
+
+# Gaming
+
+## What are we building?
+
+Diagram of the whole system.
+
+## Server side implementation
+
+Two components on the server side;
+
+### Creating a Hub
+
+```csharp
+using AirHockey.Server;
+using AirHockey.Shared;
+using Microsoft.AspNetCore.SignalR;
+
+namespace AirHockey.Server.Hubs;
+
+public class GameHub : Hub
+{
+    public GameHub(ILogger<GameWorker> logger, GameManager gameManager)
+    {
+        this.logger = logger;
+        this.gameManager = gameManager;
+    }
+
+    private readonly ILogger<GameWorker> logger;
+    private readonly GameManager gameManager;
+
+    public async Task PlayGame(Guid playerId)
+    {
+        var game = this.gameManager.PlayGame(playerId);
+
+        var connectedPlayer = game.PlayerOne.Id == playerId ? game.PlayerOne : game.PlayerTwo;
+
+        this.logger.LogInformation("Player connected {id}", playerId);
+
+        await Clients.All.SendAsync(EventNames.PlayerConnected, connectedPlayer);
+
+        if (game.PlayerTwo != PlayerState.Empty)
+        {
+            await Clients.All.SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
+        }
+    }
+
+    public async Task UpdatePlayerState(PlayerState playerState)
+    {
+        var game = this.gameManager.Games.FirstOrDefault(g => g.PlayerOne.Id == playerState.Id || g.PlayerTwo.Id == playerState.Id);
+
+        if (game is not null)
+        {
+            this.logger.LogInformation("Update player {id}", playerState.Id);
+
+            if (game.PlayerOne.Id == playerState.Id)
+            {
+                game.PlayerOne = playerState;
+            }
+            else
+            {
+                game.PlayerTwo = playerState;
+            }
+
+            await Clients.Others.SendAsync(EventNames.PlayerStateUpdated, playerState);
+        }
+    }
+}
+```
+
+Cover difference between typed/untyped hubs.
+
+### Registering the Hub
+
+```csharp
+using AirHockey.Server;
+using AirHockey.Server.Hubs;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Register SignalR dependencies.
+builder.Services.AddSignalR();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+// Map our hub implementation to /Game from the main url.
+app.MapHub<GameHub>("Game");
+
+app.Run();
+```
+
+### Creating a BackgroundService
+
+```csharp
+public class GameWorker : BackgroundService
+{
+    private readonly ILogger<GameWorker> logger;
+    private readonly GameManager gameManager;
+    private readonly IHubContext<GameHub> hubContext;
+
+    public GameWorker(ILogger<GameWorker> logger, GameManager gameManager, IHubContext<GameHub> hubContext)
+    {
+        this.logger = logger;
+        this.gameManager = gameManager;
+        this.hubContext = hubContext;
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            int delayInMilliseconds = 5;
+
+            var game = this.gameManager.Games.FirstOrDefault();
+
+            if (game is not null)
+            {
+                await ProcessGame(game);
+            }
+
+            await Task.Delay(delayInMilliseconds, stoppingToken);
+        }
+    }
+}
+```
+
+### Registering the BackgroundService
+
+```csharp
+using AirHockey.Server;
+using AirHockey.Server.Hubs;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Register the background service
+builder.Services.AddHostedService<GameWorker>();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.Run();
+```
+
+## Client side implementation
+
+```csharp
+public PlayerStateManager()
+	{
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7226/Game")
+            .Build();
+
+        PuckState = new();
+        ScoreState = new();
+        PlayerState = new(Guid.NewGuid());
+
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
+        {
+            PuckState = puckState;
+        });
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, scoreState =>
+        {
+            ScoreState = scoreState;
+        });
+
+        hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
+        {
+            OpponentState = playerState;
+        });
+
+        hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
+        {
+            if (PlayerState.Id == playerState.Id)
+            {
+                PlayerState = playerState;
+            }
+            else
+            {
+                OpponentState = playerState;
+            }
+        });
+
+        hubConnection.On<GameState>(EventNames.GameStarted, gameState =>
+        {
+            if (PlayerState.Id == gameState.PlayerOne.Id)
+            {
+                PlayerState = gameState.PlayerOne;
+                OpponentState = gameState.PlayerTwo;
+            }
+            else
+            {
+                PlayerState = gameState.PlayerTwo;
+                OpponentState = gameState.PlayerOne;
+            }
+        });
+    }
+
+public async Task Connect()
+    {
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
+    }
+
+    public Task Disconnect()
+    {
+        return hubConnection.StopAsync();
+    }
+
+    public async Task UpdateState(float x, float y)
+    {
+        PlayerState.X = x;
+        PlayerState.Y = y;
+        await hubConnection.SendAsync(MethodNames.UpdatePlayerState, PlayerState);
+    }
+```
+
+## Demo Time
+
+Show the air hockey app.
+
+# Alternative hosting options
+
+PlayFab, etc.
+
+# Democracy
+
+## What are we building?
+
+Diagram of the whole system.
+
+## Server side implementation
+
+Two components on the server side;
+
+### Creating a Hub
+
+```csharp
+using AirHockey.Server;
+using AirHockey.Shared;
+using Microsoft.AspNetCore.SignalR;
+
+namespace AirHockey.Server.Hubs;
+
+public class GameHub : Hub
+{
+    public GameHub(ILogger<GameWorker> logger, GameManager gameManager)
+    {
+        this.logger = logger;
+        this.gameManager = gameManager;
+    }
+
+    private readonly ILogger<GameWorker> logger;
+    private readonly GameManager gameManager;
+
+    public async Task PlayGame(Guid playerId)
+    {
+        var game = this.gameManager.PlayGame(playerId);
+
+        var connectedPlayer = game.PlayerOne.Id == playerId ? game.PlayerOne : game.PlayerTwo;
+
+        this.logger.LogInformation("Player connected {id}", playerId);
+
+        await Clients.All.SendAsync(EventNames.PlayerConnected, connectedPlayer);
+
+        if (game.PlayerTwo != PlayerState.Empty)
+        {
+            await Clients.All.SendAsync(EventNames.GameStarted, new GameState(game.Id, game.PlayerOne, game.PlayerTwo));
+        }
+    }
+
+    public async Task UpdatePlayerState(PlayerState playerState)
+    {
+        var game = this.gameManager.Games.FirstOrDefault(g => g.PlayerOne.Id == playerState.Id || g.PlayerTwo.Id == playerState.Id);
+
+        if (game is not null)
+        {
+            this.logger.LogInformation("Update player {id}", playerState.Id);
+
+            if (game.PlayerOne.Id == playerState.Id)
+            {
+                game.PlayerOne = playerState;
+            }
+            else
+            {
+                game.PlayerTwo = playerState;
+            }
+
+            await Clients.Others.SendAsync(EventNames.PlayerStateUpdated, playerState);
+        }
+    }
+}
+```
+
+Cover difference between typed/untyped hubs.
+
+### Registering the Hub
+
+```csharp
+using SignalRVotingPoll;
+using SignalRVotingPoll.Hubs;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddSingleton<VoteState>();
+builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapHub<VotingHub>("/votingHub");
+});
+
+app.Run();
+```
+
+### JS integration
+
+Yes that's right!
+
+```JavaScript
+var connection = new signalR.HubConnectionBuilder().withUrl("/votingHub").build();
+
+document.getElementById("option1Button").addEventListener("click", function (event) {
+    connection.invoke("SendVote", 0).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("statusLabel").innerText = "👍 Thanks for your vote, voting is now disabled.";
+    document.getElementById("option1Button").disabled = true;
+    document.getElementById("option2Button").disabled = true;
+    document.getElementById("option1Button").hidden = true;
+    document.getElementById("option2Button").hidden = true;
+
+    event.preventDefault();
+});
+
+connection.on("Status", function (voteState) {
+    if (voteState.isOpen) {
+        document.getElementById("statusLabel").innerText = "Voting has been opened! Happy voting!";
+        document.getElementById("titleLabel").innerText = voteState.title;
+        document.getElementById("option1Button").innerText = voteState.option1Label;
+        document.getElementById("option2Button").innerText = voteState.option2Label;
+    }
+    else {
+        document.getElementById("statusLabel").innerText = "Voting is closed!";
+        document.getElementById("titleLabel").innerText = "";
+        document.getElementById("option1Button").innerText = "";
+        document.getElementById("option2Button").innerText = "";
+    }
+
+    document.getElementById("option1Button").disabled = !voteState.isOpen;
+    document.getElementById("option2Button").disabled = !voteState.isOpen;
+    document.getElementById("option1Button").hidden = !voteState.isOpen;
+    document.getElementById("option2Button").hidden = !voteState.isOpen;
+});
+
+connection.on("Reset", function () {
+    document.getElementById("statusLabel").innerText = "🔄 Voting has been reset! Happy voting!";
+    document.getElementById("option1Button").disabled = false;
+    document.getElementById("option2Button").disabled = false;
+});
+
+connection.on("Congratulations", function () {
+    document.getElementById("statusLabel").innerText = "🏆 Congratulations you have been chosen at random to win the prize on offer. Come down and collect your prize!";
+});
+
+document.getElementById("option2Button").addEventListener("click", function (event) {
+    connection.invoke("SendVote", 1).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("statusLabel").innerText = "👍 Thanks for your vote, voting is now disabled.";
+    document.getElementById("option1Button").disabled = true;
+    document.getElementById("option2Button").disabled = true;
+    document.getElementById("option1Button").hidden = true;
+    document.getElementById("option2Button").hidden = true;
+
+    event.preventDefault();
+});
+
+connection.start().then(function () {
+    connection.invoke("GetVotingStatus").catch(function (err) {
+        return console.error(err.toString());
+    });
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+```
+
+## Client side implementation
+
+```csharp
+public PlayerStateManager()
+	{
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7226/Game")
+            .Build();
+
+        PuckState = new();
+        ScoreState = new();
+        PlayerState = new(Guid.NewGuid());
+
+        hubConnection.On<PuckState>(EventNames.PuckStateUpdated, puckState =>
+        {
+            PuckState = puckState;
+        });
+        hubConnection.On<ScoreState>(EventNames.ScoreUpdated, scoreState =>
+        {
+            ScoreState = scoreState;
+        });
+
+        hubConnection.On<PlayerState>(EventNames.PlayerStateUpdated, playerState =>
+        {
+            OpponentState = playerState;
+        });
+
+        hubConnection.On<PlayerState>(EventNames.PlayerConnected, playerState =>
+        {
+            if (PlayerState.Id == playerState.Id)
+            {
+                PlayerState = playerState;
+            }
+            else
+            {
+                OpponentState = playerState;
+            }
+        });
+
+        hubConnection.On<GameState>(EventNames.GameStarted, gameState =>
+        {
+            if (PlayerState.Id == gameState.PlayerOne.Id)
+            {
+                PlayerState = gameState.PlayerOne;
+                OpponentState = gameState.PlayerTwo;
+            }
+            else
+            {
+                PlayerState = gameState.PlayerTwo;
+                OpponentState = gameState.PlayerOne;
+            }
+        });
+    }
+
+public async Task Connect()
+    {
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync(MethodNames.PlayGame, PlayerState.Id);
+    }
+
+    public Task Disconnect()
+    {
+        return hubConnection.StopAsync();
+    }
+
+    public async Task UpdateState(float x, float y)
+    {
+        PlayerState.X = x;
+        PlayerState.Y = y;
+        await hubConnection.SendAsync(MethodNames.UpdatePlayerState, PlayerState);
+    }
+```
 
 
+## Demo Time
 
-# Voting time
+## Finish up
 
-This is our first vote so let's hope it works! As I mentioned before you can navigate to a web page, so if you scan this QR code on screen it will open the page for you.
+# World map part 2
 
-# Voting system demo
-
-# Drawing game demo
+Let's take a moment to gather our bearings.
 
 
-# Stage complete
 
 OK so we have covered in some detail what SignalR is and how we can use it within both a server-side and client-side application. And in fact nothing in the client-side really breaks outside of the mould of a typical business application.
 

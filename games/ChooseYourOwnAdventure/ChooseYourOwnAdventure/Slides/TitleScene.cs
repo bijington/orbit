@@ -13,6 +13,13 @@ public class TitleScene : SlideSceneBase
         this.achievementManager = achievementManager;
     }
 
+    public override string Notes => 
+"""
+Welcome everyone, thank you all for joining me today. I hope you have all enjoyed the conference so far.
+        
+I am hoping to give some insight into a library that I have built, which aims to make it easier to build games in .NET MAUI. We will walk through how to use it from a conceptual view and then move onto a concrete example of your choice.
+""";
+
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         canvas.DrawString(

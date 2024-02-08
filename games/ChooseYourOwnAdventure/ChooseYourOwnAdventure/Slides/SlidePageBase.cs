@@ -15,7 +15,11 @@ public abstract class SlidePageBase : ContentPage
 	{
         this.gameSceneManager = gameSceneManager;
         this.controllerManager = controllerManager;
+
+        SlideDeck.Notes = this.Notes;
     }
+
+    protected virtual string Notes { get; }
 
     protected virtual void Transition(int nextTransition)
     {

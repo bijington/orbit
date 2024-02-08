@@ -11,6 +11,8 @@ public class AchievementManager
 		this.achievements = new List<Achievement>
 		{
 			new Achievement { Name = AchievementNames.FirstDecision, Description = "Made your first decision" },
+			new Achievement { Name = AchievementNames.Paragon, Description = "Gave your time to help others" },
+			new Achievement { Name = AchievementNames.GoalOriented, Description = "Focused on your own goals" },
             new Achievement { Name = AchievementNames.StaleMate, Description = "You couldn't decide either?" },
             new Achievement { Name = "Social gamer", Description = "" },
 			new Achievement { Name = AchievementNames.NextSpeaker, Description = "Unlocked the next speaker"},

@@ -1,5 +1,9 @@
 ﻿namespace Orbit.Engine;
 
+/// <summary>
+/// Interface definition for anything that can contain multiple <see cref="GameObject"/>s.
+/// Two key examples of this is the <see cref="GameScene"/> and <see cref="GameObject"/> implementations.
+/// </summary>
 public interface IGameObjectContainer : IRender, IUpdate
 {
     /// <summary>

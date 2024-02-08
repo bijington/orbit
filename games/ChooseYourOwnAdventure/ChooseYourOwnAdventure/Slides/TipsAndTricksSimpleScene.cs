@@ -1,4 +1,5 @@
 ﻿using BuildingGames.GameObjects;
+using ChooseYourOwnAdventure.GameObjects;
 
 namespace BuildingGames.Slides;
 
@@ -29,6 +30,8 @@ public class TipsAndTricksSimpleScene : SlideSceneBase
         asteroid = LoadImage("asteroid.png");
         pulse = LoadImage("pulse.png");
         collectible = LoadImage("collectible.png");
+
+        Character.Position = Character.Positions.Skip1;
     }
 
     public override void Progress()
