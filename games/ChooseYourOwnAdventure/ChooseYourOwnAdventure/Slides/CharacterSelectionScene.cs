@@ -18,6 +18,27 @@ public class CharacterSelectionScene : SlideSceneBase
     private int currentCharacterIndex;
     private bool handlingKeyPress = false;
 
+    public override string Notes => 
+"""
+Today I will be the narrator of our story.
+
+So who am I?
+
+My name is Shaun Lawrence
+- I am a software engineer and have been working with .NET based technologies since my career began roughly 17 years ago.
+- I am honoured to have been awarded with the Microsoft MVP award for the past 2 years, primarily for my contributions to the .NET MAUI CommunityToolkit.
+- I was also 'lucky' enough to be given the opportunity to write a book. My publisher keeps telling me off for not talking about it enough so it is titled 'Introducing .NET MAUI' and is available at all good online book retailers.
+- In fact I have a copy with me today which I plan to give away at random. More on this shortly...
+
+- I guess part of the main reason I am here talking to you all today is because of this section that I have labelled as a weaknesses.
+- I do get distracted easily and much like Magpie I like to chase after the next shiny thing.
+- I am also great at following that shiny thing down a deep deep rabbit hole, get lost or stuck down there
+- and then end up eating some cake to cheer me up.
+- In fact I now wonder whether I have somehow been rewarding this behaviour... 
+
+Coin the term Cake Driven Development
+""";
+
     public CharacterSelectionScene(ControllerManager controllerManager, Pointer pointer) : base(pointer)
     {
         images = new Dictionary<string, Microsoft.Maui.Graphics.IImage>
@@ -32,7 +53,7 @@ public class CharacterSelectionScene : SlideSceneBase
                 Name = "Shaun Lawrence (He/Him)",
                 Strengths = new List<string>
                 {
-                    "Software Engineer/Consultant",
+                    "Freelance Software Engineer",
                     "Microsoft MVP",
                     ".NET MAUI CommunityToolkit",
                     "Author of 'Introducing .NET MAUI'"
@@ -93,7 +114,7 @@ public class CharacterSelectionScene : SlideSceneBase
 
     public override void Render(ICanvas canvas, RectF dimensions)
     {
-        Styling.RenderTitle("Character selection", canvas, dimensions);
+        Styling.RenderTitle("Narrator selection", canvas, dimensions);
 
         float tileWidth = ((dimensions.Width / columns) - (padding * (columns + 1))) / rows;
         float yOffset = 200;

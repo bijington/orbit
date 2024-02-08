@@ -15,7 +15,7 @@
 		<ApplicationTitle>BuildingGames</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.airhockey</ApplicationId>
+		<ApplicationId>com.bijington.chooseyourownadventure</ApplicationId>
 		<ApplicationIdGuid>1DB1B881-34B8-4123-9B49-1C719790DFB8</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -64,6 +64,7 @@
 	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.83" />
 	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Plugin.Maui.Audio" Version="1.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\EmbeddedResources\book_cover.jpg" />

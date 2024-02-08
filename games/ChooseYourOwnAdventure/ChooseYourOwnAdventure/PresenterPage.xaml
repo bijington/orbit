@@ -38,10 +38,19 @@
             </Grid>
         </Frame>
 
-        <Label Text="Notes" Grid.Row="1" />
+        <HorizontalStackLayout
+            Grid.Row="1"
+            Spacing="10"
+            Padding="10">
+            <Label Text="Current time" />
+            <Label x:Name="CurrentTime" />
+
+            <Label Text="Time remaining" />
+            <Label x:Name="Countdown" />
+        </HorizontalStackLayout>
 
         <ScrollView Grid.Row="2">
-            <Label x:Name="NotesLabel" />
+            <Label x:Name="NotesLabel" Margin="10" />
         </ScrollView>
     </Grid>
 </ContentPage>

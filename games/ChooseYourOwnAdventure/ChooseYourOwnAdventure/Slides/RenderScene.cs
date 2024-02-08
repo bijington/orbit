@@ -11,14 +11,35 @@ public class RenderScene : SlideSceneBase
     private readonly Microsoft.Maui.Graphics.IImage paint;
     private readonly Microsoft.Maui.Graphics.IImage asteroid;
     private readonly Microsoft.Maui.Graphics.IImage ship;
+    private readonly Microsoft.Maui.Graphics.IImage canvasInteractions;
 
     private readonly IList<string> textTransitions;
+
+    public override string Notes =>
+"""
+The final stop in our loop is to render the game.
+
+We will be utilising that unified graphics API that we spoke about earlier. Which provides us with a GraphicsView and canvas to draw on.
+
+This is where we will be able to draw the player and the enemies on the screen.
+
+The interaction with the graphics API is stack based. 
+
+So to simplify the render of a rotating asteroid gravitating towards our ship we can:
+
+- Translate to the centre of the asteroid
+
+- Rotate the canvas
+
+- and draw. This allows us to build up our scene in a very simple way.
+""";
 
     public RenderScene(Pointer pointer) : base(pointer)
     {
         paint = LoadImage("paint.png");
         asteroid = LoadImage("asteroid.png");
         ship = LoadImage("ship_basic.png");
+        canvasInteractions = LoadImage("canvas_interactions.png");
 
         textTransitions = new List<string>
         {
@@ -123,6 +144,8 @@ public class RenderScene : SlideSceneBase
             canvas.DrawImage(asteroid, -(asteroid.Width * 0.8f) / 2, -(asteroid.Height * 0.8f) / 2, asteroid.Width * 0.8f, asteroid.Height * 0.8f);
 
             canvas.DrawRectangle(-(asteroid.Width * 0.8f) / 2, -(asteroid.Height * 0.8f) / 2, asteroid.Width * 0.8f, asteroid.Height * 0.8f);
+
+            //canvas.DrawImage(canvasInteractions, 40, dimensions.Height - canvasInteractions.Height - 40, canvasInteractions.Width, canvasInteractions.Height);
         }
     }
 
