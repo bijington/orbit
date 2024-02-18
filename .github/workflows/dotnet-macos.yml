@@ -31,5 +31,3 @@ jobs:
       run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
     - name: Run tests
       run: dotnet test engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
-    - name: Pack engine
-      run: dotnet pack engine/Orbit.Engine/Orbit.Engine.csproj --no-restore

@@ -19,6 +19,45 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<Authors>Shaun Lawrence</Authors>
+		<Description>The Orbit engine is a lightweight 2D game engine built on top of .NET MAUI Graphics. </Description>
+
+		<PackageTags>.NET MAUI, Game Engine, 2D Game</PackageTags>
+
+		<PackageId>Orbit.Engine</PackageId>
+
+		<RepositoryUrl>https://github.com/bijington/orbit</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/bijington/orbit</PackageProjectUrl>
+		<Product>Orbit Game Engine</Product>
+		<Copyright>Copyright(c) 2024 Shaun Lawrence</Copyright>
+		
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<Configurations>Release;Debug</Configurations>
+	</PropertyGroup>
+
+	<!-- PackageIcon -->
+	<PropertyGroup>
+    	<PackageIcon>nuget.png</PackageIcon>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\assets\nuget.png" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	<!-- PackageReadmeFile -->
+	<PropertyGroup>
+    	<PackageReadmeFile>readme.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\readme.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
