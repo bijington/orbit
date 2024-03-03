@@ -1,4 +1,6 @@
-namespace Orbit;
+using System.Linq;
+
+namespace Orbit.Engine;
 
 /// <summary>
 /// Provides the ability to render a sprite animation in a game.
@@ -18,8 +20,10 @@ public class Sprite : GameObject
     /// <param name="imageDisplayDuration">How long each image should be displayed for before transitioning to the next image in the sequence.</param>
     /// <param name="autoStart">Whether the sprite animation should start automatically.</param>
     public Sprite(IReadOnlyList<string> imageNames, double imageDisplayDuration, bool autoStart = true)
-        : this(imageNames.Select(LoadImage).ToList(), imageDisplayDuration, autoStart)
     {
+        this.images = imageNames.Select(LoadImage).ToList();
+        this.imageDisplayDuration = imageDisplayDuration;
+        this.isRunning = autoStart;
     }
 
     /// <summary>
