@@ -10,7 +10,7 @@ namespace Orbit.Engine;
 /// <summary>
 /// Base class definition representing an object in a game.
 /// </summary>
-public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
+public abstract class GameObject : GameObjectContainer, IGameObject
 {
     private GameScene currentScene;
 
@@ -30,15 +30,6 @@ public abstract class GameObject : GameObjectContainer, IGameObject, IDrawable
                 this.UpdateCurrentScene();
             }
         }
-    }
-
-    void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
-    {
-        canvas.SaveState();
-
-        Render(canvas, dirtyRect);
-
-        canvas.RestoreState();
     }
 
     /// <summary>
