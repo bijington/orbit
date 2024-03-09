@@ -3,6 +3,36 @@ namespace Orbit.Engine.Tests
 public class GameObjectTests
 {
     [Test]
+    public void AddShouldCallOnAddedToNewChild()
+    {
+        var parent = new MockGameObject();
+        var child = new MockGameObject();
+
+        child.OnAddedCount.Should().Be(0);
+
+        parent.Add(child);
+
+        child.OnAddedCount.Should().Be(1);
+    }
+
+    [Test]
+    public void RemoveShouldCallOnRemovedToNewChild()
+    {
+        var parent = new MockGameObject();
+        var child = new MockGameObject();
+
+        child.OnRemovedCount.Should().Be(0);
+
+        parent.Add(child);
+
+        child.OnRemovedCount.Should().Be(0);
+
+        parent.Remove(child);
+
+        child.OnRemovedCount.Should().Be(1);
+    }
+
+    [Test]
     public void RenderShouldCallRenderOnChildren()
     {
         var parent = new MockGameObject();
