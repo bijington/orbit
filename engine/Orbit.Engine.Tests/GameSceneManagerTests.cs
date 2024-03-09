@@ -31,4 +31,54 @@ public class Tests
 
         manager.CurrentScene.Should().Be(sceneInstance);
     }
+
+    [Test]
+    public void CompleteShouldMoveStateToCompleted()
+    {
+        GameSceneManager manager = new(new MockDispatcher(), null);
+
+        manager.Complete();
+
+        manager.State.Should().Be(GameState.Completed);
+    }
+
+    [Test]
+    public void GameOverShouldMoveStateToGameOver()
+    {
+        GameSceneManager manager = new(new MockDispatcher(), null);
+
+        manager.GameOver();
+
+        manager.State.Should().Be(GameState.GameOver);
+    }
+
+    [Test]
+    public void PauseShouldMoveStateToPaused()
+    {
+        GameSceneManager manager = new(new MockDispatcher(), null);
+
+        manager.Pause();
+
+        manager.State.Should().Be(GameState.Paused);
+    }
+
+    [Test]
+    public void StartShouldMoveStateToStarted()
+    {
+        GameSceneManager manager = new(new MockDispatcher(), null);
+
+        manager.Start();
+
+        manager.State.Should().Be(GameState.Started);
+    }
+
+    [Test]
+    public void StopShouldMoveStateToLoaded()
+    {
+        GameSceneManager manager = new(new MockDispatcher(), null);
+
+        manager.Stop();
+
+        manager.State.Should().Be(GameState.Loaded);
+    }
 }
