@@ -1,4 +1,7 @@
-namespace Orbit.Engine.Tests
+using Microsoft.Maui;
+using Microsoft.Maui.Graphics;
+
+namespace Orbit.Engine.Tests;
 
 public class GameObjectTests
 {
