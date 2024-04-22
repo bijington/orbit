@@ -2,7 +2,7 @@
 
 The Orbit engine is a game engine built on top of .NET MAUI Graphics. The objective is to firstly enjoy the journey of building a game engine and secondly providing a framework that allows us to utilise the best parts of a cross-platform framework while building a 'typical' game.
 
-[![NuGet](https://buildstats.info/nuget/Bijington.Orbit.Engine?includePreReleases=true)]([https://www.nuget.org/packages/Bijington.Orbit.Engine/](https://www.nuget.org/packages/Bijington.Orbit.Engine/))
+[![NuGet](https://buildstats.info/nuget/Bijington.Orbit.Engine?includePreReleases=true)](https://www.nuget.org/packages/Bijington.Orbit.Engine/)
 
 ## The game loop approach
 
