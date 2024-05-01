@@ -14,8 +14,6 @@ public class Ship : GameObject
     // 1. Collide with Asteroid - damages ship
     // 2. Move into shadow - stop regenerating power
 
-    public override bool IsCollisionDetectionEnabled => true;
-
     public Ship(
         Thruster thruster,
         Gun gun,

@@ -25,7 +25,7 @@ public class AudioService
 
             players[audioItem] = audioPlayer;
 
-            audioPlayer.Volume = 0.3;
+            audioPlayer.Volume = 0.1;
 
             audioPlayer.Loop = loop;
         }

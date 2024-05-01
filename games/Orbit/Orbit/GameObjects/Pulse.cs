@@ -74,8 +74,6 @@ public class Pulse : GameObject
         }
     }
 
-    public override bool IsCollisionDetectionEnabled => true;
-
     public override void Update(double millisecondsSinceLastUpdate)
     {
         base.Update(millisecondsSinceLastUpdate);

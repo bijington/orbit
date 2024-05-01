@@ -30,8 +30,6 @@ public class Planet : GameObject
         shadow.Planet = this;
     }
 
-    public override bool IsCollisionDetectionEnabled => true;
-
     public override void Render(ICanvas canvas, RectF dimensions)
     {
         base.Render(canvas, dimensions);
