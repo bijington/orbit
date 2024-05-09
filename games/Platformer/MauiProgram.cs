@@ -29,6 +29,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
+        builder.Services.AddSingleton<ControllerManager>();
 
 		return builder.Build();
 	}

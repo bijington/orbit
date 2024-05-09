@@ -5,6 +5,7 @@ namespace Platformer;
 
 public partial class MainPage : ContentPage
 {
+    private readonly ControllerManager controllerManager;
 	private readonly IGameSceneManager gameSceneManager;
     private readonly PlayerStateManager playerStateManager;
     private readonly SettingsService settingsService;
@@ -12,13 +13,19 @@ public partial class MainPage : ContentPage
     public MainPage(
         IGameSceneManager gameSceneManager,
         PlayerStateManager playerStateManager,
-        SettingsService settingsService)
+        SettingsService settingsService,
+        ControllerManager controllerManager)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
+        this.controllerManager = controllerManager;
+        
+#if MACCATALYST
+        this.controllerManager.Initialise();
+#endif
 
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<FirstScene>(GameView);

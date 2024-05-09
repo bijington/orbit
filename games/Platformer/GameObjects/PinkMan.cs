@@ -14,6 +14,7 @@ public class PinkMan : GameObject
     private CharacterState state;
     private float position = 0f;
     private float yPosition = 0f;
+    private readonly ControllerManager controllerManager;
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
@@ -72,10 +73,14 @@ public class PinkMan : GameObject
         }
     }
 
-    public PinkMan(PlayerStateManager playerStateManager, SettingsService settingsService)
+    public PinkMan(
+        PlayerStateManager playerStateManager,
+        SettingsService settingsService,
+        ControllerManager controllerManager)
     {
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
+        this.controllerManager = controllerManager;
         
         state = CharacterState.Idle;
         idleSprite = new Sprite(
@@ -157,7 +162,18 @@ public class PinkMan : GameObject
             collision.Collide();
         }
 
-        State = this.playerStateManager.State;
+        var actualState = this.playerStateManager.State;
+
+        if (controllerManager.CurrentPressedButton == ControllerButton.Left)
+        {
+            actualState = CharacterState.MovingLeft;
+        }
+        else if (controllerManager.CurrentPressedButton == ControllerButton.Right)
+        {
+            actualState = CharacterState.MovingRight;
+        }
+
+        State = actualState;
 
         switch (State)
         {
