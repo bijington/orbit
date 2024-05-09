@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace Orbit.Engine;
 
@@ -12,7 +13,7 @@ public abstract class GameObjectContainer : IGameObjectContainer, IRender, IUpda
     /// <summary>
     /// Gets a snapshot of the game objects in the container.
     /// </summary>
-    protected IList<IGameObject> GameObjectsSnapshot => gameObjects.ToList();
+    public IReadOnlyList<IGameObject> GameObjectsSnapshot => gameObjects.ToList();
 
     /// <inheritdoc />
     public void Add(GameObject gameObject)
