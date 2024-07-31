@@ -49,6 +49,8 @@
         <MauiImage Include="Resources\Images\*"/>
         <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185"/>
 
+        <EmbeddedResource Include="Resources\EmbeddedResources\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*"/>
 
@@ -60,10 +62,7 @@
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\engine\Orbit.Engine\Orbit.Engine.csproj" />
+        <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="$(MauiVersion)" />
     </ItemGroup>
 
 </Project>

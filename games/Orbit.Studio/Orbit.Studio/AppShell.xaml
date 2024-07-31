@@ -3,13 +3,12 @@
     x:Class="Orbit.Studio.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Orbit.Studio"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:sprites="clr-namespace:Orbit.Studio.Sprites"
+    FlyoutBehavior="Disabled"
     Title="Orbit.Studio">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate sprites:SpriteEditorPage}"
         Route="MainPage" />
 
 </Shell>
