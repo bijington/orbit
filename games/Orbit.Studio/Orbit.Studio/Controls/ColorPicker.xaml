@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="Orbit.Studio.Controls.ColorPicker"
+      RowDefinitions="*,*,*,*,*"
+      ColumnDefinitions="*,Auto">
+    
+    <Slider Minimum="0" Maximum="255" Value="255" x:Name="Red" ValueChanged="OnColorSliderValueChanged" />
+    <Entry Text="{Binding Value, Source={x:Reference Red}}" Grid.Column="1" />
+    
+    <Slider Minimum="0" Maximum="255" Value="0" x:Name="Blue" ValueChanged="OnColorSliderValueChanged" Grid.Row="1" />
+    <Entry Text="{Binding Value, Source={x:Reference Blue}}" Grid.Column="1" Grid.Row="1" />
+    
+    <Slider Minimum="0" Maximum="255" Value="0" x:Name="Green" ValueChanged="OnColorSliderValueChanged" Grid.Row="2" />
+    <Entry Text="{Binding Value, Source={x:Reference Green}}" Grid.Column="1" Grid.Row="2" />
+    
+    <Slider Minimum="0" Maximum="255" Value="255" x:Name="Alpha" ValueChanged="OnColorSliderValueChanged" Grid.Row="3" />
+    <Entry Text="{Binding Value, Source={x:Reference Alpha}}" Grid.Column="1" Grid.Row="3" />
+    
+    <BoxView x:Name="ColorPreview" WidthRequest="50" HeightRequest="50" Grid.Row="4" />
+    
+</Grid>

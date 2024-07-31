@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Orbit.Studio.Controls"
+             x:Class="Orbit.Studio.Sprites.SpriteEditorPage"
+             Title="Sprite Editor">
+    
+    <Grid ColumnDefinitions="2*,*">
+        <VerticalStackLayout Grid.Column="1" Spacing="10">
+            <HorizontalStackLayout>
+                <Label Text="Width" VerticalOptions="Center"/>
+                <Entry Keyboard="Numeric" Text="16" TextChanged="WidthEntry_OnTextChanged" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Height" VerticalOptions="Center"/>
+                <Entry Keyboard="Numeric" Text="16" TextChanged="HeightEntry_OnTextChanged" />
+            </HorizontalStackLayout>
+            
+            <Label Text="Zoom" />
+            <Slider 
+                x:Name="Zoom"
+                Minimum="1"
+                Maximum="50"
+                Value="1"
+                ValueChanged="Zoom_OnValueChanged"/>
+            
+            <HorizontalStackLayout>
+                <Label Text="Show grid lines" VerticalOptions="Center"/>
+                <CheckBox x:Name="ShowGridLines" CheckedChanged="ShowGridLines_OnCheckedChanged" />
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout>
+                <Label Text="Show chessboard" VerticalOptions="Center"/>
+                <CheckBox x:Name="ShowChessboard" CheckedChanged="ShowChessboard_OnCheckedChanged" />
+            </HorizontalStackLayout>
+            
+            <Button Text="Undo" Clicked="OnUndoClicked" />
+        
+            <controls:ColorPicker x:Name="ColorPicker" />
+            
+            <Button Clicked="Button_OnClicked" Text="Export" />
+        </VerticalStackLayout>
+        
+        <GraphicsView 
+            x:Name="Canvas"
+            Drawable="{Binding}"
+            MoveHoverInteraction="Canvas_OnMoveHoverInteraction"
+            EndInteraction="GraphicsView_OnEndInteraction"/>
+    </Grid>
+    
+</ContentPage>
