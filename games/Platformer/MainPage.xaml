@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:engine="clr-namespace:Orbit.Engine;assembly=Orbit.Engine"
+    Shell.NavBarIsVisible="False"
+    x:Class="Platformer.MainPage">
+
+    <Grid RowDefinitions="*,50">
+        <engine:GameSceneView
+            x:Name="GameView"
+            StartInteraction="OnGameViewStartInteraction"
+            EndInteraction="OnGameViewEndInteraction" />
+        
+        <HorizontalStackLayout 
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Grid.Row="1">
+            <Button 
+                Text="L" 
+                Width="40"
+                Height="40"
+                Pressed="OnLeftButtonPressed"
+                Released="OnLeftButtonReleased" />
+            
+            <Button 
+                Text="R" 
+                Width="40"
+                Height="40"
+                Pressed="OnRightButtonPressed" 
+                Released="OnRightButtonReleased" />
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout 
+            HorizontalOptions="Center"
+            Grid.Row="1">
+            
+            <Label 
+                Text="Show debug" 
+                VerticalOptions="Center" />
+            <CheckBox 
+                CheckedChanged="OnShowDebugCheckedChanged"
+                VerticalOptions="Center" />
+            
+        </HorizontalStackLayout>
+        
+        <Button 
+            Text="J"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Width="40"
+            Height="40"
+            Pressed="OnJumpButtonPressed" 
+            Released="OnJumpButtonReleased"
+            Grid.Row="1" />
+    </Grid>
+
+</ContentPage>

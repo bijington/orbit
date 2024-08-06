@@ -60,7 +60,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.83" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\Images\repository-qrcode.png" />
