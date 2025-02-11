@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Orbit.Engine;
+using Orbit.Input;
+
 using Platformer.GameObjects;
 using Platformer.GameScenes;
 
@@ -29,7 +31,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
-        builder.Services.AddSingleton<ControllerManager>();
+        builder.Services.AddSingleton<Orbit.Input.GameController>();
 
 		return builder.Build();
 	}

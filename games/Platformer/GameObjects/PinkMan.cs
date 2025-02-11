@@ -14,7 +14,7 @@ public class PinkMan : GameObject
     private CharacterState state;
     private float position = 0f;
     private float yPosition = 0f;
-    private readonly ControllerManager controllerManager;
+    private readonly Orbit.Input.GameController gameController;
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
@@ -76,11 +76,11 @@ public class PinkMan : GameObject
     public PinkMan(
         PlayerStateManager playerStateManager,
         SettingsService settingsService,
-        ControllerManager controllerManager)
+        Orbit.Input.GameController gameController)
     {
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
-        this.controllerManager = controllerManager;
+        this.gameController = gameController;
         
         state = CharacterState.Idle;
         idleSprite = new Sprite(
@@ -164,11 +164,11 @@ public class PinkMan : GameObject
 
         var actualState = this.playerStateManager.State;
 
-        if (controllerManager.CurrentPressedButton == ControllerButton.Left)
+        if (gameController.LeftStick.XAxis < 0)
         {
             actualState = CharacterState.MovingLeft;
         }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.Right)
+        else if (gameController.LeftStick.XAxis > 0)
         {
             actualState = CharacterState.MovingRight;
         }

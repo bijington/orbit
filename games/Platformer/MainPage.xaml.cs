@@ -1,11 +1,13 @@
 ﻿using Orbit.Engine;
+using Orbit.Input;
+
 using Platformer.GameScenes;
 
 namespace Platformer;
 
 public partial class MainPage : ContentPage
 {
-    private readonly ControllerManager controllerManager;
+    private readonly Orbit.Input.GameController gameController;
 	private readonly IGameSceneManager gameSceneManager;
     private readonly PlayerStateManager playerStateManager;
     private readonly SettingsService settingsService;
@@ -14,18 +16,16 @@ public partial class MainPage : ContentPage
         IGameSceneManager gameSceneManager,
         PlayerStateManager playerStateManager,
         SettingsService settingsService,
-        ControllerManager controllerManager)
+        Orbit.Input.GameController gameController)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
-        this.controllerManager = controllerManager;
+        this.gameController = gameController;
         
-#if MACCATALYST
-        this.controllerManager.Initialise();
-#endif
+        this.gameController.Initialise();
 
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<FirstScene>(GameView);
