@@ -18,6 +18,11 @@ public class PinkMan : GameObject
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
+
+    private const double walkSpeed = 10000d;
+    private const double runSpeed = 2000d;
+
+    private bool isJumping;
     
     private CharacterState State
     {
@@ -55,19 +60,18 @@ public class PinkMan : GameObject
                         Remove(idleSprite);
                         Add(runSprite);
                         break;
-            
-                    case CharacterState.Jumping:
-                        idleSprite.Stop();
-                        runSprite.Stop();
-                
-                        Remove(idleSprite);
-                        Remove(runSprite);
+                }
 
-                        upwardsMovement = 0.04f;
-                        break;
-            
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                if (state.HasFlag(CharacterState.Jumping))
+                {
+                    idleSprite.Stop();
+                    runSprite.Stop();
+                
+                    Remove(idleSprite);
+                    Remove(runSprite);
+
+                    isJumping = true;
+                    upwardsMovement = 0.04f;
                 }
             }
         }
@@ -162,7 +166,13 @@ public class PinkMan : GameObject
             collision.Collide();
         }
 
-        var actualState = this.playerStateManager.State;
+        if (CurrentScene.GameObjectsSnapshot.OfType<FloorTile>().Any(x => x.Bounds.IntersectsWith(this.Bounds)))
+        {
+            isJumping = false;            
+        }
+
+        var originalState = this.playerStateManager.State;
+        CharacterState actualState = CharacterState.Idle;
 
         if (gameController.LeftStick.XAxis < 0)
         {
@@ -173,23 +183,35 @@ public class PinkMan : GameObject
             actualState = CharacterState.MovingRight;
         }
 
+        double divisor = walkSpeed;
+        
+        if (this.gameController.ButtonWest)
+        {
+            divisor = runSpeed;
+        }
+
         State = actualState;
 
         switch (State)
         {
             case CharacterState.MovingRight:
-                position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / 10000d), 0, 1);
+                position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
                 break;
             
             case CharacterState.MovingLeft:
-                position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / 10000d), 0, 1);
+                position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
                 break;
             
             case CharacterState.Jumping:
-                yPosition = Math.Clamp(yPosition + upwardsMovement, 0, 1);
-
-                upwardsMovement -= 0.004f;
+                
                 break;
+        }
+
+        if (isJumping)
+        {
+            yPosition = Math.Clamp(yPosition + upwardsMovement, 0, 1);
+
+            upwardsMovement -= 0.004f;
         }
     }
 }

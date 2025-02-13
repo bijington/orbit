@@ -26,6 +26,19 @@ public partial class MainPage : ContentPage
         this.gameController = gameController;
         
         this.gameController.Initialise();
+        this.gameController.When(
+            button: "ButtonSouth",
+            isPressed: isPressed =>
+            {
+                if (isPressed)
+                {
+                    this.playerStateManager.State |= CharacterState.Jumping;
+                }
+                else
+                {
+                    this.playerStateManager.State ^= CharacterState.Jumping;
+                }
+            });
 
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<FirstScene>(GameView);

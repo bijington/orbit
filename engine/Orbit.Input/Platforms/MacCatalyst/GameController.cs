@@ -20,10 +20,10 @@ public partial class GameController
             return;
         }
 
-        // if (controller.PhysicalInputProfile is not null)
-        // {
-        //     controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
-        // }
+        if (controller.PhysicalInputProfile is not null)
+        {
+            controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
+        }
     }
 
     public partial async Task Initialise()
@@ -39,6 +39,7 @@ public partial class GameController
         {
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button A")):
                 ButtonSouth = buttonInput.IsPressed;
+                RaiseButtonPressed(nameof(ButtonSouth), ButtonSouth);
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button B")):
