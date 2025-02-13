@@ -200,19 +200,13 @@ public class PinkMan : GameObject
 
         State = actualState;
 
-        switch (State)
+        if (State.HasFlag(CharacterState.MovingRight))
         {
-            case CharacterState.MovingRight:
-                position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
-                break;
-            
-            case CharacterState.MovingLeft:
-                position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
-                break;
-            
-            case CharacterState.Jumping:
-                
-                break;
+            position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
+        }
+        else if (State.HasFlag(CharacterState.MovingLeft))
+        {
+            position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
         }
 
         if (isJumping)
