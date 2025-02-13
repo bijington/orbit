@@ -23,6 +23,7 @@ public class PinkMan : GameObject
     private const double runSpeed = 2000d;
 
     private bool isJumping;
+    private bool hasStartedJump;
     
     private CharacterState State
     {
@@ -140,7 +141,7 @@ public class PinkMan : GameObject
         idleSprite.Bounds = this.Bounds;
         runSprite.Bounds = this.Bounds;
 
-        if (state == CharacterState.Jumping)
+        if (isJumping)
         {
             canvas.DrawImage(jump, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);
         }
@@ -166,9 +167,11 @@ public class PinkMan : GameObject
             collision.Collide();
         }
 
-        if (CurrentScene.GameObjectsSnapshot.OfType<FloorTile>().Any(x => x.Bounds.IntersectsWith(this.Bounds)))
+        if (isJumping && hasStartedJump &&
+            CurrentScene.GameObjectsSnapshot.OfType<FloorTile>().Any(x => x.Bounds.IntersectsWith(this.Bounds)))
         {
-            isJumping = false;            
+            isJumping = false;   
+            hasStartedJump = false;
         }
 
         var originalState = this.playerStateManager.State;
@@ -181,6 +184,11 @@ public class PinkMan : GameObject
         else if (gameController.LeftStick.XAxis > 0)
         {
             actualState = CharacterState.MovingRight;
+        }
+
+        if (originalState.HasFlag(CharacterState.Jumping))
+        {
+            actualState |= CharacterState.Jumping;
         }
 
         double divisor = walkSpeed;
@@ -209,6 +217,8 @@ public class PinkMan : GameObject
 
         if (isJumping)
         {
+            hasStartedJump = true;
+            
             yPosition = Math.Clamp(yPosition + upwardsMovement, 0, 1);
 
             upwardsMovement -= 0.004f;
