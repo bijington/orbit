@@ -9,6 +9,13 @@ public partial class GameController
     public GameController(Gamepad gamepad)
     {
         this.gamepad = gamepad;
+
+        Dpad = new Stick(this, nameof(Dpad));
+        LeftStick = new Stick(this, nameof(LeftStick));
+        RightStick = new Stick(this, nameof(RightStick));
+
+        LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
+        RightShoulder = new Shoulder(this, nameof(RightShoulder));
     }
 
     private void Update()
