@@ -20,6 +20,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+        
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -31,7 +32,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
-        builder.Services.AddSingleton<Orbit.Input.GameController>();
+        builder.Services.AddSingleton<GameControllerManager>();
 
 		return builder.Build();
 	}

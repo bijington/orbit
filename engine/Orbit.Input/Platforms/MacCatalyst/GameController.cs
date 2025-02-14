@@ -6,29 +6,20 @@ namespace Orbit.Input;
 
 public partial class GameController
 {
-    public GameController()
+    private readonly GCController controller;
+
+    public GameController(GCController controller)
     {
-        GCController.Notifications.ObserveDidConnect(ConnectToController);
-    }
+        this.controller = controller;
+        
+        Dpad = new Stick(this, nameof(Dpad));
+        LeftStick = new Stick(this, nameof(LeftStick));
+        RightStick = new Stick(this, nameof(RightStick));
 
-    private void ConnectToController(object? sender, NSNotificationEventArgs e)
-    {
-        var controller = GCController.Controllers.FirstOrDefault();
-
-        if (controller is null)
-        {
-            return;
-        }
-
-        if (controller.PhysicalInputProfile is not null)
-        {
-            controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
-        }
-    }
-
-    public partial async Task Initialise()
-    {
-        await GCController.StartWirelessControllerDiscoveryAsync();
+        LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
+        RightShoulder = new Shoulder(this, nameof(RightShoulder));
+        
+        controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
     }
 
     private void Changed(GCPhysicalInputProfile gamepad, GCControllerElement element)
@@ -39,7 +30,6 @@ public partial class GameController
         {
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button A")):
                 ButtonSouth = buttonInput.IsPressed;
-                RaiseButtonPressed(nameof(ButtonSouth), ButtonSouth);
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button B")):
@@ -52,7 +42,6 @@ public partial class GameController
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button Y")):
                 ButtonNorth = buttonInput.IsPressed;
-                RaiseButtonPressed(nameof(ButtonNorth), ButtonNorth);
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Right Shoulder")):
@@ -77,8 +66,6 @@ public partial class GameController
             
             case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Left Thumbstick")):
                 LeftStick.XAxis = directionPad.XAxis.Value;
-                RaiseButtonValueChanged(nameof(ButtonNorth), LeftStick.XAxis);
-                
                 LeftStick.YAxis = directionPad.YAxis.Value;
                 break;
             

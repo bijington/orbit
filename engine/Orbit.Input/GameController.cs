@@ -1,27 +1,58 @@
-﻿namespace Orbit.Input;
+﻿using System.Runtime.CompilerServices;
+
+namespace Orbit.Input;
 
 public partial class GameController
 {
-    public partial Task Initialise();
+    public Stick Dpad { get; }
+    
+    public Stick LeftStick { get; }
 
-    public Stick Dpad { get; } = new();
-    public Stick LeftStick { get; } = new();
+    public Stick RightStick { get; }
 
-    public Stick RightStick { get; } = new();
+    private bool buttonNorth;
+
+    public bool ButtonNorth
+    {
+        get => buttonNorth;
+        set => SetState(ref this.buttonNorth, value);
+    }
     
-    public bool Pause { get; set; }
+    private bool buttonSouth;
+
+    public bool ButtonSouth
+    {
+        get => buttonSouth;
+        set => SetState(ref this.buttonSouth, value);
+    }
     
-    public bool ButtonNorth { get; set; }
+    private bool buttonEast;
+
+    public bool ButtonEast
+    {
+        get => buttonEast;
+        set => SetState(ref this.buttonEast, value);
+    }
     
-    public bool ButtonSouth { get; set; }
+    private bool buttonWest;
+
+    public bool ButtonWest
+    {
+        get => buttonWest;
+        set => SetState(ref this.buttonWest, value);
+    }
     
-    public bool ButtonEast { get; set; }
+    private bool pause;
+
+    public bool Pause
+    {
+        get => pause;
+        set => SetState(ref this.pause, value);
+    }
     
-    public bool ButtonWest { get; set; }
+    public Shoulder LeftShoulder { get; }
     
-    public Shoulder LeftShoulder { get; } = new();
-    
-    public Shoulder RightShoulder { get; } = new();
+    public Shoulder RightShoulder { get; }
     
     public GameController When(string button, Action<bool> isPressed)
     {
@@ -81,18 +112,13 @@ public partial class GameController
             callback.Invoke(value);
         }
     }
-}
-
-public class Shoulder
-{
-    public bool Button { get; set; }
     
-    public float Trigger { get; set; }
-}
-
-public class Stick
-{
-    public float XAxis { get; set; }
-    
-    public float YAxis { get; set; }
+    private void SetState(ref bool field, bool newValue, [CallerMemberName] string? buttonName = null)
+    {
+        ArgumentNullException.ThrowIfNull(buttonName);
+        
+        field = newValue;
+        
+        this.RaiseButtonPressed(buttonName, field);
+    }
 }

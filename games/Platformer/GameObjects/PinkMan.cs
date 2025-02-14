@@ -14,7 +14,7 @@ public class PinkMan : GameObject
     private CharacterState state;
     private float position = 0f;
     private float yPosition = 0f;
-    private readonly Orbit.Input.GameController gameController;
+    // private readonly Orbit.Input.GameController gameController;
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
@@ -80,12 +80,10 @@ public class PinkMan : GameObject
 
     public PinkMan(
         PlayerStateManager playerStateManager,
-        SettingsService settingsService,
-        Orbit.Input.GameController gameController)
+        SettingsService settingsService)
     {
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
-        this.gameController = gameController;
         
         state = CharacterState.Idle;
         idleSprite = new Sprite(
@@ -177,14 +175,14 @@ public class PinkMan : GameObject
         var originalState = this.playerStateManager.State;
         CharacterState actualState = CharacterState.Idle;
 
-        if (gameController.LeftStick.XAxis < 0)
-        {
-            actualState = CharacterState.MovingLeft;
-        }
-        else if (gameController.LeftStick.XAxis > 0)
-        {
-            actualState = CharacterState.MovingRight;
-        }
+        // if (gameController.LeftStick.XAxis < 0)
+        // {
+        //     actualState = CharacterState.MovingLeft;
+        // }
+        // else if (gameController.LeftStick.XAxis > 0)
+        // {
+        //     actualState = CharacterState.MovingRight;
+        // }
 
         if (originalState.HasFlag(CharacterState.Jumping))
         {
@@ -193,10 +191,10 @@ public class PinkMan : GameObject
 
         double divisor = walkSpeed;
         
-        if (this.gameController.ButtonWest)
-        {
-            divisor = runSpeed;
-        }
+        // if (this.gameController.ButtonWest)
+        // {
+        //     divisor = runSpeed;
+        // }
 
         State = actualState;
 

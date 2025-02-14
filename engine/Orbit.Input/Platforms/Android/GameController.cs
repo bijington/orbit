@@ -5,6 +5,16 @@ namespace Orbit.Input;
 // All the code in this file is only included on Android.
 public partial class GameController
 {
+    public GameController(int deviceId)
+    {
+        Dpad = new Stick(this, nameof(Dpad));
+        LeftStick = new Stick(this, nameof(LeftStick));
+        RightStick = new Stick(this, nameof(RightStick));
+
+        LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
+        RightShoulder = new Shoulder(this, nameof(RightShoulder));
+    }
+    
     public void OnGenericMotionEvent(MotionEvent motionEvent)
     {
         // Check that the event came from a game controller
@@ -67,32 +77,6 @@ public partial class GameController
         
         LeftShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Ltrigger, historyPos);
         RightShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Rtrigger, historyPos);
-    }
-    
-    public partial Task Initialise()
-    {
-        var deviceIds = InputDevice.GetDeviceIds();
-
-        if (deviceIds is not null)
-        {
-            foreach (var deviceId in deviceIds)
-            {
-                var device = InputDevice.GetDevice(deviceId);
-
-                if (device is null)
-                {
-                    continue;
-                }
-
-                var sources = device.Sources;
-                
-                if (sources.HasFlag(InputSourceType.Gamepad) || sources.HasFlag(InputSourceType.Joystick))
-                {
-                }
-            }
-        }
-
-        return Task.CompletedTask;
     }
 
     public void OnKeyDown(InputEvent inputEvent)

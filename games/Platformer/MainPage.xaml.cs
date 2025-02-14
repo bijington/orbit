@@ -7,7 +7,8 @@ namespace Platformer;
 
 public partial class MainPage : ContentPage
 {
-    private readonly Orbit.Input.GameController gameController;
+    private Orbit.Input.GameController? gameController;
+    private readonly Orbit.Input.GameControllerManager gameControllerManager;
 	private readonly IGameSceneManager gameSceneManager;
     private readonly PlayerStateManager playerStateManager;
     private readonly SettingsService settingsService;
@@ -16,16 +17,46 @@ public partial class MainPage : ContentPage
         IGameSceneManager gameSceneManager,
         PlayerStateManager playerStateManager,
         SettingsService settingsService,
-        Orbit.Input.GameController gameController)
+        Orbit.Input.GameControllerManager gameControllerManager)
     {
         InitializeComponent();
 
         this.gameSceneManager = gameSceneManager;
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
-        this.gameController = gameController;
+        this.gameControllerManager = gameControllerManager;
         
-        this.gameController.Initialise();
+        // TODO: disconnected.
+        this.gameControllerManager.GameControllerConnected += GameControllerManagerOnGameControllerConnected; 
+        _ = this.gameControllerManager.Initialise();
+
+        gameSceneManager.LoadScene<FirstScene>(GameView);
+        gameSceneManager.Start();
+    }
+
+    private void GameControllerManagerOnGameControllerConnected(object? sender, GameControllerConnectedEventArgs e)
+    {
+        if (this.gameController is not null)
+        {
+            return;
+        }
+        
+        this.gameController = e.GameController;
+        
+        this.gameController.When(
+            button: "LeftStickXAxis", // TODO: need something more concrete
+            changesValue: value =>
+            {
+                if (value < 0)
+                {
+                    this.playerStateManager.State = CharacterState.MovingLeft;
+                }
+                else if (value > 0)
+                {
+                    this.playerStateManager.State = CharacterState.MovingRight;
+                }
+            });
+        
         this.gameController.When(
             button: "ButtonSouth",
             isPressed: isPressed =>
@@ -39,18 +70,9 @@ public partial class MainPage : ContentPage
                     this.playerStateManager.State ^= CharacterState.Jumping;
                 }
             });
-
-        gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
-        gameSceneManager.LoadScene<FirstScene>(GameView);
-        gameSceneManager.Start();
     }
 
-	private void OnGameSceneManagerStateChanged(object? sender, GameStateChangedEventArgs e)
-	{
-
-	}
-
-	void OnGameViewEndInteraction(object sender, TouchEventArgs e)
+    void OnGameViewEndInteraction(object sender, TouchEventArgs e)
     {
     }
 
