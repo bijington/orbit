@@ -8,7 +8,7 @@ public partial class GameControllerManager
     
     public static GameControllerManager Current => current ?? (current = new GameControllerManager());
     
-    public partial Task Initialise();
+    public partial Task Initialize();
     
     public IReadOnlyCollection<GameController> GameControllers => gameControllers;
     

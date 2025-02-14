@@ -11,7 +11,7 @@ public partial class GameControllerManager
         GCController.Notifications.ObserveDidConnect(ConnectToController);
     }
     
-    public partial async Task Initialise()
+    public partial async Task Initialize()
     {
         await GCController.StartWirelessControllerDiscoveryAsync();
     }

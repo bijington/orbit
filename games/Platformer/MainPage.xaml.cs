@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
         
         // TODO: disconnected.
         this.gameControllerManager.GameControllerConnected += GameControllerManagerOnGameControllerConnected; 
-        _ = this.gameControllerManager.Initialise();
+        _ = this.gameControllerManager.Initialize();
 
         gameSceneManager.LoadScene<FirstScene>(GameView);
         gameSceneManager.Start();

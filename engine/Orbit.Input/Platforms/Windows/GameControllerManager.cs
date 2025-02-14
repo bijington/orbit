@@ -8,7 +8,7 @@ public partial class GameControllerManager
     {
     }
     
-    public partial Task Initialise()
+    public partial Task Initialize()
     {
         var gamePads = Gamepad.Gamepads;
 
