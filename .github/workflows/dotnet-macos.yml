@@ -18,15 +18,19 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     - name: workload install
       run: dotnet workload install maui
-    - name: Restore dependencies
+    - name: Restore dependencies - engine
       run: dotnet restore engine/Orbit.Engine/Orbit.Engine.csproj
-    - name: Restore dependencies
+    - name: Restore dependencies - input
+      run: dotnet restore engine/Orbit.Input/Orbit.Input.csproj
+    - name: Restore dependencies - tests
       run: dotnet restore engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj
     - name: Build engine
       run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
+    - name: Build input
+      run: dotnet build engine/Orbit.Input/Orbit.Input.csproj --no-restore
     - name: Build tests
       run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
     - name: Run tests
