@@ -6,13 +6,9 @@ public partial class GameController
 {
     private readonly Gamepad gamepad;
 
-    public partial Task Initialise()
+    public GameController(Gamepad gamepad)
     {
-        var gamepad = Gamepad.Gamepads.First();
-
-        Update();
-
-        return Task.CompletedTask;
+        this.gamepad = gamepad;
     }
 
     private void Update()
