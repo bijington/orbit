@@ -1,14 +1,35 @@
+using Android.App;
 using Android.Views;
 
 namespace Orbit.Input;
 
 public partial class GameControllerManager
 {
+    private KeyListener? keyListener;
+    private GenericMotionListener? genericMotionListener;
+    
     private GameControllerManager()
     {
     }
+
+    public void AttachToCurrentActivity(Activity activity) 
+    {
+        keyListener = new KeyListener(activity, (code, e) =>
+        {
+            switch (e.Action) 
+            {
+                case KeyEventActions.Down when OnKeyDown(code, e):
+                case KeyEventActions.Up when OnKeyUp(code, e):
+                    return true;
+            }
+
+            return false;
+        });
+        
+        genericMotionListener = new GenericMotionListener(activity, OnGenericMotionEvent);
+    }
     
-    public partial Task Initialize()
+    public partial Task StartDiscovery()
     {
         var deviceIds = InputDevice.GetDeviceIds();
 
@@ -37,45 +58,18 @@ public partial class GameControllerManager
         return Task.CompletedTask;
     }
     
-    public void OnGenericMotionEvent(MotionEvent? e)
+    public bool OnGenericMotionEvent(MotionEvent? e)
     {
-        if (e is null)
-        {
-            return;
-        }
-        
-        // TODO: thread safety?
-        foreach (var controller in gameControllers)
-        {
-            controller.OnGenericMotionEvent(e);
-        }
+        return e is not null && gameControllers.Any(controller => controller.OnGenericMotionEvent(e));
     }
 
-    public void OnKeyDown(Keycode keyCode, KeyEvent? e)
+    public bool OnKeyDown(Keycode keyCode, KeyEvent? e)
     {
-        if (e is null)
-        {
-            return;
-        }
-        
-        // TODO: thread safety?
-        foreach (var controller in gameControllers)
-        {
-            controller.OnKeyDown(e);
-        }
+        return e is not null && gameControllers.Any(controller => controller.OnKeyDown(e));
     }
 
-    public void OnKeyUp(Keycode keyCode, KeyEvent? e)
+    public bool OnKeyUp(Keycode keyCode, KeyEvent? e)
     {
-        if (e is null)
-        {
-            return;
-        }
-        
-        // TODO: thread safety?
-        foreach (var controller in gameControllers)
-        {
-            controller.OnKeyUp(e);
-        }
+        return e is not null && gameControllers.Any(controller => controller.OnKeyUp(e));
     }
 }

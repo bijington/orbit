@@ -15,6 +15,12 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseOrbitEngine()
+            .UseOrbitInput(controllerOptions =>
+            {
+#if ANDROID
+                controllerOptions.AutoAttachToLifecycleEvents = true;
+#endif
+            })
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

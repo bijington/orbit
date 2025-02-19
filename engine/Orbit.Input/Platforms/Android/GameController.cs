@@ -5,8 +5,12 @@ namespace Orbit.Input;
 // All the code in this file is only included on Android.
 public partial class GameController
 {
+    private readonly int deviceId;
+
     public GameController(int deviceId)
     {
+        this.deviceId = deviceId;
+        
         Dpad = new Stick(this, nameof(Dpad));
         LeftStick = new Stick(this, nameof(LeftStick));
         RightStick = new Stick(this, nameof(RightStick));
@@ -15,8 +19,13 @@ public partial class GameController
         RightShoulder = new Shoulder(this, nameof(RightShoulder));
     }
     
-    public void OnGenericMotionEvent(MotionEvent motionEvent)
+    public bool OnGenericMotionEvent(MotionEvent motionEvent)
     {
+        if (motionEvent.DeviceId != this.deviceId)
+        {
+            return false;
+        }
+        
         // Check that the event came from a game controller
         if (motionEvent.Source.HasFlag(InputSourceType.Joystick) &&
             motionEvent.Action == MotionEventActions.Move)
@@ -35,55 +44,20 @@ public partial class GameController
             // Process the current movement sample in the batch (position -1)
             ProcessJoystickInput(motionEvent, -1);
         }
-    }
-    
-    private static float GetCenteredAxis(MotionEvent motionEvent, InputDevice device, Axis axis, int historyPos)
-    {
-        var range = device.GetMotionRange(axis, motionEvent.Source);
-
-        // A joystick at rest does not always report an absolute position of
-        // (0,0). Use the getFlat() method to determine the range of values
-        // bounding the joystick axis center.
-        if (range is not null) 
-        {
-            var flat = range.Flat;
-            var value = historyPos < 0 ? motionEvent.GetAxisValue(axis):
-                    motionEvent.GetHistoricalAxisValue(axis, historyPos);
-
-            // Ignore axis values that are within the 'flat' region of the
-            // joystick axis center.
-            if (Math.Abs(value) > flat)
-            {
-                return value;
-            }
-        }
-        return 0;
-    }
-    
-    private void ProcessJoystickInput(MotionEvent motionEvent, int historyPos)
-    {
-        var inputDevice = motionEvent.Device;
-
-        if (inputDevice is null)
-        {
-            return;
-        }
-
-        LeftStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.X, historyPos);
-        LeftStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Y, historyPos);
-
-        RightStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Z, historyPos);
-        RightStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Rz, historyPos);
         
-        LeftShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Ltrigger, historyPos);
-        RightShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Rtrigger, historyPos);
+        return true;
     }
 
-    public void OnKeyDown(InputEvent inputEvent)
+    public bool OnKeyDown(InputEvent inputEvent)
     {
+        if (inputEvent.DeviceId != this.deviceId)
+        {
+            return false;
+        }
+        
         if (!IsDpadDevice(inputEvent))
         {
-            return;
+            return false;
         }
 
         switch (inputEvent)
@@ -121,13 +95,20 @@ public partial class GameController
                 RightShoulder.Button = true;
                 break;
         }
+
+        return true;
     }
     
-    public void OnKeyUp(InputEvent inputEvent)
+    public bool OnKeyUp(InputEvent inputEvent)
     {
+        if (inputEvent.DeviceId != this.deviceId)
+        {
+            return false;
+        }
+        
         if (!IsDpadDevice(inputEvent))
         {
-            return;
+            return false;
         }
 
         switch (inputEvent)
@@ -165,11 +146,55 @@ public partial class GameController
                 RightShoulder.Button = false;
                 break;
         }
+
+        return true;
+    }
+    
+    private static float GetCenteredAxis(MotionEvent motionEvent, InputDevice device, Axis axis, int historyPos)
+    {
+        var range = device.GetMotionRange(axis, motionEvent.Source);
+
+        // A joystick at rest does not always report an absolute position of
+        // (0,0). Use the getFlat() method to determine the range of values
+        // bounding the joystick axis center.
+        if (range is not null) 
+        {
+            var flat = range.Flat;
+            var value = historyPos < 0 ? motionEvent.GetAxisValue(axis):
+                motionEvent.GetHistoricalAxisValue(axis, historyPos);
+
+            // Ignore axis values that are within the 'flat' region of the
+            // joystick axis center.
+            if (Math.Abs(value) > flat)
+            {
+                return value;
+            }
+        }
+        return 0;
     }
     
     private static bool IsDpadDevice(InputEvent inputEvent)
     {
         // Check that input comes from a device with directional pads.
         return inputEvent.Source.HasFlag(InputSourceType.Dpad);
+    }
+    
+    private void ProcessJoystickInput(MotionEvent motionEvent, int historyPos)
+    {
+        var inputDevice = motionEvent.Device;
+
+        if (inputDevice is null)
+        {
+            return;
+        }
+
+        LeftStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.X, historyPos);
+        LeftStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Y, historyPos);
+
+        RightStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Z, historyPos);
+        RightStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Rz, historyPos);
+        
+        LeftShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Ltrigger, historyPos);
+        RightShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Rtrigger, historyPos);
     }
 }

@@ -11,7 +11,7 @@ public partial class GameControllerManager
         GCController.Notifications.ObserveDidConnect(ConnectToController);
     }
     
-    public partial async Task Initialize()
+    public partial async Task StartDiscovery()
     {
         await GCController.StartWirelessControllerDiscoveryAsync();
     }
@@ -20,7 +20,9 @@ public partial class GameControllerManager
     {
         if (e.Notification.Object is GCController controller)
         {
-            gameControllers.Add(new GameController(controller));
+            var gameController = new GameController(controller);
+            gameControllers.Add(gameController);
+            OnGameControllerConnected(gameController);
         }
     }
 }
