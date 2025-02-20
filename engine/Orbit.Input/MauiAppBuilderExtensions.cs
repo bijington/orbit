@@ -26,6 +26,9 @@ public static class MauiAppBuilderExtensions
         this MauiAppBuilder builder,
         Action<GameControllerOptions>? configureControllerOptions = null)
     {
+        var controllerOptions = new GameControllerOptions();
+        configureControllerOptions?.Invoke(controllerOptions);
+
         builder.ConfigureLifecycleEvents(appLifecycle =>
         {
 #if ANDROID
@@ -36,10 +39,7 @@ public static class MauiAppBuilderExtensions
                 android.OnCreate((activity, bundle) =>
                 {
                     if (!appCreated)
-                    {
-                        var controllerOptions = new GameControllerOptions();
-                        configureControllerOptions?.Invoke(controllerOptions);
-                        
+                    {                        
                         appCreated = true;
                         
                         if (controllerOptions.AutoAttachToLifecycleEvents)
@@ -54,6 +54,10 @@ public static class MauiAppBuilderExtensions
             });
 #endif
         });
+
+#if WINDOWS
+        GameControllerManager.Current.StartControllerMonitoringUponDetection = controllerOptions.StartControllerMonitoringUponDetection;
+#endif
 
         return builder;
     }

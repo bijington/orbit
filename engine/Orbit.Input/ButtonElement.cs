@@ -17,17 +17,23 @@ public abstract class ButtonElement
     {
         ArgumentNullException.ThrowIfNull(buttonName);
 
-        field = newValue;
-        
-        this.controller.RaiseButtonPressed(elementName + buttonName, field);
+        if (field != newValue)
+        {
+            field = newValue;
+
+            this.controller.RaiseButtonPressed(elementName + buttonName, field);
+        }
     }
     
     protected void SetValue(ref float field, float newValue, [CallerMemberName] string? buttonName = null)
     {
         ArgumentNullException.ThrowIfNull(buttonName);
-        
-        field = newValue;
-        
-        this.controller.RaiseButtonValueChanged(elementName + buttonName, field);
+
+        if (Math.Abs(field - newValue) < 0.0001f)
+        {
+            field = newValue;
+
+            this.controller.RaiseButtonValueChanged(elementName + buttonName, field);
+        }
     }
 }

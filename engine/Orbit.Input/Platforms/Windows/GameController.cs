@@ -5,6 +5,7 @@ namespace Orbit.Input;
 public partial class GameController
 {
     private readonly Gamepad gamepad;
+    private CancellationTokenSource? cancellationTokenSource;
 
     public GameController(Gamepad gamepad)
     {
@@ -16,6 +17,32 @@ public partial class GameController
 
         LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
         RightShoulder = new Shoulder(this, nameof(RightShoulder));
+    }
+
+    public void StartUpdates(TimeSpan updateFrequency)
+    {
+        if (this.cancellationTokenSource is not null)
+        {
+            return;
+        }
+
+        this.cancellationTokenSource = new();
+
+        Task.Run(async () =>
+        {
+            while (this.cancellationTokenSource?.IsCancellationRequested is false)
+            {
+                Update();
+
+                await Task.Delay(updateFrequency);
+            }
+        });
+    }
+
+    public void StopUpdates()
+    {
+        this.cancellationTokenSource?.Cancel();
+        this.cancellationTokenSource = null;
     }
 
     private void Update()

@@ -19,6 +19,8 @@ public static class MauiProgram
             {
 #if ANDROID
                 controllerOptions.AutoAttachToLifecycleEvents = true;
+#elif WINDOWS
+                controllerOptions.ControllerUpdateFrequency = TimeSpan.FromMilliseconds(16);
 #endif
             })
 			.ConfigureFonts(fonts =>
@@ -38,7 +40,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
-        builder.Services.AddSingleton<GameControllerManager>();
+        builder.Services.AddSingleton(GameControllerManager.Current);
 
 		return builder.Build();
 	}

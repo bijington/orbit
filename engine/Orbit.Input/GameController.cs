@@ -116,9 +116,12 @@ public partial class GameController
     private void SetState(ref bool field, bool newValue, [CallerMemberName] string? buttonName = null)
     {
         ArgumentNullException.ThrowIfNull(buttonName);
-        
-        field = newValue;
-        
-        this.RaiseButtonPressed(buttonName, field);
+
+        if (field != newValue)
+        {
+            field = newValue;
+
+            this.RaiseButtonPressed(buttonName, field);
+        }
     }
 }
