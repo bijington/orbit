@@ -2,11 +2,11 @@ namespace Orbit.Input;
 
 public partial class GameControllerManager
 {
-    private List<GameController> gameControllers = [];
+    private readonly List<GameController> gameControllers = [];
     
     private static GameControllerManager? current;
     
-    public static GameControllerManager Current => current ?? (current = new GameControllerManager());
+    public static GameControllerManager Current => current ??= new GameControllerManager();
     
     public partial Task StartDiscovery();
     
@@ -16,6 +16,7 @@ public partial class GameControllerManager
 
     private void OnGameControllerConnected(GameController controller)
     {
+        gameControllers.Add(controller);
         this.GameControllerConnected?.Invoke(this, new GameControllerConnectedEventArgs(controller));
     }
 }

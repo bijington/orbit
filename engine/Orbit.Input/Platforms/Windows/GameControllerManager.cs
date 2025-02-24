@@ -35,8 +35,7 @@ public partial class GameControllerManager
     private void OnGamepadAdded(object? sender, Gamepad gamepad)
     {
         var controller = new GameController(gamepad);
-        gameControllers.Add(controller);
-        GameControllerConnected?.Invoke(this, new GameControllerConnectedEventArgs(controller));
+        OnGameControllerConnected(controller);
 
         if (StartControllerMonitoringUponDetection)
         {

@@ -7,14 +7,13 @@ namespace Orbit.Input;
 
 public class KeyListener : Java.Lang.Object, ViewTreeObserver.IOnGlobalFocusChangeListener, View.IOnKeyListener
 {
-    private readonly Activity activity;
     private readonly Func<Keycode, KeyEvent, bool> callback;
 
     public KeyListener(Activity activity, Func<Keycode, KeyEvent, bool> callback)
     {
         this.callback = callback ?? throw new ArgumentNullException(nameof(callback));
-        this.activity = activity;
-        this.activity.Window?.DecorView.ViewTreeObserver?.AddOnGlobalFocusChangeListener(this);
+        
+        activity.Window?.DecorView.ViewTreeObserver?.AddOnGlobalFocusChangeListener(this);
     }
 
     public void OnGlobalFocusChanged(View? oldFocus, View? newFocus)
