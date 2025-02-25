@@ -1,10 +1,8 @@
 using Orbit.Engine;
 
-using Platformer.GameObjects;
-
 using IImage = Microsoft.Maui.Graphics.IImage;
 
-namespace Platformer;
+namespace Platformer.GameObjects;
 
 public class PinkMan : GameObject
 {
@@ -14,7 +12,6 @@ public class PinkMan : GameObject
     private CharacterState state;
     private float position = 0f;
     private float yPosition = 0f;
-    // private readonly Orbit.Input.GameController gameController;
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
@@ -172,29 +169,14 @@ public class PinkMan : GameObject
             hasStartedJump = false;
         }
 
-        var originalState = this.playerStateManager.State;
-        CharacterState actualState = CharacterState.Idle;
-
-        // if (gameController.LeftStick.XAxis < 0)
-        // {
-        //     actualState = CharacterState.MovingLeft;
-        // }
-        // else if (gameController.LeftStick.XAxis > 0)
-        // {
-        //     actualState = CharacterState.MovingRight;
-        // }
-
-        if (originalState.HasFlag(CharacterState.Jumping))
-        {
-            actualState |= CharacterState.Jumping;
-        }
+        CharacterState actualState = this.playerStateManager.State;
 
         double divisor = walkSpeed;
         
-        // if (this.gameController.ButtonWest)
-        // {
-        //     divisor = runSpeed;
-        // }
+        if (this.playerStateManager.State.HasFlag(CharacterState.Running))
+        {
+            divisor = runSpeed;
+        }
 
         State = actualState;
 

@@ -6,5 +6,6 @@ public enum CharacterState
     Idle = 0,
     MovingRight = 1,
     MovingLeft = 2,
-    Jumping = 4
+    Jumping = 4,
+    Running = 8
 }

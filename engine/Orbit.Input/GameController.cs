@@ -4,6 +4,9 @@ namespace Orbit.Input;
 
 public partial class GameController
 {
+    private readonly IDictionary<string, IList<Action<bool>>> buttonPressedCallbacks = new Dictionary<string, IList<Action<bool>>>();
+    private readonly IDictionary<string, IList<Action<float>>> buttonValueChangeCallbacks = new Dictionary<string, IList<Action<float>>>();
+    
     public Stick Dpad { get; }
     
     public Stick LeftStick { get; }
@@ -83,9 +86,6 @@ public partial class GameController
         buttonValueChangeCallbacks[button] = callbacks;
         return this;
     }
-    
-    private readonly IDictionary<string, IList<Action<bool>>> buttonPressedCallbacks = new Dictionary<string, IList<Action<bool>>>();
-    private readonly IDictionary<string, IList<Action<float>>> buttonValueChangeCallbacks = new Dictionary<string, IList<Action<float>>>();
 
     internal void RaiseButtonPressed(string button, bool isPressed)
     {

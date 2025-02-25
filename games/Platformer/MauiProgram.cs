@@ -41,6 +41,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
         builder.Services.AddSingleton(GameControllerManager.Current);
+        builder.Services.AddSingleton(KeyboardManager.Current);
 
 		return builder.Build();
 	}

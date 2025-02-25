@@ -2,7 +2,7 @@ using Orbit.Engine;
 
 using IImage = Microsoft.Maui.Graphics.IImage;
 
-namespace Platformer;
+namespace Platformer.GameObjects;
 
 public class FloorTile : GameObject
 {

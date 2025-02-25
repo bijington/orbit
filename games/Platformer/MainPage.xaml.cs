@@ -9,6 +9,7 @@ public partial class MainPage : ContentPage
 {
     private Orbit.Input.GameController? gameController;
     private readonly Orbit.Input.GameControllerManager gameControllerManager;
+    private readonly KeyboardManager keyboardManager;
     private readonly IGameSceneManager gameSceneManager;
     private readonly PlayerStateManager playerStateManager;
     private readonly SettingsService settingsService;
@@ -17,7 +18,8 @@ public partial class MainPage : ContentPage
         IGameSceneManager gameSceneManager,
         PlayerStateManager playerStateManager,
         SettingsService settingsService,
-        Orbit.Input.GameControllerManager gameControllerManager)
+        Orbit.Input.GameControllerManager gameControllerManager,
+        KeyboardManager keyboardManager)
     {
         InitializeComponent();
 
@@ -25,6 +27,7 @@ public partial class MainPage : ContentPage
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
         this.gameControllerManager = gameControllerManager;
+        this.keyboardManager = keyboardManager;
 
         // TODO: disconnected.
         this.gameControllerManager.GameControllerConnected += OnGameControllerConnected;
@@ -32,6 +35,49 @@ public partial class MainPage : ContentPage
 
         gameSceneManager.LoadScene<FirstScene>(GameView);
         gameSceneManager.Start();
+        
+        this.keyboardManager.KeyDown += KeyboardManagerOnKeyDown;
+        this.keyboardManager.KeyUp += KeyboardManagerOnKeyUp;
+    }
+
+    private void KeyboardManagerOnKeyDown(object? sender, KeyboardKey e)
+    {
+        if (e == KeyboardKey.KeyD)
+        {
+            this.playerStateManager.State |= CharacterState.MovingRight;
+        }
+        else if (e == KeyboardKey.KeyA)
+        {
+            this.playerStateManager.State |= CharacterState.MovingLeft;
+        }
+        else if (e == KeyboardKey.Space)
+        {
+            this.playerStateManager.State |= CharacterState.Jumping;
+        }
+        else if (e == KeyboardKey.ShiftLeft)
+        {
+            this.playerStateManager.State |= CharacterState.Running;
+        }
+    }
+
+    private void KeyboardManagerOnKeyUp(object? sender, KeyboardKey e)
+    {
+        if (e == KeyboardKey.KeyD)
+        {
+            this.playerStateManager.State ^= CharacterState.MovingRight;
+        }
+        else if (e == KeyboardKey.KeyA)
+        {
+            this.playerStateManager.State ^= CharacterState.MovingLeft;
+        }
+        else if (e == KeyboardKey.Space)
+        {
+            this.playerStateManager.State ^= CharacterState.Jumping;
+        }
+        else if (e == KeyboardKey.ShiftLeft)
+        {
+            this.playerStateManager.State ^= CharacterState.Running;
+        }
     }
 
     private void OnGameControllerConnected(object? sender, GameControllerConnectedEventArgs e)
@@ -73,6 +119,34 @@ public partial class MainPage : ContentPage
                 else
                 {
                     this.playerStateManager.State ^= CharacterState.Jumping;
+                }
+            });
+        
+        this.gameController.When(
+            button: "ButtonWest",
+            isPressed: isPressed =>
+            {
+                if (isPressed)
+                {
+                    this.playerStateManager.State |= CharacterState.Running;
+                }
+                else
+                {
+                    this.playerStateManager.State ^= CharacterState.Running;
+                }
+            });
+        
+        this.keyboardManager.When(
+            key: KeyboardKey.ShiftLeft,
+            isPressed: isPressed =>
+            {
+                if (isPressed)
+                {
+                    this.playerStateManager.State |= CharacterState.Running;
+                }
+                else
+                {
+                    this.playerStateManager.State ^= CharacterState.Running;
                 }
             });
     }
