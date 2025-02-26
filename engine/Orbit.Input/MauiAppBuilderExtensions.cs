@@ -106,11 +106,16 @@ public static class MauiAppBuilderExtensions
                 "OnLaunched",
                 (Microsoft.UI.Xaml.Application application, Microsoft.UI.Xaml.LaunchActivatedEventArgs args) =>
                 {
-                    var appWindow = Super.App.Windows.First() as Microsoft.Maui.Controls.Window;
+                    var appWindow = Application.Current?.Windows.First();
+
+                    if (appWindow is null)
+                    {
+                        return;
+                    }
 
                     var window = appWindow.Handler?.PlatformView as Microsoft.Maui.MauiWinUIWindow;
 
-                    if (keyboardOptions.AutoAttachToLifecycleEvents)
+                    if (window is not null)
                     {
                         KeyboardManager.Current.AttachKeyboard(window.Content);
                     }

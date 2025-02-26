@@ -134,7 +134,7 @@ public class GameSceneManager : IGameSceneManager
         var postUpdate = DateTime.UtcNow;
         var updateDuration = callbackMilliseconds - (postUpdate - currentUpdate).TotalMilliseconds;
 
-        var delayUntilNextUpdate = Math.Min(updateDuration, callbackMilliseconds);
+        var delayUntilNextUpdate = Math.Clamp(updateDuration, 0, callbackMilliseconds);
 
         dispatcher.DispatchDelayed(
             TimeSpan.FromMilliseconds(delayUntilNextUpdate),
