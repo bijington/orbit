@@ -7,11 +7,22 @@ public partial class KeyboardManager
     private static KeyboardManager? current;
     private ConcurrentDictionary<KeyboardKey, bool> pressedKeys;
     private readonly IDictionary<KeyboardKey, IList<Action<bool>>> keyPressedCallbacks = new Dictionary<KeyboardKey, IList<Action<bool>>>();
+    private readonly IReadOnlyDictionary<KeyboardKey, KeyboardModifiers> modifierKeys;
 
     private KeyboardManager()
     {
         pressedKeys = new ConcurrentDictionary<KeyboardKey, bool>(
             Enum.GetValues(typeof(KeyboardKey)).Cast<KeyboardKey>().ToDictionary(k => k, k => false));
+
+        modifierKeys = new Dictionary<KeyboardKey, KeyboardModifiers>
+        {
+            { KeyboardKey.ShiftLeft, KeyboardModifiers.ShiftLeft },
+            { KeyboardKey.ShiftRight, KeyboardModifiers.ShiftRight },
+            { KeyboardKey.AltLeft, KeyboardModifiers.AltLeft },
+            { KeyboardKey.AltRight, KeyboardModifiers.AltRight },
+            { KeyboardKey.ControlLeft, KeyboardModifiers.ControlLeft },
+            { KeyboardKey.ControlRight, KeyboardModifiers.ControlRight },
+        };
     }
     
     public bool this[KeyboardKey key] => pressedKeys.TryGetValue(key, out var value) && value;
@@ -24,7 +35,7 @@ public partial class KeyboardManager
 
     private void KeyboardKeyPressed(KeyboardKey key)
     {
-        CheckAndApplyModifiers(key, true);
+        ApplyModifier(key);
         
         pressedKeys.TryUpdate(key, true, false);
         
@@ -33,48 +44,14 @@ public partial class KeyboardManager
 
     private void KeyboardKeyReleased(KeyboardKey key)
     {
-        CheckAndApplyModifiers(key, false);
+        ClearModifier(key);
         
         pressedKeys.TryUpdate(key, false, true);
         
         KeyUp?.Invoke(null, key);
     }
 
-    public bool IsShiftPressed
-    {
-        get
-        {
-            return IsLeftShiftDown || IsRightShiftDown;
-        }
-    }
-
-    public bool IsAltPressed
-    {
-        get
-        {
-            return IsLeftAltDown || IsRightAltDown;
-        }
-    }
-
-    public bool IsControlPressed
-    {
-        get
-        {
-            return IsLeftControlDown || IsRightControlDown;
-        }
-    }
-
-    static bool IsLeftShiftDown { get; set; }
-
-    static bool IsRightShiftDown { get; set; }
-
-    static bool IsLeftAltDown { get; set; }
-
-    static bool IsRightAltDown { get; set; }
-
-    static bool IsLeftControlDown { get; set; }
-
-    static bool IsRightControlDown { get; set; }
+    public KeyboardModifiers Modifiers { get; private set; }
     
     public KeyboardManager When(KeyboardKey key, Action<bool> isPressed)
     {
@@ -91,36 +68,19 @@ public partial class KeyboardManager
         return this;
     }
 
-    static void CheckAndApplyModifiers(KeyboardKey key, bool state)
+    private void ApplyModifier(KeyboardKey key)
     {
-        if (key == KeyboardKey.ShiftLeft)
+        if (modifierKeys.TryGetValue(key, out var modifiers))
         {
-            IsLeftShiftDown = state;
+            Modifiers |= modifiers;
         }
-        else
-        if (key == KeyboardKey.ShiftRight)
+    }
+    
+    private void ClearModifier(KeyboardKey key)
+    {
+        if (modifierKeys.TryGetValue(key, out var modifiers))
         {
-            IsRightShiftDown = state;
-        }
-        else
-        if (key == KeyboardKey.AltLeft)
-        {
-            IsLeftAltDown = state;
-        }
-        else
-        if (key == KeyboardKey.AltRight)
-        {
-            IsRightAltDown = state;
-        }
-        else
-        if (key == KeyboardKey.ControlLeft)
-        {
-            IsLeftControlDown = state;
-        }
-        else
-        if (key == KeyboardKey.ControlRight)
-        {
-            IsRightControlDown = state;
+            Modifiers ^= modifiers;
         }
     }
 }
