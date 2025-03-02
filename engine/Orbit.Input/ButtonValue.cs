@@ -13,10 +13,10 @@ public class ButtonValue
 public class ButtonValue<TValue> : ButtonValue where TValue : struct
 {
     private readonly GameController gameController;
-    private readonly Comparer<TValue> comparer;
+    private readonly IComparer<TValue> comparer;
     private TValue buttonValue;
     
-    public ButtonValue(GameController gameController, string parent, string name, Comparer<TValue>? comparer = null)
+    public ButtonValue(GameController gameController, string parent, string name, IComparer<TValue>? comparer = null)
         : base(parent, name)
     {
         this.gameController = gameController;
