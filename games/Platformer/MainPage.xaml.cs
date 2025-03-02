@@ -88,67 +88,60 @@ public partial class MainPage : ContentPage
         }
 
         this.gameController = e.GameController;
-
-        this.gameController.When(
-            button: "LeftStickXAxis", // TODO: need something more concrete
-            changesValue: value =>
-            {
-                if (Math.Abs(value) < 0.0001f)
-                {
-                    return;
-                }
-
-                if (value < 0.0000001f)
-                {
-                    this.playerStateManager.State = CharacterState.MovingLeft;
-                }
-                else if (value > 0.0000001f)
-                {
-                    this.playerStateManager.State = CharacterState.MovingRight;
-                }
-            });
-
-        this.gameController.When(
-            button: "ButtonSouth",
-            isPressed: isPressed =>
-            {
-                if (isPressed)
-                {
-                    this.playerStateManager.State |= CharacterState.Jumping;
-                }
-                else
-                {
-                    this.playerStateManager.State ^= CharacterState.Jumping;
-                }
-            });
         
-        this.gameController.When(
-            button: "ButtonWest",
-            isPressed: isPressed =>
-            {
-                if (isPressed)
-                {
-                    this.playerStateManager.State |= CharacterState.Running;
-                }
-                else
-                {
-                    this.playerStateManager.State ^= CharacterState.Running;
-                }
-            });
+        this.gameController.ButtonChanged += GameControllerOnButtonChanged;
+        this.gameController.ValueChanged += GameControllerOnValueChanged;
+    }
+
+    private void GameControllerOnValueChanged(object? sender, GameControllerValueChangedEventArgs e)
+    {
+        if (gameController is null)
+        {
+            return;
+        }
         
-        this.keyboardManager.When(
-            key: KeyboardKey.ShiftLeft,
-            isPressed: isPressed =>
+        if (e.ButtonName == gameController.LeftStick.XAxis.Name)
+        {
+            if (e.Value < 0.0000001f)
             {
-                if (isPressed)
-                {
-                    this.playerStateManager.State |= CharacterState.Running;
-                }
-                else
-                {
-                    this.playerStateManager.State ^= CharacterState.Running;
-                }
-            });
+                this.playerStateManager.State = CharacterState.MovingLeft;
+            }
+            else if (e.Value > 0.0000001f)
+            {
+                this.playerStateManager.State = CharacterState.MovingRight;
+            }
+        }
+    }
+
+    private void GameControllerOnButtonChanged(object? sender, GameControllerButtonChangedEventArgs e)
+    {
+        if (gameController is null)
+        {
+            return;
+        }
+        
+        if (e.ButtonName == gameController.South.Name)
+        {
+            if (e.IsPressed)
+            {
+                this.playerStateManager.State |= CharacterState.Jumping;
+            }
+            else
+            {
+                this.playerStateManager.State ^= CharacterState.Jumping;
+            }
+        }
+        else if (e.ButtonName == gameController.West.Name)
+        {
+            if (e.IsPressed)
+            {
+                this.playerStateManager.State |= CharacterState.Running;
+            }
+            else
+            {
+                this.playerStateManager.State ^= CharacterState.Running;
+            }
+        }
     }
 
     void OnGameViewEndInteraction(object sender, TouchEventArgs e)

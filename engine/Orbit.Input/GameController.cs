@@ -1,127 +1,76 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Orbit.Input;
+﻿namespace Orbit.Input;
 
 public partial class GameController
 {
-    private readonly IDictionary<string, IList<Action<bool>>> buttonPressedCallbacks = new Dictionary<string, IList<Action<bool>>>();
-    private readonly IDictionary<string, IList<Action<float>>> buttonValueChangeCallbacks = new Dictionary<string, IList<Action<float>>>();
+    public event EventHandler<GameControllerButtonChangedEventArgs>? ButtonChanged;
+    public event EventHandler<GameControllerValueChangedEventArgs>? ValueChanged;
     
     public Stick Dpad { get; }
     
     public Stick LeftStick { get; }
 
     public Stick RightStick { get; }
-
-    private bool buttonNorth;
-
-    public bool ButtonNorth
-    {
-        get => buttonNorth;
-        set => SetState(ref this.buttonNorth, value);
-    }
     
-    private bool buttonSouth;
-
-    public bool ButtonSouth
-    {
-        get => buttonSouth;
-        set => SetState(ref this.buttonSouth, value);
-    }
+    public ButtonValue<bool> East { get; }
     
-    private bool buttonEast;
-
-    public bool ButtonEast
-    {
-        get => buttonEast;
-        set => SetState(ref this.buttonEast, value);
-    }
+    public ButtonValue<bool> North { get; }
     
-    private bool buttonWest;
-
-    public bool ButtonWest
-    {
-        get => buttonWest;
-        set => SetState(ref this.buttonWest, value);
-    }
+    public ButtonValue<bool> South { get; }
     
-    private bool pause;
-
-    public bool Pause
-    {
-        get => pause;
-        set => SetState(ref this.pause, value);
-    }
+    public ButtonValue<bool> West { get; }
+    
+    public ButtonValue<bool> Pause { get; }
     
     public Shoulder LeftShoulder { get; }
     
     public Shoulder RightShoulder { get; }
     
-    public GameController When(string button, Action<bool> isPressed)
+    internal void RaiseButtonValueChanged(ButtonValue buttonValue)
     {
-        if (buttonPressedCallbacks.TryGetValue(button, out var callbacks) is false)
+        if (buttonValue is ButtonValue<float> floatValue)
         {
-            callbacks = [isPressed];
+            this.ValueChanged?.Invoke(this, new GameControllerValueChangedEventArgs(buttonValue.Name, floatValue.Value));   
         }
-        else
+        else if (buttonValue is ButtonValue<bool> boolValue)
         {
-            callbacks.Add(isPressed);
+            this.ButtonChanged?.Invoke(this, new GameControllerButtonChangedEventArgs(buttonValue.Name, boolValue.Value));   
         }
-        
-        buttonPressedCallbacks[button] = callbacks;
-        return this;
     }
-    
-    public GameController When(string button, Action<float> changesValue)
-    {
-        if (buttonValueChangeCallbacks.TryGetValue(button, out var callbacks) is false)
-        {
-            callbacks = [changesValue];
-        }
-        else
-        {
-            callbacks.Add(changesValue);
-        }
-        
-        buttonValueChangeCallbacks[button] = callbacks;
-        return this;
-    }
+}
 
-    internal void RaiseButtonPressed(string button, bool isPressed)
+public class GameControllerButtonChangedEventArgs : EventArgs
+{
+    public string ButtonName { get; }
+    public bool IsPressed { get; }
+
+    public GameControllerButtonChangedEventArgs(string buttonName, bool isPressed)
     {
-        if (buttonPressedCallbacks.TryGetValue(button, out var callbacks) is false)
+        ButtonName = buttonName;
+        IsPressed = isPressed;
+    }
+}
+
+public class GameControllerValueChangedEventArgs : EventArgs
+{
+    public string ButtonName { get; }
+    public float Value { get; }
+
+    public GameControllerValueChangedEventArgs(string buttonName, float value)
+    {
+        ButtonName = buttonName;
+        Value = value;
+    }
+}
+
+internal static class NameHelper
+{
+    internal static string GetName(string parent, string child)
+    {
+        if (string.IsNullOrEmpty(parent))
         {
-            return;
+            return child;
         }
         
-        foreach (var callback in callbacks)
-        {
-            callback.Invoke(isPressed);
-        }
-    }
-    
-    internal void RaiseButtonValueChanged(string button, float value)
-    {
-        if (buttonValueChangeCallbacks.TryGetValue(button, out var callbacks) is false)
-        {
-            return;
-        }
-        
-        foreach (var callback in callbacks)
-        {
-            callback.Invoke(value);
-        }
-    }
-    
-    private void SetState(ref bool field, bool newValue, [CallerMemberName] string? buttonName = null)
-    {
-        ArgumentNullException.ThrowIfNull(buttonName);
-
-        if (field != newValue)
-        {
-            field = newValue;
-
-            this.RaiseButtonPressed(buttonName, field);
-        }
+        return parent + "." + child;
     }
 }

@@ -6,7 +6,6 @@ public partial class KeyboardManager
 {
     private static KeyboardManager? current;
     private ConcurrentDictionary<KeyboardKey, bool> pressedKeys;
-    private readonly IDictionary<KeyboardKey, IList<Action<bool>>> keyPressedCallbacks = new Dictionary<KeyboardKey, IList<Action<bool>>>();
     private readonly IReadOnlyDictionary<KeyboardKey, KeyboardModifiers> modifierKeys;
 
     private KeyboardManager()
@@ -52,21 +51,6 @@ public partial class KeyboardManager
     }
 
     public KeyboardModifiers Modifiers { get; private set; }
-    
-    public KeyboardManager When(KeyboardKey key, Action<bool> isPressed)
-    {
-        if (keyPressedCallbacks.TryGetValue(key, out var callbacks) is false)
-        {
-            callbacks = [isPressed];
-        }
-        else
-        {
-            callbacks.Add(isPressed);
-        }
-        
-        keyPressedCallbacks[key] = callbacks;
-        return this;
-    }
 
     private void ApplyModifier(KeyboardKey key)
     {

@@ -18,6 +18,12 @@ public partial class GameController
 
         LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
         RightShoulder = new Shoulder(this, nameof(RightShoulder));
+
+        North = new ButtonValue<bool>(this, nameof(North));
+        South = new ButtonValue<bool>(this, nameof(South));
+        East = new ButtonValue<bool>(this, nameof(East));
+        West = new ButtonValue<bool>(this, nameof(West));
+        Pause = new ButtonValue<bool>(this, nameof(Pause));
         
         controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
     }
@@ -29,49 +35,49 @@ public partial class GameController
         switch (element)
         {
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button A")):
-                ButtonSouth = buttonInput.IsPressed;
+                South.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button B")):
-                ButtonEast = buttonInput.IsPressed;
+                East.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button X")):
-                ButtonWest = buttonInput.IsPressed;
+                West.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button Y")):
-                ButtonNorth = buttonInput.IsPressed;
+                North.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Right Shoulder")):
-                RightShoulder.Button = buttonInput.IsPressed;
+                RightShoulder.Button.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Right Trigger")):
-                RightShoulder.Trigger = buttonInput.Value;
+                RightShoulder.Trigger.Value = buttonInput.Value;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Left Shoulder")):
-                LeftShoulder.Button = buttonInput.IsPressed;
+                LeftShoulder.Button.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Left Trigger")):
-                LeftShoulder.Trigger = buttonInput.Value;
+                LeftShoulder.Trigger.Value = buttonInput.Value;
                 break;
             
             case GCControllerButtonInput buttonInput when buttonInput.Aliases.Contains(new NSString("Button Menu")):
-                Pause = buttonInput.IsPressed;
+                Pause.Value = buttonInput.IsPressed;
                 break;
             
             case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Left Thumbstick")):
-                LeftStick.XAxis = directionPad.XAxis.Value;
-                LeftStick.YAxis = directionPad.YAxis.Value;
+                LeftStick.XAxis.Value = directionPad.XAxis.Value;
+                LeftStick.YAxis.Value = directionPad.YAxis.Value;
                 break;
             
             case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Right Thumbstick")):
-                RightStick.XAxis = directionPad.XAxis.Value;
-                RightStick.YAxis = directionPad.YAxis.Value;
+                RightStick.XAxis.Value = directionPad.XAxis.Value;
+                RightStick.YAxis.Value = directionPad.YAxis.Value;
                 break;
         }
     }

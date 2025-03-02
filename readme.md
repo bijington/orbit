@@ -35,51 +35,57 @@ await GameControllerManager.Current.StartDiscovery();
 The `GameController` class provides a set or properties making it easy to check the state of buttons or sticks.
 
 ```csharp
-if (gameController.ButtonSouth)
+if (gameController.ButtonSouth.Value)
 {
 }
 ```
 
 ```csharp
-if (gameController.LeftStick.XAxis > 0.0000001f)
+if (gameController.LeftStick.XAxis.Value > 0.0000001f)
 {
 }
 ```
 
 ### Responding to a button press
 
-The `GameController` class provides the `When` method that allows you to define a callback `Action` that will be performed when the specific buttons pressed state changes.
+The `GameController` class provides both the `ButtonChanged` and `ValueChanged` events that can be subscribed to in order to receive notifications.
+
+#### `ButtonChanged`
 
 ```csharp
-this.gameController.When(
-    button: "ButtonSouth",
-    isPressed: isPressed =>
+this.gameController.ButtonChanged += GameControllerOnButtonChanged;
+
+private void GameControllerOnButtonChanged(object? sender, GameControllerButtonChangedEventArgs e)
+{
+    if (e.ButtonName == gameController.South.Name)
     {
-        if (isPressed)
+        if (e.IsPressed)
         {
         }
         else
         {
         }
-    });
+    }
+}
 ```
 
-### Responding to a stick change
-
-The `GameController` class provides the `When` method that allows you to define a callback `Action` that will be performed when the specific buttons pressed state changes.
+#### `ValueChanged`
 
 ```csharp
-this.gameController.When(
-    button: "LeftStickXAxis",
-    changesValue: value =>
+this.gameController.ValueChanged += GameControllerOnValueChanged;
+
+private void GameControllerOnValueChanged(object? sender, GameControllerValueChangedEventArgs e)
+{        
+    if (e.ButtonName == gameController.LeftStick.XAxis.Name)
     {
-        if (value < 0.0000001f)
+        if (e.Value < 0.0000001f)
         {
         }
-        else if (value > 0.0000001f)
+        else if (e.Value > 0.0000001f)
         {
         }
-    });
+    }
+}
 ```
 
 ## Keyboard
@@ -123,28 +129,6 @@ KeyboardManager.Current.Modifiers.HasFlag(KeyboardModifier.ShiftLeft);
 ```
 
 ### Responding to a key press
-
-There are 2 ways to achieve this:
-
-#### `When` based method
-
-The `KeyboardManager` class provides the `When` method that allows you to define a callback `Action` that will be performed when the specific keys pressed state changes.
-
-```csharp
-KeyboardManager.Current.When(
-    key: KeyboardKey.ShiftLeft,
-    isPressed: isPressed =>
-    {
-        if (isPressed)
-        {
-        }
-        else
-        {
-        }
-    });
-```
-
-#### Events
 
 The `KeyboardManager` class provides both the `KeyDown` and `KeyUp` events that can be subscribed to in order to receive notifications.
 

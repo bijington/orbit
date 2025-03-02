@@ -17,6 +17,12 @@ public partial class GameController
 
         LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
         RightShoulder = new Shoulder(this, nameof(RightShoulder));
+        
+        North = new ButtonValue<bool>(this, nameof(North));
+        South = new ButtonValue<bool>(this, nameof(South));
+        East = new ButtonValue<bool>(this, nameof(East));
+        West = new ButtonValue<bool>(this, nameof(West));
+        Pause = new ButtonValue<bool>(this, nameof(Pause));
     }
     
     public bool OnGenericMotionEvent(MotionEvent motionEvent)
@@ -65,34 +71,34 @@ public partial class GameController
             // If the input event is a MotionEvent, check its hat axis values.
             case MotionEvent motionEvent:
                 // Use the hat axis value to find the D-pad direction
-                Dpad.XAxis = motionEvent.GetAxisValue(Axis.HatX);
-                Dpad.YAxis = motionEvent.GetAxisValue(Axis.HatY);
+                Dpad.XAxis.Value = motionEvent.GetAxisValue(Axis.HatX);
+                Dpad.YAxis.Value = motionEvent.GetAxisValue(Axis.HatY);
                 break;
             
             // If the input event is a KeyEvent, check its key code.
             // Use the key code to find the D-pad direction.
             case KeyEvent { KeyCode: Keycode.DpadLeft }:
-                Dpad.XAxis = -1;
+                Dpad.XAxis.Value = -1;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadRight }:
-                Dpad.XAxis = 1;
+                Dpad.XAxis.Value = 1;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadDown }:
-                Dpad.YAxis = -1;
+                Dpad.YAxis.Value = -1;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadUp }:
-                Dpad.YAxis = 1;
+                Dpad.YAxis.Value = 1;
                 break;
             
             case KeyEvent { KeyCode: Keycode.ButtonL1 }:
-                LeftShoulder.Button = true;
+                LeftShoulder.Button.Value = true;
                 break;
             
             case KeyEvent { KeyCode: Keycode.ButtonR1 }:
-                RightShoulder.Button = true;
+                RightShoulder.Button.Value = true;
                 break;
         }
 
@@ -116,34 +122,34 @@ public partial class GameController
             // If the input event is a MotionEvent, check its hat axis values.
             case MotionEvent:
                 // Use the hat axis value to find the D-pad direction
-                Dpad.XAxis = 0;
-                Dpad.YAxis = 0;
+                Dpad.XAxis.Value = 0;
+                Dpad.YAxis.Value = 0;
                 break;
             
             // If the input event is a KeyEvent, check its key code.
             // Use the key code to find the D-pad direction.
             case KeyEvent { KeyCode: Keycode.DpadLeft }:
-                Dpad.XAxis = 0;
+                Dpad.XAxis.Value = 0;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadRight }:
-                Dpad.XAxis = 0;
+                Dpad.XAxis.Value = 0;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadDown }:
-                Dpad.YAxis = 0;
+                Dpad.YAxis.Value = 0;
                 break;
             
             case KeyEvent { KeyCode: Keycode.DpadUp }:
-                Dpad.YAxis = 0;
+                Dpad.YAxis.Value = 0;
                 break;
             
             case KeyEvent { KeyCode: Keycode.ButtonL1 }:
-                LeftShoulder.Button = false;
+                LeftShoulder.Button.Value = false;
                 break;
             
             case KeyEvent { KeyCode: Keycode.ButtonR1 }:
-                RightShoulder.Button = false;
+                RightShoulder.Button.Value = false;
                 break;
         }
 
@@ -188,13 +194,13 @@ public partial class GameController
             return;
         }
 
-        LeftStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.X, historyPos);
-        LeftStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Y, historyPos);
+        LeftStick.XAxis.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.X, historyPos);
+        LeftStick.YAxis.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.Y, historyPos);
 
-        RightStick.XAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Z, historyPos);
-        RightStick.YAxis = GetCenteredAxis(motionEvent, inputDevice, Axis.Rz, historyPos);
+        RightStick.XAxis.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.Z, historyPos);
+        RightStick.YAxis.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.Rz, historyPos);
         
-        LeftShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Ltrigger, historyPos);
-        RightShoulder.Trigger = GetCenteredAxis(motionEvent, inputDevice, Axis.Rtrigger, historyPos);
+        LeftShoulder.Trigger.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.Ltrigger, historyPos);
+        RightShoulder.Trigger.Value = GetCenteredAxis(motionEvent, inputDevice, Axis.Rtrigger, historyPos);
     }
 }

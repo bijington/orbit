@@ -1,24 +1,13 @@
 namespace Orbit.Input;
 
-public class Stick : ButtonElement
+public class Stick
 {
-    public Stick(GameController controller, string name) : base(controller, name)
+    public Stick(GameController controller, string name)
     {
+        XAxis = new ButtonValue<float>(controller, name, nameof(XAxis));
+        YAxis = new ButtonValue<float>(controller, name, nameof(YAxis));
     }
 
-    private float xAxis;
-
-    public float XAxis
-    {
-        get => xAxis;
-        set => SetValue(ref this.xAxis, value);
-    }
-    
-    private float yAxis;
-
-    public float YAxis
-    {
-        get => yAxis;
-        set => SetValue(ref this.yAxis, value);
-    }
+    public ButtonValue<float> XAxis { get; }
+    public ButtonValue<float> YAxis { get; }
 }

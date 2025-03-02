@@ -1,24 +1,13 @@
 namespace Orbit.Input;
 
-public class Shoulder : ButtonElement
+public class Shoulder
 {
-    public Shoulder(GameController controller, string name) : base(controller, name)
+    public Shoulder(GameController controller, string name)
     {
+        Button = new ButtonValue<bool>(controller, name, nameof(Button));
+        Trigger = new ButtonValue<float>(controller, name, nameof(Trigger));
     }
 
-    private bool button;
-
-    public bool Button
-    {
-        get => button;
-        set => SetState(ref this.button, value);
-    }
-    
-    private float trigger;
-
-    public float Trigger
-    {
-        get => trigger;
-        set => SetValue(ref this.trigger, value);
-    }
+    public ButtonValue<bool> Button { get; }
+    public ButtonValue<float> Trigger { get; }
 }
