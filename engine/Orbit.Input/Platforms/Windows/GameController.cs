@@ -1,4 +1,6 @@
-﻿using Windows.Gaming.Input;
+﻿using Microsoft.UI.Xaml.Controls.Primitives;
+
+using Windows.Gaming.Input;
 
 namespace Orbit.Input;
 
@@ -17,6 +19,12 @@ public partial class GameController
 
         LeftShoulder = new Shoulder(this, nameof(LeftShoulder));
         RightShoulder = new Shoulder(this, nameof(RightShoulder));
+
+        North = new ButtonValue<bool>(this, nameof(North));
+        South = new ButtonValue<bool>(this, nameof(South));
+        East = new ButtonValue<bool>(this, nameof(East));
+        West = new ButtonValue<bool>(this, nameof(West));
+        Pause = new ButtonValue<bool>(this, nameof(Pause));
     }
 
     public void StartUpdates(TimeSpan updateFrequency)
@@ -49,24 +57,24 @@ public partial class GameController
     {
         var reading = gamepad.GetCurrentReading();
 
-        LeftStick.XAxis = (float)reading.LeftThumbstickX;
-        LeftStick.YAxis = (float)reading.LeftThumbstickY;
+        LeftStick.XAxis.Value = (float)reading.LeftThumbstickX;
+        LeftStick.YAxis.Value = (float)reading.LeftThumbstickY;
 
-        RightStick.XAxis = (float)reading.RightThumbstickX;
-        RightStick.YAxis = (float)reading.RightThumbstickY;
+        RightStick.XAxis.Value = (float)reading.RightThumbstickX;
+        RightStick.YAxis.Value = (float)reading.RightThumbstickY;
 
-        LeftShoulder.Button = reading.Buttons.HasFlag(GamepadButtons.LeftShoulder);
-        LeftShoulder.Trigger = (float)reading.LeftTrigger;
+        LeftShoulder.Button.Value = reading.Buttons.HasFlag(GamepadButtons.LeftShoulder);
+        LeftShoulder.Trigger.Value = (float)reading.LeftTrigger;
 
-        RightShoulder.Button = reading.Buttons.HasFlag(GamepadButtons.RightShoulder);
-        RightShoulder.Trigger = (float)reading.RightTrigger;
+        RightShoulder.Button.Value = reading.Buttons.HasFlag(GamepadButtons.RightShoulder);
+        RightShoulder.Trigger.Value = (float)reading.RightTrigger;
 
-        ButtonNorth = reading.Buttons.HasFlag(GamepadButtons.Y);
-        ButtonEast = reading.Buttons.HasFlag(GamepadButtons.B);
-        ButtonSouth = reading.Buttons.HasFlag(GamepadButtons.A);
-        ButtonWest = reading.Buttons.HasFlag(GamepadButtons.X);
+        North.Value = reading.Buttons.HasFlag(GamepadButtons.Y);
+        East.Value = reading.Buttons.HasFlag(GamepadButtons.B);
+        South.Value = reading.Buttons.HasFlag(GamepadButtons.A);
+        West.Value = reading.Buttons.HasFlag(GamepadButtons.X);
 
-        Dpad.XAxis = reading.Buttons.HasFlag(GamepadButtons.DPadRight) ? 1f : reading.Buttons.HasFlag(GamepadButtons.DPadLeft) ? -1f : 0f;
-        Dpad.YAxis = reading.Buttons.HasFlag(GamepadButtons.DPadDown) ? 1f : reading.Buttons.HasFlag(GamepadButtons.DPadUp) ? -1f : 0f;
+        Dpad.XAxis.Value = reading.Buttons.HasFlag(GamepadButtons.DPadRight) ? 1f : reading.Buttons.HasFlag(GamepadButtons.DPadLeft) ? -1f : 0f;
+        Dpad.YAxis.Value = reading.Buttons.HasFlag(GamepadButtons.DPadDown) ? 1f : reading.Buttons.HasFlag(GamepadButtons.DPadUp) ? -1f : 0f;
     }
 }
