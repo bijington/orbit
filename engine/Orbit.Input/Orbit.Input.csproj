@@ -10,7 +10,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+<!--        <GenerateDocumentationFile>True</GenerateDocumentationFile>-->
+        
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
@@ -43,7 +45,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <NoWarn>1701;1702;CA1416</NoWarn>
+        <NoWarn>1701;1702;CA1416</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -51,23 +53,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Platforms\Windows\GameControllerOptions.cs">
-        <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-      </Compile>
-      <Compile Update="Platforms\Android\KeyboardOptions.cs">
-        <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-      </Compile>
-      <Compile Update="Platforms\iOS\KeyboardPageViewController.cs">
-        <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-      </Compile>
+        <None Include="..\..\readme.md">
+            <Pack>true</Pack>
+            <PackagePath>/</PackagePath>
+            <Link>readme.md</Link>
+        </None>
     </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\..\readme.md">
-        <Pack>true</Pack>
-        <PackagePath>/</PackagePath>
-        <Link>readme.md</Link>
-      </None>
-    </ItemGroup>
-
+    
 </Project>

@@ -1,7 +1,8 @@
 namespace Orbit.Input;
 
+#pragma warning disable CS1591 // Let's be pragmatic here... most of these are self explanatory.
 /// <summary>
-/// A platform-independent enumeration of keyboard keys. They correspond to JavaScript keys.
+/// A platform-independent enumeration of keyboard keys.
 /// </summary>
 public enum KeyboardKey
 {
@@ -117,3 +118,4 @@ public enum KeyboardKey
     BracketRight,
     Quote,
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

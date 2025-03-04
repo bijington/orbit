@@ -58,20 +58,22 @@ public static class MauiAppBuilderExtensions
         builder.ConfigureLifecycleEvents(appLifecycle =>
         {
 #if ANDROID
-            appLifecycle.AddAndroid((android) =>
+            appLifecycle.AddAndroid(android =>
             {
                 bool appCreated = false;
 
                 android.OnCreate((activity, bundle) =>
                 {
-                    if (!appCreated)
-                    {                        
-                        appCreated = true;
+                    if (appCreated)
+                    {
+                        return;
+                    }
+
+                    appCreated = true;
                         
-                        if (controllerOptions.AutoAttachToLifecycleEvents)
-                        {
-                            GameControllerManager.Current.AttachToCurrentActivity(activity);
-                        }
+                    if (controllerOptions.AutoAttachToLifecycleEvents)
+                    {
+                        GameControllerManager.Current.AttachToCurrentActivity(activity);
                     }
                 });
             });
@@ -127,20 +129,22 @@ public static class MauiAppBuilderExtensions
         builder.ConfigureLifecycleEvents(appLifecycle =>
         {
 #if ANDROID
-            appLifecycle.AddAndroid((android) =>
+            appLifecycle.AddAndroid(android =>
             {
                 bool appCreated = false;
 
-                android.OnCreate((activity, bundle) =>
+                android.OnCreate((activity, _) =>
                 {
-                    if (!appCreated)
-                    {                        
-                        appCreated = true;
+                    if (appCreated)
+                    {
+                        return;
+                    }
 
-                        if (keyboardOptions.AutoAttachToLifecycleEvents)
-                        {
-                            KeyboardManager.Current.AttachToCurrentActivity(activity);
-                        }
+                    appCreated = true;
+
+                    if (keyboardOptions.AutoAttachToLifecycleEvents)
+                    {
+                        KeyboardManager.Current.AttachToCurrentActivity(activity);
                     }
                 });
             });

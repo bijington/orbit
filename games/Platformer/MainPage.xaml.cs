@@ -42,41 +42,41 @@ public partial class MainPage : ContentPage
         this.keyboardManager.KeyUp += KeyboardManagerOnKeyUp;
     }
 
-    private void KeyboardManagerOnKeyDown(object? sender, KeyboardKey e)
+    private void KeyboardManagerOnKeyDown(object? sender, KeyboardKeyChangeEventArgs e)
     {
-        if (e == KeyboardKey.KeyD)
+        if (e.Key == KeyboardKey.KeyD)
         {
             this.playerStateManager.State |= CharacterState.MovingRight;
         }
-        else if (e == KeyboardKey.KeyA)
+        else if (e.Key == KeyboardKey.KeyA)
         {
             this.playerStateManager.State |= CharacterState.MovingLeft;
         }
-        else if (e == KeyboardKey.Space)
+        else if (e.Key == KeyboardKey.Space)
         {
             this.playerStateManager.State |= CharacterState.Jumping;
         }
-        else if (e == KeyboardKey.ShiftLeft)
+        else if (e.Key == KeyboardKey.ShiftLeft)
         {
             this.playerStateManager.State |= CharacterState.Running;
         }
     }
 
-    private void KeyboardManagerOnKeyUp(object? sender, KeyboardKey e)
+    private void KeyboardManagerOnKeyUp(object? sender, KeyboardKeyChangeEventArgs e)
     {
-        if (e == KeyboardKey.KeyD)
+        if (e.Key == KeyboardKey.KeyD)
         {
             this.playerStateManager.State ^= CharacterState.MovingRight;
         }
-        else if (e == KeyboardKey.KeyA)
+        else if (e.Key == KeyboardKey.KeyA)
         {
             this.playerStateManager.State ^= CharacterState.MovingLeft;
         }
-        else if (e == KeyboardKey.Space)
+        else if (e.Key == KeyboardKey.Space)
         {
             this.playerStateManager.State ^= CharacterState.Jumping;
         }
-        else if (e == KeyboardKey.ShiftLeft)
+        else if (e.Key == KeyboardKey.ShiftLeft)
         {
             this.playerStateManager.State ^= CharacterState.Running;
         }

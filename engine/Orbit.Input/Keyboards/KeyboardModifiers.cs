@@ -1,5 +1,6 @@
 namespace Orbit.Input;
 
+#pragma warning disable CS1591 // Let's be pragmatic here... most of these are self explanatory.
 [Flags]
 public enum KeyboardModifiers
 {
@@ -23,3 +24,4 @@ public enum KeyboardModifiers
     
     Control = ControlLeft | ControlRight
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

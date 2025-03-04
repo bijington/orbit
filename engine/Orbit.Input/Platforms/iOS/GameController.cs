@@ -8,6 +8,10 @@ public partial class GameController
 {
     private readonly GCController controller;
 
+    /// <summary>
+    /// Creates a new instance of <see cref="GameController"/>.
+    /// </summary>
+    /// <param name="controller">The <see cref="GCController"/> that provides platform specific interaction.</param>
     public GameController(GCController controller)
     {
         this.controller = controller;
