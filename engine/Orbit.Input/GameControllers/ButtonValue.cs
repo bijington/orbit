@@ -23,7 +23,7 @@ public class ButtonValue<TValue> : ButtonValue where TValue : struct
         this.comparer = comparer ?? Comparer<TValue>.Default;
     }
     
-    public ButtonValue(GameController gameController, string name, Comparer<TValue>? comparer = null)
+    public ButtonValue(GameController gameController, string name, IComparer<TValue>? comparer = null)
         : base(string.Empty, name)
     {
         this.gameController = gameController;

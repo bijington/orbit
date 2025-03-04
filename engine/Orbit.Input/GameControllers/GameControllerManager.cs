@@ -20,13 +20,3 @@ public partial class GameControllerManager
         this.GameControllerConnected?.Invoke(this, new GameControllerConnectedEventArgs(controller));
     }
 }
-
-public class GameControllerConnectedEventArgs : EventArgs
-{
-    public GameControllerConnectedEventArgs(GameController gameController)
-    {
-        GameController = gameController;
-    }
-    
-    public GameController GameController { get; }
-}

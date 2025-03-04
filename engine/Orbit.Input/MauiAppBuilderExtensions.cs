@@ -2,6 +2,9 @@ using Microsoft.Maui.LifecycleEvents;
 
 namespace Orbit.Input;
 
+/// <summary>
+/// Extensions for the <see cref="MauiAppBuilder"/>.
+/// </summary>
 public static class MauiAppBuilderExtensions
 {
     public static MauiAppBuilder UseOrbitInput(
@@ -12,12 +15,33 @@ public static class MauiAppBuilderExtensions
             .UseOrbitGameController(configureControllerOptions)
             .UseOrbitKeyboard(configureKeyboardOptions);
     
+    /// <summary>
+    /// Initializes the game controller libraries to be integrated with the current application.
+    /// </summary>
+    /// <param name="builder">The <see cref="MauiAppBuilder"/> to register the package with.</param>
+    /// <param name="configureControllerOptions">
+    /// The mechanism to define any options to customize the game controller integration. Note this is optional.
+    /// An example of configuring the integration to not auto attach on Android is as follows:
+    /// <code>
+    /// builder
+    ///     .UseOrbitGameController(
+    ///			configureControllerOptions: options =>
+    ///			{
+    ///#if ANDROID
+    ///				options.AutoAttachToLifecycleEvents = false;
+    ///#endif
+    ///			});
+    /// </code>
+    /// </param>
+    /// <returns>The <paramref name="builder"/> supplied in order to allow for chaining of method calls.</returns>
     public static MauiAppBuilder UseOrbitGameController(
         this MauiAppBuilder builder,
         Action<GameControllerOptions>? configureControllerOptions)
     {
         var controllerOptions = new GameControllerOptions();
         configureControllerOptions?.Invoke(controllerOptions);
+
+        FloatComparer.Default = new FloatComparer(controllerOptions.ComparisonThreshold);
         
 //         builder.ConfigureMauiHandlers(handlers =>
 //         {
@@ -62,6 +86,25 @@ public static class MauiAppBuilderExtensions
         return builder;
     }
     
+    /// <summary>
+    /// Initializes the keyboard libraries to be integrated with the current application.
+    /// </summary>
+    /// <param name="builder">The <see cref="MauiAppBuilder"/> to register the package with.</param>
+    /// <param name="configureKeyboardOptions">
+    /// The mechanism to define any options to customize the keyboard integration. Note this is optional.
+    /// An example of configuring the integration to not auto attach on Android is as follows:
+    /// <code>
+    /// builder
+    ///     .UseOrbitGameController(
+    ///			configureKeyboardOptions: options =>
+    ///			{
+    ///#if ANDROID
+    ///				options.AutoAttachToLifecycleEvents = false;
+    ///#endif
+    ///			});
+    /// </code>
+    /// </param>
+    /// <returns>The <paramref name="builder"/> supplied in order to allow for chaining of method calls.</returns>
     public static MauiAppBuilder UseOrbitKeyboard(
         this MauiAppBuilder builder,
         Action<KeyboardOptions>? configureKeyboardOptions = null)

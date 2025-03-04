@@ -4,7 +4,7 @@ public class FloatComparer : IComparer<float>
 {
     private readonly float threshold;
     
-    internal static FloatComparer Default { get; } = new FloatComparer(0.001f);
+    internal static FloatComparer Default { get; set; } = new FloatComparer(0.001f);
 
     public FloatComparer(float threshold)
     {
