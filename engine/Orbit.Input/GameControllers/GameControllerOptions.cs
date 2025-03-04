@@ -8,5 +8,5 @@ public partial class GameControllerOptions
     /// <summary>
     /// Gets the threshold to use when comparing floats together in order to handle the inaccuracies that come with floats.
     /// </summary>
-    public float ComparisonThreshold { get; } = 5f;
+    public float ComparisonThreshold { get; set; } = 0.001f;
 }

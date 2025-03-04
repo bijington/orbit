@@ -1,4 +1,6 @@
-﻿using Orbit.Engine;
+﻿using System.Diagnostics;
+
+using Orbit.Engine;
 using Orbit.Input;
 
 using Platformer.GameScenes;
@@ -102,14 +104,24 @@ public partial class MainPage : ContentPage
         
         if (e.ButtonName == gameController.LeftStick.XAxis.Name)
         {
-            if (e.Value < 0.0000001f)
+            if (e.Value == 0)
+            {
+                this.playerStateManager.State = CharacterState.Idle;
+            }
+            else if (e.Value < -0.001f)
             {
                 this.playerStateManager.State = CharacterState.MovingLeft;
             }
-            else if (e.Value > 0.0000001f)
+            else if (e.Value > 0.001f)
             {
                 this.playerStateManager.State = CharacterState.MovingRight;
             }
+            else
+            {
+                this.playerStateManager.State = CharacterState.Idle;
+            }
+
+            Debug.WriteLine($"e.Value = {e.Value} {this.playerStateManager.State}");
         }
     }
 
