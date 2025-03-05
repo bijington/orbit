@@ -28,8 +28,11 @@ public partial class GameController
         East = new ButtonValue<bool>(this, nameof(East));
         West = new ButtonValue<bool>(this, nameof(West));
         Pause = new ButtonValue<bool>(this, nameof(Pause));
-        
-        controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
+
+        if (OperatingSystem.IsIOSVersionAtLeast(16))
+        {
+            controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
+        }
     }
 
     private void Changed(GCPhysicalInputProfile gamepad, GCControllerElement element)
