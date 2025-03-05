@@ -5,6 +5,10 @@ on:
     tags:
     - "v[0-9]+.[0-9]+.[0-9]+"
     - "v[0-9]+.[0-9]+.[0-9]+-preview[0-9]+"
+    - "engine[0-9]+.[0-9]+.[0-9]+"
+    - "engine[0-9]+.[0-9]+.[0-9]+-preview[0-9]+"
+    - "input[0-9]+.[0-9]+.[0-9]+"
+    - "input[0-9]+.[0-9]+.[0-9]+-preview[0-9]+"
 jobs:
   release-nuget:
   
@@ -21,21 +25,9 @@ jobs:
         id: get_version
         uses: battila7/get-version-action@v2
 
-      - name: Restore dependencies
-        run: dotnet restore engine/Orbit.Engine/Orbit.Engine.csproj
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore engine/Orbit.Engine/Orbit.Engine.csproj /p:Version=${{ steps.get_version.outputs.version-without-v }}
-
-      - name: Pack
-        run: dotnet pack engine/Orbit.Engine/Orbit.Engine.csproj -c Release /p:Version=${{ steps.get_version.outputs.version-without-v }} --no-build --output .
-        
-      - name: Push
-        run: dotnet nuget push Bijington.Orbit.Engine.${{ steps.get_version.outputs.version-without-v }}.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
-
-      - name: Push symbols
-        run: dotnet nuget push Bijington.Orbit.Engine.${{ steps.get_version.outputs.version-without-v }}.snupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
+      - name: Package releases
+        shell: pwsh
+        run: |
+          .\scripts\package-releases.ps1 -Version ${{ steps.get_version.outputs.version-without-v }} -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
           GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
