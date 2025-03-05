@@ -28,10 +28,10 @@ jobs:
     - name: Restore dependencies - tests
       run: dotnet restore engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj
     - name: Build engine
-      run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore
+      run: dotnet build engine/Orbit.Engine/Orbit.Engine.csproj --no-restore -c Release
     - name: Build input
-      run: dotnet build engine/Orbit.Input/Orbit.Input.csproj --no-restore
+      run: dotnet build engine/Orbit.Input/Orbit.Input.csproj --no-restore -c Release
     - name: Build tests
-      run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
+      run: dotnet build engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore -c Release
     - name: Run tests
       run: dotnet test engine/Orbit.Engine.Tests/Orbit.Engine.Tests.csproj --no-restore
