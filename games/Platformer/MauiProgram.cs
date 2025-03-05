@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Orbit.Engine;
+using Orbit.Input;
+
 using Platformer.GameObjects;
 using Platformer.GameScenes;
 
@@ -13,11 +15,20 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseOrbitEngine()
+            .UseOrbitInput(controllerOptions =>
+            {
+#if ANDROID
+                controllerOptions.AutoAttachToLifecycleEvents = true;
+#elif WINDOWS
+                controllerOptions.ControllerUpdateFrequency = TimeSpan.FromMilliseconds(16);
+#endif
+            })
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+        
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -29,7 +40,8 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PlayerStateManager>();
         builder.Services.AddSingleton<SettingsService>();
-        builder.Services.AddSingleton<ControllerManager>();
+        builder.Services.AddSingleton(GameControllerManager.Current);
+        builder.Services.AddSingleton(KeyboardManager.Current);
 
 		return builder.Build();
 	}

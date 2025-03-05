@@ -1,10 +1,8 @@
 using Orbit.Engine;
 
-using Platformer.GameObjects;
-
 using IImage = Microsoft.Maui.Graphics.IImage;
 
-namespace Platformer;
+namespace Platformer.GameObjects;
 
 public class PinkMan : GameObject
 {
@@ -14,10 +12,15 @@ public class PinkMan : GameObject
     private CharacterState state;
     private float position = 0f;
     private float yPosition = 0f;
-    private readonly ControllerManager controllerManager;
     private readonly PlayerStateManager playerStateManager;
     private float upwardsMovement;
     private readonly IImage jump;
+
+    private const double walkSpeed = 10000d;
+    private const double runSpeed = 2000d;
+
+    private bool isJumping;
+    private bool hasStartedJump;
     
     private CharacterState State
     {
@@ -55,19 +58,18 @@ public class PinkMan : GameObject
                         Remove(idleSprite);
                         Add(runSprite);
                         break;
-            
-                    case CharacterState.Jumping:
-                        idleSprite.Stop();
-                        runSprite.Stop();
-                
-                        Remove(idleSprite);
-                        Remove(runSprite);
+                }
 
-                        upwardsMovement = 0.04f;
-                        break;
-            
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                if (state.HasFlag(CharacterState.Jumping))
+                {
+                    idleSprite.Stop();
+                    runSprite.Stop();
+                
+                    Remove(idleSprite);
+                    Remove(runSprite);
+
+                    isJumping = true;
+                    upwardsMovement = 0.04f;
                 }
             }
         }
@@ -75,12 +77,10 @@ public class PinkMan : GameObject
 
     public PinkMan(
         PlayerStateManager playerStateManager,
-        SettingsService settingsService,
-        ControllerManager controllerManager)
+        SettingsService settingsService)
     {
         this.playerStateManager = playerStateManager;
         this.settingsService = settingsService;
-        this.controllerManager = controllerManager;
         
         state = CharacterState.Idle;
         idleSprite = new Sprite(
@@ -136,7 +136,7 @@ public class PinkMan : GameObject
         idleSprite.Bounds = this.Bounds;
         runSprite.Bounds = this.Bounds;
 
-        if (state == CharacterState.Jumping)
+        if (isJumping)
         {
             canvas.DrawImage(jump, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);
         }
@@ -162,34 +162,40 @@ public class PinkMan : GameObject
             collision.Collide();
         }
 
-        var actualState = this.playerStateManager.State;
-
-        if (controllerManager.CurrentPressedButton == ControllerButton.Left)
+        if (isJumping && hasStartedJump &&
+            CurrentScene.GameObjectsSnapshot.OfType<FloorTile>().Any(x => x.Bounds.IntersectsWith(this.Bounds)))
         {
-            actualState = CharacterState.MovingLeft;
+            isJumping = false;   
+            hasStartedJump = false;
         }
-        else if (controllerManager.CurrentPressedButton == ControllerButton.Right)
+
+        CharacterState actualState = this.playerStateManager.State;
+
+        double divisor = walkSpeed;
+        
+        if (this.playerStateManager.State.HasFlag(CharacterState.Running))
         {
-            actualState = CharacterState.MovingRight;
+            divisor = runSpeed;
         }
 
         State = actualState;
 
-        switch (State)
+        if (State.HasFlag(CharacterState.MovingRight))
         {
-            case CharacterState.MovingRight:
-                position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / 10000d), 0, 1);
-                break;
-            
-            case CharacterState.MovingLeft:
-                position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / 10000d), 0, 1);
-                break;
-            
-            case CharacterState.Jumping:
-                yPosition = Math.Clamp(yPosition + upwardsMovement, 0, 1);
+            position = Math.Clamp(position + (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
+        }
+        else if (State.HasFlag(CharacterState.MovingLeft))
+        {
+            position = Math.Clamp(position - (float)(millisecondsSinceLastUpdate / divisor), 0, 1);
+        }
 
-                upwardsMovement -= 0.004f;
-                break;
+        if (isJumping)
+        {
+            hasStartedJump = true;
+            
+            yPosition = Math.Clamp(yPosition + upwardsMovement, 0, 1);
+
+            upwardsMovement -= 0.004f;
         }
     }
 }
