@@ -1,4 +1,6 @@
-﻿namespace Orbit.Input;
+﻿using System.Collections.Concurrent;
+
+namespace Orbit.Input;
 
 /// <summary>
 /// Represents a physical game controller that is connected to a device.
@@ -6,6 +8,8 @@
 public partial class GameController
 {
     private readonly WeakEventManager weakEventManager = new();
+    
+    public string Name { get; private set; } = string.Empty;
     
     /// <summary>
     /// Gets the <see cref="Stick"/> that represents the D-pad on the game controller.
@@ -61,7 +65,25 @@ public partial class GameController
     /// Gets the <see cref="Shoulder"/> that represents the right hand shoulder on the controller.
     /// </summary>
     public Shoulder RightShoulder { get; }
+
+    /// <summary>
+    /// U
+    /// </summary>
+    public IReadOnlyList<ButtonValue<bool>> UnmappedButtons => unmappedButtons.Values.ToList().AsReadOnly();
     
+    private ConcurrentDictionary<string, ButtonValue<bool>> unmappedButtons = new ();
+
+    internal void RaiseUnmappedButtonChange(string buttonName, bool isPressed)
+    {
+        if (unmappedButtons.TryGetValue(buttonName, out var button) is false)
+        {
+            button = new ButtonValue<bool>(this, buttonName);
+            unmappedButtons.TryAdd(buttonName, button);
+        }
+
+        button.Value = isPressed;
+    }
+
     /// <summary>
     /// Event that is raised when a button on the game controller is detected as being pressed or released.
     /// </summary>

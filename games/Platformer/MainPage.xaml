@@ -53,6 +53,15 @@
             Pressed="OnJumpButtonPressed" 
             Released="OnJumpButtonReleased"
             Grid.Row="1" />
+        
+        <Button 
+            Text="Controllers"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Width="40"
+            Height="40"
+            Clicked="Button_OnClicked"
+            Grid.Row="1" />
     </Grid>
 
 </ContentPage>

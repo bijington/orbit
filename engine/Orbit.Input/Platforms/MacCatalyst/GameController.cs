@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Runtime.Intrinsics.Arm;
+
 using Foundation;
 using GameController;
 
@@ -24,11 +26,18 @@ public partial class GameController
         East = new ButtonValue<bool>(this, nameof(East));
         West = new ButtonValue<bool>(this, nameof(West));
         Pause = new ButtonValue<bool>(this, nameof(Pause));
-        
-        if (OperatingSystem.IsMacOSVersionAtLeast(16))
+
+        Name = controller.VendorName ?? "Unknown";
+
+        if (OperatingSystem.IsMacCatalystVersionAtLeast(16))
         {
             controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
         }
+    }
+
+    private void ValueDidChangeHandler(GCPhysicalInputProfile arg1, GCControllerElement arg2)
+    {
+        Changed(arg1, arg2);
     }
 
     private void Changed(GCPhysicalInputProfile gamepad, GCControllerElement element)
@@ -81,6 +90,17 @@ public partial class GameController
             case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Right Thumbstick")):
                 RightStick.XAxis.Value = directionPad.XAxis.Value;
                 RightStick.YAxis.Value = directionPad.YAxis.Value;
+                break;
+            
+            case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Direction Pad")):
+                Dpad.XAxis.Value = directionPad.XAxis.Value;
+                Dpad.YAxis.Value = directionPad.YAxis.Value;
+                break;
+            
+            case GCControllerButtonInput buttonInput:
+                var buttonName = buttonInput.LocalizedName ?? "Unknown";
+                
+                RaiseUnmappedButtonChange(buttonName, buttonInput.IsPressed);
                 break;
         }
     }

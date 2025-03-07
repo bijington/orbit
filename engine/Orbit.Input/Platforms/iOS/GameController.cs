@@ -29,6 +29,8 @@ public partial class GameController
         West = new ButtonValue<bool>(this, nameof(West));
         Pause = new ButtonValue<bool>(this, nameof(Pause));
 
+        Name = controller.VendorName ?? "Unknown";
+        
         if (OperatingSystem.IsIOSVersionAtLeast(16))
         {
             controller.PhysicalInputProfile.ValueDidChangeHandler += Changed;
@@ -85,6 +87,12 @@ public partial class GameController
             case GCControllerDirectionPad directionPad when directionPad.Aliases.Contains(new NSString("Right Thumbstick")):
                 RightStick.XAxis.Value = directionPad.XAxis.Value;
                 RightStick.YAxis.Value = directionPad.YAxis.Value;
+                break;
+            
+            case GCControllerButtonInput buttonInput:
+                var buttonName = buttonInput.LocalizedName ?? "Unknown";
+                
+                RaiseUnmappedButtonChange(buttonName, buttonInput.IsPressed);
                 break;
         }
     }
