@@ -1,11 +1,13 @@
-﻿namespace Orbit.Input;
+﻿using System.Collections.Concurrent;
+
+namespace Orbit.Input;
 
 /// <summary>
 /// Represents a physical game controller that is connected to a device.
 /// </summary>
 public partial class GameController
 {
-    private readonly WeakEventManager weakEventManager = new();
+    public string Name { get; private set; } = string.Empty;
     
     /// <summary>
     /// Gets the <see cref="Stick"/> that represents the D-pad on the game controller.
@@ -61,34 +63,44 @@ public partial class GameController
     /// Gets the <see cref="Shoulder"/> that represents the right hand shoulder on the controller.
     /// </summary>
     public Shoulder RightShoulder { get; }
+
+    /// <summary>
+    /// U
+    /// </summary>
+    public IReadOnlyList<ButtonValue<bool>> UnmappedButtons => unmappedButtons.Values.ToList().AsReadOnly();
     
+    private ConcurrentDictionary<string, ButtonValue<bool>> unmappedButtons = new ();
+
+    internal void RaiseUnmappedButtonChange(string buttonName, bool isPressed)
+    {
+        if (unmappedButtons.TryGetValue(buttonName, out var button) is false)
+        {
+            button = new ButtonValue<bool>(this, buttonName);
+            unmappedButtons.TryAdd(buttonName, button);
+        }
+
+        button.Value = isPressed;
+    }
+
     /// <summary>
     /// Event that is raised when a button on the game controller is detected as being pressed or released.
     /// </summary>
-    public event EventHandler<GameControllerButtonChangedEventArgs> ButtonChanged
-    {
-        add => weakEventManager.AddEventHandler(value);
-        remove => weakEventManager.RemoveEventHandler(value);
-    }
-    
+    public event EventHandler<GameControllerButtonChangedEventArgs>? ButtonChanged;
+
     /// <summary>
     /// Event that is raised when a button that supports a varying value on the game controller is detected as being pressed or released to some degree.
     /// </summary>
-    public event EventHandler<GameControllerValueChangedEventArgs> ValueChanged
-    {
-        add => weakEventManager.AddEventHandler(value);
-        remove => weakEventManager.RemoveEventHandler(value);
-    }
+    public event EventHandler<GameControllerValueChangedEventArgs>? ValueChanged;
     
     internal void RaiseButtonValueChanged(ButtonValue buttonValue)
     {
         switch (buttonValue)
         {
             case ButtonValue<float> floatValue:
-                weakEventManager.HandleEvent(this, new GameControllerValueChangedEventArgs(buttonValue.Name, floatValue.Value), nameof(ValueChanged));
+                ValueChanged?.Invoke(this, new GameControllerValueChangedEventArgs(buttonValue.Name, floatValue.Value));
                 break;
             case ButtonValue<bool> boolValue:
-                weakEventManager.HandleEvent(this, new GameControllerButtonChangedEventArgs(buttonValue.Name, boolValue.Value), nameof(ButtonChanged));
+                ButtonChanged?.Invoke(this, new GameControllerButtonChangedEventArgs(buttonValue.Name, boolValue.Value));
                 break;
         }
     }

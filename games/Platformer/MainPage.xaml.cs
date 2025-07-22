@@ -198,4 +198,9 @@ public partial class MainPage : ContentPage
     {
         this.settingsService.ShowDebug = e.Value;
     }
+
+    private async void Button_OnClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(GameControllerPage));
+    }
 }

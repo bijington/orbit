@@ -42,6 +42,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<SettingsService>();
         builder.Services.AddSingleton(GameControllerManager.Current);
         builder.Services.AddSingleton(KeyboardManager.Current);
+        
+        builder.Services.AddTransient<GameControllerPage>();
+        builder.Services.AddTransient<GameControllerPageViewModel>();
+        Routing.RegisterRoute(nameof(GameControllerPage), typeof(GameControllerPage));
 
 		return builder.Build();
 	}

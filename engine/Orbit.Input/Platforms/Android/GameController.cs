@@ -7,9 +7,10 @@ public partial class GameController
 {
     private readonly int deviceId;
 
-    public GameController(int deviceId)
+    public GameController(int deviceId, string name)
     {
         this.deviceId = deviceId;
+        Name = name;
         
         Dpad = new Stick(this, nameof(Dpad));
         LeftStick = new Stick(this, nameof(LeftStick));
@@ -100,6 +101,10 @@ public partial class GameController
             case KeyEvent { KeyCode: Keycode.ButtonR1 }:
                 RightShoulder.Button.Value = true;
                 break;
+            
+            case KeyEvent keyEvent:
+                RaiseUnmappedButtonChange(keyEvent.KeyCode.ToString(), false);
+                break;
         }
 
         return true;
@@ -150,6 +155,10 @@ public partial class GameController
             
             case KeyEvent { KeyCode: Keycode.ButtonR1 }:
                 RightShoulder.Button.Value = false;
+                break;
+            
+            case KeyEvent keyEvent:
+                RaiseUnmappedButtonChange(keyEvent.KeyCode.ToString(), false);
                 break;
         }
 

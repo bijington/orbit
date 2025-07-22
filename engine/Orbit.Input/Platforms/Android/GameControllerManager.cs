@@ -51,7 +51,7 @@ public partial class GameControllerManager
                 
             if (sources.HasFlag(InputSourceType.Gamepad) || sources.HasFlag(InputSourceType.Joystick))
             {
-                OnGameControllerConnected(new GameController(deviceId));
+                OnGameControllerConnected(new GameController(deviceId, device.Name ?? "Unknown"));
             }
         }
 
