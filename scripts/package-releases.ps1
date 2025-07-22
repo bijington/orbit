@@ -17,7 +17,7 @@ if ($Version -like "v*") {
 }
 
 Get-ChildItem -Path $Directory -Recurse -Filter $ProjectFilter |
-    Where-Object { $_.Name -notlike "*Test*" } |
+    Where-Object { $_.Name -notlike "*Test*" -and $_.FullName -notmatch "games" } |
     ForEach-Object {
         Write-Host "Restoring $($_.FullName)"
         dotnet restore $_
