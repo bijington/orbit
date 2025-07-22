@@ -7,8 +7,6 @@ namespace Orbit.Input;
 /// </summary>
 public partial class GameController
 {
-    private readonly WeakEventManager weakEventManager = new();
-    
     public string Name { get; private set; } = string.Empty;
     
     /// <summary>
@@ -87,30 +85,22 @@ public partial class GameController
     /// <summary>
     /// Event that is raised when a button on the game controller is detected as being pressed or released.
     /// </summary>
-    public event EventHandler<GameControllerButtonChangedEventArgs> ButtonChanged
-    {
-        add => weakEventManager.AddEventHandler(value);
-        remove => weakEventManager.RemoveEventHandler(value);
-    }
-    
+    public event EventHandler<GameControllerButtonChangedEventArgs>? ButtonChanged;
+
     /// <summary>
     /// Event that is raised when a button that supports a varying value on the game controller is detected as being pressed or released to some degree.
     /// </summary>
-    public event EventHandler<GameControllerValueChangedEventArgs> ValueChanged
-    {
-        add => weakEventManager.AddEventHandler(value);
-        remove => weakEventManager.RemoveEventHandler(value);
-    }
+    public event EventHandler<GameControllerValueChangedEventArgs>? ValueChanged;
     
     internal void RaiseButtonValueChanged(ButtonValue buttonValue)
     {
         switch (buttonValue)
         {
             case ButtonValue<float> floatValue:
-                weakEventManager.HandleEvent(this, new GameControllerValueChangedEventArgs(buttonValue.Name, floatValue.Value), nameof(ValueChanged));
+                ValueChanged?.Invoke(this, new GameControllerValueChangedEventArgs(buttonValue.Name, floatValue.Value));
                 break;
             case ButtonValue<bool> boolValue:
-                weakEventManager.HandleEvent(this, new GameControllerButtonChangedEventArgs(buttonValue.Name, boolValue.Value), nameof(ButtonChanged));
+                ButtonChanged?.Invoke(this, new GameControllerButtonChangedEventArgs(buttonValue.Name, boolValue.Value));
                 break;
         }
     }

@@ -35,11 +35,6 @@ public partial class GameController
         }
     }
 
-    private void ValueDidChangeHandler(GCPhysicalInputProfile arg1, GCControllerElement arg2)
-    {
-        Changed(arg1, arg2);
-    }
-
     private void Changed(GCPhysicalInputProfile gamepad, GCControllerElement element)
     {
         Debug.WriteLine($"{element}");
