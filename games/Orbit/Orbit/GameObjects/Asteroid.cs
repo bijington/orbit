@@ -37,8 +37,6 @@ public class Asteroid : GameObject
         y = movement.OriginY;
     }
 
-    public override bool IsCollisionDetectionEnabled => true;
-
     public override void Update(double millisecondsSinceLastUpdate)
     {
         base.Update(millisecondsSinceLastUpdate);
@@ -76,50 +74,50 @@ public class Asteroid : GameObject
                 movement.DestinationY * dimensions.Height);
         }
 
-        var collision = gameSceneManager.FindCollision(this);
-
-        if (collision is Planet planet)
-        {
-            planet.OnHit(25);
-            CurrentScene.Remove(this);
-
-            this.vibration.Vibrate();
-
-            statisticsManager.RegisterScore(-25);
-        }
-
-        if (collision is Pulse pulse)
-        {
-            canvas.StrokeColor = Colors.Purple;
-            canvas.StrokeSize = 4;
-            canvas.DrawRectangle(this.Bounds);
-
-            CurrentScene.Remove(this);
-
-            canvas.StrokeColor = Colors.Yellow;
-            canvas.StrokeSize = 4;
-            canvas.DrawRectangle(pulse.Bounds);
-
-            CurrentScene.Remove(pulse);
-
-            statisticsManager.RegisterScore(25);
-        }
-
-        if (collision is Ship ship)
-        {
-            CurrentScene.Remove(this);
-
-            // TODO: Damage the ship;
-            gameSceneManager.GameOver();
-        }
-
-        // TODO: Allow collision with other asteroids.
-        if (collision is Asteroid otherAsteroid)
-        {
-            // TODO: Split in to smaller asteroids?
-            CurrentScene.Remove(otherAsteroid);
-            CurrentScene.Remove(this);
-        }
+        // var collision = gameSceneManager.FindCollision(this);
+        //
+        // if (collision is Planet planet)
+        // {
+        //     planet.OnHit(25);
+        //     CurrentScene.Remove(this);
+        //
+        //     this.vibration.Vibrate();
+        //
+        //     statisticsManager.RegisterScore(-25);
+        // }
+        //
+        // if (collision is Pulse pulse)
+        // {
+        //     canvas.StrokeColor = Colors.Purple;
+        //     canvas.StrokeSize = 4;
+        //     canvas.DrawRectangle(this.Bounds);
+        //
+        //     CurrentScene.Remove(this);
+        //
+        //     canvas.StrokeColor = Colors.Yellow;
+        //     canvas.StrokeSize = 4;
+        //     canvas.DrawRectangle(pulse.Bounds);
+        //
+        //     CurrentScene.Remove(pulse);
+        //
+        //     statisticsManager.RegisterScore(25);
+        // }
+        //
+        // if (collision is Ship ship)
+        // {
+        //     CurrentScene.Remove(this);
+        //
+        //     // TODO: Damage the ship;
+        //     gameSceneManager.GameOver();
+        // }
+        //
+        // // TODO: Allow collision with other asteroids.
+        // if (collision is Asteroid otherAsteroid)
+        // {
+        //     // TODO: Split in to smaller asteroids?
+        //     CurrentScene.Remove(otherAsteroid);
+        //     CurrentScene.Remove(this);
+        // }
 
         // TODO: remove when off screen.
     }

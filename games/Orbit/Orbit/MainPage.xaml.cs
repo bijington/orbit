@@ -1,4 +1,6 @@
-﻿using Orbit.Audio;
+﻿using HotPreview;
+
+using Orbit.Audio;
 using Orbit.Engine;
 using Orbit.Scenes;
 
@@ -32,6 +34,41 @@ public partial class MainPage : ContentPage
         gameSceneManager.StateChanged += OnGameSceneManagerStateChanged;
         gameSceneManager.LoadScene<HomeScene>(GameView);
     }
+    
+#if PREVIEWS
+    [Preview]
+    public static GameSceneView Home() =>
+        CreateGameSceneView<HomeScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>());
+
+    [Preview]
+    public static GameSceneView Main() =>
+        CreateGameSceneView<MainScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>());
+
+    private static GameSceneView CreateGameSceneView<TGameScene>(IGameSceneManager manager) where TGameScene : GameScene
+    {
+        var sceneView = new GameSceneView()
+        {
+            WidthRequest = 400,
+            HeightRequest = 400
+        };
+        
+        manager.LoadScene<TGameScene>(sceneView);
+            
+        //manager.Start();
+        
+        return sceneView;
+    }
+#endif
+    
+    // private static void GameAction(Action<BreakoutGame> action)
+    // {
+    //     var breakoutGame = BreakoutGame.Instance ??
+    //                        throw new InvalidOperationException("BreakoutGame isn't initialized");
+    //
+    //     _ = GameDialog.PopAllAsync(breakoutGame);
+    //
+    //     action?.Invoke(breakoutGame);
+    // }
 
     private async void OnGameSceneManagerStateChanged(object sender, GameStateChangedEventArgs e)
     {

@@ -66,7 +66,7 @@
 	  </PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.90" />
 	</ItemGroup>
 
 </Project>
