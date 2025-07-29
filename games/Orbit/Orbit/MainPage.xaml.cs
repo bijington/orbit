@@ -38,13 +38,13 @@ public partial class MainPage : ContentPage
 #if PREVIEWS
     [Preview]
     public static GameSceneView Home() =>
-        CreateGameSceneView<HomeScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>());
+        CreateGameSceneView<HomeScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>(), false);
 
     [Preview]
     public static GameSceneView Main() =>
-        CreateGameSceneView<MainScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>());
+        CreateGameSceneView<MainScene>(IPlatformApplication.Current?.Services.GetService<IGameSceneManager>(), true);
 
-    private static GameSceneView CreateGameSceneView<TGameScene>(IGameSceneManager manager) where TGameScene : GameScene
+    private static GameSceneView CreateGameSceneView<TGameScene>(IGameSceneManager manager, bool startScene) where TGameScene : GameScene
     {
         var sceneView = new GameSceneView()
         {
@@ -53,9 +53,12 @@ public partial class MainPage : ContentPage
         };
         
         manager.LoadScene<TGameScene>(sceneView);
-            
-        //manager.Start();
-        
+
+        if (startScene)
+        {
+            manager.Start();
+        }
+
         return sceneView;
     }
 #endif
